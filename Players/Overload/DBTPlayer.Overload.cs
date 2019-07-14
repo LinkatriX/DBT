@@ -1,4 +1,6 @@
-﻿namespace DBT.Players
+﻿using DBT.UserInterfaces.OverloadBar;
+
+namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
@@ -28,6 +30,10 @@
                 else
                     Overload += overloadGain;
             }
+            if (Overload > 0)
+                DBTMod.Instance.overloadBar.Visible = true;
+            else
+                DBTMod.Instance.overloadBar.Visible = false;
         }
 
 

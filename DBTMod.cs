@@ -12,6 +12,7 @@ using DBT.Network;
 using DBT.Players;
 using DBT.UserInterfaces.CharacterMenus;
 using DBT.UserInterfaces.KiBar;
+using DBT.UserInterfaces.OverloadBar;
 
 namespace DBT
 {
@@ -23,7 +24,10 @@ namespace DBT
 	    internal KiBar kiBar;
 	    internal UserInterface kiBarInterface;
 
-	    internal DBTMenu dbtMenu;
+        internal OverloadBar overloadBar;
+        internal UserInterface overloadBarInterface;
+
+        internal DBTMenu dbtMenu;
 	    internal UserInterface characterMenuInterface;
 
         public DBTMod()
@@ -68,6 +72,12 @@ namespace DBT
 	            kiBar.Visible = true;
 
                 #endregion
+
+                overloadBar = new OverloadBar();
+                overloadBar.Activate();
+                overloadBarInterface = new UserInterface();
+                overloadBarInterface.SetState(overloadBar);
+
 
                 dbtMenu = new DBTMenu(this);
                 dbtMenu.Activate();
