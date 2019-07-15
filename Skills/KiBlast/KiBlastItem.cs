@@ -54,7 +54,7 @@ namespace DBT.Skills.KiBlast
                 {
                     player.itemRotation = 0;
                 }
-            }*/
-        }
+            }
+        }*/
     }
 }
