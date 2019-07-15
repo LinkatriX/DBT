@@ -23,7 +23,7 @@ namespace DBT
 	    internal KiBar kiBar;
 	    internal UserInterface kiBarInterface;
 
-	    internal DBTMenu dbtMenu;
+	    internal CharacterTransformationsMenu characterTransformationsMenu;
 	    internal UserInterface characterMenuInterface;
 
         public DBTMod()
@@ -69,10 +69,10 @@ namespace DBT
 
                 #endregion
 
-                dbtMenu = new DBTMenu(this);
-                dbtMenu.Activate();
+                characterTransformationsMenu = new CharacterTransformationsMenu(this);
+                characterTransformationsMenu.Activate();
                 characterMenuInterface = new UserInterface();
-                characterMenuInterface.SetState(dbtMenu);
+                characterMenuInterface.SetState(characterTransformationsMenu);
 	        }
 	    }
 
@@ -82,7 +82,7 @@ namespace DBT
 	        {
 	            kiBar.Visible = false;
 
-	            dbtMenu.Visible = false;
+	            characterTransformationsMenu.Visible = false;
 	        }
 
 	        Instance = null;
@@ -92,7 +92,7 @@ namespace DBT
 
 	    public override void UpdateUI(GameTime gameTime)
 	    {
-	        if (characterMenuInterface != null && dbtMenu.Visible)
+	        if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
 	    }
 
@@ -142,7 +142,7 @@ namespace DBT
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
 
             if (characterMenuIndex != -1)
-                layers.Insert(characterMenuIndex, new DBTMenuLayer(dbtMenu, characterMenuInterface));
+                layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
         }
 
         public static uint GetTicks() => Main.GameUpdateCount;

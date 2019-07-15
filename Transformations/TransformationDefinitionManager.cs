@@ -1,4 +1,5 @@
-﻿using DBT.Dynamicity;
+﻿using System;
+using DBT.Dynamicity;
 using DBT.Managers;
 using DBT.Transformations.Developers.Webmilio;
 using DBT.Transformations.LSSJs.LSSJ;
@@ -46,6 +47,12 @@ namespace DBT.Transformations
 
             base.DefaultInitialize();
         }
+
+
+        /*public Tree<TransformationDefinition> GenerateConditionalTree(Predicate<TransformationDefinition> condition)
+        {
+            
+        }*/
 
 
         public SSJ1Transformation SSJ1 { get; private set; }
