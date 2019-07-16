@@ -15,7 +15,7 @@
 
     public sealed class BigBangAttackChargeCharacteristics : SkillChargeCharacteristics
     {
-        public BigBangAttackChargeCharacteristics() : base(120, 2, 100, 50)
+        public BigBangAttackChargeCharacteristics() : base(120, 5, 100, 100 / Constants.TICKS_PER_SECOND)
         {
         }
     }

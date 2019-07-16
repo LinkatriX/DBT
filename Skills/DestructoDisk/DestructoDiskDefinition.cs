@@ -16,7 +16,7 @@
 
     public sealed class DestructoDiskChargeCharacteristics : SkillChargeCharacteristics
     {
-        public DestructoDiskChargeCharacteristics() : base(180, 1, 40, 40)
+        public DestructoDiskChargeCharacteristics() : base(180, 1, 40, 40 / Constants.TICKS_PER_SECOND)
         {
         }
     }

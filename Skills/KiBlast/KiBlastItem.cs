@@ -21,13 +21,10 @@ namespace DBT.Skills.KiBlast
         {
             player.itemLocation.X = player.position.X + (float)player.width * 0.5f;// - (float)Main.itemTexture[item.type].Width * 0.5f;// - (float)(player.direction * 2);
             player.itemLocation.Y = player.MountedCenter.Y + player.gravDir * (float)Main.itemTexture[item.type].Height * 0.5f;
-
             float relativeX = (float)Main.mouseX + Main.screenPosition.X - player.Center.X;
             float relativeY = (float)Main.mouseY + Main.screenPosition.Y - player.Center.Y;
-
             if (player.gravDir == -1f)
                 relativeY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY - player.Center.Y;
-
             if (relativeX - relativeY > 0)
             {
                 if (relativeX + relativeY > 0)
@@ -36,7 +33,6 @@ namespace DBT.Skills.KiBlast
                 }
                 else
                 {
-
                     player.itemRotation = player.direction * -MathHelper.Pi / 2;
                     player.itemLocation.X += player.direction * 2;
                     player.itemLocation.Y -= 10;
