@@ -229,7 +229,10 @@ namespace DBT.Transformations
 
         public TransformationDefinition[] Parents { get; }
 
-        public virtual Texture2D TransformationIcon => this.GetType().GetTexture();
+
+        public virtual Texture2D TransformationIcon => BuffType.GetTexture();
+
+        public virtual string TabHoverText { get; protected set; }
 
         #endregion
     }

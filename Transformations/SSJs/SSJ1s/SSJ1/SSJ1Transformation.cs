@@ -14,6 +14,7 @@ namespace DBT.Transformations.SSJs.SSJ1s.SSJ1
             new TransformationDrain(1f, 0.5f), 
             new SSJ1Appearance(), /* limitedToRaces: new RaceDefinition[] { RaceDefinitionManager.Instance.Saiyan }, */ parents: parents)
         {
+            TabHoverText = "Normal Super Saiyan Transformations";
         }
 
         public override float GetMaxMastery(DBTPlayer dbtPlayer)

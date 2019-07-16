@@ -1,14 +1,29 @@
-﻿using Terraria.UI;
+﻿using System.Collections.Generic;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader.UI;
+using Terraria.UI;
 
 namespace DBT.UserInterfaces.Tabs
 {
     public class Tab
     {
-        public Tab(UIElement element)
+        protected readonly List<UIElement> elements = new List<UIElement>();
+
+        public Tab(UIImageButton tabButton, UIPanel panel)
         {
-            Element = element;
+            TabButton = tabButton;
+
+            Panel = panel;
         }
 
-        public UIElement Element { get; }
+        public void Add(UIElement element)
+        {
+            elements.Add(element);
+            Panel.AddOrRemoveChild(element, true);
+        }
+
+        public UIImageButton TabButton { get; }
+
+        public UIPanel Panel { get; }
     }
 }
