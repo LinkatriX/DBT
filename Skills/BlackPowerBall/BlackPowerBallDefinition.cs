@@ -16,7 +16,7 @@
 
     public sealed class BlackPowerBallChargeCharacteristics : SkillChargeCharacteristics
     {
-        public BlackPowerBallChargeCharacteristics() : base(70, 3, 100, 45)
+        public BlackPowerBallChargeCharacteristics() : base(70, 6, 100, 100 / Constants.TICKS_PER_SECOND)
         {
         }
     }

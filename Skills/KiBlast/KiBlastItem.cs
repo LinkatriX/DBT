@@ -1,4 +1,6 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
 
 namespace DBT.Skills.KiBlast
 {
@@ -17,7 +19,7 @@ namespace DBT.Skills.KiBlast
             item.useStyle = ItemUseStyleID.Stabbing;
         }
 
-        /*public override void UseStyle(Player player)
+        public override void UseStyle(Player player)
         {
             player.itemLocation.X = player.position.X + (float)player.width * 0.5f;// - (float)Main.itemTexture[item.type].Width * 0.5f;// - (float)(player.direction * 2);
             player.itemLocation.Y = player.MountedCenter.Y + player.gravDir * (float)Main.itemTexture[item.type].Height * 0.5f;
@@ -54,7 +56,7 @@ namespace DBT.Skills.KiBlast
                 {
                     player.itemRotation = 0;
                 }
-            }*/
+            }
         }
     }
 }

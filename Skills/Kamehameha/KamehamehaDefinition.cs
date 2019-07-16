@@ -2,14 +2,13 @@
 {
     public sealed class KamehamehaDefinition : SkillDefinition
     {
-        public KamehamehaDefinition() : base("Kamehameha", "Kamehameha", "Charges up to 6 times\n" + DEFAULT_BEAM_INSTRUCTIONS, new DefinitionCharacteristics())
+        public KamehamehaDefinition() : base("Kamehameha", "Kamehameha", "The user draws the latent energy of their body forwards, and releases it all at once.\n" + DEFAULT_BEAM_INSTRUCTIONS, new DefinitionCharacteristics())
         {
         }
 
         public sealed class DefinitionCharacteristics : SkillCharacteristics
         {
-            public DefinitionCharacteristics() : base(new DefinitionChargeCharacteristics(), 88, 1f, 0f, 2f, 1f,
-                0.15f, 1, 2, 1)
+            public DefinitionCharacteristics() : base(new DefinitionChargeCharacteristics(), 88, 88f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f, 0.15f, 1f, 2f, 1f)
             {
                 Channel = true;
                 BaseSkillCooldown = 5 * Constants.TICKS_PER_SECOND;

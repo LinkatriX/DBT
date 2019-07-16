@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace DBT.Skills.CelestialRapture
 {
-    public sealed class CelestialRaptureItem : SkillItem<CelestialRaptureProjectile>
+    /*public sealed class CelestialRaptureItem : SkillItem<CelestialRaptureProjectile>
     {
         public CelestialRaptureItem() : base(SkillDefinitionManager.Instance.CelestialRapture, 28, 30, ItemRarityID.Expert, false)
         {
@@ -39,5 +39,5 @@ namespace DBT.Skills.CelestialRapture
             }
             return false;
         }
-    }
+    }*/
 }
