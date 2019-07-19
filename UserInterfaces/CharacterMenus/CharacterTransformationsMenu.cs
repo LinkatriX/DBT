@@ -150,14 +150,7 @@ namespace DBT.UserInterfaces.CharacterMenus
             }
 
             foreach (KeyValuePair<UIHoverImageButton, Tab> kvp in _tabButtons)
-            {
-                if (dbtPlayer.HasAcquiredTransformation(_tabsForTransformations[kvp.Value]))
-                {
-                    kvp.Value.TabButton.SetImage(null);
-                }
-                else
-                    kvp.Value.TabButton.SetImage(_tabsForTransformations[kvp.Value].TransformationIcon);
-            }
+                kvp.Value.TabButton.SetImage(_tabsForTransformations[kvp.Value].TransformationIcon);
         }
 
         private void OnUITabClick(UIMouseEvent evt, UIElement listeningelement)

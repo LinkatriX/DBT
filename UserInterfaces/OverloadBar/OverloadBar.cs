@@ -13,9 +13,9 @@ namespace DBT.UserInterfaces.OverloadBar
 
         public override void OnInitialize()
         {
-            ResourceBar = new OverloadResourceBar(24, 128, 8);
+            ResourceBar = new OverloadResourceBar(24, 128, 6);
 
-            ResourceBar.Left.Set(615f, 0f);
+            ResourceBar.Left.Set(685f, 0f);
             ResourceBar.Top.Set(20f, 0f);
 
             ResourceBar.OnMouseDown += new UIElement.MouseEvent(DragStart);

@@ -135,10 +135,37 @@ namespace DBT.UserInterfaces
 
         public Texture2D Texture { get; set; }
     }
-    public class OverloadResourceBar : EnergyResourceBar //Totally not just copying the whole thing and changing a few variables
+    public class OverloadResourceBar : UIElement //Totally not just copying the whole thing and changing a few variables
     {
-        public OverloadResourceBar(int cWidth, int cHeight, int segments) : base(cWidth, cHeight, segments)
+        public UIText _label;
+        public Rectangle _dragRectangle;
+
+        public int _frameTimer;
+
+        public static readonly List<float> _cleanAverageEnergy = new List<float>();
+
+        public OverloadResourceBar(int cWidth, int cHeight, int segments)
         {
+            CWidth = cWidth;
+            CHeight = cHeight;
+
+            Segments = segments;
+        }
+        public override void OnInitialize()
+        {
+            Width.Set(CWidth, 0f);
+            Height.Set(CHeight, 0f);
+
+            _label = new UIText("0/0");
+
+            _label.Width.Set(CWidth, 0f);
+            _label.Height.Set(CHeight, 0f);
+
+            _label.Left.Set(14f, 0f);
+            _label.Top.Set(20f, 0f);
+
+            Append(_label);
+            _dragRectangle = new Rectangle(6, 6, (int)CWidth - 2, (int)CHeight - 6);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -214,6 +241,18 @@ namespace DBT.UserInterfaces
 
             base.Update(gameTime);
         }
+
+        public float CWidth { get; }
+
+        public float CHeight { get; }
+
+
+        public int Segments { get; }
+
+
+        public Vector2 Position { get; set; }
+
+        public Texture2D Texture { get; set; }
 
 
     }

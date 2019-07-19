@@ -13,6 +13,7 @@ using DBT.Players;
 using DBT.UserInterfaces.CharacterMenus;
 using DBT.UserInterfaces.KiBar;
 using DBT.UserInterfaces.OverloadBar;
+using DBT.UserInterfaces;
 
 namespace DBT
 {
@@ -80,7 +81,7 @@ namespace DBT
                 overloadBarInterface.SetState(overloadBar);
 
 
-                dbtMenu = new DBTMenu(this);
+                dbtMenu = new DBTMenu();
                 dbtMenu.Activate();
                 characterTransformationsMenu = new CharacterTransformationsMenu(this);
                 characterTransformationsMenu.Activate();
@@ -96,6 +97,8 @@ namespace DBT
 	            kiBar.Visible = false;
 
 	            characterTransformationsMenu.Visible = false;
+
+                overloadBar.Visible = false;
 	        }
 
 	        Instance = null;
@@ -107,7 +110,7 @@ namespace DBT
 	    {
 	        if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
-	    }
+        }
 
         public override void UpdateMusic(ref int music)
         {
@@ -152,8 +155,10 @@ namespace DBT
 	            characterMenuIndex = layers.FindIndex(l => l.Name.Contains("Hotbar"));
 
             if (resourcesLayerIndex != -1)
+            {
+                layers.Insert(resourcesLayerIndex, new OverloadBarLayer());
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
-
+            }
             if (characterMenuIndex != -1)
                 layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
         }
