@@ -96,6 +96,7 @@ namespace DBT
                 characterMenuInterface.Update(gameTime);
 	    }
 
+		[Obsolete]
         public override void UpdateMusic(ref int music)
         {
             int[] noOverride =

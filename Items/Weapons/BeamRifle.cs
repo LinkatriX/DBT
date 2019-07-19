@@ -1,6 +1,7 @@
 ﻿using DBT.Projectiles;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace DBT.Items.Weapons
 {

@@ -23,7 +23,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 	{
 		public FriezaShip()
 		{
-			HoverDistance = new Vector2(0, 320);
+			HoverDistance = new Vector2(0, 400);
 			HyperPosition = new Vector2(0, 0);
 			HoverCooldown = 400;
 			XHoverTimer = 0;
@@ -512,8 +512,26 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			#endregion
 
 			#region Warp
+			DoWarpSequence();
+			#endregion
 
-			if (AIStage == STAGE_WARP && IterationWarp <= PlayerCount().Count)
+			#region Debugging Tools
+			Main.NewText("AiTimer is:" + AITimer, 255, 20, 20);
+			Main.NewText("Current stage is: " + AIStage, 20, 255, 20);
+			Main.NewText("SSDone: " + SSDone, 20, 20, 255);
+			Main.NewText("Player Count:" + PlayerCount().Count);
+			Main.NewText("");
+			#endregion
+		}
+
+		#region Warp Mechanics
+
+		int warpCount = 0;
+		int warpCountPlayer = 0;
+
+		private void DoWarpSequence()
+		{
+			if (AIStage == STAGE_WARP)
 			{
 				if (AITimer < 130)
 				{
@@ -523,116 +541,73 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					npc.netUpdate = true;
 				}
 				else if (AITimer == 130)
+					Teleport();
+				else if (AITimer == 131)
+					DoSlamPerWarp();
+				else if (AITimer == 145)
 				{
-					npc.dontTakeDamage = false;
-					iterateDict++;
-					TeleportWarp();
-					DoWarpSlam();
+					AITimer = 129;
+					npc.noTileCollide = false;
 				}
-				else if (AITimer == 155)
+
+				if (warpCount == PlayerCount().Count)
 				{
-					AITimer = 125;
-					npc.velocity.X = 0f;
-					npc.velocity.Y = 0f;
-				}
-				else if (AITimer == 154 && iterateDict == 2)
-				{
-					tPPos.Clear();
-					iterateDict = -1;
-					IterationWarp++;
-					AITimer = 0;
-					ResetValues(false); //Has done one warp on one of the players.
-				}
-				else if (AITimer == 170)
-				{
-					AITimer = 0;
+					AdvanceStage(true);
+					warpCount = 0;
+					warpCountPlayer = 0;
+					ResetValues(false);
 				}
 			}
-
-			if (IterationWarp == PlayerCount().Count)
-			{
-				tPPos.Clear();
-				IterationWarp = 0;
-				npc.velocity.X = 0;
-				npc.velocity.Y = 0;
-				AdvanceStage(true);
-				ResetValues(false);
-			}
-
-			#endregion
-
-			#region Debugging Tools
-			Main.NewText("AiTimer is:" + AITimer, 255, 20, 20);
-			Main.NewText("Current stage is: " + AIStage, 20, 255, 20);
-			Main.NewText("IterationWarp:" + iterateDict);
-			Main.NewText("SSDone: " + SSDone, 20, 20, 255);
-			Main.NewText("Player Count:" + PlayerCount().Count);
-			Main.NewText("Iteration Count is: " + IterationWarp);
-			Main.NewText("");
-			#endregion
 		}
 
-		#region Warp Methods and Variables
-
-		private int IterationWarp = 0;
-		private int iterateDict = -1;
-
-		private Dictionary<int, Vector2> tPPos = new Dictionary<int, Vector2>(); //r, l, t : 0, 1, 2
-
-		private void TeleportWarp()
+		private void Teleport()
 		{
-			npc.position = TPPosns()[iterateDict];
-
+			npc.position = GetWarpPositions(warpCountPlayer);
 			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
-
-			if (iterateDict == 2)
-				SoundHelper.PlayCustomSound("Sounds/ShipTeleport", volume: 2f);
-			else
-				SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
-
-			npc.netUpdate = true;
+			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
 		}
 
-		private void DoWarpSlam()
+		private void DoSlamPerWarp()
 		{
 			npc.noTileCollide = true;
 
-			if (iterateDict == 0)
-				npc.velocity.X = 40f;
-			else if (iterateDict == 1)
-				npc.velocity.X = -40f;
-			else if (iterateDict == 2)
+			float velocity = 25f;
+
+			Player player = PlayerCount()[warpCount];
+
+			if (warpCountPlayer == 0)
 			{
-				npc.velocity.Y = 40f;
-				npc.noTileCollide = false;
+				npc.velocity.X = velocity;
+				player.velocity.X = velocity;
+			}
+			else if (warpCountPlayer == 1)
+			{
+				npc.velocity.X = -velocity;
+				player.velocity.X = velocity * 2;
+			}
+			else if (warpCountPlayer == 2)
+			{
+				npc.velocity.Y = velocity;
+				player.velocity.X = 0f;
+				player.velocity.Y = velocity * 2;
+				warpCountPlayer = 0;
+				warpCount++;
 			}
 
-			npc.netUpdate = true;
+			warpCountPlayer++;
 		}
 
-		private Dictionary<int, Vector2> TPPosns()
+		private Vector2 GetWarpPositions(int fromWhere)
 		{
-			//DONT DO IterationWarp++; HERE
+			Player player = PlayerCount()[warpCount]; //Decide what player to Aim for;
 
-			Player player = PlayerCount()[IterationWarp];
-
-			Vector2 left = new Vector2(player.Center.X - 4 * 16f, player.Center.Y);
-			Vector2 right = new Vector2(player.Center.X + 4 * 16f, player.Center.Y);
-			Vector2 above = new Vector2(player.Center.X, player.Center.Y - 12 * 16f);
-
-
-			//Adding TP pos to dictionaries.
-
-			if (!tPPos.ContainsKey(0))
-				tPPos.Add(0,left);
-			if (!tPPos.ContainsKey(1))
-				tPPos.Add(1, right);
-			if (!tPPos.ContainsKey(2))
-				tPPos.Add(2, above);
-
-			return tPPos;
+			if (fromWhere == 0)
+				return new Vector2(player.Center.X - 5 * 16f, player.Center.Y);
+			else if (fromWhere == 1)
+				return new Vector2(player.Center.X + 5 * 16f, player.Center.Y);
+			else
+				return new Vector2(player.Center.X, player.Center.Y - 5 * 16f);
 		}
-
 		#endregion
 
 		#region Hyper Methods
@@ -899,29 +874,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		/// Returns a list of players. Use .count to find the Count of player present on the server.
 		/// </summary>
 		/// <returns></returns>
-		public List<Player> PlayerCount()
-        {
-            for (int i = 0; i < Main.player.Length; i++)
-            {
-                if (Main.player[i].active)
-                {
-                    if (array.Contains(Main.player[i]))
-                        break;
+		public List<Player> PlayerCount() => Main.player.Where(player => player.active).ToList();
 
-                    array.Add(Main.player[i]);
-                }
-                else if (!Main.player[i].active)
-                    break;
-            }
-
-            npc.netUpdate = true;
-            return array;
-        }
-
-        public static double AngleBetweenVectors(Vector2 v1, Vector2 v2)
-        {
-            return Math.Atan2((v1.X * v2.Y + v1.Y * v2.X), (v1.X * v2.X + v1.Y * v2.Y)) * (180 / MathHelper.Pi);
-        }
+        public static double AngleBetweenVectors(Vector2 v1, Vector2 v2) => Math.Atan2((v1.X* v2.Y + v1.Y* v2.X), (v1.X* v2.X + v1.Y* v2.Y)) * (180 / MathHelper.Pi);
 
         public void CircularDust(int quantity, NPC target, short DustID, float radius, float scale)
         {
@@ -1029,8 +984,6 @@ namespace DBT.NPCs.Bosses.FriezaShip
         public Vector2 HoverDistance { get; set; }
 
         public Vector2 HyperPosition { get; set; }
-
-        public List<Player> array = new List<Player>();
 
         public const float ShieldDistance = 10 * 16f;
         public float CircleX = 0f;
