@@ -589,7 +589,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			{
 				npc.velocity.Y = velocity;
 				player.velocity.X = 0f;
-				player.velocity.Y = velocity * 2;
+				player.velocity.Y = velocity * 4;
 				warpCountPlayer = 0;
 				warpCount++;
 			}
