@@ -50,7 +50,7 @@ namespace DBT.Players
                     ClearTransformations();
 
                 if (DBTMod.Instance.characterMenuKey.JustPressed)
-                    DBTMod.Instance.dbtMenu.Visible = !DBTMod.Instance.dbtMenu.Visible;
+                    DBTMod.Instance.characterTransformationsMenu.Visible = !DBTMod.Instance.characterTransformationsMenu.Visible;
             }
         }
 

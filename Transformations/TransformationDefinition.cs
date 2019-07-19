@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using DBT.Commons;
 using DBT.Dynamicity;
+using DBT.Extensions;
 using DBT.Players;
 using DBT.Races;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
@@ -226,6 +228,11 @@ namespace DBT.Transformations
         public bool AnyParents { get; }
 
         public TransformationDefinition[] Parents { get; }
+
+
+        public virtual Texture2D TransformationIcon => BuffType.GetTexture();
+
+        public virtual string TabHoverText { get; protected set; }
 
         #endregion
     }

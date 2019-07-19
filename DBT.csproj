@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\references\tModLoader.targets" />
   <PropertyGroup>
@@ -11,11 +11,13 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
-    <None Remove="Transformations\Developers\Webmilio\SoulStealerTransformationAura.png" />
-    <None Remove="Transformations\Developers\Webmilio\SoulStealerTransformationBuff.png" />
-    <None Remove="Transformations\LSSJs\LSSJ\LSSJTransformationAura.png" />
-    <None Remove="Transformations\LSSJs\LSSJ\LSSJTransformationBuff.png" />
-    <None Remove="Transformations\LSSJs\SSJCType\SSJCTypeTransformationAura.png" />
-    <None Remove="Transformations\LSSJs\SSJCType\SSJCTypeTransformationBuff.png" />
+    <None Remove="DBT.csproj.DotSettings" />
+    <None Remove="DBTR.csproj.DotSettings" />
+    <None Remove="LICENSE" />
+    <None Remove="README.md" />
+    <None Remove="Sets.rar" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Transformations\Terrarians\" />
   </ItemGroup>
 </Project>

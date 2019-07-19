@@ -1,6 +1,6 @@
 ﻿namespace DBT.Skills.CelestialRapture
 {
-    //Needs balancing
+    //Needs balancing and code is currently broken.
     public sealed class CelestialRaptureDefinition : SkillDefinition
     {
         public CelestialRaptureDefinition() : base("CelestialRapture", "Celestial Rapture", "Fires seeking ki blasts from all angles.", new CelestialRaptureCharacteristics())

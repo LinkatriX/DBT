@@ -9,11 +9,15 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        internal void PostUpdateHandleTransformations()
+        private void PostUpdateHandleTransformations()
         {
             PostUpdateHandleTransformationsVisuals();
         }
 
+        private void HandleTransformationsOnEnterWorld(Player player)
+        {
+            DBTMod.Instance.characterTransformationsMenu.OnPlayerEnterWorld(player.GetModPlayer<DBTPlayer>());
+        }
 
         public void ListenForTransformations()
         {
@@ -150,6 +154,7 @@ namespace DBT.Players
             else 
                 SelectedTransformations.Add(transformation);
         }
+
 
         public Dictionary<TransformationDefinition, PlayerTransformation> AcquiredTransformations { get; internal set; }
         public List<TransformationDefinition> ActiveTransformations { get; internal set; }
