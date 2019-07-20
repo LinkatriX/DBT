@@ -1,4 +1,7 @@
-﻿namespace DBT.Players
+﻿using DBT.Transformations;
+using DBT.UserInterfaces.OverloadBar;
+
+namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
@@ -6,8 +9,8 @@
 
         private void ResetOverloadEffects()
         {
-            MaxOverload = 100 * Constants.TICKS_PER_SECOND;
-            OverloadDecayRate = 20;
+            MaxOverload = 100;
+            OverloadDecayRate = 5;
         }
 
         private void PreUpdateOverload()
@@ -21,13 +24,34 @@
             {
                 float overloadGain = 0f;
 
-                ForAllActiveTransformations(t => t.DoesTransformationOverload(this), t => overloadGain += t.Overload.GetOverloadGrowthRate(this));
+                for (int i = 0; i < ActiveTransformations.Count; i++)
+                    if (ActiveTransformations[i].DoesTransformationOverload(this))
+                        overloadGain += ActiveTransformations[i].Overload.GetOverloadGrowthRate();
 
                 if (Overload + overloadGain > MaxOverload)
                     Overload = MaxOverload;
                 else
                     Overload += overloadGain;
             }
+            else if (!IsTransformed())
+            {
+                if (DBTMod.IsTickRateElapsed(180))
+                {
+                    int overloadDecreaseTimer = 0;
+                    overloadDecreaseTimer++;
+
+                    if (overloadDecreaseTimer >= OverloadDecayRate)
+                    {
+                        Overload--;
+                        overloadDecreaseTimer = 0;
+                    }
+                }
+
+            }
+            if (Overload > 0)
+                DBTMod.Instance.overloadBar.Visible = true;
+            else
+                DBTMod.Instance.overloadBar.Visible = false;
         }
 
 
@@ -39,7 +63,9 @@
             set
             {
                 _overload = value;
-                ForAllActiveTransformations(t => t.DoesTransformationOverload(this), t => t.Overload.OnPlayerOverloadUpdated(this, Overload, MaxOverload));
+                for (int i = 0; i < ActiveTransformations.Count; i++)
+                    if (ActiveTransformations[i].DoesTransformationOverload(this))
+                        ActiveTransformations[i].Overload.OnPlayerOverloadUpdated(this, Overload, MaxOverload);
             }
         }
 

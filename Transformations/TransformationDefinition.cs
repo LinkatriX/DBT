@@ -169,7 +169,18 @@ namespace DBT.Transformations
 
         #endregion
 
-        public virtual bool DoesTransformationOverload(DBTPlayer dbtPlayer) => Overload != null;
+        public bool DoesTransformationOverload(DBTPlayer dbtPlayer)
+        {
+            if (Overload != null)
+            {
+                for (int i = 0; i < dbtPlayer.ActiveTransformations.Count; i++)
+                    if (dbtPlayer.ActiveTransformations[i].Overload.BaseOverloadGrowthRate > 0)
+                        return true;
+            }
+
+            return false;
+        }
+        
 
         #endregion
 

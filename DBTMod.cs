@@ -12,6 +12,8 @@ using DBT.Network;
 using DBT.Players;
 using DBT.UserInterfaces.CharacterMenus;
 using DBT.UserInterfaces.KiBar;
+using DBT.UserInterfaces.OverloadBar;
+using DBT.UserInterfaces;
 
 namespace DBT
 {
@@ -23,6 +25,10 @@ namespace DBT
 	    internal KiBar kiBar;
 	    internal UserInterface kiBarInterface;
 
+        internal OverloadBar overloadBar;
+        internal UserInterface overloadBarInterface;
+
+        internal DBTMenu dbtMenu;
 	    internal CharacterTransformationsMenu characterTransformationsMenu;
 	    internal UserInterface characterMenuInterface;
 
@@ -69,6 +75,14 @@ namespace DBT
 
                 #endregion
 
+                overloadBar = new OverloadBar();
+                overloadBar.Activate();
+                overloadBarInterface = new UserInterface();
+                overloadBarInterface.SetState(overloadBar);
+
+
+                dbtMenu = new DBTMenu();
+                dbtMenu.Activate();
                 characterTransformationsMenu = new CharacterTransformationsMenu(this);
                 characterTransformationsMenu.Activate();
                 characterMenuInterface = new UserInterface();
@@ -83,6 +97,8 @@ namespace DBT
 	            kiBar.Visible = false;
 
 	            characterTransformationsMenu.Visible = false;
+
+                overloadBar.Visible = false;
 	        }
 
 	        Instance = null;
@@ -94,7 +110,7 @@ namespace DBT
 	    {
 	        if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
-	    }
+        }
 
         public override void UpdateMusic(ref int music)
         {
@@ -139,8 +155,10 @@ namespace DBT
 	            characterMenuIndex = layers.FindIndex(l => l.Name.Contains("Hotbar"));
 
             if (resourcesLayerIndex != -1)
+            {
+                layers.Insert(resourcesLayerIndex, new OverloadBarLayer());
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
-
+            }
             if (characterMenuIndex != -1)
                 layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
         }

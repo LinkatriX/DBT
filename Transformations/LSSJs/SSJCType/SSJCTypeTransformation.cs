@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Players;
 using DBT.Transformations.LSSJs.LSSJ;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -36,6 +37,16 @@ namespace DBT.Transformations.LSSJs.SSJCType
         {
             public SSJCTypeTransformationOverload() : base(10f / Constants.TICKS_PER_SECOND)
             {
+            }
+
+            public override bool OnPlayerOverloadUpdated(DBTPlayer dbtPlayer, float overload, float maxOverload)
+            {
+                if (overload >= maxOverload * 0.70)
+                {
+
+                }
+
+                return true;
             }
         }
     }

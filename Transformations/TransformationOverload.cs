@@ -1,4 +1,5 @@
 ﻿using DBT.Players;
+using Terraria;
 
 namespace DBT.Transformations
 {
@@ -16,12 +17,13 @@ namespace DBT.Transformations
         /// <returns>Should the player be kicked out of the transformation.</returns>
         public virtual bool OnPlayerOverloadUpdated(DBTPlayer dbtPlayer, float overload, float maxOverload)
         {
+            Main.NewText("Overload is being updated");
             return true;
         }
 
-        public virtual float GetOverloadGrowthRate(DBTPlayer dbtPlayer) => BaseOverloadGrowthRate;
+        public virtual float GetOverloadGrowthRate() => BaseOverloadGrowthRate;
 
 
-        public virtual float BaseOverloadGrowthRate { get; }
+        public virtual float BaseOverloadGrowthRate { get; } = 0;
     }
 }
