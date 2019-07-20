@@ -23,7 +23,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 	{
 		public FriezaShip()
 		{
-			HoverDistance = new Vector2(0, 400);
+			HoverDistance = new Vector2(0, 380);
 			HyperPosition = new Vector2(0, 0);
 			HoverCooldown = 400;
 			XHoverTimer = 0;
@@ -50,6 +50,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			STAGE_MINION = 3,
 			STAGE_HYPER = 4,
 			STAGE_WARP = 5,
+			STAGE_GUNNING = 6,
 
 			AI_STAGE_SLOT = 0,
 			AI_TIMER_SLOT = 1;
@@ -111,9 +112,40 @@ namespace DBT.NPCs.Bosses.FriezaShip
 						npc.scale, SpriteEffects.None, 0f);
 				}
 			}
-
 			return true;
 		}
+
+		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+		{
+			if (AIStage == STAGE_SHIELD)
+			{
+				Texture2D texture = ModContent.GetTexture("DBT/NPCs/Bosses/FriezaShip/FFShield");
+
+				ShieldFrame += .5;
+
+				if (ShieldFrame >= 8)
+					ShieldFrame = 0;
+
+				int frameHeight = texture.Height / 8;
+
+				Vector2 drawPos = npc.TopLeft - Main.screenPosition;
+				Vector2 drawCenter = new Vector2(29f, 30f);
+
+				Rectangle sourceRectangle = new Rectangle(0, frameHeight * (int)ShieldFrame, texture.Width, frameHeight);
+				spriteBatch.Draw(texture, drawPos, sourceRectangle, Color.White, 0f, drawCenter, 1f, SpriteEffects.None, 0f);
+			}
+		}
+
+		public override Color? GetAlpha(Color lightColor)
+		{
+			if (AIStage == STAGE_SHIELD)
+				return new Color(30, 155, 40, 255);
+
+
+			return new Color(lightColor.R, lightColor.G, lightColor.B, lightColor.A);
+		}
+
+		int ColorCount = 0;
 
 		int _frame = 0;
 		int _frameTimer = 0;
@@ -239,7 +271,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 			#region Fail prevention
 
-			if (AIStage > 5)
+			if (AIStage > 6)
 				AIStage = STAGE_HOVER;
 
 			if (AITimer > 550)
@@ -324,28 +356,6 @@ namespace DBT.NPCs.Bosses.FriezaShip
 						RandomShieldLines();
 
 					npc.velocity.Y = -1f;
-
-					for (int k = 0; k < 10; k++)
-					{
-						if (Deg <= 360)
-						{
-							Deg++;
-
-							//To find the circumference you use formula: x = cX + r * cos(angle), where the x is the coordinate, cX is the center of the circle by X and r is radius.
-
-							float CPosX = npc.Center.X + ShieldDistance * (float)Math.Cos(Deg);
-							float CPosY = npc.Center.Y + 16f + ShieldDistance * (float)Math.Sin(Deg);
-
-							for (int i = 0; i < 10; i++)
-							{
-								Dust dust = Main.dust[Dust.NewDust(new Vector2(CPosX, CPosY), 1, 1, 56)];
-								dust.noGravity = true;
-							}
-						}
-					}
-
-					if (Deg == 360)
-						Deg = 0;
 					npc.netUpdate = true;
 
 					if (Vector2.Distance(player.Center, npc.Center) <= ShieldDistance + 2 * 16f)
@@ -467,7 +477,6 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					if (AITimer > 300 && HyperPosition == Vector2.Zero)
 					{
 						npc.dontTakeDamage = false;
-						npc.netUpdate = true;
 						npc.velocity = Vector2.Zero;
 						if (AITimer == 301)
 						{
@@ -505,7 +514,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					HyperSlamsDone = 0;
 					AITimer = 0;
 					ResetStage();
-					npc.netUpdate = true;
+					npc.noTileCollide = false;
 				}
 			}
 
@@ -513,6 +522,10 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 			#region Warp
 			DoWarpSequence();
+			#endregion
+
+			#region Gunning
+			PerformGunningSequence();
 			#endregion
 
 			#region Debugging Tools
@@ -524,6 +537,40 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			#endregion
 		}
 
+		#region Gunning Stage
+
+		int gunningCountPlayer = 0;
+
+		private void PerformGunningSequence() //Swoop in once on every player in the server.
+		{
+			if (AIStage == STAGE_GUNNING)
+			{
+				RotateSpriteOfTheShip();
+
+				if (AITimer < 80)
+				{
+					DoChargeDust();
+					npc.dontTakeDamage = true;
+					npc.velocity = Vector2.Zero;
+					npc.netUpdate = true;
+				}
+			}
+		}
+
+		private void DoGunningOverHead()
+		{
+			Player player = PlayerCount()[gunningCountPlayer];
+		}
+
+		private void Fire()
+		{
+			Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y - 10f), new Vector2(npc.Center.X, npc.Center.Y), mod.ProjectileType<Projectiles.FriezaForce.FFShipGunningBlast>(), 40, 1f);
+		}
+
+		private void RotateSpriteOfTheShip() => npc.rotation = -3.14f / 8;
+
+		#endregion
+
 		#region Warp Mechanics
 
 		int warpCount = 0;
@@ -533,21 +580,24 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		{
 			if (AIStage == STAGE_WARP)
 			{
-				if (AITimer < 130)
+				npc.damage = 0;//damage dealt by Hurt() for nicer death message.
+
+				if (AITimer < 60)
 				{
 					DoChargeDust();
 					npc.dontTakeDamage = true;
 					npc.velocity = Vector2.Zero;
 					npc.netUpdate = true;
 				}
-				else if (AITimer == 130)
+				else if (AITimer == 60)
 					Teleport();
-				else if (AITimer == 131)
+				else if (AITimer == 61)
 					DoSlamPerWarp();
-				else if (AITimer == 145)
+				else if (AITimer == 75)
 				{
-					AITimer = 129;
+					AITimer = 59;
 					npc.noTileCollide = false;
+					npc.netUpdate = true;
 				}
 
 				if (warpCount == PlayerCount().Count)
@@ -556,6 +606,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					warpCount = 0;
 					warpCountPlayer = 0;
 					ResetValues(false);
+					npc.damage = 50;
 				}
 			}
 		}
@@ -565,6 +616,8 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			npc.position = GetWarpPositions(warpCountPlayer);
 			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
 			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
+
+			npc.netUpdate = true;
 		}
 
 		private void DoSlamPerWarp()
@@ -578,21 +631,29 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			if (warpCountPlayer == 0)
 			{
 				npc.velocity.X = velocity;
-				player.velocity.X = velocity;
+				player.velocity = new Vector2(velocity * 3, -velocity / 2);
 			}
 			else if (warpCountPlayer == 1)
 			{
 				npc.velocity.X = -velocity;
-				player.velocity.X = velocity * 2;
+				player.velocity = new Vector2(velocity * -3, -velocity / 2);
 			}
 			else if (warpCountPlayer == 2)
 			{
 				npc.velocity.Y = velocity;
-				player.velocity.X = 0f;
-				player.velocity.Y = velocity * 4;
+				player.velocity = new Vector2(0f, velocity * 10);
 				warpCountPlayer = 0;
+				npc.velocity = Vector2.Zero;
+				ExplodeEffect(player.Center);
 				warpCount++;
 			}
+
+			player.Hurt(
+			PlayerDeathReason.ByCustomReason(
+			player.name + "has been flattened by the Frieza Force Ship"), 70, 1);
+			ExplodeEffect(new Vector2(npc.Center.X, npc.Center.Y));
+			SoundHelper.PlayCustomSound("Sounds/KiExplosion", npc.Center);
+			npc.netUpdate = true;
 
 			warpCountPlayer++;
 		}
@@ -613,215 +674,215 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		#region Hyper Methods
 
 		public void DoChargeDust()
-        {
-            if (Main.rand.NextFloat() < 5f)
-            {
-                Dust dust;
-                Vector2 position = npc.position + new Vector2(10, 5);
+		{
+			if (Main.rand.NextFloat() < 5f)
+			{
+				Dust dust;
+				Vector2 position = npc.position + new Vector2(10, 5);
 
-                for (int i = 0; i < 10; i++)
-                {
-                    dust = Main.dust[
-                        Dust.NewDust(position, 220, 120, 133, 0f, 0f, 0, new Color(255, 255, 255), 0.9236842f)];
-                    dust.noGravity = true;
-                }
-            }
-        }
+				for (int i = 0; i < 10; i++)
+				{
+					dust = Main.dust[
+						Dust.NewDust(position, 220, 120, 133, 0f, 0f, 0, new Color(255, 255, 255), 0.9236842f)];
+					dust.noGravity = true;
+				}
+			}
+		}
 
-        public void ChooseHyperPosition()
-        {
-            Player targetPlayer = Main.player[Main.rand.Next(PlayerCount().Count)];
-            HyperPosition = new Vector2(targetPlayer.Center.X + 500, targetPlayer.Center.Y + Main.rand.Next(10, 20));
-            npc.netUpdate = true;
-        }
+		public void ChooseHyperPosition()
+		{
+			Player targetPlayer = Main.player[Main.rand.Next(PlayerCount().Count)];
+			HyperPosition = new Vector2(targetPlayer.Center.X + 500, targetPlayer.Center.Y + Main.rand.Next(10, 20));
+			npc.netUpdate = true;
+		}
 
-        public void DoLineDust()
-        {
-            if (Main.rand.NextFloat() < 1.2f)
-            {
-                Dust dust;
-                dust = Dust.NewDustPerfect(HyperPosition, 133, new Vector2(-70f, 0f), 0, new Color(255, 255, 255),
-                    1.052632f);
-                dust.noGravity = true;
-            }
+		public void DoLineDust()
+		{
+			if (Main.rand.NextFloat() < 1.2f)
+			{
+				Dust dust;
+				dust = Dust.NewDustPerfect(HyperPosition, 133, new Vector2(-70f, 0f), 0, new Color(255, 255, 255),
+					1.052632f);
+				dust.noGravity = true;
+			}
 
-            npc.netUpdate = true;
-        }
+			npc.netUpdate = true;
+		}
 
-        public void TeleportRight()
-        {
-            npc.position = HyperPosition + new Vector2(0, -4 * 16f);
-            CircularDust(30, npc, 133, 10f, 1);
-            npc.netUpdate = true;
-        }
+		public void TeleportRight()
+		{
+			npc.position = HyperPosition + new Vector2(0, -4 * 16f);
+			CircularDust(30, npc, 133, 10f, 1);
+			npc.netUpdate = true;
+		}
 
-        private int HorizontalSlamTimer = 0;
+		private int HorizontalSlamTimer = 0;
 
-        public void HorizontalSlam()
-        {
-            DoChargeDust();
-            HorizontalSlamTimer++;
-            npc.velocity = new Vector2(-40f, 0f);
+		public void HorizontalSlam()
+		{
+			DoChargeDust();
+			HorizontalSlamTimer++;
+			npc.velocity = new Vector2(-40f, 0f);
 
-            if (HorizontalSlamTimer == 30)
-            {
-                npc.velocity = Vector2.Zero;
-                npc.netUpdate = true;
-                AITimer = 300;
-                CircularDust(30, npc, 133, 10f, 1);
-                HorizontalSlamTimer = 0;
-                HyperPosition = Vector2.Zero;
-            }
+			if (HorizontalSlamTimer == 30)
+			{
+				npc.velocity = Vector2.Zero;
+				npc.netUpdate = true;
+				AITimer = 300;
+				CircularDust(30, npc, 133, 10f, 1);
+				HorizontalSlamTimer = 0;
+				HyperPosition = Vector2.Zero;
+			}
 
-            npc.netUpdate = true;
-        }
+			npc.netUpdate = true;
+		}
 
-        #endregion
+		#endregion
 
-        #region Main Methods
+		#region Main Methods
 
-        private void Slam()
-        {
-            if (IterationCount < PlayerCount().Count)
-            {
-                if (AITimer < 130)
-                {
-                    DustScaleTimer++;
-                    npc.velocity = Vector2.Zero;
-                    CircularDust(10, npc, 133, 10f - DustScaleTimer / 20, 1);
-                }
-                else if (AITimer == 130)
-                {
-                    TeleportAbove();
-                }
-                else if (AITimer > 130)
-                {
-                    SlamCounter++;
+		private void Slam()
+		{
+			if (IterationCount < PlayerCount().Count)
+			{
+				if (AITimer < 130)
+				{
+					DustScaleTimer++;
+					npc.velocity = Vector2.Zero;
+					CircularDust(10, npc, 133, 10f - DustScaleTimer / 20, 1);
+				}
+				else if (AITimer == 130)
+				{
+					TeleportAbove();
+				}
+				else if (AITimer > 130)
+				{
+					SlamCounter++;
 
-                    if (SlamCounter == SSDelay)
-                    {
-                        DoSlam();
-                        npc.netUpdate = true;
-                    }
-                    else if (SlamCounter == SSDelay + 20)
-                    {
-                        ExplodeEffect();
-                        SoundHelper.PlayCustomSound("Sounds/KiExplosion", npc.Center);
+					if (SlamCounter == SSDelay)
+					{
+						DoSlam();
+						npc.netUpdate = true;
+					}
+					else if (SlamCounter == SSDelay + 20)
+					{
+						ExplodeEffect(new Vector2(npc.Center.X, npc.Center.Y));
+						SoundHelper.PlayCustomSound("Sounds/KiExplosion", npc.Center);
 
-                        npc.velocity.Y = -8f;
-                        IterationCount++;
-                        npc.netUpdate = true;
-                    }
-                    else if (SlamCounter == SSDelay + 60 && (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server))
-                    {
-                        ResetValues(false);
-                    }
-                }
-            }
-            else if (IterationCount == PlayerCount().Count)
-            {
-                AdvanceStage(true);
-                ResetValues(true);
-            }
-        }
+						npc.velocity.Y = -8f;
+						IterationCount++;
+						npc.netUpdate = true;
+					}
+					else if (SlamCounter == SSDelay + 60 && (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server))
+					{
+						ResetValues(false);
+					}
+				}
+			}
+			else if (IterationCount == PlayerCount().Count)
+			{
+				AdvanceStage(true);
+				ResetValues(true);
+			}
+		}
 
-        private void TeleportAbove()
-        {
-            Player player = PlayerCount()[IterationCount];
-            Vector2 pos = player.Center + new Vector2(-100f + (player.velocity.X * 10), -HoverDistance.Y);
-            npc.position = pos;
-            Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
-            SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
-            npc.netUpdate = true;
-        }
+		private void TeleportAbove()
+		{
+			Player player = PlayerCount()[IterationCount];
+			Vector2 pos = player.Center + new Vector2(-100f + (player.velocity.X * 10), -HoverDistance.Y);
+			npc.position = pos;
+			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
+			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
+			npc.netUpdate = true;
+		}
 
-        public void DoSlam()
-        {
-            npc.velocity.Y = 25f;
+		public void DoSlam()
+		{
+			npc.velocity.Y = 25f;
 
-            SSDone++;
+			SSDone++;
 
-            npc.netUpdate = true;
-        }
+			npc.netUpdate = true;
+		}
 
-        public int SummonSaibamen()
-        {
-            for (int i = 0; i <= MinionCount / 2; i++)
-            {
-                npc.netUpdate = true;
+		public int SummonSaibamen()
+		{
+			for (int i = 0; i <= MinionCount / 2; i++)
+			{
+				npc.netUpdate = true;
 
-                switch (Main.rand.Next(0, 3))
-                {
-                    case 0:
-                        return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman1>());
-                    case 1:
-                        return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman2>());
-                    case 2:
-                        return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman3>());
-                    case 3:
-                        return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman4>());
-                    default:
-                        return 0;
-                }
-            }
+				switch (Main.rand.Next(0, 3))
+				{
+					case 0:
+						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman1>());
+					case 1:
+						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman2>());
+					case 2:
+						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman3>());
+					case 3:
+						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman4>());
+					default:
+						return 0;
+				}
+			}
 
-            return NPC.NewNPC((int) npc.position.X, (int) npc.position.Y, mod.NPCType<Saibaman1>());
-        }
+			return NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<Saibaman1>());
+		}
 
-        public int SummonFFMinions()
-        {
-            /*if (Collision.SolidCollision(new Vector2(TileX, TileY), 26, 36) && Main.tile[TileX, TileY].wall == 87)
+		public int SummonFFMinions()
+		{
+			/*if (Collision.SolidCollision(new Vector2(TileX, TileY), 26, 36) && Main.tile[TileX, TileY].wall == 87)
                 {
                     TileVariablesDefinition();
                 }*/
 
-            for (int i = 0; i <= MinionCount / 2; i++)
-            {
-                npc.netUpdate = true;
-                switch (Main.rand.Next(0, 2))
-                {
-                    case 0:
-                        return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion1>());
-                    case 1:
-                        return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion2>());
-                    case 2:
-                        return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion3>());
-                    default:
-                        return 0;
-                }
-            }
+			for (int i = 0; i <= MinionCount / 2; i++)
+			{
+				npc.netUpdate = true;
+				switch (Main.rand.Next(0, 2))
+				{
+					case 0:
+						return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion1>());
+					case 1:
+						return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion2>());
+					case 2:
+						return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion3>());
+					default:
+						return 0;
+				}
+			}
 
-            return NPC.NewNPC((int) npc.position.X, (int) npc.position.Y, mod.NPCType<FriezaForceMinion1>());
-        }
+			return NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<FriezaForceMinion1>());
+		}
 
-        private void RandomShieldLines()
-        {
-            float xStart = npc.Center.X + Main.rand.NextFloat(-8 * 16f, 8 * 16f);
-            float yStart = npc.Center.Y + Main.rand.NextFloat(-8 * 16f, 8 * 16f);
+		private void RandomShieldLines()
+		{
+			float xStart = npc.Center.X + Main.rand.NextFloat(-8 * 16f, 8 * 16f);
+			float yStart = npc.Center.Y + Main.rand.NextFloat(-8 * 16f, 8 * 16f);
 
-            Dust dust = Main.dust[Dust.NewDust(new Vector2(xStart, yStart), 16, 16, 56)];
-            dust.noGravity = true;
-            dust.velocity = npc.velocity + new Vector2(0, 5 * 16f);
-        }
+			Dust dust = Main.dust[Dust.NewDust(new Vector2(xStart, yStart), 16, 16, 56)];
+			dust.noGravity = true;
+			dust.velocity = npc.velocity + new Vector2(0, 5 * 16f);
+		}
 
-        private void ResetValues(bool resetiter) //Does not require to reset the timer if anything consists of AdvanceStage(true).
-        {
-            SelectHoverMP = 0;
-            DustScaleTimer = 0;
-            SlamCounter = 0;
-            AITimer = 0;
-            if (resetiter)
-                IterationCount = 0;
-            npc.netUpdate = true;
-        }
+		private void ResetValues(bool resetiter) //Does not require to reset the timer if anything consists of AdvanceStage(true).
+		{
+			SelectHoverMP = 0;
+			DustScaleTimer = 0;
+			SlamCounter = 0;
+			AITimer = 0;
+			if (resetiter)
+				IterationCount = 0;
+			npc.netUpdate = true;
+		}
 
-        private void ResetStage()
-        {
-            AIStage = STAGE_HOVER;
-            SelectHoverMP = 0;
-            AITimer = 0;
-            npc.netUpdate = true;
-        }
+		private void ResetStage()
+		{
+			AIStage = STAGE_HOVER;
+			SelectHoverMP = 0;
+			AITimer = 0;
+			npc.netUpdate = true;
+		}
 
 		private void AdvanceStage(bool resetTimer)
 		{
@@ -842,17 +903,37 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				AIStage = STAGE_SHIELD;
 				return;
 			}
-			else if (AIStage == STAGE_SLAM && (SSDone == 3 || SSDone == 7) && UnderFiftyHealth)
+			else if (AIStage == STAGE_SHIELD && (SSDone == 2 || SSDone == 8))
 			{
 				AIStage = STAGE_MINION;
 				return;
 			}
-			else if (AIStage == STAGE_MINION && (SSDone == 3 && SSDone == 7) && UnderThirtyHealth)
+			else if (AIStage == STAGE_MINION && (SSDone == 2 || SSDone == 8))
+			{
+				AIStage = STAGE_SLAM;
+				return;
+			}
+			else if (AIStage == STAGE_SLAM && (SSDone == 3 || SSDone == 9))
 			{
 				AIStage = STAGE_HYPER;
 				return;
 			}
-			else if (AIStage == STAGE_SLAM && (SSDone == 5 || SSDone == 8) && UnderThirtyHealth)
+			else if (AIStage == STAGE_HYPER && (SSDone == 3 || SSDone == 9))
+			{
+				AIStage = STAGE_SLAM;
+				return;
+			}
+			else if (AIStage == STAGE_SLAM && SSDone == 4)
+			{
+				AIStage = STAGE_MINION;
+				return;
+			}
+			else if (AIStage == STAGE_MINION && SSDone == 4)
+			{
+				AIStage = STAGE_SHIELD;
+				return;
+			}
+			else if (AIStage == STAGE_SHIELD && SSDone == 4)
 			{
 				AIStage = STAGE_WARP;
 				return;
@@ -891,7 +972,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
             }
         }
 
-        public void ExplodeEffect()
+        public void ExplodeEffect(Vector2 position)
         {
             for (int num619 = 0; num619 < 3; num619++)
             {
@@ -900,8 +981,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
                 if (num619 == 1)
                     scaleFactor9 = 3f;
 
-                int num620 = Gore.NewGore(new Vector2(npc.Center.X, npc.Center.Y), default(Vector2),
-                    Main.rand.Next(61, 64), 1f);
+                int num620 = Gore.NewGore(position, default(Vector2),Main.rand.Next(61, 64), 1f);
                 Main.gore[num620].velocity *= scaleFactor9;
 
                 Gore gore97 = Main.gore[num620];
@@ -910,8 +990,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
                 Gore gore98 = Main.gore[num620];
                 gore98.velocity.Y = gore98.velocity.Y + 1f;
 
-                num620 = Gore.NewGore(new Vector2(npc.Center.X, npc.Center.Y), default(Vector2), Main.rand.Next(61, 64),
-                    1f);
+                num620 = Gore.NewGore(position, default(Vector2), Main.rand.Next(61, 64),1f);
                 Main.gore[num620].velocity *= scaleFactor9;
 
                 Gore gore99 = Main.gore[num620];
@@ -920,8 +999,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
                 Gore gore100 = Main.gore[num620];
                 gore100.velocity.Y = gore100.velocity.Y + 1f;
 
-                num620 = Gore.NewGore(new Vector2(npc.Center.X, npc.Center.Y), default(Vector2), Main.rand.Next(61, 64),
-                    1f);
+                num620 = Gore.NewGore(position, default(Vector2), Main.rand.Next(61, 64),1f);
                 Main.gore[num620].velocity *= scaleFactor9;
 
                 Gore gore101 = Main.gore[num620];
@@ -930,7 +1008,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
                 Gore gore102 = Main.gore[num620];
                 gore102.velocity.Y = gore102.velocity.Y - 1f;
 
-                num620 = Gore.NewGore(new Vector2(npc.Center.X, npc.Center.Y), default(Vector2), Main.rand.Next(61, 64),
+                num620 = Gore.NewGore(position, default(Vector2), Main.rand.Next(61, 64),
                     1f);
                 Main.gore[num620].velocity *= scaleFactor9;
 
@@ -985,7 +1063,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
         public Vector2 HyperPosition { get; set; }
 
-        public const float ShieldDistance = 10 * 16f;
+        public const float ShieldDistance = 8 * 16f;
         public float CircleX = 0f;
         public float CircleY = 0f;
         public int Deg = 0;
@@ -1007,6 +1085,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
         public int ShieldLife { get; private set; }
         public int TileX { get; private set; }
         public int TileY { get; private set; }
+		public double ShieldFrame { get; private set; } = 0;
 
 
         public float AIStage
