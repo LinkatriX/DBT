@@ -209,7 +209,7 @@ namespace DBT.UserInterfaces
 
             for (int i = 0; i < segmentsCount; i++)
             {
-                Vector2 segmentOffsetX = new Vector2(i * 12, 0);
+                Vector2 segmentOffsetX = new Vector2(i * 12, -2);
                 Vector2 segmentPosition = Position + textureOffset + segmentOffsetX;
 
                 if (i == segmentsCount - 1)

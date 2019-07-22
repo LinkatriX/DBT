@@ -1,5 +1,7 @@
-﻿using DBT.Transformations;
+﻿using DBT.Projectiles.Overload;
+using DBT.Transformations;
 using DBT.UserInterfaces.OverloadBar;
+using Terraria;
 
 namespace DBT.Players
 {
@@ -18,36 +20,32 @@ namespace DBT.Players
 
         }
 
+        int overloadDecreaseTimer = 0;
         private void PostUpdateOverload()
         {
-            if (IsTransformed())
+            if (!IsTransformed(TransformationDefinitionManager.Instance.SSJC) && !IsTransformed(TransformationDefinitionManager.Instance.LSSJ))
             {
-                float overloadGain = 0f;
-
-                for (int i = 0; i < ActiveTransformations.Count; i++)
-                    if (ActiveTransformations[i].DoesTransformationOverload(this))
-                        overloadGain += ActiveTransformations[i].Overload.GetOverloadGrowthRate();
-
-                if (Overload + overloadGain > MaxOverload)
-                    Overload = MaxOverload;
-                else
-                    Overload += overloadGain;
-            }
-            else if (!IsTransformed())
-            {
-                if (DBTMod.IsTickRateElapsed(180))
+                overloadDecreaseTimer++;
+                if (overloadDecreaseTimer >= 180)
                 {
-                    int overloadDecreaseTimer = 0;
-                    overloadDecreaseTimer++;
-
-                    if (overloadDecreaseTimer >= OverloadDecayRate)
+                    if (DBTMod.IsTickRateElapsed(OverloadDecayRate))
                     {
                         Overload--;
-                        overloadDecreaseTimer = 0;
                     }
                 }
-
             }
+            else
+                overloadDecreaseTimer = 0;
+
+            if (Overload >= MaxOverload && !IsOverloading)
+            {
+                Main.NewText("Is at max overload");
+                OnMaxOverload();
+            }
+
+            if (Overload > MaxOverload)
+                Overload = MaxOverload;
+
             if (Overload > 0)
                 DBTMod.Instance.overloadBar.Visible = true;
             else
@@ -55,7 +53,28 @@ namespace DBT.Players
         }
 
 
-        public float OverloadDecayRate { get; set; }
+        private void OnMaxOverload()
+        {
+            Main.NewText("On max overload");
+            IsOverloading = true;
+            if (IsTransformed(TransformationDefinitionManager.Instance.SSJC) && !HasAcquiredTransformation(TransformationDefinitionManager.Instance.LSSJ))
+            {
+                AcquireAndTransform(TransformationDefinitionManager.Instance.LSSJ);
+            }
+            else
+                DoOverloadEffects();
+        }
+
+        private void DoOverloadEffects()
+        {
+            Main.NewText("Overloaded effects");
+            Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<ShaderOrb1>(), 0, 0, player.whoAmI);
+        }
+
+
+        public int OverloadDecayRate { get; set; }
+
+        public bool IsOverloading { get; set; } = false;
 
         public float Overload
         {
@@ -63,9 +82,6 @@ namespace DBT.Players
             set
             {
                 _overload = value;
-                for (int i = 0; i < ActiveTransformations.Count; i++)
-                    if (ActiveTransformations[i].DoesTransformationOverload(this))
-                        ActiveTransformations[i].Overload.OnPlayerOverloadUpdated(this, Overload, MaxOverload);
             }
         }
 

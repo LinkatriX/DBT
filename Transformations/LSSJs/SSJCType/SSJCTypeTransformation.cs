@@ -12,13 +12,15 @@ namespace DBT.Transformations.LSSJs.SSJCType
             "SSJCType", "Super Saiyan C-Type", typeof(SSJCTypeTransformationBuff),
             3.9f, 3.9f, 26, 
             new TransformationDrain(4, 2),
-            new LSSJTransformationAppearance(), parents: parents)
+            new LSSJTransformationAppearance(),
+            new TransformationOverload(0.1f, 0.05f), 
+            parents: parents)
         {
         }
 
         public sealed class SSJCTypeTransformationBuff : TransformationBuff
         {
-            public SSJCTypeTransformationBuff() : base(TransformationDefinitionManager.Instance.LSSJ)
+            public SSJCTypeTransformationBuff() : base(TransformationDefinitionManager.Instance.SSJC)
             {
             }
         }
@@ -30,23 +32,6 @@ namespace DBT.Transformations.LSSJs.SSJCType
                     new LightingAppearance(new float[] { })),
                 new HairAppearance(Color.White), Color.Lime)
             {
-            }
-        }
-
-        public sealed class SSJCTypeTransformationOverload : TransformationOverload
-        {
-            public SSJCTypeTransformationOverload() : base(10f / Constants.TICKS_PER_SECOND)
-            {
-            }
-
-            public override bool OnPlayerOverloadUpdated(DBTPlayer dbtPlayer, float overload, float maxOverload)
-            {
-                if (overload >= maxOverload * 0.70)
-                {
-
-                }
-
-                return true;
             }
         }
     }

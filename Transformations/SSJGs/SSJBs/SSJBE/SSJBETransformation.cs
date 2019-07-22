@@ -10,7 +10,9 @@ namespace DBT.Transformations.SSJGs.SSJBs.SSJBE
             "SSJBE", "Super Saiyan Blue Evolved", typeof(SSJBETransformationBuff),
             5.25f, 5.25f, 42, 
             new TransformationDrain(280f, 140f), 
-            new SSJBEAppearance(), parents: parents)
+            new SSJBEAppearance(),
+            new TransformationOverload(0, 0), 
+            parents: parents)
         {
         }
     }
