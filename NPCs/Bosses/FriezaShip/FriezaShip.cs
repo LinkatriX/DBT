@@ -14,6 +14,7 @@ using DBT.Items.Materials;
 using DBT.Items.Weapons;
 using DBT.NPCs.FriezaForce.Minions;
 using DBT.Projectiles;
+using DBT.Projectiles.FriezaForce;
 using System.Linq;
 
 namespace DBT.NPCs.Bosses.FriezaShip
@@ -39,6 +40,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			MinionCount = 2;
 			HyperSlamsDone = 0;
 			ShieldDuration = 200;
+			GalaxyDistance = (float)8.5 * 16f;
+			GalaxyDistance2 = (float)8.5 * 16f;
+			HyperSlamSpeed = -40f;
 		}
 
 		#region Stages Numbers.
@@ -211,7 +215,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				SSDelay = 15;
 				ShieldDuration = 220;
 				HoverCooldown = 350;
-
+				HyperSlamSpeed = -45f;
 			}
 
 			if (UnderFiftyHealth)
@@ -221,10 +225,10 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				npc.damage = 65;
 				ShieldDuration = 230;
 				HoverCooldown = 300;
-
+				HyperSlamSpeed = -50f;
 			}
 
-			if (UnderThirtyHealth)
+			if (UnderThirtyHealth && !Main.expertMode)
 			{
 				MinionCount = 4;
 				SpeedAdd = 4f;
@@ -233,7 +237,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				ShieldDuration = 240;
 				ShieldLife = 2;
 				HoverCooldown = 200;
-
+				HyperSlamSpeed = -55f;
 			}
 
 			if (Main.expertMode && UnderThirtyHealth)
@@ -244,6 +248,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				ShieldDuration = 250;
 				ShieldLife = 3;
 				HoverCooldown = 120;
+				HyperSlamSpeed = -60f;
 			}
 
 			#endregion
@@ -466,7 +471,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				if (HyperSlamsDone <= 4)
 				{
 					npc.dontTakeDamage = true;
-					if (AITimer < 300)
+					if (AITimer < 150)
 					{
 						DoChargeDust();
 						npc.dontTakeDamage = true;
@@ -474,11 +479,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 						npc.netUpdate = true;
 					}
 
-					if (AITimer > 300 && HyperPosition == Vector2.Zero)
+					if (AITimer > 150 && HyperPosition == Vector2.Zero)
 					{
 						npc.dontTakeDamage = false;
 						npc.velocity = Vector2.Zero;
-						if (AITimer == 301)
+						if (AITimer == 151)
 						{
 							CircularDust(30, npc, 133, 10f, 1);
 							ChooseHyperPosition();
@@ -488,14 +493,14 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 					}
 
-					if (AITimer > 320 && HyperPosition != Vector2.Zero && npc.velocity == Vector2.Zero)
+					if (AITimer > 170 && HyperPosition != Vector2.Zero && npc.velocity == Vector2.Zero)
 					{
 						npc.dontTakeDamage = false;
 						DoLineDust();
 						npc.netUpdate = true;
 					}
 
-					if (AITimer == 310 && HyperPosition != Vector2.Zero)
+					if (AITimer == 160 && HyperPosition != Vector2.Zero)
 					{
 						npc.dontTakeDamage = false;
 						TeleportRight();
@@ -503,8 +508,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 						npc.netUpdate = true;
 					}
 
-					if (AITimer >= 350 && HyperPosition != Vector2.Zero)
+					if (AITimer >= 190 && HyperPosition != Vector2.Zero)
+					{
 						HorizontalSlam();
+						Cache = 5;
+					}
 					npc.netUpdate = true;
 				}
 				else
@@ -539,13 +547,13 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		#region Gunning Stage
 
-		int gunningCountPlayer = 0;
+		int count = 0;
 
 		private void PerformGunningSequence() //Swoop in once on every player in the server.
 		{
 			if (AIStage == STAGE_GUNNING)
 			{
-				RotateSpriteOfTheShip();
+				npc.noTileCollide = true;
 
 				if (AITimer < 80)
 				{
@@ -554,20 +562,36 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					npc.velocity = Vector2.Zero;
 					npc.netUpdate = true;
 				}
+				if (AITimer == 80)
+					TeleportToTheRightG();
+				if (AITimer == 81)
+					npc.velocity.X = 20f;
+				if (AITimer == 220)
+				{
+					count++;
+					npc.velocity = Vector2.Zero;
+				}
+				if (AITimer > 81 && AITimer < 230 && AITimer % 8 == 0)
+					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 8 * 16f), new Vector2(15f, 15f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 40, 1f);
+				if (count == PlayerCount().Count)
+				{
+					AdvanceStage(true);
+					ResetValues(false);
+					count = 0;
+					npc.noTileCollide = false;
+				}
 			}
 		}
 
-		private void DoGunningOverHead()
+		private void TeleportToTheRightG()
 		{
-			Player player = PlayerCount()[gunningCountPlayer];
-		}
+			Player player = PlayerCount()[Random];
 
-		private void Fire()
-		{
-			Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y - 10f), new Vector2(npc.Center.X, npc.Center.Y), mod.ProjectileType<Projectiles.FriezaForce.FFShipGunningBlast>(), 40, 1f);
-		}
+			npc.position = new Vector2(player.Center.X - 80 * 16f, player.Center.Y - 40 * 16f);
 
-		private void RotateSpriteOfTheShip() => npc.rotation = -3.14f / 8;
+			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
+			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
+		}
 
 		#endregion
 
@@ -582,20 +606,20 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			{
 				npc.damage = 0;//damage dealt by Hurt() for nicer death message.
 
-				if (AITimer < 60)
+				if (AITimer < 100)
 				{
-					DoChargeDust();
+					DecoDust(GalaxyDistance / 100);
 					npc.dontTakeDamage = true;
 					npc.velocity = Vector2.Zero;
 					npc.netUpdate = true;
 				}
-				else if (AITimer == 60)
+				else if (AITimer == 100)
 					Teleport();
-				else if (AITimer == 61)
+				else if (AITimer == 101)
 					DoSlamPerWarp();
-				else if (AITimer == 75)
+				else if (AITimer == 115)
 				{
-					AITimer = 59;
+					AITimer = 90;
 					npc.noTileCollide = false;
 					npc.netUpdate = true;
 				}
@@ -701,7 +725,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			if (Main.rand.NextFloat() < 1.2f)
 			{
 				Dust dust;
-				dust = Dust.NewDustPerfect(HyperPosition, 133, new Vector2(-70f, 0f), 0, new Color(255, 255, 255),
+				dust = Dust.NewDustPerfect(HyperPosition, 133, new Vector2(HyperSlamSpeed * 2f, 0), 0, new Color(255, 255, 255),
 					1.052632f);
 				dust.noGravity = true;
 			}
@@ -722,13 +746,13 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		{
 			DoChargeDust();
 			HorizontalSlamTimer++;
-			npc.velocity = new Vector2(-40f, 0f);
+			npc.velocity = new Vector2(HyperSlamSpeed, 0f);
 
 			if (HorizontalSlamTimer == 30)
 			{
 				npc.velocity = Vector2.Zero;
 				npc.netUpdate = true;
-				AITimer = 300;
+				AITimer = 150;
 				CircularDust(30, npc, 133, 10f, 1);
 				HorizontalSlamTimer = 0;
 				HyperPosition = Vector2.Zero;
@@ -771,6 +795,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 						npc.velocity.Y = -8f;
 						IterationCount++;
+						Cache = 5;
 						npc.netUpdate = true;
 					}
 					else if (SlamCounter == SSDelay + 60 && (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server))
@@ -871,6 +896,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			DustScaleTimer = 0;
 			SlamCounter = 0;
 			AITimer = 0;
+			GalaxyDistance = (float)8.5 * 16f;
+			GalaxyDistance2 = (float)8.5 * 16f;
+			GCounter = 0;
 			if (resetiter)
 				IterationCount = 0;
 			npc.netUpdate = true;
@@ -899,6 +927,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				return;
 			}
 			else if (AIStage == STAGE_SLAM && (SSDone == 2 || SSDone == 8))
+			{
+				AIStage = STAGE_GUNNING;
+				return;
+			}
+			else if (AIStage == STAGE_GUNNING && (SSDone == 2 || SSDone == 8))
 			{
 				AIStage = STAGE_SHIELD;
 				return;
@@ -938,6 +971,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				AIStage = STAGE_WARP;
 				return;
 			}
+			else if (AIStage == STAGE_WARP && SSDone == 4)
+			{
+				AIStage = STAGE_GUNNING;
+				return;
+			}
 			else
 			{
 				npc.noTileCollide = false;
@@ -952,12 +990,13 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		#region Misc Methods
 
 		/// <summary>
-		/// Returns a list of players. Use .count to find the Count of player present on the server.
+		/// Returns a list of players. Use .count to find the Count of players present on the server.
 		/// </summary>
 		/// <returns></returns>
 		public List<Player> PlayerCount() => Main.player.Where(player => player.active).ToList();
 
-        public static double AngleBetweenVectors(Vector2 v1, Vector2 v2) => Math.Atan2((v1.X* v2.Y + v1.Y* v2.X), (v1.X* v2.X + v1.Y* v2.Y)) * (180 / MathHelper.Pi);
+		//MAY BE NEEDED, do NOT remove;
+        //public static double AngleBetweenVectors(Vector2 v1, Vector2 v2) => Math.Atan2((v1.X* v2.Y + v1.Y* v2.X), (v1.X* v2.X + v1.Y* v2.Y)) * (180 / MathHelper.Pi);
 
         public void CircularDust(int quantity, NPC target, short DustID, float radius, float scale)
         {
@@ -972,52 +1011,24 @@ namespace DBT.NPCs.Bosses.FriezaShip
             }
         }
 
-        public void ExplodeEffect(Vector2 position)
+        public void ExplodeEffect(Vector2 position) //Breakdown of original function: call the gore and spawn it twice.
         {
-            for (int num619 = 0; num619 < 3; num619++)
-            {
-                float scaleFactor9 = 3f;
+			for (int i = 0; i < 3; i++)
+			{
+				float scaleFactor = 3f;
 
-                if (num619 == 1)
-                    scaleFactor9 = 3f;
+				for (int j = 0; j <= 4; j++)
+				{
+					int numGore = Gore.NewGore(position, default(Vector2), Main.rand.Next(61, 64), 1f);
+					Main.gore[numGore].velocity *= scaleFactor;
 
-                int num620 = Gore.NewGore(position, default(Vector2),Main.rand.Next(61, 64), 1f);
-                Main.gore[num620].velocity *= scaleFactor9;
+					Gore gore1 = Main.gore[numGore];
+					gore1.velocity.X = gore1.velocity.X + 1f;
 
-                Gore gore97 = Main.gore[num620];
-                gore97.velocity.X = gore97.velocity.X + 1f;
-
-                Gore gore98 = Main.gore[num620];
-                gore98.velocity.Y = gore98.velocity.Y + 1f;
-
-                num620 = Gore.NewGore(position, default(Vector2), Main.rand.Next(61, 64),1f);
-                Main.gore[num620].velocity *= scaleFactor9;
-
-                Gore gore99 = Main.gore[num620];
-                gore99.velocity.X = gore99.velocity.X - 1f;
-
-                Gore gore100 = Main.gore[num620];
-                gore100.velocity.Y = gore100.velocity.Y + 1f;
-
-                num620 = Gore.NewGore(position, default(Vector2), Main.rand.Next(61, 64),1f);
-                Main.gore[num620].velocity *= scaleFactor9;
-
-                Gore gore101 = Main.gore[num620];
-                gore101.velocity.X = gore101.velocity.X + 1f;
-
-                Gore gore102 = Main.gore[num620];
-                gore102.velocity.Y = gore102.velocity.Y - 1f;
-
-                num620 = Gore.NewGore(position, default(Vector2), Main.rand.Next(61, 64),
-                    1f);
-                Main.gore[num620].velocity *= scaleFactor9;
-
-                Gore gore103 = Main.gore[num620];
-                gore103.velocity.X = gore103.velocity.X - 1f;
-
-                Gore gore104 = Main.gore[num620];
-                gore104.velocity.Y = gore104.velocity.Y - 1f;
-            }
+					Gore gore2 = Main.gore[numGore];
+					gore2.velocity.Y = gore2.velocity.Y + 1f;
+				}
+			}
         }
 
         public override void NPCLoot()
@@ -1052,6 +1063,52 @@ namespace DBT.NPCs.Bosses.FriezaShip
             }
         }
 
+		private void DecoDust(float inter)
+		{
+			GCounter++;
+
+			if (Deg <= 360)
+			{
+				Deg++;
+
+				//To find the circumference you use formula: x = cX + r * cos(angle), where the x is the coordinate, cX is the center of the circle by X and r is radius.
+
+				float CPosX = npc.Center.X + GalaxyDistance * (float)Math.Cos(Deg);
+				float CPosY = npc.Center.Y + 16f + GalaxyDistance * (float)Math.Sin(Deg);
+
+				GalaxyDistance -= inter;//decrease the Radius depending on the amount of ticks the function is called;
+
+				for (int i = 0; i < 2; i++)
+				{
+					Dust dust = Main.dust[Dust.NewDust(new Vector2(CPosX, CPosY), 1, 1, 226)];
+					dust.noGravity = true;
+				}
+			}
+
+			if (Deg2 <= 360 && GCounter > 20)
+			{
+				Deg2++;
+
+				float CPosX = npc.Center.X + GalaxyDistance2 * (float)Math.Cos(Deg);
+				float CPosY = npc.Center.Y + 16f + GalaxyDistance2 * (float)Math.Sin(Deg);
+
+				GalaxyDistance2 -= inter;//decrease the Radius depending on the amount of ticks the function is called;
+
+				for (int i = 0; i < 2; i++)
+				{
+					Dust dust = Main.dust[Dust.NewDust(new Vector2(CPosX, CPosY), 1, 1, 226)];
+					dust.noGravity = true;
+				}
+			}
+
+			if (Deg == 360)
+				Deg = 0;
+			if (Deg2 == 360)
+			{
+				Deg2 = 0;
+			}
+		}
+
         #endregion
 
         #region Variables 
@@ -1059,14 +1116,18 @@ namespace DBT.NPCs.Bosses.FriezaShip
         /// <summary>
         /// Sets the normal hover distance between the player and the ship on the hovering stage.
         /// </summary>
-        public Vector2 HoverDistance { get; set; }
+        private Vector2 HoverDistance { get; set; }
 
-        public Vector2 HyperPosition { get; set; }
+        private Vector2 HyperPosition { get; set; }
 
-        public const float ShieldDistance = 8 * 16f;
-        public float CircleX = 0f;
-        public float CircleY = 0f;
-        public int Deg = 0;
+        private const float ShieldDistance = (float)8.5 * 16f;
+		private float GalaxyDistance;
+		private float GalaxyDistance2;
+        private int Deg = 0;
+		private int Deg2 = 0;
+		private int GCounter = 0;
+
+		public float HyperSlamSpeed { get; private set; }
         public int SelectHoverMP { get; private set; }
         public int Random { get; private set; }
         public int SlamCounter { get; private set; }
@@ -1086,6 +1147,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
         public int TileX { get; private set; }
         public int TileY { get; private set; }
 		public double ShieldFrame { get; private set; } = 0;
+		public int Cache { get; private set; }
 
 
         public float AIStage
@@ -1094,27 +1156,27 @@ namespace DBT.NPCs.Bosses.FriezaShip
             set { npc.ai[AI_STAGE_SLOT] = value; }
         }
 
-        public float AITimer
+        private float AITimer
         {
             get { return npc.ai[AI_TIMER_SLOT]; }
             set { npc.ai[AI_TIMER_SLOT] = value; }
         }
 
-        public bool UnderEightyHealth
-        {
-            get { return npc.life <= npc.lifeMax * .8; }
-        }
+        private bool UnderEightyHealth
+		{
+			get { return npc.life <= npc.lifeMax * .8; }
+		}
 
-        public bool UnderFiftyHealth
-        {
-            get { return npc.life <= npc.lifeMax * .5; }
-        }
+		private bool UnderFiftyHealth
+		{
+			get { return npc.life <= npc.lifeMax * .5; }
+		}
 
-        public bool UnderThirtyHealth
-        {
-            get { return npc.life <= npc.lifeMax * .3; }
-        }
+        private bool UnderThirtyHealth
+		{
+			get { return npc.life <= npc.lifeMax * .3; }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
