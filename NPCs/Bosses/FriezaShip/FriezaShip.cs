@@ -572,7 +572,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					npc.velocity = Vector2.Zero;
 				}
 				if (AITimer > 81 && AITimer < 230 && AITimer % 8 == 0)
-					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 8 * 16f), new Vector2(13f, 13f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 40, 1f);
+					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 2 * 16f), new Vector2(13f, 13f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 40, 1f);
 				if (count == PlayerCount().Count)
 				{
 					AdvanceStage(true);
