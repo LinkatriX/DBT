@@ -21,7 +21,7 @@ namespace DBT.Transformations
         // Still trying to figure out a way to reduce the parameter count.
         protected TransformationDefinition(string unlocalizedName, string displayName, Type buffType,
             float baseDamageMultiplier, float baseSpeedMultiplier, int baseDefenseAdditive, 
-            TransformationDrain drain, TransformationAppearance appearance, TransformationOverload overload = null,
+            TransformationDrain drain, TransformationAppearance appearance, TransformationOverload overload,
             bool mastereable = true, float maxMastery = 1f,
             int duration = TRANSFORMATION_LONG_DURATION, bool displaysInMenu = true, RaceDefinition[] limitedToRaces = null,
             bool anyParents = false, params TransformationDefinition[] parents)
@@ -30,18 +30,19 @@ namespace DBT.Transformations
             DisplayName = displayName;
 
             BuffType = buffType;
-
+            
             BaseDamageMultiplier = baseDamageMultiplier;
             BaseSpeedMultiplier = baseSpeedMultiplier;
             BaseDefenseAdditive = baseDefenseAdditive;
 
             Appearance = appearance;
-            Overload = overload;
 
             Mastereable = mastereable;
             BaseMaxMastery = maxMastery;
 
             Drain = drain;
+
+            Overload = overload;
 
             Duration = duration;
 
@@ -169,7 +170,15 @@ namespace DBT.Transformations
 
         #endregion
 
-        public virtual bool DoesTransformationOverload(DBTPlayer dbtPlayer) => Overload != null;
+        # region Overload
+
+        public float GetUnmasteredOverloadGrowthRate(DBTPlayer dbtPlayer) => Overload.baseOverloadGrowthRate;
+
+        public float GetMasteredOverloadGrowthRate(DBTPlayer dbtPlayer) => Overload.masteredOverloadGrowthRate;
+
+
+        #endregion
+
 
         #endregion
 
@@ -209,13 +218,12 @@ namespace DBT.Transformations
 
         public TransformationDrain Drain { get; }
 
+        public TransformationOverload Overload { get; }
+
         #endregion
 
 
         public TransformationAppearance Appearance { get; }
-
-        public TransformationOverload Overload { get; }
-
 
         public int Duration { get; }
 
