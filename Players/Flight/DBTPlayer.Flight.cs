@@ -2,9 +2,6 @@
 {
     public sealed partial class DBTPlayer
     {
-        public const int FLIGHT_KI_DRAIN = 4;
-        public const float BURST_SPEED = 0.5f, FLIGHT_SPEED = 0.3f;
-
         internal void PostUpdateFlight()
         {
             if (!Flying) return;

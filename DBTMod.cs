@@ -19,8 +19,7 @@ namespace DBT
 {
 	public sealed class DBTMod : Mod
 	{
-        // TODO Go through this class and make it less shit.
-	    internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey;
+	    internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey;
 
 	    internal KiBar kiBar;
 	    internal UserInterface kiBarInterface;
@@ -60,6 +59,7 @@ namespace DBT
 	            speedToggleKey = RegisterHotKey("Speed Toggle", "Z");
 	            transformDownKey = RegisterHotKey("Transform Down", "V");
 	            transformUpKey = RegisterHotKey("Transform Up", "X");
+                flightToggleKey = RegisterHotKey("Flight Toggle", "Q");
 
 	            #endregion
 
