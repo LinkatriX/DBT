@@ -34,6 +34,8 @@ namespace DBT.UserInterfaces.CharacterMenus
         private readonly Dictionary<UIHoverImageButton, Tab> _tabButtons = new Dictionary<UIHoverImageButton, Tab>();
         private readonly Dictionary<Tab, TransformationDefinition> _tabsForTransformations = new Dictionary<Tab, TransformationDefinition>();
 
+        private readonly Dictionary<TransformationDefinition, UIImagePair> _transformationImagePairs = new Dictionary<TransformationDefinition, UIImagePair>();
+
         public CharacterTransformationsMenu(Mod authorMod)
         {
             AuthorMod = authorMod;
@@ -127,6 +129,10 @@ namespace DBT.UserInterfaces.CharacterMenus
                 _tabButtons.Add(tabButton, tab);
                 _tabsForTransformations.Add(tab, rootNode.Value);
 
+                int yOffset = 0;
+
+                RecursiveInitializeTransformation(tab.Panel, rootNode, ref yOffset);
+
                 lastXOffset += rootNode.Value.TransformationIcon.Width;
             }
         }
@@ -150,8 +156,88 @@ namespace DBT.UserInterfaces.CharacterMenus
             }
 
             foreach (KeyValuePair<UIHoverImageButton, Tab> kvp in _tabButtons)
-                kvp.Value.TabButton.SetImage(_tabsForTransformations[kvp.Value].TransformationIcon);
+            {
+                if (dbtPlayer.HasAcquiredTransformation(_tabsForTransformations[kvp.Value]))
+                {
+                    kvp.Value.TabButton.SetImage(null);
+                }
+                else
+                    kvp.Value.TabButton.SetImage(_tabsForTransformations[kvp.Value].TransformationIcon);
+            }
+
+            // Imported from old transformations menu
+            foreach (KeyValuePair<TransformationDefinition, UIImagePair> kvp in _transformationImagePairs)
+            {
+                bool unlockable = kvp.Key.CanUnlock(dbtPlayer);
+                bool visible = kvp.Key.DoesDisplayInCharacterMenu(dbtPlayer);
+
+                if (!visible)
+                {
+                    kvp.Value.button.Width = StyleDimension.Empty;
+                    kvp.Value.button.Height = StyleDimension.Empty;
+                    kvp.Value.button.SetVisibility(0f, 0f);
+                }
+
+                kvp.Value.unknownImage.ImageScale = visible && unlockable ? 0f : 1f;
+                kvp.Value.unknownImageGray.ImageScale = visible && unlockable && dbtPlayer.HasAcquiredTransformation(kvp.Key) ? 0f : 1f;
+                kvp.Value.lockedImage.ImageScale = visible && unlockable ? 0f : 1f;
+            }
         }
+
+        private void DrawTransformation(UIPanel panel, TransformationDefinition transformation, Texture2D icon, int left, int top)
+        {
+            UIImageButton transformationButton = null;
+            UIImage
+                unknownImage = null,
+                unknownGrayImage = null,
+                lockedImage = null;
+
+            transformationButton = InitializeButton(icon, new MouseEvent((evt, element) => TrySelectingTransformation(transformation, evt, element)), left, top, panel);
+
+            unknownImage = InitializeImage(UnknownImageTexture, 0, 0, transformationButton);
+            unknownImage.ImageScale = 0f;
+
+            unknownGrayImage = InitializeImage(UnknownGrayImageTexture, 0, 0, unknownImage);
+            unknownGrayImage.ImageScale = 0f;
+
+            lockedImage = InitializeImage(LockedImageTexture, 0, 0, unknownGrayImage);
+            lockedImage.ImageScale = 0f;
+
+            _transformationImagePairs.Add(transformation, new UIImagePair(new Point(left, top), transformationButton, unknownImage, unknownGrayImage, lockedImage));
+        }
+
+        private void RecursiveInitializeTransformation(UIPanel panel, Node<TransformationDefinition> node, ref int yOffset)
+        {
+            TransformationDefinition transformation = node.Value;
+            Texture2D texture = transformation.BuffType.GetTexture();
+
+            if (!CheckIfDraw(transformation)) return; // Needs edge-case check.
+            int xOffset = PADDING_X;
+
+            if (node.Parents.Count > 0 && _transformationImagePairs.ContainsKey(node.Parents[0].Value))
+            {
+                Node<TransformationDefinition> previousNode = node.Parents[0];
+                UIImagePair previousPair = _transformationImagePairs[previousNode.Value];
+
+                xOffset = _transformationImagePairs[previousNode.Value].position.X + (int)previousPair.button.Width.Pixels + SMALL_SPACE * 2;
+            }
+
+            DrawTransformation(panel, transformation, texture, xOffset, yOffset);
+
+            for (int i = 0; i < node.Children.Count; i++)
+            {
+                Node<TransformationDefinition> child = node.Children[i];
+                RecursiveInitializeTransformation(panel, child, ref yOffset);
+
+                if (node.Children.Count > 1 && CheckIfDraw(child) && node.Children[node.Children.Count - 1] != child)
+                {
+                    yOffset += texture.Height + SMALL_SPACE * 2;
+                }
+            }
+        }
+
+        private static bool CheckIfDraw(Node<TransformationDefinition> node) => node.Value.DisplayInMenu && node.Value.CheckPrePlayerConditions();
+        private static bool CheckIfDraw(TransformationDefinition transformation) => transformation.DisplayInMenu && transformation.CheckPrePlayerConditions();
 
         private void OnUITabClick(UIMouseEvent evt, UIElement listeningelement)
         {
