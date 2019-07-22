@@ -10,6 +10,7 @@ namespace DBT.Transformations.SSJs.SSJ1s.ASSJ1
             1.75f, 1.75f, 3, 
             new TransformationDrain(70f / 60, 35f / 60), 
             new SSJ1Appearance(),
+            new TransformationOverload(0, 0),
             displaysInMenu: false, parents: parents)
         {
         }

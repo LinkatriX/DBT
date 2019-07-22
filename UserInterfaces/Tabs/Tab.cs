@@ -12,7 +12,6 @@ namespace DBT.UserInterfaces.Tabs
         public Tab(UIImageButton tabButton, UIPanel panel)
         {
             TabButton = tabButton;
-
             Panel = panel;
         }
 

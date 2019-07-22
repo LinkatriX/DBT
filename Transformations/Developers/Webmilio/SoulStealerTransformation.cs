@@ -19,7 +19,8 @@ namespace DBT.Transformations.Developers.Webmilio
             "SoulStealer", "Soul Stealer", typeof(SoulStealerTransformationBuff),
             1f, 1f, 0,
             new TransformationDrain(0f, 0f), 
-            new SoulStealerAppearance())
+            new SoulStealerAppearance(),
+            new TransformationOverload(0, 0))
         {
         }
 
