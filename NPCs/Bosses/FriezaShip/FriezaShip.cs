@@ -565,14 +565,14 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				if (AITimer == 80)
 					TeleportToTheRightG();
 				if (AITimer == 81)
-					npc.velocity.X = 20f;
+					npc.velocity.X = 15f;
 				if (AITimer == 220)
 				{
 					count++;
 					npc.velocity = Vector2.Zero;
 				}
 				if (AITimer > 81 && AITimer < 230 && AITimer % 8 == 0)
-					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 8 * 16f), new Vector2(15f, 15f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 40, 1f);
+					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 8 * 16f), new Vector2(13f, 13f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 40, 1f);
 				if (count == PlayerCount().Count)
 				{
 					AdvanceStage(true);
@@ -587,7 +587,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		{
 			Player player = PlayerCount()[Random];
 
-			npc.position = new Vector2(player.Center.X - 80 * 16f, player.Center.Y - 40 * 16f);
+			npc.position = new Vector2(player.Center.X - 80 * 16f, player.Center.Y - 30 * 16f);
 
 			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
 			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
