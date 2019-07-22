@@ -52,6 +52,7 @@ namespace DBT.Projectiles.FriezaForce
 
             ExplodeEffect();
         }
+
 		public override void AI()
 		{
             _moveTimer++;
