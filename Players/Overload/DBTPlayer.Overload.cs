@@ -1,6 +1,7 @@
 ﻿using DBT.Projectiles.Overload;
 using DBT.Transformations;
 using DBT.UserInterfaces.OverloadBar;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace DBT.Players
@@ -38,10 +39,7 @@ namespace DBT.Players
                 overloadDecreaseTimer = 0;
 
             if (Overload >= MaxOverload && !IsOverloading)
-            {
-                Main.NewText("Is at max overload");
                 OnMaxOverload();
-            }
 
             if (Overload > MaxOverload)
                 Overload = MaxOverload;
@@ -55,20 +53,20 @@ namespace DBT.Players
 
         private void OnMaxOverload()
         {
-            Main.NewText("On max overload");
             IsOverloading = true;
             if (IsTransformed(TransformationDefinitionManager.Instance.SSJC) && !HasAcquiredTransformation(TransformationDefinitionManager.Instance.LSSJ))
-            {
                 AcquireAndTransform(TransformationDefinitionManager.Instance.LSSJ);
-            }
             else
-                DoOverloadEffects();
+                DoShaderEffects();
         }
 
-        private void DoOverloadEffects()
+        private void DoShaderEffects()
         {
-            Main.NewText("Overloaded effects");
             Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<ShaderOrb1>(), 0, 0, player.whoAmI);
+        }
+        public void DoOverloadOrb()
+        {              
+            Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<AuraOrb>(), 0, 0, player.whoAmI);
         }
 
 

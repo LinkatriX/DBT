@@ -6,50 +6,59 @@ using Terraria.ModLoader;
 
 namespace DBT.Projectiles.Overload
 {
-    public class ShaderOrb2 : ModProjectile
+    public class AuraOrb : ModProjectile
     {
-		private float scaletime;
         public override void SetDefaults()
         {
-            projectile.width = 1214;
-            projectile.height = 1214;
+            projectile.width = 12;
+            projectile.height = 12;
             projectile.timeLeft = 2000;
             projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.friendly = false;
             projectile.hostile = false;
-            projectile.aiStyle = 101;
+            projectile.aiStyle = -1;
+            projectile.scale = 2f;
             projectile.light = 0f;
-            projectile.stepSpeed = 13;
             projectile.netUpdate = true;
             projectile.damage = 0;
-			projectile.alpha = 255;
+			projectile.alpha = 0;
             projectile.scale = 0;
         }
 		public override Color? GetAlpha(Color lightColor)
         {
 			return new Color(255, 255, 255, projectile.alpha);
         }
+		
+		public override void AI()
+		{
+			Player player = Main.player[projectile.owner];
+			projectile.Center = player.Center + new Vector2(-30 - projectile.scale * 80, -30 - projectile.scale * 60);
 
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            projectile.Center = player.Center + new Vector2(-590 + projectile.scale * 590, 0);
-            projectile.alpha -= 5;
-
-            if (projectile.scale < 2.5f)
+            if (projectile.scale < 5f)
             {
-                projectile.scale += 0.03f;
+                projectile.scale += 0.01f;
+                projectile.ai[1]++;
             }
             else
                 projectile.Kill();
-        }
-        public override void Kill(int timeLeft)
-        {
-            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, mod.ProjectileType<ShaderOrb3>(), 0, 0, projectile.owner);
-        }
 
+            projectile.ai[0]++;
+            if (projectile.ai[0] >= 15)
+            {
+                int rotation = Main.rand.Next(60, 120);
+                Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<GreenRing>(), 0, 0, projectile.whoAmI, rotation);
+                projectile.ai[0] = 0;
+            }
+
+            if (projectile.ai[1] < 2000)
+            {
+                player.position.Y -= 0.4f;
+                player.velocity.X = 0;
+            }
+                
+        }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {

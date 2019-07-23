@@ -1,4 +1,5 @@
 using System;
+using DBT.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -20,7 +21,7 @@ namespace DBT.Projectiles.Overload
             projectile.friendly = false;
             projectile.hostile = false;
             projectile.aiStyle = 101;
-            projectile.light = 1f;
+            projectile.light = 0f;
             projectile.stepSpeed = 13;
             projectile.netUpdate = true;
             projectile.damage = 0;
@@ -46,13 +47,20 @@ namespace DBT.Projectiles.Overload
                 projectile.Kill();
         }
 
+        public override void Kill(int timeLeft)
+        {
+            Player player = Main.player[projectile.owner];
+            DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
+            modPlayer.DoOverloadOrb();
+        }
+
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
             int radius = (int)Math.Ceiling(projectile.width / 2f * projectile.scale);
-            //DBTMod.circle.ApplyShader(radius);
+            DBTMod.circle.ApplyShader(radius);
             return true;
         }
 
