@@ -38,6 +38,17 @@ namespace DBT.Players
             else
                 overloadDecreaseTimer = 0;
 
+            if (IsOverloading)
+                OverloadEffects();
+            else if (!IsOverloading)
+            {
+                OverloadDamageMultiplier = 1f;
+                if (DBTMod.IsTickRateElapsed(60))
+                    if (OverloadKiMultiplier < 1f)
+                        OverloadKiMultiplier += 0.01f;
+                    
+            }
+
             if (Overload >= MaxOverload && !IsOverloading)
                 OnMaxOverload();
 
@@ -69,6 +80,21 @@ namespace DBT.Players
             Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<AuraOrb>(), 0, 0, player.whoAmI);
         }
 
+        public void OverloadEffects()
+        {
+            if (DBTMod.IsTickRateElapsed(300))
+                OverloadDamageMultiplier = Main.rand.NextFloat(0.25f, 2f);
+            if (DBTMod.IsTickRateElapsed(120))
+                OverloadKiMultiplier -= 0.01f;
+
+            player.meleeDamage *= OverloadDamageMultiplier;
+            KiDamageMultiplier = OverloadDamageMultiplier;
+            player.rangedDamage *= OverloadDamageMultiplier;
+            player.thrownDamage *= OverloadDamageMultiplier;
+            player.magicDamage *= OverloadDamageMultiplier;
+            player.minionDamage *= OverloadDamageMultiplier;
+        }
+
 
         public int OverloadDecayRate { get; set; }
 
@@ -84,5 +110,9 @@ namespace DBT.Players
         }
 
         public float MaxOverload { get; set; }
+
+        public float OverloadKiMultiplier { get; set; } = 1f;
+
+        public float OverloadDamageMultiplier { get; set; } = 1f;
     }
 }

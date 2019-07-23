@@ -96,6 +96,9 @@ namespace DBT.Players
                 return;
             }
 
+            if (IsOverloading)
+                MaxKiMultiplier += OverloadKiMultiplier - 1f;
+
             if (Ki < MaxKi)
                 ModifyKi(NaturalKiRegeneration + ExternalKiRegenerationModifier);
         }

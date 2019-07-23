@@ -105,10 +105,18 @@ namespace DBT.UserInterfaces
                     spriteBatch.Draw(barSegmentTexture, segmentPosition, new Rectangle(0, 0, barSegmentTexture.Width, barSegmentTexture.Height), Color.White);
             }
         }
+        internal static Random random = new Random();
+        public static char GetLetter()
+        {
+            int num = random.Next(0, 26);
+            char let = (char)('a' + num);
+            return let;
+        }
 
         // TODO Rewrite this to use objects.
         public override void Update(GameTime gameTime)
         {
+            
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
 
             _cleanAverageEnergy.Add(dbtPlayer.Ki);
@@ -117,7 +125,11 @@ namespace DBT.UserInterfaces
                 _cleanAverageEnergy.RemoveRange(0, _cleanAverageEnergy.Count - 15);
 
             int averageKi = (int) Math.Floor(_cleanAverageEnergy.Sum() / 15f);
-            _label.SetText("Ki: " + averageKi + " / " + dbtPlayer.MaxKi);
+            if (!dbtPlayer.IsOverloading)
+                _label.SetText("Ki: " + averageKi + " / " + dbtPlayer.MaxKi);
+            else
+                _label.SetText("Ki: " + GetLetter() + GetLetter()+ GetLetter() + GetLetter() + " / " + GetLetter() + GetLetter() + GetLetter() + GetLetter());
+
 
             base.Update(gameTime);
         }
