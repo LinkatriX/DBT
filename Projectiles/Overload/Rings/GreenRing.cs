@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace DBT.Projectiles.Overload
+namespace DBT.Projectiles.Overload.Rings
 {
-    public class GreenRing : ModProjectile
+    public abstract class GreenRing : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -60,5 +60,21 @@ namespace DBT.Projectiles.Overload
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
         }
+    }
+
+    public class GreenRing1 : GreenRing
+    {
+    }
+
+    public class GreenRing2 : GreenRing
+    {
+    }
+
+    public class GreenRing3 : GreenRing
+    {
+    }
+
+    public class GreenRing4 : GreenRing
+    {
     }
 }

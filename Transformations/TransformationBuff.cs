@@ -42,9 +42,9 @@ namespace DBT.Transformations
             TransformationTimer++;
             bool isFormMastered = dbtPlayer.HasMastered(Definition);
 
-            float kiDrain = -(isFormMastered ? Definition.GetUnmasteredKiDrain(dbtPlayer) : Definition.GetMasteredKiDrain(dbtPlayer));
-            float healthDrain = -(isFormMastered ? Definition.GetUnmasteredHealthDrain(dbtPlayer) : Definition.GetMasteredHealthDrain(dbtPlayer));
-            float overloadIncrease = (isFormMastered ? Definition.GetUnmasteredOverloadGrowthRate(dbtPlayer) : Definition.GetMasteredOverloadGrowthRate(dbtPlayer));
+            float kiDrain = -(isFormMastered ? Definition.GetMasteredKiDrain(dbtPlayer) : Definition.GetUnmasteredKiDrain(dbtPlayer));
+            float healthDrain = -(isFormMastered ? Definition.GetMasteredHealthDrain(dbtPlayer) : Definition.GetUnmasteredHealthDrain(dbtPlayer));
+            float overloadIncrease = (isFormMastered ? Definition.GetMasteredOverloadGrowthRate(dbtPlayer) : Definition.GetUnmasteredOverloadGrowthRate(dbtPlayer));
 
             if (kiDrain != 0f)
             {

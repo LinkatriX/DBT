@@ -1,5 +1,6 @@
 using System;
 using DBT.Players;
+using DBT.Projectiles.Overload.Rings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -41,63 +42,70 @@ namespace DBT.Projectiles.Overload
             projectile.position.X = player.Center.X;
             projectile.position.Y = player.Center.Y;
             projectile.Center = player.Center + new Vector2(-50, -15 - projectile.scale * 45);
-
-            if (_sizeTimer < 500)
+            if (modPlayer.IsOverloading && modPlayer.IsTransformed())
             {
-                projectile.scale = _sizeTimer / 300f * 4;
-                _sizeTimer++;
-
-                projectile.ai[0]++;
-                if (projectile.ai[0] >= 10)
+                if (_sizeTimer < 500)
                 {
-                    int rotation = Main.rand.Next(60, 120);
-                    Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<GreenRing>(), 0, 0, projectile.owner, rotation);
-                    projectile.ai[0] = 0;
+                    projectile.scale = _sizeTimer / 300f * 4;
+                    _sizeTimer++;
+
+                    projectile.ai[0]++;
+                    if (projectile.ai[0] >= 10)
+                    {
+                        int rotation = Main.rand.Next(60, 120);
+                        Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, GetRingStyle(), 0, 0, projectile.owner, rotation);
+                        projectile.ai[0] = 0;
+                    }
+
+                    player.position.Y = player.oldPosition.Y - 0.45f;
+                    player.velocity.X = 0;
+                    player.immuneNoBlink = true;
+                }
+                if (_sizeTimer == 500)
+                {
+                    projectile.scale = 0f;
+                    _sizeTimer += 1;
                 }
 
-                player.position.Y = player.oldPosition.Y - 0.45f;
-                player.velocity.X = 0;
-                player.immuneNoBlink = true;
-            }
-            if (_sizeTimer == 500)
-            {
-                projectile.scale = 0f;
-                _sizeTimer += 1;
-            }
-                
-            else
-            {
-                if (modPlayer.IsCharging && _sizeTimer > 500)
+                if (player.dead)
+                    projectile.Kill();
+
+                else
                 {
-                    
-                    if (projectile.scale > 2.5f)
+                    if (modPlayer.IsCharging && _sizeTimer > 500)
                     {
-                        player.position.Y = player.oldPosition.Y;
-                        player.velocity.X = 0;
-                        projectile.ai[1]++;
-                        if (projectile.ai[1] > 60)
+
+                        if (projectile.scale > 2.5f)
                         {
-                            _blastTimer++;
-                            if (_blastTimer > 2)
+                            player.position.Y = player.oldPosition.Y;
+                            player.velocity.X = 0;
+                            projectile.ai[1]++;
+                            if (projectile.ai[1] > 60)
                             {
-                                int blastDamage = (int)modPlayer.KiDamageMultiplier * modPlayer.MaxKi / 60;
-                                Vector2 velocity = Vector2.UnitY.RotateRandom(MathHelper.TwoPi) * 30;
-                                Projectile.NewProjectile(player.Center.X, player.Center.Y, velocity.X, velocity.Y, mod.ProjectileType<OverloadBlast>(), blastDamage, 2f, projectile.owner);
-                                _blastTimer = 0;
+                                _blastTimer++;
+                                if (_blastTimer > 2)
+                                {
+                                    int blastDamage = (int)modPlayer.KiDamageMultiplier * modPlayer.MaxKi / 60;
+                                    Vector2 velocity = Vector2.UnitY.RotateRandom(MathHelper.TwoPi) * 30;
+                                    Projectile.NewProjectile(player.Center.X, player.Center.Y, velocity.X, velocity.Y, mod.ProjectileType<OverloadBlast>(), blastDamage, 2f, projectile.owner);
+                                    _blastTimer = 0;
+                                }
                             }
                         }
+                        else
+                        {
+                            projectile.scale += 0.02f;
+                            player.position.Y = player.oldPosition.Y - 2f;
+                            player.velocity.X = 0;
+                        }
+
                     }
-                    else
-                    {
-                        projectile.scale += 0.02f;
-                        player.position.Y = player.oldPosition.Y - 2f;
-                        player.velocity.X = 0;
-                    }
-                    
+                    if (DBTMod.Instance.energyChargeKey.JustReleased && projectile.scale != 0)
+                        projectile.scale = 0f;
                 }
-                if (DBTMod.Instance.energyChargeKey.JustReleased && projectile.scale != 0)
-                    projectile.scale = 0f;
             }
+            else
+                projectile.Kill();
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -113,6 +121,27 @@ namespace DBT.Projectiles.Overload
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+
+        public int GetRingStyle()
+        {
+            switch (Main.rand.Next(0, 3))
+            {
+                case 0:
+                    return mod.ProjectileType<GreenRing1>();
+
+                case 1:
+                    return mod.ProjectileType<GreenRing2>();
+
+                case 2:
+                    return mod.ProjectileType<GreenRing3>();
+
+                case 3:
+                    return mod.ProjectileType<GreenRing4>();
+
+                default:
+                    return mod.ProjectileType<GreenRing1>();
+            }
         }
     }
 }

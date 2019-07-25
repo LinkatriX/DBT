@@ -14,6 +14,7 @@ namespace DBT.Players
         {
             MaxOverload = 100;
             OverloadDecayRate = 5;
+            OverloadIncreaseMultiplier = 1f;
         }
 
         private void PreUpdateOverload()
@@ -31,7 +32,8 @@ namespace DBT.Players
                 {
                     if (DBTMod.IsTickRateElapsed(OverloadDecayRate))
                     {
-                        Overload--;
+                        if (Overload > 0)
+                            Overload--;
                     }
                 }
             }
@@ -49,6 +51,9 @@ namespace DBT.Players
                     
             }
 
+            if (player.dead)
+                Overload = 0;
+
             if (Overload >= MaxOverload && !IsOverloading)
                 OnMaxOverload();
 
@@ -59,6 +64,9 @@ namespace DBT.Players
                 DBTMod.Instance.overloadBar.Visible = true;
             else
                 DBTMod.Instance.overloadBar.Visible = false;
+
+            if (IsOverloading && Overload <= 0)
+                IsOverloading = false;
         }
 
 
@@ -114,5 +122,7 @@ namespace DBT.Players
         public float OverloadKiMultiplier { get; set; } = 1f;
 
         public float OverloadDamageMultiplier { get; set; } = 1f;
+
+        public float OverloadIncreaseMultiplier { get; set; }
     }
 }
