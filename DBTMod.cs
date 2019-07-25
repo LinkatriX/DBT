@@ -14,6 +14,7 @@ using DBT.UserInterfaces.CharacterMenus;
 using DBT.UserInterfaces.KiBar;
 using DBT.UserInterfaces.OverloadBar;
 using DBT.UserInterfaces;
+using DBT.UserInterfaces.KiAttackUI;
 
 namespace DBT
 {
@@ -31,6 +32,9 @@ namespace DBT
         internal DBTMenu dbtMenu;
 	    internal CharacterTransformationsMenu characterTransformationsMenu;
 	    internal UserInterface characterMenuInterface;
+
+		internal KiBrowserUIMenu kiBrowserMenu;
+		internal UserInterface kiBrowserInterface;
 
         public DBTMod()
 		{
@@ -83,10 +87,18 @@ namespace DBT
 
                 dbtMenu = new DBTMenu();
                 dbtMenu.Activate();
+
+				kiBrowserMenu = new KiBrowserUIMenu();
+				kiBrowserMenu.Activate();
+				kiBrowserInterface = new UserInterface();
+				kiBrowserInterface.SetState(kiBrowserMenu);
+
                 characterTransformationsMenu = new CharacterTransformationsMenu(this);
                 characterTransformationsMenu.Activate();
                 characterMenuInterface = new UserInterface();
                 characterMenuInterface.SetState(characterTransformationsMenu);
+
+				kiBrowserMenu.Visible = true;
 	        }
 	    }
 
@@ -95,6 +107,8 @@ namespace DBT
 	        if (!Main.dedServ)
 	        {
 	            kiBar.Visible = false;
+
+				kiBrowserMenu.Visible = false;
 
 	            characterTransformationsMenu.Visible = false;
 
@@ -110,6 +124,10 @@ namespace DBT
 	    {
 	        if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
+
+			if (kiBrowserInterface != null && kiBrowserMenu.Visible)
+				kiBrowserInterface.Update(gameTime);
+
         }
 
 		[Obsolete]
@@ -151,9 +169,9 @@ namespace DBT
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 	    {
-	        int
-	            resourcesLayerIndex = layers.FindIndex(l => l.Name.Contains("Resource Bars")),
-	            characterMenuIndex = layers.FindIndex(l => l.Name.Contains("Hotbar"));
+			int
+				resourcesLayerIndex = layers.FindIndex(l => l.Name.Contains("Resource Bars")),
+				characterMenuIndex = layers.FindIndex(l => l.Name.Contains("Hotbar"));
 
             if (resourcesLayerIndex != -1)
             {
@@ -161,7 +179,10 @@ namespace DBT
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
             }
             if (characterMenuIndex != -1)
-                layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
+			{
+				layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
+				layers.Insert(characterMenuIndex, new KiBrowserLayer(kiBrowserMenu, kiBrowserInterface));
+			}
         }
 
         public static uint GetTicks() => Main.GameUpdateCount;

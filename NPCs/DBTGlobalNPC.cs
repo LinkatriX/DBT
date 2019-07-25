@@ -26,7 +26,7 @@ namespace DBT.NPCs
 
 		public void DetectPlayerKills(NPC npc, DBTPlayer dbtPlayer)
 		{
-			if (npc.lastInteraction == Main.LocalPlayer.whoAmI) //detecs wheter or not the recent NPC has communicated with the player.
+			//if (npc.lastInteraction == Main.LocalPlayer.whoAmI) //detecs wheter or not the recent NPC has communicated with the player.
 				
 		}
 	}

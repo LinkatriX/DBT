@@ -832,7 +832,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		public int SummonSaibamen()
 		{
+#pragma warning disable CS0162 // Unreachable code detected
 			for (int i = 0; i <= MinionCount / 2; i++)
+#pragma warning restore CS0162 // Unreachable code detected
 			{
 				npc.netUpdate = true;
 
@@ -861,7 +863,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
                     TileVariablesDefinition();
                 }*/
 
+#pragma warning disable CS0162 // Unreachable code detected
 			for (int i = 0; i <= MinionCount / 2; i++)
+#pragma warning restore CS0162 // Unreachable code detected
 			{
 				npc.netUpdate = true;
 				switch (Main.rand.Next(0, 2))

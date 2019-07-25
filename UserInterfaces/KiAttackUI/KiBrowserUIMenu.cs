@@ -9,7 +9,7 @@ using DBT.Items.Accessories;
 
 namespace DBT.UserInterfaces.KiAttackUI
 {
-	public class KiAttackUIMenu : UIState
+	public class KiBrowserUIMenu : UIState
 	{
 		public override void OnInitialize()
 		{
@@ -22,6 +22,8 @@ namespace DBT.UserInterfaces.KiAttackUI
 			BackPanel.Top.Set(Main.screenHeight / 2f - BackPanel.Height.Pixels / 2f, 0f);
 			BackPanel.BackgroundColor = new Color(67, 58, 58);
 			Append(BackPanel);
+
+			KiSlotButtonDefinition Button1 = new KiSlotButtonDefinition(NextPageDel, Main.magicPixel, "AAAA", BackPanel, false);
 		}
 
 		//Texture2D text = ModContent.GetTexture("DBT/Items/Accessories/BatteKit");
@@ -31,5 +33,7 @@ namespace DBT.UserInterfaces.KiAttackUI
 		public delegate void Call(UIMouseEvent evt, UIElement listeningElement);
 
 		public Call NextPageDel;
+
+		public bool Visible { get; set; }
 	}
 }

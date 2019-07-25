@@ -7,10 +7,10 @@ using Terraria.UI;
 
 namespace DBT.UserInterfaces.KiAttackUI
 {
-	public class KiSlotButtonDefinition : UIState //requires some accessebility parameter that will be making the attack dark/light
+	public class KiSlotButtonDefinition : UIImageButton //requires some accessebility parameter that will be making the attack dark/light
 	{
-		public KiSlotButtonDefinition(KiAttackUIMenu.Call methodDelegate, Texture2D texture, 
-			string textHover, UIPanel attPanel, bool attackIsUnlocked)
+		public KiSlotButtonDefinition(KiBrowserUIMenu.Call methodDelegate, Texture2D texture, 
+			string textHover, UIPanel attPanel, bool attackIsUnlocked) : base(Main.magicPixel)
 		{
 			STexture = texture;
 
@@ -25,9 +25,7 @@ namespace DBT.UserInterfaces.KiAttackUI
 
 		public override void OnInitialize() //Only takes care of drawing the BackGround of the button.
 		{
-			base.OnInitialize();
-
-			Button = new UIPanel();
+			Button = new UIImageButton(Main.magicPixel);
 			Button.Width.Set(16, 0f);
 			Button.Height.Set(16, 0f);
 			Button.Left.Set(AttachPanel.Width.Pixels / 2f + 200, 0f);
@@ -60,7 +58,7 @@ namespace DBT.UserInterfaces.KiAttackUI
 
 		private string HoverText { get; }
 		private UIPanel AttachPanel { get; }
-		private UIPanel Button { get; set; }//Keep as a pannel since the button requires a texture, but we need to draw it manually.
+		private UIImageButton Button { get; set; }//Keep as a pannel since the button requires a texture, but we need to draw it manually.
 		private Texture2D STexture { get; set; }
 		private bool AttackAccessed { get; set; }
 
@@ -68,6 +66,6 @@ namespace DBT.UserInterfaces.KiAttackUI
 
 		Vector2 DrawPos;
 
-		KiAttackUIMenu.Call MethodCalling;
+		KiBrowserUIMenu.Call MethodCalling;
 	}
 }
