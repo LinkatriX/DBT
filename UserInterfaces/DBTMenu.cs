@@ -152,6 +152,6 @@ namespace DBT.UserInterfaces
 
         public Vector2 Offset { get; protected set; }
 
-        public bool Dragging { get; protected set; }-
+        public bool Dragging { get; protected set; }
     }
 }
