@@ -124,6 +124,7 @@ namespace DBT.Skills
         public HolyWrathDefinition HolyWrath { get; private set; }
         public MajinExtinctionAttackDefinition MajinExtinctionAttack { get; private set; }
         public SuperSpiritBombDefinition SuperSpiritBomb { get; private set; }
+        
         #endregion
     }
 }
