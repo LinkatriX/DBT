@@ -152,12 +152,9 @@ namespace DBT
             }
         }
 
-        public override void HandlePacket(BinaryReader reader, int whoAmI)
-	    {
-	        NetworkPacketManager.Instance.HandlePacket(reader, whoAmI);
-	    }
+        public override void HandlePacket(BinaryReader reader, int whoAmI) => NetworkPacketManager.Instance.HandlePacket(reader, whoAmI);
 
-        public override void PostSetupContent()
+		public override void PostSetupContent()
         {
             // Boss checklist support
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");

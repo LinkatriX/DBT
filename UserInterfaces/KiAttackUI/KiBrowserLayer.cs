@@ -5,9 +5,9 @@ namespace DBT.UserInterfaces.KiAttackUI
 {
 	public sealed class KiBrowserLayer : GameInterfaceLayer
 	{
-		public KiBrowserLayer(KiBrowserUIMenu transformationsMenu, UserInterface @interface) : base(transformationsMenu.GetType().FullName, InterfaceScaleType.UI)
+		public KiBrowserLayer(KiBrowserUIMenu browserMenu, UserInterface @interface) : base(browserMenu.GetType().FullName, InterfaceScaleType.UI)
 		{
-			BrowserMenu = transformationsMenu;
+			BrowserMenu = browserMenu;
 			Interface = @interface;
 		}
 

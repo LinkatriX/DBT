@@ -1,4 +1,5 @@
 ﻿using DBT.UserInterfaces.Buttons;
+using DBT.UserInterfaces.KiAttackUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -35,6 +36,15 @@ namespace DBT.UserInterfaces
             InitializeUIElement<UIImage>(ref image, texture, offsetX, offsetY, parent);
             return image;
         }
+
+		protected KiSlotButtonDefinition InitializeKiMenuButton(MouseEvent onClick, Texture2D texture, string hoverText, bool isAccessed, float offsetX, float offsetY, UIElement parent = null)
+		{
+			KiSlotButtonDefinition button = new KiSlotButtonDefinition(texture, hoverText, isAccessed);
+			button.OnClick += onClick;
+
+			InitializeUIElement<KiSlotButtonDefinition>(ref button, texture, offsetX, offsetY, parent);
+			return button;
+		}
 
         protected UIText InitializeText(string shownText, float offsetX, float offsetY, float scale = 1, Color color = default(Color), UIElement parent = null)
         {
@@ -142,6 +152,6 @@ namespace DBT.UserInterfaces
 
         public Vector2 Offset { get; protected set; }
 
-        public bool Dragging { get; protected set; }
+        public bool Dragging { get; protected set; }-
     }
 }
