@@ -788,7 +788,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 						DoSlam();
 						npc.netUpdate = true;
 					}
-					else if (SlamCounter == SSDelay + 20)
+					else if (SlamCounter == SSDelay + 13)
 					{
 						ExplodeEffect(new Vector2(npc.Center.X, npc.Center.Y));
 						SoundHelper.PlayCustomSound("Sounds/KiExplosion", npc.Center);
@@ -832,7 +832,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		public int SummonSaibamen()
 		{
+#pragma warning disable CS0162 // Unreachable code detected
 			for (int i = 0; i <= MinionCount / 2; i++)
+#pragma warning restore CS0162 // Unreachable code detected
 			{
 				npc.netUpdate = true;
 
@@ -861,7 +863,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
                     TileVariablesDefinition();
                 }*/
 
+#pragma warning disable CS0162 // Unreachable code detected
 			for (int i = 0; i <= MinionCount / 2; i++)
+#pragma warning restore CS0162 // Unreachable code detected
 			{
 				npc.netUpdate = true;
 				switch (Main.rand.Next(0, 2))
@@ -902,6 +906,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			if (resetiter)
 				IterationCount = 0;
 			npc.netUpdate = true;
+			npc.noTileCollide = false;
 		}
 
 		private void ResetStage()
@@ -981,6 +986,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				npc.noTileCollide = false;
 				ResetStage();
 			}
+
+			if (npc.velocity == Vector2.Zero)
+				npc.noTileCollide = true;
 
 			npc.netUpdate = true;
 		}
