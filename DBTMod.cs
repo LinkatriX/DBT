@@ -14,6 +14,8 @@ using DBT.UserInterfaces.CharacterMenus;
 using DBT.UserInterfaces.KiBar;
 using DBT.UserInterfaces.OverloadBar;
 using DBT.UserInterfaces;
+using DBT.Effects;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace DBT
 {
@@ -30,6 +32,8 @@ namespace DBT
         internal DBTMenu dbtMenu;
 	    internal CharacterTransformationsMenu characterTransformationsMenu;
 	    internal UserInterface characterMenuInterface;
+
+        internal static CircleShader circle;
 
         public DBTMod()
 		{
@@ -88,7 +92,9 @@ namespace DBT
                 characterTransformationsMenu.Activate();
                 characterMenuInterface = new UserInterface();
                 characterMenuInterface.SetState(characterTransformationsMenu);
-	        }
+
+                circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
+            }
 	    }
 
 	    public override void Unload()

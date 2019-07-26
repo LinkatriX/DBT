@@ -13,7 +13,7 @@ namespace DBT.Transformations.LSSJs.SSJCType
             3.9f, 3.9f, 26, 
             new TransformationDrain(4, 2),
             new LSSJTransformationAppearance(),
-            new TransformationOverload(0.1f, 0.05f), 
+            new TransformationOverload(0.06f, 0.03f), 
             parents: parents)
         {
         }

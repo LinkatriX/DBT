@@ -10,7 +10,7 @@ namespace DBT.UserInterfaces.Buttons
     {
         public UIHoverImageButton(Texture2D texture, string hoverText) : base(texture)
         {
-            HoverText = HoverText;
+            HoverText = hoverText;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)

@@ -66,8 +66,6 @@ namespace DBT.Players
 
             KiDrainMultiplier = 1;
             KiDrainModifier = 0;
-
-            OverloadIncreaseMultiplier = 1;
         }
 
         internal void PreUpdateKi()
@@ -95,6 +93,9 @@ namespace DBT.Players
                 KiRegenerationHaltedFor--;
                 return;
             }
+
+            if (OverloadKiMultiplier != 0)
+                MaxKiMultiplier += OverloadKiMultiplier - 1f;
 
             if (Ki < MaxKi)
                 ModifyKi(NaturalKiRegeneration + ExternalKiRegenerationModifier);
@@ -165,7 +166,5 @@ namespace DBT.Players
 
         public float KiDrainMultiplier { get; set; }
         public float KiDrainModifier { get; set; }
-
-        public float OverloadIncreaseMultiplier { get; set; }
     }
 }
