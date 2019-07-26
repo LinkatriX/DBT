@@ -19,7 +19,7 @@ namespace DBT
 {
 	public sealed class DBTMod : Mod
 	{
-	    internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey;
+	    internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey, instantTransmission;
 
 	    internal KiBar kiBar;
 	    internal UserInterface kiBarInterface;
@@ -60,12 +60,13 @@ namespace DBT
 	            transformDownKey = RegisterHotKey("Transform Down", "V");
 	            transformUpKey = RegisterHotKey("Transform Up", "X");
                 flightToggleKey = RegisterHotKey("Flight Toggle", "Q");
+                instantTransmission = RegisterHotKey("Instant Transmission", "I");
 
-	            #endregion
+                #endregion
 
-	            #region Ki Bar
+                #region Ki Bar
 
-	            kiBar = new KiBar();
+                kiBar = new KiBar();
 	            kiBar.Activate();
 
 	            kiBarInterface = new UserInterface();

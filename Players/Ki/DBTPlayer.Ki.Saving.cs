@@ -15,5 +15,10 @@ namespace DBT.Players
             Ki = tag.GetFloat(nameof(Ki));
             BaseMaxKi = tag.GetFloat(nameof(BaseMaxKi));
         }
+
+        private bool HasKi(float kiAmount)
+        {
+            return Ki >= kiAmount;
+        }
     }
 }

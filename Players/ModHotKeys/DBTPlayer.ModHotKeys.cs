@@ -33,6 +33,13 @@ namespace DBT.Players
             else
                 IsCharging = false;
 
+            //Test code
+            //UpdateSynchronizedControls(triggersSet);
+
+            //SyncTriggerSet();
+
+            //_mProgressionSystem.Update(player);
+
             MouseLeftHeld = triggersSet.MouseLeft;
             MouseRightHeld = triggersSet.MouseRight;
 

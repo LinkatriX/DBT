@@ -53,7 +53,6 @@ namespace DBT.Auras
         public int GetHeight(DBTPlayer dbtPlayer) => GetTexture(dbtPlayer).Height / FramesCount;
         public int GetWidth(DBTPlayer dbtPlayer) => GetTexture(dbtPlayer).Width;
 
-
         public Tuple<float, Vector2> GetRotationAndPosition(DBTPlayer dbtPlayer)
         {
             bool playerMostlyStationary = Math.Abs(dbtPlayer.player.velocity.X) <= 6f && Math.Abs(dbtPlayer.player.velocity.Y) <= 6f;
@@ -66,12 +65,42 @@ namespace DBT.Auras
 
             // TODO Add code for flight aura animation.
 
+            if (dbtPlayer.isFlying && !playerMostlyStationary && !dbtPlayer.isPlayerUsingKiWeapon)
+            {
+                // ever so slightly shift the aura down a tad.
+                var forwardOffset = (int)Math.Floor(dbtPlayer.player.height * 0.75f);
+                double rotationOffset = dbtPlayer.player.fullRotation <= 0f ? (float)Math.PI : -(float)Math.PI;
+                rotation = (float)(dbtPlayer.player.fullRotation + rotationOffset);
+
+                // using the angle of attack, construct the cartesian offsets of the aura based on the height of both things
+                double widthRadius = dbtPlayer.player.width / 4;
+                double heightRadius = dbtPlayer.player.height / 4;
+                double auraWidthRadius = GetWidth(dbtPlayer) / 4;
+                double auraHeightRadius = GetHeight(dbtPlayer) / 4;
+
+                // for right now, I'm just doing this with some hard coding. When we get more aura work done
+                // we can try to unify this code a bit.
+                double widthOffset = auraWidthRadius - (widthRadius + auraOffsetY + forwardOffset);
+                double heightOffset = auraHeightRadius - (heightRadius + auraOffsetY + forwardOffset);
+                double cartesianOffsetX = widthOffset * Math.Cos(dbtPlayer.player.fullRotation);
+                double cartesianOffsetY = heightOffset * Math.Sin(dbtPlayer.player.fullRotation);
+
+                Vector2 cartesianOffset = dbtPlayer.player.Center + new Vector2((float)-cartesianOffsetY, (float)cartesianOffsetX);
+
+                // offset the aura
+                position = cartesianOffset;
+            }
+            else
+            {
+                position = dbtPlayer.player.Center + new Vector2(0f, auraOffsetY);
+                rotation = 0f;
+            }
             //if (playerMostlyStationary)
             //{
-                position = dbtPlayer.player.Center + new Vector2(-0.75f, auraOffsetY);
-                rotation = 0f;
+            //position = dbtPlayer.player.Center + new Vector2(-0.75f, auraOffsetY);
+            //rotation = 0f;
             //}
-
+            
             return new Tuple<float, Vector2>(rotation, position);
         }
 
