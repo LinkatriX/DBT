@@ -1,6 +1,7 @@
 ﻿using DBT.Projectiles.Overload;
 using DBT.Transformations;
 using DBT.UserInterfaces.OverloadBar;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace DBT.Players
@@ -13,6 +14,7 @@ namespace DBT.Players
         {
             MaxOverload = 100;
             OverloadDecayRate = 5;
+            OverloadIncreaseMultiplier = 1f;
         }
 
         private void PreUpdateOverload()
@@ -30,18 +32,30 @@ namespace DBT.Players
                 {
                     if (DBTMod.IsTickRateElapsed(OverloadDecayRate))
                     {
-                        Overload--;
+                        if (Overload > 0)
+                            Overload--;
                     }
                 }
             }
             else
                 overloadDecreaseTimer = 0;
 
-            if (Overload >= MaxOverload && !IsOverloading)
+            if (IsOverloading)
+                OverloadEffects();
+            else if (!IsOverloading)
             {
-                Main.NewText("Is at max overload");
-                OnMaxOverload();
+                OverloadDamageMultiplier = 1f;
+                if (DBTMod.IsTickRateElapsed(60))
+                    if (OverloadKiMultiplier < 1f)
+                        OverloadKiMultiplier += 0.01f;
+                    
             }
+
+            if (player.dead)
+                Overload = 0;
+
+            if (Overload >= MaxOverload && !IsOverloading)
+                OnMaxOverload();
 
             if (Overload > MaxOverload)
                 Overload = MaxOverload;
@@ -50,25 +64,43 @@ namespace DBT.Players
                 DBTMod.Instance.overloadBar.Visible = true;
             else
                 DBTMod.Instance.overloadBar.Visible = false;
+
+            if (IsOverloading && Overload <= 0)
+                IsOverloading = false;
         }
 
 
         private void OnMaxOverload()
         {
-            Main.NewText("On max overload");
             IsOverloading = true;
             if (IsTransformed(TransformationDefinitionManager.Instance.SSJC) && !HasAcquiredTransformation(TransformationDefinitionManager.Instance.LSSJ))
-            {
                 AcquireAndTransform(TransformationDefinitionManager.Instance.LSSJ);
-            }
             else
-                DoOverloadEffects();
+                DoShaderEffects();
         }
 
-        private void DoOverloadEffects()
+        private void DoShaderEffects()
         {
-            Main.NewText("Overloaded effects");
             Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<ShaderOrb1>(), 0, 0, player.whoAmI);
+        }
+        public void DoOverloadOrb()
+        {              
+            Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<AuraOrb>(), 0, 0, player.whoAmI);
+        }
+
+        public void OverloadEffects()
+        {
+            if (DBTMod.IsTickRateElapsed(300))
+                OverloadDamageMultiplier = Main.rand.NextFloat(0.25f, 2f);
+            if (DBTMod.IsTickRateElapsed(120))
+                OverloadKiMultiplier -= 0.01f;
+
+            player.meleeDamage *= OverloadDamageMultiplier;
+            KiDamageMultiplier = OverloadDamageMultiplier;
+            player.rangedDamage *= OverloadDamageMultiplier;
+            player.thrownDamage *= OverloadDamageMultiplier;
+            player.magicDamage *= OverloadDamageMultiplier;
+            player.minionDamage *= OverloadDamageMultiplier;
         }
 
 
@@ -86,5 +118,11 @@ namespace DBT.Players
         }
 
         public float MaxOverload { get; set; }
+
+        public float OverloadKiMultiplier { get; set; } = 1f;
+
+        public float OverloadDamageMultiplier { get; set; } = 1f;
+
+        public float OverloadIncreaseMultiplier { get; set; }
     }
 }

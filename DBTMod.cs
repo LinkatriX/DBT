@@ -22,9 +22,7 @@ namespace DBT
 {
 	public sealed class DBTMod : Mod
 	{
-		internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey, instantTransmission;
-		internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey, instantTransmission;
-
+	  internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey, instantTransmission;
 		internal KiBar kiBar;
 		internal UserInterface kiBarInterface;
 
@@ -34,7 +32,6 @@ namespace DBT
 		internal DBTMenu dbtMenu;
 		internal CharacterTransformationsMenu characterTransformationsMenu;
 		internal UserInterface characterMenuInterface;
-
 		internal static CircleShader circle;
 
 		public DBTMod()
@@ -74,51 +71,6 @@ namespace DBT
 				instantTransmission = RegisterHotKey("Instant Transmission", "I");
 
 				#endregion
-
-				characterMenuKey = RegisterHotKey("Character Menu", "K");
-				energyChargeKey = RegisterHotKey("Energy Charge", "C");
-				speedToggleKey = RegisterHotKey("Speed Toggle", "Z");
-				transformDownKey = RegisterHotKey("Transform Down", "V");
-				transformUpKey = RegisterHotKey("Transform Up", "X");
-				flightToggleKey = RegisterHotKey("Flight Toggle", "Q");
-				instantTransmission = RegisterHotKey("Instant Transmission", "I");
-
-				#endregion
-
-				#region Ki Bar
-
-				kiBar = new KiBar();
-				kiBar.Activate();
-
-				kiBarInterface = new UserInterface();
-				kiBarInterface.SetState(kiBar);
-				#region Ki Bar
-
-				kiBar = new KiBar();
-				kiBar.Activate();
-
-				kiBarInterface = new UserInterface();
-				kiBarInterface.SetState(kiBar);
-
-				kiBar.Visible = true;
-
-				#endregion
-
-				dbtMenu = new DBTMenu();
-				dbtMenu.Activate();
-				characterTransformationsMenu = new CharacterTransformationsMenu(this);
-				characterTransformationsMenu.Activate();
-				characterMenuInterface = new UserInterface();
-				characterMenuInterface.SetState(characterTransformationsMenu);
-
-				circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
-			}
-		}
-		overloadBar = new OverloadBar();
-		overloadBar.Activate();
-				overloadBarInterface = new UserInterface();
-		overloadBarInterface.SetState(overloadBar);
-
 
 				dbtMenu = new DBTMenu();
 		dbtMenu.Activate();

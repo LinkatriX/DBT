@@ -4,7 +4,7 @@ using DBT.Transformations;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace DBT.Players
+namespace DBT.Players //:ech
 {
     public sealed partial class DBTPlayer
     {
@@ -55,9 +55,7 @@ namespace DBT.Players
             layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsBack"), AuraAnimationInformation.auraLayer);
         }
 
-
         public AuraAppearance Aura { get; private set; }
-
 
         public int AuraFrameTimer { get; private set; }
 

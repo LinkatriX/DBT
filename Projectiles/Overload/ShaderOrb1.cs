@@ -20,7 +20,7 @@ namespace DBT.Projectiles.Overload
             projectile.friendly = false;
             projectile.hostile = false;
             projectile.aiStyle = 101;
-            projectile.light = 1f;
+            projectile.light = 0f;
             projectile.netUpdate = true;
             projectile.damage = 0;
 			projectile.alpha = 255;
@@ -55,7 +55,7 @@ namespace DBT.Projectiles.Overload
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
             int radius = (int)Math.Ceiling(projectile.width / 2f * projectile.scale);
-            //DBTMod.circle.ApplyShader(radius);
+            DBTMod.circle.ApplyShader(radius);
             return true;
         }
 

@@ -24,7 +24,7 @@ namespace DBT.Projectiles.Overload
             item.shootSpeed = 0f;
             item.useAnimation = 15;
             item.useStyle = 4;
-            item.shoot = mod.ProjectileType<ShaderOrb1>();
+            item.shoot = mod.ProjectileType<AuraOrb>();
             item.knockBack = 6;
             item.value = 10000;
             item.rare = 2;
