@@ -67,6 +67,21 @@ namespace DBT
 
                 #endregion
 
+                kiBar = new KiBar();
+                kiBar.Activate();
+
+                kiBarInterface = new UserInterface();
+                kiBarInterface.SetState(kiBar);
+                kiBarInterface = new UserInterface();
+                kiBarInterface.SetState(kiBar);
+
+                kiBar.Visible = true;
+
+                overloadBar = new OverloadBar();
+                overloadBar.Activate();
+                overloadBarInterface = new UserInterface();
+                overloadBarInterface.SetState(overloadBar);
+
                 dbtMenu = new DBTMenu();
                 dbtMenu.Activate();
 
@@ -89,7 +104,6 @@ namespace DBT
                 };
 
                 Instance = this;
-                #region Load/Unloading
 
                 circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
 
@@ -112,8 +126,6 @@ namespace DBT
 
             Instance = null;
         }
-
-        #endregion
 
         public override void UpdateUI(GameTime gameTime)
         {
