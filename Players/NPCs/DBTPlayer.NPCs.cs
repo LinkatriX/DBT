@@ -10,6 +10,7 @@ namespace DBT.Players
     public sealed partial class DBTPlayer
     {
         private List<NPC> _aliveBosses;
+        private Dictionary<NPC, int> _aliveTownNPCs;
 
         public List<NPC> AliveBosses
         {
@@ -23,6 +24,17 @@ namespace DBT.Players
                 }
 
                 return _aliveBosses;
+            }
+        }
+        public Dictionary<NPC, int> AliveTownNPCs
+        {
+            get
+            {
+                for (int i = 0; i < Main.npc.Length; i++)
+                    if (Main.npc[i].townNPC && Main.npc[i].active)
+                        _aliveTownNPCs.Add(Main.npc[i], 0);
+
+                return _aliveTownNPCs;
             }
         }
 

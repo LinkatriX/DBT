@@ -16,5 +16,15 @@ namespace DBT.NPCs
             if (npc.lastInteraction == Main.LocalPlayer.whoAmI)
                 dbtPlayer.OnKilledNPC(npc);
         }
+
+        public override void GetChat(NPC npc, ref string chat)
+        {
+            DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
+
+            if (dbtPlayer.AliveTownNPCs.ContainsKey(npc))
+                dbtPlayer.AliveTownNPCs[npc] += 1;
+
+            base.GetChat(npc, ref chat);
+        }
     }
 }
