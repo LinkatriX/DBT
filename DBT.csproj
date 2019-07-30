@@ -18,6 +18,25 @@
     <None Remove="Sets.rar" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Items\Guardian\Support\" />
+    <Folder Include="Items\Guardian\Weapons\" />
+    <Folder Include="Skills\ExplosiveWave\" />
+    <Folder Include="Skills\FingerBeam\" />
+    <Folder Include="Skills\Masendan\" />
+    <Folder Include="Skills\DimensionalHole\" />
+    <Folder Include="Skills\MajinBarrier\" />
+    <Folder Include="Skills\KiStabilizationAura\" />
+    <Folder Include="Skills\KiReservationalAura\" />
+    <Folder Include="Skills\DemonicSpit\" />
+    <Folder Include="Skills\Kaifuku\" />
+    <Folder Include="Skills\KiOvercharge\" />
+    <Folder Include="Skills\KiSiphonScepter\" />
+    <Folder Include="Skills\GuardianMending\" />
+    <Folder Include="Skills\ShiningLight\" />
+    <Folder Include="Skills\ThunderShockSurprise\" />
+    <Folder Include="Skills\SolarFlare\" />
+    <Folder Include="Skills\TelekineticEnhancement\" />
+    <Folder Include="Skills\SuperExplosiveWave\" />
     <Folder Include="Transformations\Terrarians\" />
   </ItemGroup>
   <ItemGroup>

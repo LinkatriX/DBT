@@ -18,7 +18,6 @@ namespace DBT.Transformations
 
         private readonly List<RaceDefinition> _limitedToRaces;
 
-        // Still trying to figure out a way to reduce the parameter count.
         protected TransformationDefinition(string unlocalizedName, string displayName, Type buffType,
             float baseDamageMultiplier, float baseSpeedMultiplier, int baseDefenseAdditive, 
             TransformationDrain drain, TransformationAppearance appearance, TransformationOverload overload,
