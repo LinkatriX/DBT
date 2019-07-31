@@ -19,7 +19,7 @@ namespace DBT.UserInterfaces.KiAttackUI
 			AttackAccessed = attackIsUnlocked;
 		}
 
-		protected override void DrawSelf(SpriteBatch spriteBatch)
+		/*protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			base.DrawSelf(spriteBatch);
 
@@ -35,7 +35,7 @@ namespace DBT.UserInterfaces.KiAttackUI
 
 			Rectangle source = new Rectangle(0,0, STexture.Width, STexture.Height);
 			spriteBatch.Draw(STexture, DrawPos, source, AttackAccessed ? default : new Color(105, 105, 105));
-		}
+		}*/
 
 
 		public virtual string GetHoverText(DBTPlayer DbtPlayer) => HoverText;

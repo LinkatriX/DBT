@@ -1,4 +1,4 @@
-﻿using Terraria.ID;
+﻿/*using Terraria.ID;
 
 namespace DBT.Skills.EnergyBurst
 {
@@ -51,6 +51,6 @@ namespace DBT.Skills.EnergyBurst
                     player.itemRotation = 0;
                 }
             }
-        }*/
+        }
     }
-}
+}*/

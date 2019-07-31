@@ -11,13 +11,13 @@ namespace DBT.UserInterfaces.KiAttackUI
 			Interface = @interface;
 		}
 
-		protected override bool DrawSelf()
+		/*protected override bool DrawSelf()
 		{
 			if (BrowserMenu.Visible)
 				Interface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 
 			return true;
-		}
+		}*/
 
 		public KiBrowserUIMenu BrowserMenu { get; }
 
