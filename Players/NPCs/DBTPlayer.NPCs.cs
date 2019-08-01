@@ -30,10 +30,6 @@ namespace DBT.Players
         {
             get
             {
-                for (int i = 0; i < Main.npc.Length; i++)
-                    if (Main.npc[i].townNPC && Main.npc[i].active)
-                        _aliveTownNPCs.Add(Main.npc[i], 0);
-
                 return _aliveTownNPCs;
             }
         }

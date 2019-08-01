@@ -12,6 +12,7 @@ namespace DBT.Players
         private void PostUpdateHandleTransformations()
         {
             PostUpdateHandleTransformationsVisuals();
+            UpdateConditions();
         }
 
         private void HandleTransformationsOnEnterWorld(Player player)
