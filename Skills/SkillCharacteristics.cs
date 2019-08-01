@@ -15,7 +15,7 @@ namespace DBT.Skills
         /// <param name="baseCriticalChanceMultiplierPerCharge"></param>
         /// <param name="baseCriticalMultiplier"></param>
         /// <param name="baseCriticalMultiplierMultiplierPerCharge"></param>
-        public SkillCharacteristics(SkillChargeCharacteristics skillChargeCharacteristics, int baseDamage, float baseDamageMultiplierPerCharge, float baseShootSpeed, float baseKnockback, float baseKnockbackMultiplierPerCharge, 
+        public SkillCharacteristics(SkillChargeCharacteristics skillChargeCharacteristics, int baseDamage, float baseDamageMultiplierPerCharge, float baseShootSpeed, float baseKnockback, float baseKnockbackMultiplierPerCharge,
             float baseCriticalChance, float baseCriticalChanceMultiplierPerCharge, float baseCriticalMultiplier, float baseCriticalMultiplierMultiplierPerCharge)
         {
             ChargeCharacteristics = skillChargeCharacteristics;

@@ -53,12 +53,11 @@ namespace DBT.Skills
             if (chargeKiDrain > 0)
             {
                 tooltips.Insert(++tooltipIndex, this.chargeKiDrain = new TooltipLine(mod, TOOLTIP_KI_CHARGE_CONSUMPTION_LINE_NAME, "Consumes " + chargeKiDrain * Constants.TICKS_PER_SECOND + "/s while charging"));
-                this.chargeKiDrain.overrideColor = new Color(255, 0, 0);
+                this.chargeKiDrain.overrideColor = new Color(17, 138, 132);
             }
 
             base.ModifyTooltips(tooltips);
         }
-
 
         public override void UpdateInventory(Player player)
         {
@@ -70,12 +69,12 @@ namespace DBT.Skills
             item.shootSpeed = Definition.Characteristics.GetShootSpeed(dbtPlayer, 1);
         }
 
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult)
+        /*public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
             add = Definition.Characteristics.BaseDamage - Definition.Characteristics.GetDamage(player.GetModPlayer<DBTPlayer>(), 0);
 
-            base.ModifyWeaponDamage(player, ref add, ref mult);
-        }
+            base.ModifyWeaponDamage(player, ref add, ref mult, ref flat);
+        }*/
 
         public override void GetWeaponKnockback(Player player, ref float knockback)
         {
