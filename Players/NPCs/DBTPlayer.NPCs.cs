@@ -4,13 +4,33 @@ using DBT.NPCs.Bosses.FriezaShip;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader.IO;
 
 namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
+        //private int[] _npcFriendship;
         private List<NPC> _aliveBosses;
-        private Dictionary<NPC, int> _aliveTownNPCs;
+
+        /*public int[] NPCFriendship
+        {
+            get
+            {
+                if (_npcFriendship == null)
+                {
+                    int i = 0;
+                    _npcFriendship = new int[AliveTownNPCs.Values.Count];
+
+                    foreach (KeyValuePair<NPC, int> entry in AliveTownNPCs)
+                    {
+                        _npcFriendship[i] = entry.Value;
+                        i++;
+                    }
+                }
+                return _npcFriendship;
+            }
+        }*/
 
         public List<NPC> AliveBosses
         {
@@ -26,13 +46,7 @@ namespace DBT.Players
                 return _aliveBosses;
             }
         }
-        public Dictionary<NPC, int> AliveTownNPCs
-        {
-            get
-            {
-                return _aliveTownNPCs;
-            }
-        }
+        public Dictionary<NPC, int> AliveTownNPCs { get; set; }
 
         private void CheckFriezaShipSpawn()
         {
