@@ -186,6 +186,7 @@ namespace DBT.Players
             PostUpdateKi();
             PostUpdateOverload();
             PostUpdateHandleTransformations();
+            UpdateNPCs();
 
             // neuters flight if the player gets immobilized. Note the lack of Katchin Feet buff.
             if (IsPlayerImmobilized() && isFlying)
