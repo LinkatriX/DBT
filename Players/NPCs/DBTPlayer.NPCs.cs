@@ -10,27 +10,13 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        //private int[] _npcFriendship;
         private List<NPC> _aliveBosses;
 
-        /*public int[] NPCFriendship
+        private void UpdateNPCs()
         {
-            get
-            {
-                if (_npcFriendship == null)
-                {
-                    int i = 0;
-                    _npcFriendship = new int[AliveTownNPCs.Values.Count];
-
-                    foreach (KeyValuePair<NPC, int> entry in AliveTownNPCs)
-                    {
-                        _npcFriendship[i] = entry.Value;
-                        i++;
-                    }
-                }
-                return _npcFriendship;
-            }
-        }*/
+            if (FriendshipCooldown > 0)
+                FriendshipCooldown--;
+        }
 
         public List<NPC> AliveBosses
         {
@@ -46,7 +32,8 @@ namespace DBT.Players
                 return _aliveBosses;
             }
         }
-        public Dictionary<NPC, int> AliveTownNPCs { get; set; }
+        public Dictionary<int, int> AliveTownNPCs { get; set; } = new Dictionary<int, int>();
+        public int FriendshipCooldown { get; set; } = 0;
 
         private void CheckFriezaShipSpawn()
         {
