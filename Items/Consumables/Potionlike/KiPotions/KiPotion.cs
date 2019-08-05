@@ -7,9 +7,9 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
 {
     public abstract class KiPotion : DBTConsumable
     {
-        protected KiPotion(string displayName, int restoredKi, int value) : base(displayName, "Restores " + restoredKi + " Ki", 16, 24, value, ItemRarityID.Orange, ItemUseStyleID.EatingUsing, true, SoundID.Item3, 12, 12)
+        protected KiPotion(string displayName, float percentKi, int value) : base(displayName, "Restores " + percentKi + "% of Ki", 16, 24, value, ItemRarityID.Orange, ItemUseStyleID.EatingUsing, true, SoundID.Item3, 12, 12)
         {
-            RestoredKi = restoredKi;
+            PercentKi = percentKi;
         }
 
         public override void SetDefaults()
@@ -23,13 +23,14 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
 
         public override bool UseItem(Player player)
         {
-            player.GetModPlayer<DBTPlayer>().ModifyKi(RestoredKi);
+            float overallPercentRestored = player.GetModPlayer<DBTPlayer>().MaxKi * (PercentKi / 100);
+            player.GetModPlayer<DBTPlayer>().ModifyKi(overallPercentRestored);
 
             player.AddBuff(mod.BuffType<KiPotionSicknessDebuff>(), 60 * Constants.TICKS_PER_SECOND);
-            CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), RestoredKi, false, false);
+            CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), (int)overallPercentRestored, false, false);
             return true;
         }
 
-        public int RestoredKi { get; }
+        public float PercentKi { get; }
     }
 }

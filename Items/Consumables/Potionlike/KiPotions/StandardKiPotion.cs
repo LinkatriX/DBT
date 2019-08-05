@@ -6,7 +6,7 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
 {
     public sealed class StandardKiPotion : KiPotion
     {
-        public StandardKiPotion() : base("Ki Potion", 640, 0)
+        public StandardKiPotion() : base("Ki Potion", 15, 30)
         {
         }
 
@@ -15,7 +15,7 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
             ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(mod, nameof(KiStoneT2));
-            recipe.AddIngredient(mod, nameof(LesserKiPotion), 4);
+            recipe.AddIngredient(mod, nameof(LesserKiPotion), 2);
             recipe.AddTile(TileID.Bottles);
 
             recipe.SetResult(this);

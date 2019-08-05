@@ -18,7 +18,7 @@ namespace DBT.Items.Consumables.BukuujustuVols
             player.GetModPlayer<DBTPlayer>().FlightT3 = true;
 
             if (player.whoAmI == Main.myPlayer)
-                Main.NewText("You now take no fall damage for 10 seconds after flying.");
+                Main.NewText("Your flight now takes barely any Ki.\nYou also now have no fall damage permanently.");
 
             return true;
         }
@@ -31,10 +31,9 @@ namespace DBT.Items.Consumables.BukuujustuVols
 
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(mod, nameof(KiStoneT4), 25);
-            recipe.AddIngredient(ItemID.SoulofFright, 8);
-            recipe.AddIngredient(ItemID.SoulofSight, 8);
-            recipe.AddIngredient(ItemID.SoulofMight, 8);
+            recipe.AddIngredient(mod, nameof(KiStoneT4), 10);
+            recipe.AddIngredient(ItemID.LihzahrdPowerCell);
+            recipe.AddIngredient(ItemID.TurtleShell);
             recipe.AddIngredient(ItemID.Book, 3);
             recipe.AddTile(mod, nameof(KaiTableTile));
 

@@ -1,6 +1,5 @@
 version = 1.1.0.0
-author = Webmilio, NuovaPrime, Dawn
+author = NuovaPrime, Mak0-Z, Skipping, Dawn
 displayName = Dragon Ball Terraria
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, .git\*, *.db
 includePDB = true
-languageVersion = 6
