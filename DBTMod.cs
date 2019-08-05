@@ -17,6 +17,7 @@ using DBT.UserInterfaces;
 using DBT.Effects;
 using Microsoft.Xna.Framework.Graphics;
 using DBT.UserInterfaces.KiAttackUI;
+using DBT.UserInterfaces.HairMenu.StylePreviews;
 
 namespace DBT
 {
@@ -103,6 +104,8 @@ namespace DBT
                     AutoloadBackgrounds = true
                 };
 
+                StylePreviewGFX.LoadPreviewGFX(this);
+
                 Instance = this;
 
                 circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
@@ -122,6 +125,8 @@ namespace DBT
                 characterTransformationsMenu.Visible = false;
 
                 overloadBar.Visible = false;
+
+                StylePreviewGFX.UnloadPreviewGFX();
             }
 
             Instance = null;
