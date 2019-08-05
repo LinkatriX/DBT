@@ -1,4 +1,5 @@
 using System;
+using DBT.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -48,6 +49,7 @@ namespace DBT.Projectiles.Overload
         public override void Kill(int timeLeft)
         {
             Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, mod.ProjectileType<ShaderOrb3>(), 0, 0, projectile.owner);
+            SoundHelper.PlayCustomSound("Sounds/Overload/Overloadcircle", Main.player[projectile.owner], 0.3f);
         }
 
 

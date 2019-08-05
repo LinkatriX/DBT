@@ -20,7 +20,7 @@ namespace DBT.Items.Consumables.ITTomes
             player.GetModPlayer<DBTPlayer>().ITUnlocked = true;
 
             if (player.whoAmI == Main.myPlayer)
-                Main.NewText("You have unlocked Instant Transmission Lv1. Open your map to learn how to use it.");
+                Main.NewText("You have unlocked Instant Transmission Lv1.\nOpen your map to learn how to use it.");
 
             return base.UseItem(player);
         }
@@ -29,7 +29,7 @@ namespace DBT.Items.Consumables.ITTomes
         {
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(mod, nameof(KiStoneT1), 20);
+            recipe.AddIngredient(mod, nameof(KiStoneT1), 10);
             recipe.AddIngredient(ItemID.ManaCrystal, 3);
             recipe.AddIngredient(ItemID.Book);
             recipe.AddTile(mod, nameof(ZTableTile));

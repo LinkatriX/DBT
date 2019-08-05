@@ -1,4 +1,6 @@
-﻿using DBT.Projectiles.Overload;
+﻿using DBT.Buffs;
+using DBT.Helpers;
+using DBT.Projectiles.Overload;
 using DBT.Transformations;
 using DBT.UserInterfaces.OverloadBar;
 using Microsoft.Xna.Framework;
@@ -66,7 +68,11 @@ namespace DBT.Players
                 DBTMod.Instance.overloadBar.Visible = false;
 
             if (IsOverloading && Overload <= 0)
+            {
                 IsOverloading = false;
+                player.AddBuff(mod.BuffType<KiOverusage>(), 60 * 60);
+            }
+                
         }
 
 
@@ -82,10 +88,12 @@ namespace DBT.Players
         private void DoShaderEffects()
         {
             Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<ShaderOrb1>(), 0, 0, player.whoAmI);
+            SoundHelper.PlayCustomSound("Sounds/Overload/Overloadcircle", player, 0.3f);
         }
         public void DoOverloadOrb()
         {              
             Projectile.NewProjectile(player.position.X, player.position.Y, 0, 0, mod.ProjectileType<AuraOrb>(), 0, 0, player.whoAmI);
+            SoundHelper.PlayCustomSound("Sounds/Overload/Overloadburst", player, 0.3f);
         }
 
         public void OverloadEffects()
