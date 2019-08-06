@@ -141,6 +141,7 @@ namespace DBT.Auras
     {
         public ChargeAura() : base(new AuraAnimationInformation("Auras/BaseAura", 4, 3, BlendState.Additive, 1f, false), new LightingAppearance(new float[] { 1f, 1f, 1f }))
         {
+			//draws all the aura
         }
 
         public override int GetTicksPerFrameTimerTick(DBTPlayer dbtPlayer) => Information.TicksPerFrameTimerTick;

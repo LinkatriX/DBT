@@ -1,4 +1,4 @@
-﻿/*using DBT.Auras;
+﻿using DBT.Auras;
 using DBT.Extensions;
 using DBT.Players;
 using Microsoft.Xna.Framework;
@@ -61,64 +61,64 @@ namespace DBT.Helpers
             modPlayer.DrawKiAttackChargeBar(mod.GetTexture(CHARGE_BAR_FRAME_TEXTURE), mod.GetTexture(CHARGE_BAR_TEXTURE));
         });
 
-        public static readonly PlayerLayer transformationEffects = new PlayerLayer("DBZMOD", "TransformationEffects", null, delegate (PlayerDrawInfo drawInfo)
+        public static readonly PlayerLayer transformationEffects = new PlayerLayer("DBTMod", "TransformationEffects", null, delegate (PlayerDrawInfo drawInfo)
         {
             if (Main.netMode == NetmodeID.Server)
                 return;
 
             Player drawPlayer = drawInfo.drawPlayer;
-            MyPlayer modPlayer = drawPlayer.GetModPlayer<MyPlayer>();
+            DBTPlayer DBTPlayer = drawPlayer.GetDBTPlayer<DBTPlayer>();
 
-            Mod mod = DBZMOD.Instance;
+            Mod mod = DBTMod.Instance;
             if (drawInfo.shadow != 0f)
             {
                 return;
             }
 
-            if (!modPlayer.isTransformationAnimationPlaying)
+            if (!DBTPlayer.isTransformationAnimationPlaying)
                 return;
 
             bool isAnyAnimationPlaying = false;
             // ssj 1 through 3. (forcibly exclude ssj3 and god form)
-            if (modPlayer.IsTransformedInto(modPlayer.TransformationDefinitionManager.SSJ1Definition) &&
-                !modPlayer.IsTransformedInto(modPlayer.TransformationDefinitionManager.SSJGDefinition) &&
-                !modPlayer.IsTransformedInto(modPlayer.TransformationDefinitionManager.SSJ3Definition))
+            if (DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJ1Definition) &&
+                !DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJGDefinition) &&
+                !DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJ3Definition))
             {
                 var frameCounterLimit = 4;
                 var numberOfFrames = 4;
                 var yOffset = -18;
                 Main.playerDrawData.Add(TransformationAnimationDrawData(drawInfo, "Effects/Animations/Transform/SSJ", frameCounterLimit, numberOfFrames, yOffset));
-                isAnyAnimationPlaying = modPlayer.isTransformationAnimationPlaying;
+                isAnyAnimationPlaying = DBTPlayer.isTransformationAnimationPlaying;
             }
 
-            if (modPlayer.IsTransformedInto(modPlayer.TransformationDefinitionManager.SSJ3Definition) && !modPlayer.IsTransformedInto(modPlayer.TransformationDefinitionManager.SSJGDefinition))
+            if (DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJ3Definition) && !DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJGDefinition))
             {
                 var frameCounterLimit = 4;
                 var numberOfFrames = 4;
                 var yOffset = -18;
                 Main.playerDrawData.Add(TransformationAnimationDrawData(drawInfo, "Effects/Animations/Transform/SSJ3", frameCounterLimit, numberOfFrames, yOffset));
-                isAnyAnimationPlaying = modPlayer.isTransformationAnimationPlaying;
+                isAnyAnimationPlaying = DBTPlayer.isTransformationAnimationPlaying;
             }
 
-            if (modPlayer.IsTransformedInto(modPlayer.TransformationDefinitionManager.SSJGDefinition))
+            if (DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJGDefinition))
             {
                 var frameCounterLimit = 6;
                 var numberOfFrames = 6;
                 var yOffset = 35;
                 Main.playerDrawData.Add(TransformationAnimationDrawData(drawInfo, "Effects/Animations/Transform/SSJG", frameCounterLimit, numberOfFrames, yOffset));
-                isAnyAnimationPlaying = modPlayer.isTransformationAnimationPlaying;
+                isAnyAnimationPlaying = DBTPlayer.isTransformationAnimationPlaying;
             }
             //if (Transformations.IsLSSJ(drawPlayer))
            // {
 			//	Main.playerDrawData.Add(TransformationAnimationDrawData(drawInfo, "Effects/Animations/Transform/LSSJ", frameCounterLimit, numberOfFrames, yOffset));
-			//	isAnyAnimationPlaying = modPlayer.IsTransformationAnimationPlaying;
+			//	isAnyAnimationPlaying = DBTPlayer.IsTransformationAnimationPlaying;
             //}
 
             // if we made it this far, we don't want to get stuck in a transformation animation state just because one doesn't exist
             // cancel it so we can move on and show auras.
             if (!isAnyAnimationPlaying)
             {
-                modPlayer.isTransformationAnimationPlaying = false;
+                DBTPlayer.isTransformationAnimationPlaying = false;
             }
         });
 
@@ -245,4 +245,4 @@ namespace DBT.Helpers
             return new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, 0, texture.Width, texture.Height), Color.White, angleInRadians, new Vector2(texture.Width / 2f, texture.Height / 2f), radarArrowScale, SpriteEffects.None, 0);
         }
     }
-}*/
+}
