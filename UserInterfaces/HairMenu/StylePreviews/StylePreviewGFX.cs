@@ -9,7 +9,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             HAIR_BACK_PANEL = HAIR_MENU_DIRECTORY + "HairBackPanel",
             HAIR_CONFIRM_BUTTON = HAIR_MENU_DIRECTORY + "ConfirmButton",
             KEEP_HAIR_BUTTON = HAIR_MENU_DIRECTORY + "KeepHairButton",
-            HAIR_MENU_DIRECTORY = "UserInterfaces/HairMenu",
+            HAIR_MENU_DIRECTORY = "UserInterfaces/HairMenu/",
             STYLE_PREVIEWS_DIRECTORY = HAIR_MENU_DIRECTORY + "StylePreviews/",
             STYLE_ONE_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style1/",
             STYLE_TWO_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style2/",
