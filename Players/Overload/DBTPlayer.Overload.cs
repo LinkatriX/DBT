@@ -103,12 +103,7 @@ namespace DBT.Players
             if (DBTMod.IsTickRateElapsed(120))
                 OverloadKiMultiplier -= 0.01f;
 
-            player.meleeDamage *= OverloadDamageMultiplier;
-            KiDamageMultiplier = OverloadDamageMultiplier;
-            player.rangedDamage *= OverloadDamageMultiplier;
-            player.thrownDamage *= OverloadDamageMultiplier;
-            player.magicDamage *= OverloadDamageMultiplier;
-            player.minionDamage *= OverloadDamageMultiplier;
+            player.allDamage *= OverloadDamageMultiplier;
         }
 
 

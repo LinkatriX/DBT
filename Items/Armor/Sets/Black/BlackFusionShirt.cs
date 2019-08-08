@@ -70,14 +70,8 @@ namespace DBT.Items.Armor.Sets.Black
 
             if (_multiplier != 1f)
             {
-                dbtPlayer.player.meleeDamage *= _multiplier;
-                dbtPlayer.player.thrownDamage *= _multiplier;
-                dbtPlayer.player.rangedDamage *= _multiplier;
-                dbtPlayer.player.magicDamage *= _multiplier;
-                dbtPlayer.player.minionDamage *= _multiplier;
+                dbtPlayer.player.allDamage *= _multiplier;
                 dbtPlayer.player.statDefense = (int) (dbtPlayer.player.statDefense  * _multiplier);
-
-                dbtPlayer.KiDamageMultiplier += _multiplier;
             }
         }
 
