@@ -13,7 +13,7 @@ using Terraria.GameContent.Generation;
 using DBT.Network;
 using DBT.Tiles;
 
-namespace DBT
+namespace DBT.DBTWorld
 {
     public class DBTWorld : ModWorld
     {
@@ -266,7 +266,7 @@ namespace DBT
             }
             catch (Exception exception)
             {
-                Main.NewText("Oh no, an error happened [AddGohanHouse]! Report this to NuovaPrime or MercuriusXeno and send them the file Terraria/ModLoader/Logs/Logs.txt");
+                Main.NewText("Oh no, an error happened [AddGohanHouse]! Report this to NuovaPrime or Skipping and send them the file Terraria/ModLoader/Logs/Logs.txt");
                 ErrorLogger.Log(exception);
             }
         }
@@ -291,7 +291,7 @@ namespace DBT
             }
             catch (Exception exception)
             {
-                Main.NewText("Oh no, an error happened [CleanupGohanHouse]! Report this to NuovaPrime or MercuriusXeno and send them the file Terraria/ModLoader/Logs/Logs.txt");
+                Main.NewText("Oh no, an error happened [CleanupGohanHouse]! Report this to NuovaPrime or Skipping and send them the file Terraria/ModLoader/Logs/Logs.txt");
                 ErrorLogger.Log(exception);
             }
         }
@@ -308,7 +308,7 @@ namespace DBT
             }
             catch (Exception exception)
             {
-                Main.NewText("Oh no, an error happened [PlacingDragonBalls]! Report this to NuovaPrime or MercuriusXeno and send them the file Terraria/ModLoader/Logs/Logs.txt");
+                Main.NewText("Oh no, an error happened [PlacingDragonBalls]! Report this to NuovaPrime or Skipping and send them the file Terraria/ModLoader/Logs/Logs.txt");
                 ErrorLogger.Log(exception);
             }
         }
@@ -745,7 +745,7 @@ namespace DBT
             if (dbTypes[whichDragonBall - 1].HasValue)
                 return dbTypes[whichDragonBall - 1].Value;
             var dragonBallWord = GetDragonBallNumberName(whichDragonBall);
-            dbTypes[whichDragonBall - 1] = DBTMod.Instance?.TileType($"{dragonBallWord}StarDBTile");
+            dbTypes[whichDragonBall - 1] = DBTMod.Instance?.TileType($"{dragonBallWord}StarDragonBall");
             if (dbTypes[whichDragonBall - 1].HasValue)
                 return dbTypes[whichDragonBall - 1].Value;
             return 0;

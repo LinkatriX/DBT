@@ -53,7 +53,7 @@ namespace DBT.Players
                     NetworkText text3 = NetworkText.FromLiteral("The Frieza Force has arrived!");
                     NetMessage.BroadcastChatMessage(text3, Color.OrangeRed);
                 }
-                DBTWorld.friezaShipTriggered = false;
+                DBTWorld.DBTWorld.friezaShipTriggered = false;
             }
         }
     }

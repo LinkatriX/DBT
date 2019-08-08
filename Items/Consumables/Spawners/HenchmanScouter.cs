@@ -13,7 +13,7 @@ namespace DBT.Items.Consumables.Spawners
         public HenchmanScouter() : base("Henchman's Scouter", "A common scouter used by the lower echelons of the frieza force, it appears to have a communicator built into it.", 48, 26, 0, ItemRarityID.Orange, 4, true, null, 20, 20) 
         {
         }
-        public override bool CanUseItem(Player player) => NPC.downedBoss2 && !NPC.AnyNPCs(mod.NPCType<FriezaShip>()) && !DBTWorld.friezaShipTriggered;
+        public override bool CanUseItem(Player player) => NPC.downedBoss2 && !NPC.AnyNPCs(mod.NPCType<FriezaShip>()) && !DBTWorld.DBTWorld.friezaShipTriggered;
 
         public override bool UseItem(Player player)
         {
