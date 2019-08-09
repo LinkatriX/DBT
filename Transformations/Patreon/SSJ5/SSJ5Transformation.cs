@@ -2,10 +2,6 @@
 using DBT.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static DBT.FlightSystem;
-using DBT.Players;
-using DBT.Transformations;
-using Terraria;
 
 namespace DBT.Transformations.Patreon.SSJ5
 {

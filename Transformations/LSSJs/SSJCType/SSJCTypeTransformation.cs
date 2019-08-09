@@ -1,5 +1,4 @@
 ﻿using DBT.Auras;
-using DBT.Players;
 using DBT.Transformations.LSSJs.LSSJ;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -43,6 +43,29 @@ namespace DBT.Items.DragonBalls
             return dragonBallStars.Count == Enum.GetNames(typeof(DragonBallStarCount)).Length;
         }
 
+        public static string GetDragonBallItemTypeFromNumber(int whichDragonBall)
+        {
+            switch (whichDragonBall)
+            {
+                case 1:
+                    return "OneStarDragonBall";
+                case 2:
+                    return "TwoStarDragonBall";
+                case 3:
+                    return "ThreeStarDragonBall";
+                case 4:
+                    return "FourStarDragonBall";
+                case 5:
+                    return "FiveStarDragonBall";
+                case 6:
+                    return "SixStarDragonBall";
+                case 7:
+                    return "SevenStarDragonBall";
+                default:
+                    return "";
+            }
+        }
+
         public DragonBallStarCount StarCount { get; }
     }
 
@@ -57,51 +80,51 @@ namespace DBT.Items.DragonBalls
         Seven
     }
 
-    public class DragonBallOneStar : DragonBall
+    public class OneStarDragonBall : DragonBall
     {
-        public DragonBallOneStar() : base(DragonBallStarCount.One)
+        public OneStarDragonBall() : base(DragonBallStarCount.One)
         {
         }
     }
 
-    public class DragonBallTwoStar : DragonBall
+    public class TwoStarDragonBall : DragonBall
     {
-        public DragonBallTwoStar() : base(DragonBallStarCount.Two)
+        public TwoStarDragonBall() : base(DragonBallStarCount.Two)
         {
         }
     }
 
-    public class DragonBallThreeStar : DragonBall
+    public class ThreeStarDragonBall : DragonBall
     {
-        public DragonBallThreeStar() : base(DragonBallStarCount.Three)
+        public ThreeStarDragonBall() : base(DragonBallStarCount.Three)
         {
         }
     }
 
-    public class DragonBallFourStar : DragonBall
+    public class FourStarDragonBall : DragonBall
     {
-        public DragonBallFourStar() : base(DragonBallStarCount.Four)
+        public FourStarDragonBall() : base(DragonBallStarCount.Four)
         {
         }
     }
 
-    public class DragonBallFiveStar : DragonBall
+    public class FiveStarDragonBall : DragonBall
     {
-        public DragonBallFiveStar() : base(DragonBallStarCount.Five)
+        public FiveStarDragonBall() : base(DragonBallStarCount.Five)
         {
         }
     }
 
-    public class DragonBallSixStar : DragonBall
+    public class SixStarDragonBall : DragonBall
     {
-        public DragonBallSixStar() : base(DragonBallStarCount.Six)
+        public SixStarDragonBall() : base(DragonBallStarCount.Six)
         {
         }
     }
 
-    public class DragonBallSevenStar : DragonBall
+    public class SevenStarDragonBall : DragonBall
     {
-        public DragonBallSevenStar() : base(DragonBallStarCount.Seven)
+        public SevenStarDragonBall() : base(DragonBallStarCount.Seven)
         {
         }
     }

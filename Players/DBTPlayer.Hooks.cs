@@ -34,14 +34,14 @@ namespace DBT.Players
             PlayerInitialized = true;
         }
 
-       /* #region Sync Triggers
-        public bool? syncTriggerSetMouseLeft;
-        public bool? syncTriggerSetMouseRight;
-        public bool? syncTriggerSetLeft;
-        public bool? syncTriggerSetRight;
-        public bool? syncTriggerSetUp;
-        public bool? syncTriggerSetDown;
-        #endregion*/
+        /*#region Sync Triggers
+         public bool? syncTriggerSetMouseLeft;
+         public bool? syncTriggerSetMouseRight;
+         public bool? syncTriggerSetLeft;
+         public bool? syncTriggerSetRight;
+         public bool? syncTriggerSetUp;
+         public bool? syncTriggerSetDown;
+         #endregion*/
 
         /*public override void ProcessTriggers(TriggersSet triggersSet)
         {
@@ -200,7 +200,7 @@ namespace DBT.Players
             for (int i = 0; i < items.Count; i++)
                 items[i].OnPlayerPostUpdate(this);
 
-            if (DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaShip")))
+            if (DBTWorld.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaShip")))
                 CheckFriezaShipSpawn();
 
             HandleMouseOctantAndSyncTracking();

@@ -25,5 +25,6 @@ namespace DBT.Players
         
         public bool PlayerInitialized { get; private set; }
         public float HealthDrainMultiplier { get; set; }
+        public bool firstDragonBallPickup { get; set; } = false;
     }
 }

@@ -1062,9 +1062,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
             }
 
-            if (!DBTWorld.downedFriezaShip)
+            if (!DBTWorld.DBTWorld.downedFriezaShip)
             {
-                DBTWorld.downedFriezaShip = true;
+                DBTWorld.DBTWorld.downedFriezaShip = true;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);

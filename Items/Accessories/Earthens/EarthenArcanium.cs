@@ -15,7 +15,7 @@ namespace DBT.Items.Accessories.Earthens
             "\nIncreased ki regen" +
             "\nReduced flight ki usage" +
             "\n+1 Max Charges" +
-            "\nIncreased flight speed" +
+            "\n10% Increased flight speed" +
             "\nThe longer you charge the more ki you charge, limits at +500%",
             18, 30, Item.buyPrice(gold: 7, silver: 20), 0, ItemRarityID.LightPurple)
         {

@@ -32,6 +32,7 @@
     <Folder Include="Skills\KiOvercharge\" />
     <Folder Include="Skills\KiSiphonScepter\" />
     <Folder Include="Skills\GuardianMending\" />
+    <Folder Include="Skills\ProminenceFlash\" />
     <Folder Include="Skills\ShiningLight\" />
     <Folder Include="Skills\ThunderShockSurprise\" />
     <Folder Include="Skills\SolarFlare\" />

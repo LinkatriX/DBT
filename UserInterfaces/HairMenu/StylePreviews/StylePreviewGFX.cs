@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace DBT.UserInterfaces.HairMenu.StylePreviews
@@ -80,7 +75,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
 
         public static void LoadPreviewGFX(Mod mod)
         {
-            hairBackPanel = mod.GetTexture(HAIR_BACK_PANEL);
+            /*hairBackPanel = mod.GetTexture(HAIR_BACK_PANEL);
             hairConfirmButton = mod.GetTexture(HAIR_CONFIRM_BUTTON);
             keepHairButton = mod.GetTexture(KEEP_HAIR_BUTTON);
 
@@ -108,12 +103,12 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             style5SSJPreview = mod.GetTexture(STYLE_FIVE_SSJ);
             style5SSJ2Preview = mod.GetTexture(STYLE_FIVE_SSJ2);
             style5SSJ3Preview = mod.GetTexture(STYLE_FIVE_SSJ3);
-            style5SSJ4Preview = mod.GetTexture(STYLE_FIVE_SSJ4);
+            style5SSJ4Preview = mod.GetTexture(STYLE_FIVE_SSJ4);*/
         }
 
         public static void UnloadPreviewGFX()
         {
-            hairBackPanel = null;
+            /*hairBackPanel = null;
             hairConfirmButton = null;
             keepHairButton = null;
             style1BasePreview = null;
@@ -140,7 +135,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             style5SSJPreview = null;
             style5SSJ2Preview = null;
             style5SSJ3Preview = null;
-            style5SSJ4Preview = null;
+            style5SSJ4Preview = null;*/
         }
     }
 
