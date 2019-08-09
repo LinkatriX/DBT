@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Terraria;
-
-namespace DBT.Extensions
+﻿namespace DBT.Extensions
 {
     public static class ProjectileExtensions
     {

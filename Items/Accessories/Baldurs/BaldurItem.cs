@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DBT.Commons.Items;
 using DBT.Extensions;
 using DBT.Players;
 using Terraria;

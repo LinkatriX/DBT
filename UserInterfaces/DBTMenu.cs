@@ -10,8 +10,6 @@ namespace DBT.UserInterfaces
     // Credit to X3n0ph0b3 / MerceriusXeno.
     public class DBTMenu : UIState
     {
-        protected UIText titleText;
-
         protected UIImageButton InitializeButton(Texture2D texture, MouseEvent onClick, float offsetX, float offsetY, UIElement parent = null)
         {
             UIImageButton button = new UIImageButton(texture);
@@ -131,13 +129,12 @@ namespace DBT.UserInterfaces
         {
             base.Update(gameTime); // don't remove.
 
-            // ChecKing ContainsPoint and then setting mouseInterface to true is very common. This causes clicks on this UIElement to not cause the player to use current items. 
+            // Checking ContainsPoint and then setting mouseInterface to true is very common. This causes clicks on this UIElement to not cause the player to use current items. 
             if (BackPanel.ContainsPoint(Main.MouseScreen))
-            {
                 Main.LocalPlayer.mouseInterface = true;
-            }
         }
 
+        protected UIText TitleText { get; set; }
 
         public UIPanel BackPanel { get; protected set; }
         public Texture2D BackPanelTexture { get; protected set; }

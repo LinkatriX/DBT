@@ -1,8 +1,8 @@
 ﻿using DBT.Items.KiStones;
+using DBT.Tiles.Stations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using DBT.Tiles.Stations;
 
 namespace DBT.Items.Tiles
 {

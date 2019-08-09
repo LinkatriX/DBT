@@ -1,6 +1,4 @@
-﻿using Terraria;
-
-namespace DBT.Extensions
+﻿namespace DBT.Extensions
 {
     public static class PlayerExtensions
     {

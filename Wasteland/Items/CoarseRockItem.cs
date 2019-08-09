@@ -1,5 +1,4 @@
-﻿using Terraria.ModLoader;
-using DBT.Items;
+﻿using DBT.Items;
 using DBT.Wasteland.Tiles;
 using Terraria.ID;
 

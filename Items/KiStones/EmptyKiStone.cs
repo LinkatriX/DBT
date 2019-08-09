@@ -9,9 +9,7 @@ namespace DBT.Items.KiStones
 {
     public class EmptyKiStone : DBTItem
     {
-        public const int VALUE = (int) 2 * Constants.SILVER_VALUE_MULTIPLIER;
-
-        private static Dictionary<float, KiStoneDefinition> _requiredKiPerStone;
+        public const int VALUE = 2 * Constants.SILVER_VALUE_MULTIPLIER;
 
         public EmptyKiStone() : base("Empty Ki Stone", "This ancient stone looks like it can be charged.", VALUE, 0, ItemRarityID.White)
         {
@@ -52,7 +50,7 @@ namespace DBT.Items.KiStones
 
                 float kiPerTick = NextTier.RequiredKi / 60;
 
-                dbtPlayer.KiChargeRate = -kiPerTick;
+                dbtPlayer.KiChargeRateModifier = -kiPerTick;
                 CurrentKiForTier += kiPerTick;
 
                 if (CurrentKiForTier >= NextTier.RequiredKi)

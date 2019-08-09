@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using DBT.Projectiles;
 using Terraria.ModLoader;
 
 namespace DBT.Projectiles

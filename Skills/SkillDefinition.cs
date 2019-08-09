@@ -17,6 +17,8 @@ namespace DBT.Skills
             Parents = parents;
         }
 
+        public const string DEFAULT_BEAM_INSTRUCTIONS = "Hold Right-Click to Charge\nLeft-Click to Fire";
+
         public string UnlocalizedName { get; }
 
         public string DisplayName { get; }

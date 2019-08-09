@@ -8,8 +8,6 @@ namespace DBT.Items.Guardian
 {
     public abstract class GuardianItem : DBTItem, IIsGuardianItem
     {
-        public const string TOOLTIP_GUARDIAN_LINE_NAME = "DBT_ToolTip_Guardian";
-
         protected GuardianItem(string displayName, string tooltip, int width, int height, int value = 0, int defense = 0, int rarity = ItemRarityID.White) : base(displayName, tooltip, width, height)
         {
         }

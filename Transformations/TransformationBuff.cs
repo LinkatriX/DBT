@@ -42,8 +42,9 @@ namespace DBT.Transformations
             TransformationTimer++;
             bool isFormMastered = dbtPlayer.HasMastered(Definition);
 
-            float kiDrain = -(isFormMastered ? Definition.GetUnmasteredKiDrain(dbtPlayer) : Definition.GetMasteredKiDrain(dbtPlayer));
-            float healthDrain = -(isFormMastered ? Definition.GetUnmasteredHealthDrain(dbtPlayer) : Definition.GetMasteredHealthDrain(dbtPlayer));
+            float kiDrain = -(isFormMastered ? Definition.GetMasteredKiDrain(dbtPlayer) : Definition.GetUnmasteredKiDrain(dbtPlayer));
+            float healthDrain = -(isFormMastered ? Definition.GetMasteredHealthDrain(dbtPlayer) : Definition.GetUnmasteredHealthDrain(dbtPlayer));
+            float overloadIncrease = (isFormMastered ? Definition.GetMasteredOverloadGrowthRate(dbtPlayer) : Definition.GetUnmasteredOverloadGrowthRate(dbtPlayer));
 
             if (kiDrain != 0f)
             {
@@ -69,6 +70,12 @@ namespace DBT.Transformations
 
                 if (TransformationTimer % Definition.Drain.transformationStepDelay == 0 && HealthDrainMultiplier < Definition.Drain.maxTransformationHealthDrainMultiplier)
                     HealthDrainMultiplier += Definition.Drain.healthMultiplierPerStep;
+            }
+
+            if (overloadIncrease != 0f)
+            {
+                overloadIncrease *= dbtPlayer.OverloadIncreaseMultiplier;
+                dbtPlayer.Overload += overloadIncrease;
             }
 
             float 
@@ -106,12 +113,12 @@ namespace DBT.Transformations
         #region Tooltips
 
         public virtual string BuildDefaultTooltip() =>
-            BuildTooltip(Definition.BaseDamageMultiplier, Definition.BaseSpeedMultiplier, Definition.Drain.baseUnmasteredKiDrain, Definition.Drain.baseMasteredKiDrain, Definition.BaseDefenseAdditive, Definition.Drain.baseUnmasteredHealthDrain, Definition.Drain.baseMasteredHealthDrain);
+            BuildTooltip(Definition.BaseDamageMultiplier, Definition.BaseSpeedMultiplier, Definition.Drain.baseUnmasteredKiDrain, Definition.Drain.baseMasteredKiDrain, Definition.BaseDefenseAdditive, Definition.Drain.baseUnmasteredHealthDrain, Definition.Drain.baseMasteredHealthDrain, Definition.Overload.baseOverloadGrowthRate, Definition.Overload.masteredOverloadGrowthRate);
 
         public virtual string BuildDefaultTooltip(DBTPlayer player) =>
-            BuildTooltip(Definition.GetDamageMultiplier(player), Definition.GetSpeedMultiplier(player), Definition.GetUnmasteredKiDrain(player), Definition.GetMasteredKiDrain(player), Definition.GetDefenseAdditive(player), Definition.GetUnmasteredHealthDrain(player), Definition.GetMasteredHealthDrain(player));
+            BuildTooltip(Definition.GetDamageMultiplier(player), Definition.GetSpeedMultiplier(player), Definition.GetUnmasteredKiDrain(player), Definition.GetMasteredKiDrain(player), Definition.GetDefenseAdditive(player), Definition.GetUnmasteredHealthDrain(player), Definition.GetMasteredHealthDrain(player), Definition.GetUnmasteredOverloadGrowthRate(player), Definition.GetMasteredOverloadGrowthRate(player));
 
-        private string BuildTooltip(float damageMultiplier, float speedMultiplier, float unmasteredKiDrain, float masteredKiDrain, int baseDefenseAdditive, float unmasteredHealthDrain, float masteredHealthDrain)
+        private string BuildTooltip(float damageMultiplier, float speedMultiplier, float unmasteredKiDrain, float masteredKiDrain, int baseDefenseAdditive, float unmasteredHealthDrain, float masteredHealthDrain, float unmasteredOverloadGain, float masteredOverloadGain)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -124,8 +131,12 @@ namespace DBT.Transformations
             int roundedMasteredKiDrain = (int)Math.Round(masteredKiDrain * 60);
             int roundedUnmasteredHealthDrain = (int) Math.Round(unmasteredHealthDrain * 60);
             int roundedMasteredHealthDrain = (int) Math.Round(masteredHealthDrain * 60);
+            int roundedUnmasteredOverloadGain = (int)Math.Round(unmasteredOverloadGain * 60);
+            int roundedMasteredOverloadGain = (int)Math.Round(masteredOverloadGain * 60);
 
             BuildKiHealthDrainInline(sb, roundedUnmasteredKiDrain, roundedMasteredKiDrain, roundedUnmasteredHealthDrain, roundedMasteredHealthDrain);
+
+            BuildOverloadGainInline(sb, roundedUnmasteredOverloadGain, roundedMasteredOverloadGain);
 
             return sb.ToString();
         }
@@ -153,6 +164,31 @@ namespace DBT.Transformations
 
             if (damage != 0 || defense != 0 || speed != 0)
                 builder.AppendLine();
+        }
+
+        private void BuildOverloadGainInline(StringBuilder builder, int unmasteredOverloadGain, int masteredOverloadGain)
+        {
+            if(unmasteredOverloadGain != 0 || masteredOverloadGain != 0)
+            {
+                if (unmasteredOverloadGain == masteredOverloadGain)
+                    builder.AppendFormat("{0} Overload/Second\n", unmasteredOverloadGain);
+                else
+                {
+                    if (unmasteredOverloadGain != 0)
+                    {
+                        builder.AppendFormat("{0}{1} Overload/Second {2}", unmasteredOverloadGain > 0 ? '+' : '+', unmasteredOverloadGain, "While Unmastered");
+
+                        if (masteredOverloadGain != 0)
+                            builder.Append(", ");
+                    }
+
+                    if (masteredOverloadGain > 0)
+                        builder.AppendFormat("{0}{1} Overload/Second {2}", masteredOverloadGain > 0 ? '+' : '+', masteredOverloadGain, "While Mastered");
+
+                    if (unmasteredOverloadGain != 0 && masteredOverloadGain != 0)
+                        builder.AppendLine();
+                }
+            }
         }
 
         private void BuildKiHealthDrainInline(StringBuilder builder, int unmasteredKiDrain, int masteredKiDrain, int unmasteredHealthDrain, int masteredHealthDrain)

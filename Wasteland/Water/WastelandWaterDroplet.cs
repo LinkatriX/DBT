@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ExampleMod.Gores
+namespace DBT.Wasteland.Water
 {
 	public class ExampleDroplet : ModGore
 	{

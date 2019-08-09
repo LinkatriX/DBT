@@ -6,19 +6,19 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        public void SaveMastery(TagCompound tag)
+        private void SaveMastery(TagCompound tag)
         {
             foreach (PlayerTransformation playerTransformation in AcquiredTransformations.Values)
                 tag.Add(playerTransformation.ToSavableFormat());
         }
 
-        public void LoadMastery(TagCompound tag)
+        private void LoadMastery(TagCompound tag)
         {
             foreach (KeyValuePair<string, object> kvp in tag)
                 LoadMasteryEntry(kvp);
         }
 
-        public void LoadMasteryEntry(KeyValuePair<string, object> kvp)
+        internal void LoadMasteryEntry(KeyValuePair<string, object> kvp)
         {
             if (kvp.Key.StartsWith(PlayerTransformation.MASTERY_PREFIX))
             {

@@ -1,4 +1,5 @@
-﻿using DBT.Items.Accessories.Scouters;
+﻿using DBT.Items.Accessories.ArmCannons;
+using DBT.Items.Accessories.Scouters;
 using DBT.Players;
 using DBT.Tiles.Stations;
 using Terraria;
@@ -29,7 +30,7 @@ namespace DBT.Items.Accessories
             player.detectCreature = true;
 
             dbtPlayer.KiDamageMultiplier += 0.06f;
-            dbtPlayer.KiChargeRate += 1f;
+            dbtPlayer.KiChargeRateModifier += 1f;
             dbtPlayer.KiSpeedAddition += 1;
         }
 

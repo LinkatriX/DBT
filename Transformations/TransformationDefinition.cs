@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using DBT.Commons;
 using DBT.Dynamicity;
+using DBT.Extensions;
 using DBT.Players;
+using DBT.Races;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
@@ -12,33 +16,42 @@ namespace DBT.Transformations
     {
         internal const int TRANSFORMATION_LONG_DURATION = 6666666;
 
+        private readonly List<RaceDefinition> _limitedToRaces;
+
         // Still trying to figure out a way to reduce the parameter count.
         protected TransformationDefinition(string unlocalizedName, string displayName, Type buffType,
-            float baseDamageMultiplier, float baseSpeedMultiplier, int baseDefenseAdditive, TransformationDrain drain,
-            TransformationAppearance appearance,
-            bool masterable = true, float maxMastery = 1f,
-            int duration = TRANSFORMATION_LONG_DURATION, bool displaysInMenu = true,
+            float baseDamageMultiplier, float baseSpeedMultiplier, int baseDefenseAdditive, 
+            TransformationDrain drain, TransformationAppearance appearance, TransformationOverload overload,
+            bool mastereable = true, float maxMastery = 1f,
+            int duration = TRANSFORMATION_LONG_DURATION, bool displaysInMenu = true, RaceDefinition[] limitedToRaces = null,
             bool anyParents = false, params TransformationDefinition[] parents)
         {
             UnlocalizedName = unlocalizedName;
             DisplayName = displayName;
 
             BuffType = buffType;
-
+            
             BaseDamageMultiplier = baseDamageMultiplier;
             BaseSpeedMultiplier = baseSpeedMultiplier;
             BaseDefenseAdditive = baseDefenseAdditive;
 
             Appearance = appearance;
 
-            Mastereable = masterable;
+            Mastereable = mastereable;
             BaseMaxMastery = maxMastery;
 
             Drain = drain;
 
+            Overload = overload;
+
             Duration = duration;
 
             DisplayInMenu = displaysInMenu;
+
+            if (limitedToRaces != null)
+                _limitedToRaces = new List<RaceDefinition>(limitedToRaces);
+            else 
+                _limitedToRaces = new List<RaceDefinition>();
 
             AnyParents = anyParents;
             Parents = parents;
@@ -102,12 +115,14 @@ namespace DBT.Transformations
             return true;
         }
 
-        public bool CanUnlock(DBTPlayer dbtPlayer) => HasParents(dbtPlayer);
+        public bool BaseConditions(DBTPlayer dbtPlayer) => _limitedToRaces.Count == 0 || _limitedToRaces.Contains(dbtPlayer.Race);
+
+        public bool CanUnlock(DBTPlayer dbtPlayer) => CheckPrePlayerConditions() && BaseConditions(dbtPlayer) && HasParents(dbtPlayer);
 
         /// <summary>Checks wether or not the transformation is part of the character menu. If not overriden, uses the same value as <see cref="CheckPrePlayerConditions"/>.</summary>
         /// <param name="dbtPlayer"></param>
         /// <returns></returns>
-        public bool DoesDisplayInCharacterMenu(DBTPlayer dbtPlayer) => DisplayInMenu && CheckPrePlayerConditions();
+        public bool DoesDisplayInCharacterMenu(DBTPlayer dbtPlayer) => CheckPrePlayerConditions() && DisplayInMenu && BaseConditions(dbtPlayer);
 
         #endregion
 
@@ -155,6 +170,16 @@ namespace DBT.Transformations
 
         #endregion
 
+        # region Overload
+
+        public float GetUnmasteredOverloadGrowthRate(DBTPlayer dbtPlayer) => Overload.baseOverloadGrowthRate;
+
+        public float GetMasteredOverloadGrowthRate(DBTPlayer dbtPlayer) => Overload.masteredOverloadGrowthRate;
+
+
+        #endregion
+
+
         #endregion
 
 
@@ -165,6 +190,7 @@ namespace DBT.Transformations
         public string DisplayName { get; }
 
         public Type BuffType { get; }
+
 
         #region Statistics
 
@@ -192,19 +218,29 @@ namespace DBT.Transformations
 
         public TransformationDrain Drain { get; }
 
+        public TransformationOverload Overload { get; }
+
         #endregion
 
-        public virtual TransformationAppearance Appearance { get; }
 
+        public TransformationAppearance Appearance { get; }
 
         public int Duration { get; }
 
         public bool DisplayInMenu { get; }
 
 
+        public IReadOnlyList<RaceDefinition> LimitedToRaces => _limitedToRaces.AsReadOnly();
+
+
         public bool AnyParents { get; }
 
         public TransformationDefinition[] Parents { get; }
+
+
+        public virtual Texture2D TransformationIcon => BuffType.GetTexture();
+
+        public virtual string TabHoverText { get; protected set; }
 
         #endregion
     }

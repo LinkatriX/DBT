@@ -1,45 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DBT.Dynamicity
 {
-    public sealed class Node<T> where T : IHasParents<T>
+    public class Node<T> : ICloneable where T : IHasParents<T>
     {
-        private readonly List<Node<T>> 
-            _children, 
-            _allChildren;
+        protected readonly List<Node<T>> parents = new List<Node<T>>();
+        protected readonly List<Node<T>> children = new List<Node<T>>();
 
-        public Node(Node<T>[] parents, T current)
+        public Node(T value)
         {
-            Parents = parents;
-            Current = current;
-            
-            _children = new List<Node<T>>();
-            _allChildren = new List<Node<T>>();
+            Value = value;
         }
 
-        public void AddChild(Node<T> item)
+        internal void AddParent(Node<T> parent)
         {
-            for (int i = 0; i < _children.Count; i++)
-                if (_children[i] == item)
-                    return;
-
-            _children.Add(item);
-            RecursizeAddChild(item);
+            parents.Add(parent);
+            parent.children.Add(this);
         }
 
-        private void RecursizeAddChild(Node<T> item)
+        private void RecursiveAction(Node<T> node, Action<Node<T>> action)
         {
-            _allChildren.Add(item);
-
-            for (int i = 0; i < Parents.Length; i++)
-                Parents[i].RecursizeAddChild(item);
+            for (int i = 0; i < node.children.Count; i++)
+            {
+                action(node.children[i]);
+                RecursiveAction(node.children[i], action);
+            }
         }
 
-        public Node<T>[] Parents { get; }
+        public object Clone() => MemberwiseClone();
 
-        public T Current { get; }
+        public T Value { get; }
 
-        public List<Node<T>> Children => _children;
-        public List<Node<T>> AllChildren => _allChildren;
+        public IReadOnlyList<Node<T>> Parents => parents.AsReadOnly();
+        public IReadOnlyList<Node<T>> Children => children.AsReadOnly();
     }
 }

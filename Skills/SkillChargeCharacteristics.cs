@@ -16,6 +16,9 @@ namespace DBT.Skills
 
             BaseCastKiDrain = baseCastKiDrain;
             BaseChargeTickKiDrain = baseChargeTickKiDrain;
+
+            BaseKiRegenerationHaltedForDuration = 2 * Constants.TICKS_PER_SECOND;
+            BaseKiRegenerationHaltedForDurationChargeMultiplier = 0f;
         }
 
 
@@ -28,15 +31,32 @@ namespace DBT.Skills
         /// <returns></returns>
         public virtual float GetCastKiDrain(DBTPlayer dbtPlayer) => dbtPlayer.GetKiDrain(BaseCastKiDrain);
 
-        public virtual float GetChargeTickKiDrain(DBTPlayer dbtPlayer) => GetChargeTimer(dbtPlayer) / GetChargeKiDrainForChargeLevel(dbtPlayer);
+        public virtual float GetChargeTickKiDrain(DBTPlayer dbtPlayer)
+        {
+            float chargeKiDrainForChargeLevel = GetChargeKiDrainForChargeLevel(dbtPlayer);
+
+            if (chargeKiDrainForChargeLevel == 0f) return 0f;
+
+            return GetChargeTimer(dbtPlayer) / chargeKiDrainForChargeLevel;
+        }
 
         public virtual float GetChargeKiDrainForChargeLevel(DBTPlayer dbtPlayer) => BaseChargeTickKiDrain;
 
+        public virtual int GetBaseKiRegenerationHaltedForDuration(DBTPlayer dbtPlayer)
+        {
+            if (BaseKiRegenerationHaltedForDurationChargeMultiplier == 0f)
+                return BaseKiRegenerationHaltedForDuration;
 
-        public int BaseChargeTimer { get; }
-        public int BaseMaxChargeLevel { get; }
+            return (int) (BaseKiRegenerationHaltedForDurationChargeMultiplier * BaseKiRegenerationHaltedForDuration);
+        }
 
-        public float BaseCastKiDrain { get; }
-        public float BaseChargeTickKiDrain { get; }
+        public int BaseChargeTimer { get; protected set; }
+        public int BaseMaxChargeLevel { get; protected set; }
+
+        public float BaseCastKiDrain { get; protected set; }
+        public float BaseChargeTickKiDrain { get; protected set; }
+
+        public int BaseKiRegenerationHaltedForDuration { get; protected set; }
+        public float BaseKiRegenerationHaltedForDurationChargeMultiplier { get; protected set; }
     }
 }

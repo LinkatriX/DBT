@@ -1,5 +1,6 @@
 ﻿using DBT.Auras;
 using DBT.Players;
+using DBT.Races;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,9 +11,12 @@ namespace DBT.Transformations.SSJs.SSJ1s.SSJ1
         public SSJ1Transformation(params TransformationDefinition[] parents) : base(
             "SSJ1", "Super Saiyan", typeof(SSJ1TransformationBuff),
             1.5f, 1.5f, 2, 
-            new TransformationDrain(1f, 0.5f), 
-            new SSJ1Appearance(), parents: parents)
+            new TransformationDrain(1f, 0.5f),
+            new SSJ1Appearance(),
+            new TransformationOverload(0, 0),
+            /* limitedToRaces: new RaceDefinition[] { RaceDefinitionManager.Instance.Saiyan }, */ parents: parents)
         {
+            TabHoverText = "Normal Super Saiyan Transformations";
         }
 
         public override float GetMaxMastery(DBTPlayer dbtPlayer)

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using DBT.Transformations;
+using DBT.UserInterfaces.CharacterMenus;
 using Terraria.ModLoader.IO;
 
 namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        internal void InitializeTransformations()
+        private void InitializeTransformations()
         {
             AcquiredTransformations = new Dictionary<TransformationDefinition, PlayerTransformation>();
             ActiveTransformations = new List<TransformationDefinition>();
             SelectedTransformations = new List<TransformationDefinition>();
         }
 
-        internal void SaveTransformations(TagCompound tag)
+        private void SaveTransformations(TagCompound tag)
         {
             string[] transformationNames = new string[SelectedTransformations.Count];
 
@@ -21,9 +22,12 @@ namespace DBT.Players
                 transformationNames[i] = SelectedTransformations[i].UnlocalizedName;
 
             tag.Add(nameof(SelectedTransformations), string.Join(",", transformationNames));
+
+            if (CharacterTransformationsMenu.LastActiveTransformationTab != null)
+                tag.Add(nameof(CharacterTransformationsMenu.LastActiveTransformationTab), CharacterTransformationsMenu.LastActiveTransformationTab.UnlocalizedName);
         }
 
-        internal void LoadTransformations(TagCompound tag)
+        private void LoadTransformations(TagCompound tag)
         {
             string[] transformationNames = tag.GetString(nameof(SelectedTransformations)).Split(',');
 
@@ -32,6 +36,9 @@ namespace DBT.Players
                 if (string.IsNullOrWhiteSpace(transformationNames[i])) continue;
                 SelectedTransformations.Add(TransformationDefinitionManager.Instance[transformationNames[i]]);
             }
+
+            if (tag.ContainsKey(nameof(CharacterTransformationsMenu.LastActiveTransformationTab)))
+                CharacterTransformationsMenu.LastActiveTransformationTab = TransformationDefinitionManager.Instance[tag.GetString(nameof(CharacterTransformationsMenu.LastActiveTransformationTab))];
         }
     }
 }

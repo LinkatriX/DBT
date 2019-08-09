@@ -11,10 +11,10 @@ namespace DBT.UserInterfaces.KiBar
 
         protected override bool DrawSelf()
         {
-            if (DBTMod.Instance.KiBar.Visible)
+            if (DBTMod.Instance.kiBar.Visible)
             {
-                DBTMod.Instance.KiBarInterface.Update(Main._drawInterfaceGameTime);
-                DBTMod.Instance.KiBar.Draw(Main.spriteBatch);
+                DBTMod.Instance.kiBarInterface.Update(Main._drawInterfaceGameTime);
+                DBTMod.Instance.kiBar.Draw(Main.spriteBatch);
             }
 
             return true;

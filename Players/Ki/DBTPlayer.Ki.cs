@@ -28,10 +28,17 @@ namespace DBT.Players
             return Ki;
         }
 
+        public float ModifyKi(float kiAmount, int kiRegenHaltedFor)
+        {
+            float result = ModifyKi(kiAmount);
+
+            KiRegenerationHaltedFor = kiRegenHaltedFor;
+            return result;
+        }
+
         internal void ResetKiEffects()
         {
             KiDamageMultiplier = 1;
-            KiChargeRate = 1;
 
             MaxKiMultiplier = 1;
             MaxKiModifier = 1;
@@ -40,19 +47,21 @@ namespace DBT.Players
             KiKnockbackAddition = 0;
             KiCritAddition = 0;
 
-            BaseNaturalKiRegenerationPercentage = 0.01f;
+            BaseNaturalKiRegenerationPercentage = 0.01f / Constants.TICKS_PER_SECOND;
             BaseNaturalKiRegenerationModifier = 0f;
             NaturalKiRegenerationMultiplier = 1;
 
             ExternalKiRegenerationPercentage = 0f;
             ExternalKiRegenerationModifier = 0;
+            NaturalKiRegenerationMultiplier = 1f;
 
             KiOrbRestoreAmount = 100;
             KiOrbGrabRange = 2;
 
             KiOrbDropChance = 3;
 
-            KiChargeRate = 0;
+            KiChargeRatePercentage = 0.05f / Constants.TICKS_PER_SECOND;
+            KiChargeRateModifier = 1;
             KiChargeRateMultiplierLimit = 0;
 
             KiDrainMultiplier = 1;
@@ -79,8 +88,17 @@ namespace DBT.Players
                 player.statDefense = (int)(defenseMultiplier * player.statDefense);
             }
 
+            if (KiRegenerationHaltedFor >= 0)
+            {
+                KiRegenerationHaltedFor--;
+                return;
+            }
+
+            if (OverloadKiMultiplier != 0)
+                MaxKiMultiplier += OverloadKiMultiplier - 1f;
+
             if (Ki < MaxKi)
-                ModifyKi(NaturalKiRegeneration);
+                ModifyKi(NaturalKiRegeneration + ExternalKiRegenerationModifier);
         }
 
 
@@ -93,8 +111,13 @@ namespace DBT.Players
 
         public float Ki { get; private set; }
 
-        public float KiChargeRate { get; set; }
-        public float KiChargeRateMultiplierLimit { get; set; }
+        public float KiChargeRatePercentage { get; set; }
+        public float KiChargeRateModifier { get; set; }
+        public float KiChargeRateMultiplierLimit { get; set; } // TODO Implement this
+
+        public float KiChargeRate => (KiChargeRatePercentage * MaxKi + KiChargeRateModifier);
+
+        public float KiRegenerationHaltedFor { get; set; }
 
         /// <summary>Percentage of maximum Ki restored per second.</summary>
         public float BaseNaturalKiRegenerationPercentage { get; set; }
@@ -105,6 +128,9 @@ namespace DBT.Players
 
         public float ExternalKiRegenerationPercentage { get; set; }
         public float ExternalKiRegenerationModifier { get; set; }
+
+        public float ExternalKiRegenerationMultiplier { get; set; }
+        public float ExternalKiRegeneration => (ExternalKiRegenerationPercentage * MaxKi + ExternalKiRegenerationModifier) * ExternalKiRegenerationMultiplier;
 
         public float KiOrbRestoreAmount { get; set; }
         public float KiOrbGrabRange { get; set; }

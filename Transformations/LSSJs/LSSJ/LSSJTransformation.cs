@@ -10,7 +10,9 @@ namespace DBT.Transformations.LSSJs.LSSJ
             "LSSJ", "Legendary Super Saiyan", typeof(LSSJTransformationBuff),
             4.9f, 4.9f, 36, 
             new TransformationDrain(340f / 60, 170f / 60),
-            new LSSJTransformationAppearance(), parents: parents)
+            new LSSJTransformationAppearance(),
+            new TransformationOverload(0.1f, 0.05f), // 0.2f, 0.1f
+            parents: parents)
         {
         }
     }

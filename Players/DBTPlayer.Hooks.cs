@@ -3,11 +3,11 @@ using DBT.Commons.Players;
 using DBT.Extensions;
 using DBT.HairStyles;
 using DBT.Transformations;
+using DBT.Wasteland;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using DBT.Wasteland;
 
 namespace DBT.Players
 {
@@ -42,6 +42,7 @@ namespace DBT.Players
             ResetKiEffects();
             ResetGuardianEffects();
             ResetSkillEffects();
+            ResetOverloadEffects();
         }
 
 
@@ -50,13 +51,13 @@ namespace DBT.Players
         public override void PreUpdate()
         {
             PreUpdateKi();
+            PreUpdateOverload();
         }
 
         public override void PreUpdateMovement()
         {
             if (Main.netMode != NetmodeID.Server)
             {
-
                 PreUpdateMovementHandleAura();
                 PreUpdateMovementHandleHair();
             }
@@ -72,12 +73,16 @@ namespace DBT.Players
             FirstTransformation = GetTransformation();
 
             PostUpdateKi();
+            PostUpdateOverload();
             PostUpdateHandleTransformations();
 
             List<IHandleOnPlayerPostUpdate> items = player.GetItemsByType<IHandleOnPlayerPostUpdate>();
 
             for (int i = 0; i < items.Count; i++)
                 items[i].OnPlayerPostUpdate(this);
+
+            if (DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaShip")))
+                CheckFriezaShipSpawn();
         }
 
         public override void PostUpdateRunSpeeds()
@@ -91,6 +96,7 @@ namespace DBT.Players
         }
 
         #endregion
+
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {

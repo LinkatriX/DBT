@@ -1,7 +1,6 @@
 ﻿using DBT.Commons.Players;
 using DBT.Items.Materials;
 using DBT.Players;
-using DBT.Tiles;
 using DBT.Tiles.Stations;
 using Terraria;
 using Terraria.ID;
@@ -45,7 +44,7 @@ namespace DBT.Items.Armor.Sets.Black
             dbtPlayer.KiDamageMultiplier += 0.24f;
             dbtPlayer.KiCritAddition += 20;
             dbtPlayer.MaxKiModifier += 1000;
-            dbtPlayer.KiChargeRate += 2;
+            dbtPlayer.KiChargeRateModifier += 2;
             dbtPlayer.KiChargeRateMultiplierLimit += 2;
         }
 

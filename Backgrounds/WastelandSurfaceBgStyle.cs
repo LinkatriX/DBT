@@ -1,6 +1,6 @@
+using DBT.Players;
 using Terraria;
 using Terraria.ModLoader;
-using DBT.Players;
 
 namespace DBT.Backgrounds
 {

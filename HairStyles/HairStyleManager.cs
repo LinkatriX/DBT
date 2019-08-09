@@ -10,10 +10,8 @@ using DBT.Managers;
 
 namespace DBT.HairStyles
 {
-    public sealed class HairStyleManager : Manager<HairStyle>
+    public sealed class HairStyleManager : SingletonManager<HairStyleManager, HairStyle>
     {
-        private static HairStyleManager _instance;
-
         internal override void DefaultInitialize()
         {
             NoChoice = Add(new NoChoiceHairStyle()) as NoChoiceHairStyle;
@@ -36,20 +34,5 @@ namespace DBT.HairStyles
         public NappaHairStyle Nappa { get; private set; }
         public VegetaHairStyle Vegeta { get; private set; }
         public WebmilioHairStyle Webmilio { get; private set; }
-
-
-        public static HairStyleManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new HairStyleManager();
-
-                if (!_instance.Initialized)
-                    _instance.DefaultInitialize();
-
-                return _instance;
-            }
-        }
     }
 }

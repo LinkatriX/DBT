@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DBT.Extensions;
-using DBT.Players;
 using Terraria;
 using Terraria.ID;
 

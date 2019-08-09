@@ -9,11 +9,15 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        internal void PostUpdateHandleTransformations()
+        private void PostUpdateHandleTransformations()
         {
             PostUpdateHandleTransformationsVisuals();
         }
 
+        private void HandleTransformationsOnEnterWorld(Player player)
+        {
+            DBTMod.Instance.characterTransformationsMenu.OnPlayerEnterWorld(player.GetModPlayer<DBTPlayer>());
+        }
 
         public void ListenForTransformations()
         {
@@ -134,19 +138,6 @@ namespace DBT.Players
             return AcquiredTransformations[ActiveTransformations[0]];
         }
 
-        public void ForAllActiveTransformations(Action<TransformationDefinition> action)
-        {
-            for (int i = 0; i < ActiveTransformations.Count; i++)
-                action(ActiveTransformations[i]);
-        }
-
-        public void ForAllAcquiredTransformations(Action<PlayerTransformation> action)
-        {
-            foreach (PlayerTransformation playerTransformation in AcquiredTransformations.Values)
-                action(playerTransformation);
-        }
-
-
         public bool TryCombiningTransformations(params TransformationDefinition[] transformations)
         {
             // TODO Add code for SSBKK and similar transformations.
@@ -163,6 +154,7 @@ namespace DBT.Players
             else 
                 SelectedTransformations.Add(transformation);
         }
+
 
         public Dictionary<TransformationDefinition, PlayerTransformation> AcquiredTransformations { get; internal set; }
         public List<TransformationDefinition> ActiveTransformations { get; internal set; }

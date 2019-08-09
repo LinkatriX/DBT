@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DBT.Commons.Items;
 using Terraria;
 
 namespace DBT.Extensions

@@ -1,5 +1,4 @@
-﻿using DBT.Commons.Items;
-using DBT.Items.KiStones;
+﻿using DBT.Items.KiStones;
 using DBT.Items.Materials.Metals;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 namespace DBT.Items.Accessories.Infusers
 {
     [AutoloadEquip(EquipType.Neck)]
-    public abstract class Infuser : DBTItem, IHasValue, IHasRarity
+    public abstract class Infuser : DBTItem
     {
         private const int GEM_COUNT = 5;
 

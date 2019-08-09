@@ -39,7 +39,7 @@ namespace DBT.Projectiles
             return base.PreAI();
         }
 
-
+        
         public DBTPlayer Owner { get; protected set; }
 
         public override bool CloneNewInstances => true;

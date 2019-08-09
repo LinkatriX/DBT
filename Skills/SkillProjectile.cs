@@ -1,5 +1,4 @@
-﻿using System;
-using DBT.Projectiles;
+﻿using DBT.Projectiles;
 
 namespace DBT.Skills
 {

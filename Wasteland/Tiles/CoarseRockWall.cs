@@ -1,3 +1,4 @@
+using DBT.Wasteland.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,7 +10,8 @@ namespace DBT.Wasteland.Tiles
 		public override void SetDefaults()
 		{
 			Main.wallHouse[Type] = false;
-            drop = mod.ItemType("CoarseRockWallItem");
+
+            drop = mod.ItemType<CoarseRockWallItem>();
             AddMapEntry(new Color(204, 130, 85));
 		}
 	}

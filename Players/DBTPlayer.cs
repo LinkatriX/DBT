@@ -36,6 +36,11 @@ namespace DBT.Players
             }
         }
 
+        public override void OnEnterWorld(Player player)
+        {
+            HandleTransformationsOnEnterWorld(player);
+        }
+
         public bool PlayerInitialized { get; private set; }
 
         public float HealthDrainMultiplier { get; set; }

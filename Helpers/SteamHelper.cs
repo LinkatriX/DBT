@@ -1,11 +1,10 @@
-﻿using System;
+﻿using DBT.Commons.Users;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Windows.Forms.VisualStyles;
-using DBT.Commons;
-using DBT.Commons.Users;
 using Terraria.ModLoader;
 
+// ReSharper disable IdentifierTypo
 namespace DBT.Helpers
 {
     public static class SteamHelper
@@ -21,12 +20,15 @@ namespace DBT.Helpers
         {
             BrushBoy,
             CanadianMRE,
+            DaddyWonka,
             FreeRaisinBread,
             Hamster, HelloMyFriend,
             Luna,
-            Mak0, Megawarrior101,
+            Mak0, Maxphog, Megawarrior101,
             NyoonBooetteEnthusiast,
             PapaTingle, Pheonix,
+            Outnot,
+            Redflare,
             Skipping, SnorLaxatives, SoulCarnagee, StepDad,
             UndeadDeath,
             Vector,
@@ -126,15 +128,19 @@ namespace DBT.Helpers
 
         public static Donator BrushBoy => new Donator(76561197960287930, "Brush Boy", 200413799746895873); // Brush Boy#9064
         public static Donator CanadianMRE => new Donator(76561198147284656, "CanadianMRE", 219196190271471616); // CanadianMRE#6288
+        public static Donator DaddyWonka => new Donator(76561198256554091, "DaddyWonka", 267171454234132480); // DaddyWonka#8546
         public static Donator FreeRaisinBread => new Donator(368799789942308874, "FreeRasinBread", 368799789942308874); // Freerasinbread#3516
         public static Donator Hamster => new Donator(76561198055274667, "Hamster", 224323430651133952); // Hamster#2477
         public static Donator HelloMyFriend => new Donator(76561198062878746, "Hello My Friend", 251408085313126401); // hello my friend#2456
         public static Donator Luna => new Donator(76561198085728391, "Luna", 216853147837005824); // [MU] Luna#8888
-        public static Donator Mak0 => new Donator(76561198161525177, "Michael", 307618173073489920); // Mak0-Z#6790
+        public static Donator Mak0 => new Donator(76561198161525177, "Михаил", 307618173073489920); // Mak0-Z#6790
+        public static Donator Maxphog => new Donator(765661198278045015, "Maxphog", 256982543025307648); // maxphog#3903
         public static Donator Megawarrior101 => new Donator(76561193783431419, "Megawarrior_101", 405844470584836117); // Megawarrior_101#0616
         public static Donator NyoonBooetteEnthusiast => new Donator(76561198301260251, "Nyoon Booette Enthusiast", 228294779815985152); // Nyoon Booette enthusiast#4130;
+        public static Donator Outnot => new Donator(76561198118731558, "Outnot", 265734710561472512); // Outnot#1305
         public static Donator PapaTingle => new Donator(76561198236967076, "Papa Tingle", 159089770763517953); // PapaTingle#5281
         public static Donator Pheonix => new Donator(76561198059019480, "Pheonix", 175445960946745344); // pheonix#7035
+        public static Donator Redflare => new Donator(76561197973020859, "Redflare", 310461222115868673); // Redflare#5473
         public static Donator Skipping => new Donator(76561193979609866, "Luke", 450018452103757835); // Skipping#7613
         public static Donator SnorLaxatives => new Donator(76561198108193073, "SnorLaxatives", 189983407168684042); // SnorLaxatives#2131
         public static Donator SoulCarnagee => new Donator(76561198059100989, "SoulCarnagee", 313358705854775296); // SoulCarnagee#6993

@@ -1,15 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DBT.Wasteland.Tiles;
 using Terraria;
 using Terraria.GameContent.Generation;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
-using DBT.Wasteland.Tiles;
 
 namespace DBT.Wasteland
 {

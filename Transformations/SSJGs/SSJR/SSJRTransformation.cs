@@ -10,7 +10,9 @@ namespace DBT.Transformations.SSJGs.SSJR
             "SSJR", "Super Saiyan Rosé", typeof(SSJRTransformationBuff),
             4.75f, 4.75f, 34, 
             new TransformationDrain(5, 2.5f), 
-            new SSJRAppearance(), parents: parents)
+            new SSJRAppearance(),
+            new TransformationOverload(0, 0), 
+            parents: parents)
         {
         }
     }

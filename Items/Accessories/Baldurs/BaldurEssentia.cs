@@ -1,7 +1,4 @@
-﻿using DBT.Commons;
-using DBT.Extensions;
-using DBT.Players;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria;
 
 namespace DBT.Items.Accessories.Baldurs

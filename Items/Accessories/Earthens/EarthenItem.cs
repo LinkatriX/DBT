@@ -1,6 +1,4 @@
-﻿using Terraria.ID;
-
-namespace DBT.Items.Accessories.Earthens
+﻿namespace DBT.Items.Accessories.Earthens
 {
     public abstract class EarthenItem : DBTItem
     {

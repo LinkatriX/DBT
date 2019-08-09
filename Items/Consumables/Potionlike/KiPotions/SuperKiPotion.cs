@@ -1,5 +1,4 @@
-﻿
-using DBT.Items.KiStones;
+﻿using DBT.Items.KiStones;
 using Terraria.ID;
 using Terraria.ModLoader;
 

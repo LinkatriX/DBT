@@ -1,6 +1,4 @@
-﻿using DBT.Buffs;
-using DBT.Items.Consumables.Potionlike.KiPotions;
-using DBT.Players;
+﻿using DBT.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

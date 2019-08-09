@@ -9,6 +9,8 @@ namespace DBT.Transformations
         {
             Aura = aura;
             Hair = hair;
+
+            GeneralColor = generalColor;
         }
 
         public AuraAppearance Aura { get; }

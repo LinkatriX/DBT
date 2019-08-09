@@ -1,4 +1,5 @@
-﻿using DBT.Dynamicity;
+﻿using System;
+using DBT.Dynamicity;
 using DBT.Managers;
 using DBT.Transformations.Developers.Webmilio;
 using DBT.Transformations.LSSJs.LSSJ;
@@ -17,10 +18,8 @@ using DBT.Transformations.SSJs.SSJ4s.SSJ4;
 
 namespace DBT.Transformations
 {
-    public sealed class TransformationDefinitionManager : Manager<TransformationDefinition>
+    public sealed class TransformationDefinitionManager : SingletonManager<TransformationDefinitionManager, TransformationDefinition>
     {
-        private static TransformationDefinitionManager _instance;
-
         internal override void DefaultInitialize()
         {
             SSJ1 = Add(new SSJ1Transformation()) as SSJ1Transformation;
@@ -50,6 +49,12 @@ namespace DBT.Transformations
         }
 
 
+        /*public Tree<TransformationDefinition> GenerateConditionalTree(Predicate<TransformationDefinition> condition)
+        {
+            
+        }*/
+
+
         public SSJ1Transformation SSJ1 { get; private set; }
         public ASSJ1Transformation ASSJ1 { get; private set; }
         public USSJ1Transformation USSJ1 { get; private set; }
@@ -72,19 +77,5 @@ namespace DBT.Transformations
         public SSJ5Transformation SSJ5 { get; private set; }
 
         public Tree<TransformationDefinition> Tree { get; private set; }
-
-        public static TransformationDefinitionManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new TransformationDefinitionManager();
-
-                if (!_instance.Initialized)
-                    _instance.DefaultInitialize();
-
-                return _instance;
-            }
-        }
     }
 }

@@ -1,30 +1,39 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DBT.Network;
-using DBT.UserInterfaces.CharacterMenus;
-using DBT.UserInterfaces.KiBar;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using DBT.Players;
-using DBT.Wasteland;
 using System;
 using DBT.Helpers;
+using DBT.Network;
+using DBT.Players;
+using DBT.UserInterfaces.CharacterMenus;
+using DBT.UserInterfaces.KiBar;
+using DBT.UserInterfaces.OverloadBar;
+using DBT.UserInterfaces;
+using DBT.Effects;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace DBT
 {
 	public sealed class DBTMod : Mod
 	{
-	    internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey;
+	    internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey;
 
-	    internal KiBar KiBar;
-	    internal UserInterface KiBarInterface;
+	    internal KiBar kiBar;
+	    internal UserInterface kiBarInterface;
 
-	    internal DBTMenu dbtMenu;
+        internal OverloadBar overloadBar;
+        internal UserInterface overloadBarInterface;
+
+        internal DBTMenu dbtMenu;
+	    internal CharacterTransformationsMenu characterTransformationsMenu;
 	    internal UserInterface characterMenuInterface;
+
+        internal static CircleShader circle;
 
         public DBTMod()
 		{
@@ -54,35 +63,48 @@ namespace DBT
 	            speedToggleKey = RegisterHotKey("Speed Toggle", "Z");
 	            transformDownKey = RegisterHotKey("Transform Down", "V");
 	            transformUpKey = RegisterHotKey("Transform Up", "X");
+                flightToggleKey = RegisterHotKey("Flight Toggle", "Q");
 
 	            #endregion
 
 	            #region Ki Bar
 
-	            KiBar = new KiBar();
-	            KiBar.Activate();
+	            kiBar = new KiBar();
+	            kiBar.Activate();
 
-	            KiBarInterface = new UserInterface();
-	            KiBarInterface.SetState(KiBar);
+	            kiBarInterface = new UserInterface();
+	            kiBarInterface.SetState(kiBar);
 
-	            KiBar.Visible = true;
+	            kiBar.Visible = true;
 
                 #endregion
 
-                dbtMenu = new DBTMenu(this);
+                overloadBar = new OverloadBar();
+                overloadBar.Activate();
+                overloadBarInterface = new UserInterface();
+                overloadBarInterface.SetState(overloadBar);
+
+
+                dbtMenu = new DBTMenu();
                 dbtMenu.Activate();
+                characterTransformationsMenu = new CharacterTransformationsMenu(this);
+                characterTransformationsMenu.Activate();
                 characterMenuInterface = new UserInterface();
-                characterMenuInterface.SetState(dbtMenu);
-	        }
+                characterMenuInterface.SetState(characterTransformationsMenu);
+
+                circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
+            }
 	    }
 
 	    public override void Unload()
 	    {
 	        if (!Main.dedServ)
 	        {
-	            KiBar.Visible = false;
+	            kiBar.Visible = false;
 
-	            dbtMenu.Visible = false;
+	            characterTransformationsMenu.Visible = false;
+
+                overloadBar.Visible = false;
 	        }
 
 	        Instance = null;
@@ -92,10 +114,11 @@ namespace DBT
 
 	    public override void UpdateUI(GameTime gameTime)
 	    {
-	        if (characterMenuInterface != null && dbtMenu.Visible)
+	        if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
-	    }
+        }
 
+		[Obsolete]
         public override void UpdateMusic(ref int music)
         {
             int[] noOverride =
@@ -107,9 +130,7 @@ namespace DBT
                 };
 
             int m = music;
-            bool playMusic =
-                !noOverride.Any(song => song == m)
-                || !Main.npc.Any(npc => npc.boss);
+            bool playMusic = !noOverride.Any(song => song == m) || !Main.npc.Any(npc => npc.boss);
 
             Player player = Main.LocalPlayer;
 
@@ -141,10 +162,12 @@ namespace DBT
 	            characterMenuIndex = layers.FindIndex(l => l.Name.Contains("Hotbar"));
 
             if (resourcesLayerIndex != -1)
+            {
+                layers.Insert(resourcesLayerIndex, new OverloadBarLayer());
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
-
+            }
             if (characterMenuIndex != -1)
-                layers.Insert(characterMenuIndex, new DBTMenuLayer(dbtMenu, characterMenuInterface));
+                layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
         }
 
         public static uint GetTicks() => Main.GameUpdateCount;
