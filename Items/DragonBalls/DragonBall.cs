@@ -43,25 +43,6 @@ namespace DBT.Items.DragonBalls
             return dragonBallStars.Count == Enum.GetNames(typeof(DragonBallStarCount)).Length;
         }
 
-        public static int GetDragonBallNumber(Player player)
-        {
-            List<DragonBall> dragonBalls = player.GetItemsByType<DragonBall>();
-            int starNumber = 0;
-
-            for (int i = 0; i < 6; i++)
-            {
-                if ((int)dragonBalls[i].StarCount == starNumber)
-                {
-                    break;
-                }
-                else
-                {
-                    starNumber++;
-                }
-            }
-            return starNumber;
-        }
-
         public static string GetDragonBallItemTypeFromNumber(int whichDragonBall)
         {
             switch (whichDragonBall)

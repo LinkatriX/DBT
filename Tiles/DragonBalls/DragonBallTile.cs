@@ -13,10 +13,13 @@ namespace DBT.Tiles.DragonBalls
     public abstract class DragonBallTile : ModTile
     {
         private readonly string _displayName, _itemName;
-        protected DragonBallTile(string displayName, string itemName)
+        private readonly int _whichDragonBallAmI;
+
+        protected DragonBallTile(string displayName, string itemName, int whichDragonBallAmI)
         {
             _displayName = displayName;
             _itemName = itemName;
+            _whichDragonBallAmI = whichDragonBallAmI;
         }
 
         public override void SetDefaults()
@@ -42,13 +45,12 @@ namespace DBT.Tiles.DragonBalls
             TileObjectData.newTile.Origin = new Point16(0, 0);
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
-
-            /*ModTranslation name;
+            ModTranslation name;
             name = CreateMapEntryName();
             name.SetDefault(_displayName);
             drop = mod.ItemType(_itemName);
             AddMapEntry(new Color(249, 193, 49), name);
-            disableSmartCursor = true;*/
+            disableSmartCursor = true;
         }
 
         public override void MouseOver(int i, int j)
@@ -56,7 +58,7 @@ namespace DBT.Tiles.DragonBalls
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.showItemIcon = true;
-            player.showItemIcon2 = mod.ItemType(DragonBall.GetDragonBallItemTypeFromNumber(DragonBall.GetDragonBallNumber(player)));
+            player.showItemIcon2 = mod.ItemType(DragonBall.GetDragonBallItemTypeFromNumber(_whichDragonBallAmI));
         }
 
         //The four star is special, it has its own drop method
@@ -68,7 +70,7 @@ namespace DBT.Tiles.DragonBalls
             DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>(mod);
             if (modPlayer.firstDragonBallPickup)
                 return true;
-            Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType("DragonBallNote"));
+            Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType("FourStarDragonBall"));
             modPlayer.firstDragonBallPickup = true;
             return true;
         }
@@ -76,57 +78,50 @@ namespace DBT.Tiles.DragonBalls
 
     public class OneStarDragonBallTile : DragonBallTile
     {
-        public OneStarDragonBallTile() : base("1 Star Dragon Ball", "OneStarDragonBallTile")
+        public OneStarDragonBallTile() : base("1 Star Dragon Ball", "OneStarDragonBallTile", 1)
         {
-            base.SetDefaults();
         }
     }
 
     public class TwoStarDragonBallTile : DragonBallTile
     {
-        public TwoStarDragonBallTile() : base("2 Star Dragon Ball", "TwoStarDragonBallTile")
+        public TwoStarDragonBallTile() : base("2 Star Dragon Ball", "TwoStarDragonBallTile", 2)
         {
-            base.SetDefaults();
         }
     }
 
     public class ThreeStarDragonBallTile : DragonBallTile
     {
-        public ThreeStarDragonBallTile() : base("3 Star Dragon Ball", "ThreeStarDragonBallTile")
+        public ThreeStarDragonBallTile() : base("3 Star Dragon Ball", "ThreeStarDragonBallTile", 3)
         {
-            base.SetDefaults();
         }
     }
 
     public class FourStarDragonBallTile : DragonBallTile
     {
-        public FourStarDragonBallTile() : base("4 Star Dragon Ball", "FourStarDragonBallTile")
+        public FourStarDragonBallTile() : base("4 Star Dragon Ball", "FourStarDragonBallTile", 4)
         {
-            base.SetDefaults();
         }
     }
 
     public class FiveStarDragonBallTile : DragonBallTile
     {
-        public FiveStarDragonBallTile() : base("5 Star Dragon Ball", "FiveStarDragonBallTile")
+        public FiveStarDragonBallTile() : base("5 Star Dragon Ball", "FiveStarDragonBallTile", 5)
         {
-            base.SetDefaults();
         }
     }
 
     public class SixStarDragonBallTile : DragonBallTile
     {
-        public SixStarDragonBallTile() : base("6 Star Dragon Ball", "SixStarDragonBallTile")
+        public SixStarDragonBallTile() : base("6 Star Dragon Ball", "SixStarDragonBallTile", 6)
         {
-            base.SetDefaults();
         }
     }
 
     public class SevenStarDragonBallTile : DragonBallTile
     {
-        public SevenStarDragonBallTile() : base("7 Star Dragon Ball", "SevenStarDragonBallTile")
+        public SevenStarDragonBallTile() : base("7 Star Dragon Ball", "SevenStarDragonBallTile", 7)
         {
-            base.SetDefaults();
         }
     }
 }
