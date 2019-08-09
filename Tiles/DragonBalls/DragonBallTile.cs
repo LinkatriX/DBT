@@ -1,6 +1,7 @@
 ﻿using DBT.Items.DragonBalls;
 using DBT.Players;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -11,11 +12,11 @@ namespace DBT.Tiles.DragonBalls
 {
     public abstract class DragonBallTile : ModTile
     {
-        //private readonly string _displayName, _itemName;
+        private readonly string _displayName, _itemName;
         protected DragonBallTile(string displayName, string itemName)
         {
-            /*_displayName = displayName;
-            _itemName = itemName;*/
+            _displayName = displayName;
+            _itemName = itemName;
         }
 
         public override void SetDefaults()
@@ -46,8 +47,8 @@ namespace DBT.Tiles.DragonBalls
             name = CreateMapEntryName();
             name.SetDefault(_displayName);
             drop = mod.ItemType(_itemName);
-            AddMapEntry(new Color(249, 193, 49), name);*/
-            disableSmartCursor = true;
+            AddMapEntry(new Color(249, 193, 49), name);
+            disableSmartCursor = true;*/
         }
 
         public override void MouseOver(int i, int j)
@@ -73,57 +74,57 @@ namespace DBT.Tiles.DragonBalls
         }
     }
 
-    public class OneStarDBTile : DragonBallTile
+    public class OneStarDragonBallTile : DragonBallTile
     {
-        public OneStarDBTile() : base("1 Star Dragon Ball", "OneStarDragonBall")
+        public OneStarDragonBallTile() : base("1 Star Dragon Ball", "OneStarDragonBallTile")
         {
             base.SetDefaults();
         }
     }
 
-    public class TwoStarDBTile : DragonBallTile
+    public class TwoStarDragonBallTile : DragonBallTile
     {
-        public TwoStarDBTile() : base("2 Star Dragon Ball", "TwoStarDragonBall")
+        public TwoStarDragonBallTile() : base("2 Star Dragon Ball", "TwoStarDragonBallTile")
         {
             base.SetDefaults();
         }
     }
 
-    public class ThreeStarDBTile : DragonBallTile
+    public class ThreeStarDragonBallTile : DragonBallTile
     {
-        public ThreeStarDBTile() : base("3 Star Dragon Ball", "ThreeStarDragonBall")
+        public ThreeStarDragonBallTile() : base("3 Star Dragon Ball", "ThreeStarDragonBallTile")
         {
             base.SetDefaults();
         }
     }
 
-    public class FourStarDBTile : DragonBallTile
+    public class FourStarDragonBallTile : DragonBallTile
     {
-        public FourStarDBTile() : base("4 Star Dragon Ball", "FourStarDragonBall")
+        public FourStarDragonBallTile() : base("4 Star Dragon Ball", "FourStarDragonBallTile")
         {
             base.SetDefaults();
         }
     }
 
-    public class FiveStarDBTile : DragonBallTile
+    public class FiveStarDragonBallTile : DragonBallTile
     {
-        public FiveStarDBTile() : base("5 Star Dragon Ball", "FiveStarDragonBall")
+        public FiveStarDragonBallTile() : base("5 Star Dragon Ball", "FiveStarDragonBallTile")
         {
             base.SetDefaults();
         }
     }
 
-    public class SixStarDBTile : DragonBallTile
+    public class SixStarDragonBallTile : DragonBallTile
     {
-        public SixStarDBTile() : base("6 Star Dragon Ball", "SixStarDragonBall")
+        public SixStarDragonBallTile() : base("6 Star Dragon Ball", "SixStarDragonBallTile")
         {
             base.SetDefaults();
         }
     }
 
-    public class SevenStarDBTile : DragonBallTile
+    public class SevenStarDragonBallTile : DragonBallTile
     {
-        public SevenStarDBTile() : base("7 Star Dragon Ball", "SevenStarDragonBall")
+        public SevenStarDragonBallTile() : base("7 Star Dragon Ball", "SevenStarDragonBallTile")
         {
             base.SetDefaults();
         }

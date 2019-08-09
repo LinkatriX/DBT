@@ -745,7 +745,7 @@ namespace DBT.DBTWorld
             if (dbTypes[whichDragonBall - 1].HasValue)
                 return dbTypes[whichDragonBall - 1].Value;
             var dragonBallWord = GetDragonBallNumberName(whichDragonBall);
-            dbTypes[whichDragonBall - 1] = DBTMod.Instance?.TileType($"{dragonBallWord}StarDragonBall");
+            dbTypes[whichDragonBall - 1] = DBTMod.Instance?.TileType($"{dragonBallWord}StarDragonBallTile");
             if (dbTypes[whichDragonBall - 1].HasValue)
                 return dbTypes[whichDragonBall - 1].Value;
             return 0;
