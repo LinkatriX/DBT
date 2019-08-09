@@ -28,7 +28,7 @@ namespace DBT.Transformations.Patreon.SSJ5
     }
 
     public sealed class SSJ5Appearance : TransformationAppearance
-    {
+    {            
         public SSJ5Appearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJ5Transformation), 8, 3, BlendState.Additive, 1f, true),
                 new LightingAppearance(new float[] { 1.475f, 1.475f, 1.475f })),

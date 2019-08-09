@@ -9,9 +9,9 @@ namespace DBT.Items.KiStones
 
         internal override void DefaultInitialize()
         {
-            KiStoneT1 = Add(new KiStoneDefinition(1000, typeof(KiStoneT1)));
-            KiStoneT2 = Add(new KiStoneDefinition(2000, typeof(KiStoneT2), KiStoneT1));
-            KiStoneT3 = Add(new KiStoneDefinition(3000, typeof(KiStoneT3), KiStoneT2));
+            KiStoneT1 = Add(new KiStoneDefinition(250, typeof(KiStoneT1)));
+            KiStoneT2 = Add(new KiStoneDefinition(1000, typeof(KiStoneT2), KiStoneT1));
+            KiStoneT3 = Add(new KiStoneDefinition(2500, typeof(KiStoneT3), KiStoneT2));
             KiStoneT4 = Add(new KiStoneDefinition(5000, typeof(KiStoneT4), KiStoneT3));
             KiStoneT5 = Add(new KiStoneDefinition(10000, typeof(KiStoneT5), KiStoneT4));
             KiStoneT6 = Add(new KiStoneDefinition(20000, typeof(KiStoneT6), KiStoneT5));

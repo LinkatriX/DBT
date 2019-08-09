@@ -6,7 +6,7 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
 {
     public sealed class SuperKiPotion : KiPotion
     {
-        public SuperKiPotion() : base("Super Ki Potion", 2180, 0)
+        public SuperKiPotion() : base("Super Ki Potion", 35, 400)
         {
         }
 
@@ -15,10 +15,10 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
             ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(mod, nameof(KiStoneT4));
-            recipe.AddIngredient(mod, nameof(GreaterKiPotion), 4);
+            recipe.AddIngredient(mod, nameof(GreaterKiPotion), 2);
             recipe.AddTile(TileID.Bottles);
 
-            recipe.SetResult(this, 4);
+            recipe.SetResult(this, 2);
             recipe.AddRecipe();
         }
     }

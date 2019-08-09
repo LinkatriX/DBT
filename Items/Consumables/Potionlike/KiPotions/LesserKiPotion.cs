@@ -6,7 +6,7 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
 {
     public sealed class LesserKiPotion : KiPotion
     {
-        public LesserKiPotion() : base("Lesser Ki Potion", 330, 0)
+        public LesserKiPotion() : base("Lesser Ki Potion", 10, 20)
         {
         }
 
@@ -15,12 +15,12 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
             ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(mod, nameof(KiStoneT1), 1);
-            recipe.AddIngredient(ItemID.Blinkroot, 4);
-            recipe.AddIngredient(ItemID.Waterleaf, 6);
-            recipe.AddIngredient(ItemID.BottledWater, 4);
+            recipe.AddIngredient(ItemID.Blinkroot, 1);
+            recipe.AddIngredient(ItemID.Waterleaf, 1);
+            recipe.AddIngredient(ItemID.BottledWater, 1);
             recipe.AddTile(TileID.Bottles);
 
-            recipe.SetResult(this, 4);
+            recipe.SetResult(this, 2);
             recipe.AddRecipe();
         }
     }

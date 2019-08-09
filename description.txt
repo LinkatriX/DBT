@@ -17,7 +17,8 @@ Please List any bugs you find on the forum page or on the discord!
 Discord Link :  https://discord.gg/hc6Jdws
 
 (Credit)
--Credit To Lexi, Blockaroz, Maxphog, Freeraisinbread and some other amazing spriters for their hard work!
+-Special Credit to Webmilio who helped with a large amount of recoding for the mod.
+-Credit To Dawn, Blockaroz, Maxphog, Freeraisinbread and some other amazing spriters for their hard work!
 -Credit To GabeHasWon's, Divermansam and the whole TModLoader Discord for help with code and such.
 -Credit To Akira Toriyama for creating Dragon Ball!
 -Credit To Bluemagic and everyone else for creating TModloader.

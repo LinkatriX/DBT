@@ -4,12 +4,19 @@ using DBT.NPCs.Bosses.FriezaShip;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader.IO;
 
 namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
         private List<NPC> _aliveBosses;
+
+        private void UpdateNPCs()
+        {
+            if (FriendshipCooldown > 0)
+                FriendshipCooldown--;
+        }
 
         public List<NPC> AliveBosses
         {
@@ -25,6 +32,8 @@ namespace DBT.Players
                 return _aliveBosses;
             }
         }
+        public Dictionary<int, int> AliveTownNPCs { get; set; } = new Dictionary<int, int>();
+        public int FriendshipCooldown { get; set; } = 0;
 
         private void CheckFriezaShipSpawn()
         {

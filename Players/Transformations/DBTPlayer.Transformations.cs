@@ -12,6 +12,7 @@ namespace DBT.Players
         private void PostUpdateHandleTransformations()
         {
             PostUpdateHandleTransformationsVisuals();
+            UpdateConditions();
         }
 
         private void HandleTransformationsOnEnterWorld(Player player)
@@ -85,10 +86,9 @@ namespace DBT.Players
 
         public void ClearTransformations()
         {
-            for (int i = ActiveTransformations.Count - 1; i >= 0 ; i--)
+            for (int i = ActiveTransformations.Count - 1; i >= 0; i--)
                 Untransform(ActiveTransformations[i]);
         }
-
 
         public bool IsTransformed() => ActiveTransformations.Count > 0;
 

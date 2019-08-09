@@ -5,7 +5,6 @@ using Terraria.GameContent.UI.Elements;
 
 namespace DBT.UserInterfaces.Buttons
 {
-    // Credits to ExampleMod (BlushieMagic).
     public class UIHoverImageButton : UIImageButton
     {
         public UIHoverImageButton(Texture2D texture, string hoverText) : base(texture)

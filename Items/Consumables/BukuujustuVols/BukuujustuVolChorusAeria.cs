@@ -31,7 +31,7 @@ namespace DBT.Items.Consumables.BukuujustuVols
 
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(mod, nameof(KiStoneT3), 10);
+            recipe.AddIngredient(mod, nameof(KiStoneT3), 5);
             recipe.AddIngredient(ItemID.ManaCrystal, 3);
             recipe.AddIngredient(ItemID.Book, 1);
             recipe.AddTile(mod, nameof(ZTableTile));

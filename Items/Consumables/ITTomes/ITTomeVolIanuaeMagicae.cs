@@ -34,9 +34,8 @@ namespace DBT.Items.Consumables.ITTomes
         {
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(mod, nameof(KiStoneT4), 10);
+            recipe.AddIngredient(mod, nameof(KiStoneT4), 5);
             recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddIngredient(ItemID.RodofDiscord);
             recipe.AddIngredient(ItemID.SpellTome);
             recipe.AddTile(mod, nameof(ZTableTile));
 

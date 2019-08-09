@@ -14,6 +14,7 @@ namespace DBT
     {
         public const int FLIGHT_KI_DRAIN = 4;
         public const float BURST_SPEED = 0.5f, FLIGHT_SPEED = 0.3f;
+
         public static void Update(Player player)
         {
             // this might seem weird but the server isn't allowed to control the flight system.
@@ -37,8 +38,6 @@ namespace DBT
                 //prepare vals
                 player.fullRotationOrigin = new Vector2(11, 22);
                 Vector2 mRotationDir = Vector2.Zero;
-
-                int flightDustType = 261;
 
                 //Input checks
                 float boostSpeed = (BURST_SPEED) * (modPlayer.IsCharging ? 1 : 0);
@@ -79,33 +78,6 @@ namespace DBT
                     mRotationDir -= Vector2.UnitX;
                 }
 
-                // TODO Add in TransformationAppearance class.
-                /*if (modPlayer.IsTransformed(TransformationDefinitionManager.Instance.SSJ1))
-                {
-                    flightDustType = 170;
-                }
-                else if (modPlayer.IsTransformed(TransformationDefinitionManager.Instance.LSSJ))
-                {
-                    flightDustType = 107;
-                }
-                else if (modPlayer.IsTransformedInto(DBZMOD.Instance.TransformationDefinitionManager.SSJGDefinition))
-                {
-                    flightDustType = 174;
-                }
-                else if (DBTMod.Instance.TransformationDefinitionManager.IsKaioken(modPlayer.ActiveTransformations))
-                {
-                    flightDustType = 182;
-                }*/
-                else
-                {
-                    flightDustType = 267;
-                }
-
-                if (player.velocity.Length() > 0.5f)
-                {
-                    SpawnFlightDust(player, boostSpeed, flightDustType, 0f);
-                }
-
                 //calculate velocity
                 player.velocity.X = MathHelper.Lerp(player.velocity.X, 0, 0.1f);
                 player.velocity.Y = MathHelper.Lerp(player.velocity.Y, 0, 0.1f);
@@ -134,7 +106,7 @@ namespace DBT
             }
         }
 
-        /*public static Tuple<int, float> GetFlightFacingDirectionAndPitchDirection(DBTPlayer modPlayer)
+        public static Tuple<int, float> GetFlightFacingDirectionAndPitchDirection(DBTPlayer modPlayer)
         {
             int octantDirection = 0;
             int octantPitch = 0;
@@ -172,7 +144,7 @@ namespace DBT
             }
 
             return new Tuple<int, float>(octantDirection, octantPitch * 45f);
-        }*/
+        }
 
         public static float GetPlayerFlightRotation(Vector2 mRotationDir, Player player)
         {
@@ -181,7 +153,7 @@ namespace DBT
             DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
             float leanThrottle = 180;
             // make sure if the player is using a ki weapon during flight, we're facing a way that doesn't make it look extremely goofy
-            /*if (modPlayer.isPlayerUsingKiWeapon)
+            if (modPlayer.isPlayerUsingKiWeapon)
             {
                 var directionInfo = GetFlightFacingDirectionAndPitchDirection(modPlayer);
                 // get flight rotation from octant
@@ -202,7 +174,7 @@ namespace DBT
                     radRot = MathHelper.ToRadians(leanThrottle);
                 else if (player.direction == -1)
                     radRot = MathHelper.ToRadians(-leanThrottle);
-            }*/
+            }
             if (mRotationDir != Vector2.Zero)
             {
                 mRotationDir.Normalize();
@@ -235,15 +207,6 @@ namespace DBT
             {
                 Mod mod = ModLoader.GetMod("DBT");
                 player.AddBuff(mod.BuffType("KatchinFeet"), 600);
-            }
-        }
-
-        public static void SpawnFlightDust(Player thePlayer, float boostSpeed, int flightDustType, float scale)
-        {
-            for (int i = 0; i < (boostSpeed == 0 ? 2 : 10); i++)
-            {
-                Dust tdust = Dust.NewDustDirect(thePlayer.position - (Vector2.UnitY * 0.7f) - (Vector2.UnitX * 3.5f), 30, 30, flightDustType, 0f, 0f, 0, new Color(255, 255, 255), scale);
-                tdust.noGravity = true;
             }
         }
     }

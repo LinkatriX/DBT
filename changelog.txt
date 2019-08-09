@@ -1,5 +1,9 @@
 [Update 1.1 - The Ascension Update]
 == Additions ==
+* Added the [[Wasteland]] biome.
+* Added 4 different [[Saibamen]] and 3 different [[Frieza Force Henchmen]].
+
+* Added [[A Frieza Force Ship]].
 
 === Mechanics ===
 
@@ -11,17 +15,11 @@
 * Added [[Beam Rifle]], [[Arm Cannon MK2]]
 * Added [[Cybernetic Parts]].
 
-=== Other Additions ===
-
-* Added the [[Wasteland]] biome.
-* Added 4 different [[Saibamen]] and 3 different [[Frieza Force Henchmen]].
-
-* Added [[A Frieza Force Ship]].
-
 == Changes ==
 
 * Adjusted many item values.
 * Changed the [[Ancient Legend Necklace]] and [[Ancient Legend Waistcape]] to not reduce max ki and instead reduce more ki daamge.
 * The [[Scouters]] now show how much of a damage increase they give.
 * Renamed all Radiant items except the armor to Gamma items.
+* Adjusted the recipes for a large amount of items to be less grindy and use the new materials.
 == Fixes ==

@@ -6,6 +6,7 @@ using DBT.Transformations;
 using DBT.Wasteland;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,6 +34,116 @@ namespace DBT.Players
             PlayerInitialized = true;
         }
 
+        /*#region Sync Triggers
+         public bool? syncTriggerSetMouseLeft;
+         public bool? syncTriggerSetMouseRight;
+         public bool? syncTriggerSetLeft;
+         public bool? syncTriggerSetRight;
+         public bool? syncTriggerSetUp;
+         public bool? syncTriggerSetDown;
+         #endregion*/
+
+        /*public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            UpdateSynchronizedControls(triggersSet);
+
+            //SyncTriggerSet();
+
+            if (flightToggleKey.JustPressed)
+            {
+                if (FlightUnlocked)
+                {
+                    isFlying = !isFlying;
+                    if (!isFlying)
+                    {
+                        FlightSystem.AddKatchinFeetBuff(player);
+                    }
+                }
+            }
+
+            //_mProgressionSystem.Update(player);
+        }*/
+
+        /*public void UpdateSynchronizedControls(TriggersSet triggerSet)
+        {
+            // this might look weird, but terraria seemed to treat these getters as changing the collection, resulting in some really strange errors/behaviors.
+            // change these to normal ass setters at your own peril.
+            if (triggerSet.Left)
+                isLeftHeld = true;
+            else
+                isLeftHeld = false;
+
+            if (triggerSet.Right)
+                isRightHeld = true;
+            else
+                isRightHeld = false;
+
+            if (triggerSet.Up)
+                isUpHeld = true;
+            else
+                isUpHeld = false;
+
+            if (triggerSet.Down)
+                isDownHeld = true;
+            else
+                isDownHeld = false;
+
+            if (triggerSet.MouseRight)
+                isMouseRightHeld = true;
+            else
+                isMouseRightHeld = false;
+
+            if (triggerSet.MouseLeft)
+                isMouseLeftHeld = true;
+            else
+                isMouseLeftHeld = false;
+        }*/
+
+        //Gonna have to look into what the current network files have that replaced the old mod -Skipping
+        /*public void SyncTriggerSet()
+        {
+            // if we're not in network mode, do nothing.            
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+                return;
+
+            // if this method is firing on a player who isn't me, abort. 
+            // spammy af
+            if (Main.myPlayer != player.whoAmI)
+                return;
+
+            if (syncTriggerSetLeft != isLeftHeld)
+            {
+                NetworkHelper.playerSync.SendChangedTriggerLeft(256, player.whoAmI, player.whoAmI, isLeftHeld);
+                syncTriggerSetLeft = isLeftHeld;
+            }
+            if (syncTriggerSetRight != isRightHeld)
+            {
+                NetworkHelper.playerSync.SendChangedTriggerRight(256, player.whoAmI, player.whoAmI, isRightHeld);
+                syncTriggerSetRight = isRightHeld;
+            }
+            if (syncTriggerSetUp != isUpHeld)
+            {
+                NetworkHelper.playerSync.SendChangedTriggerUp(256, player.whoAmI, player.whoAmI, isUpHeld);
+                syncTriggerSetUp = isUpHeld;
+            }
+            if (syncTriggerSetDown != isDownHeld)
+            {
+                NetworkHelper.playerSync.SendChangedTriggerDown(256, player.whoAmI, player.whoAmI, isDownHeld);
+                syncTriggerSetDown = isDownHeld;
+            }
+
+            if (syncTriggerSetMouseRight != isMouseRightHeld)
+            {
+                NetworkHelper.playerSync.SendChangedTriggerMouseRight(256, player.whoAmI, player.whoAmI, isMouseRightHeld);
+                syncTriggerSetMouseRight = isMouseRightHeld;
+            }
+
+            if (syncTriggerSetMouseLeft != isMouseLeftHeld)
+            {
+                NetworkHelper.playerSync.SendChangedTriggerMouseLeft(256, player.whoAmI, player.whoAmI, isMouseLeftHeld);
+                syncTriggerSetMouseLeft = isMouseLeftHeld;
+            }
+        }*/
 
         public override void ResetEffects()
         {
@@ -75,6 +186,14 @@ namespace DBT.Players
             PostUpdateKi();
             PostUpdateOverload();
             PostUpdateHandleTransformations();
+            UpdateNPCs();
+            PostUpdateTiles();
+
+            // neuters flight if the player gets immobilized. Note the lack of Katchin Feet buff.
+            if (IsPlayerImmobilized() && isFlying)
+            {
+                isFlying = false;
+            }
 
             List<IHandleOnPlayerPostUpdate> items = player.GetItemsByType<IHandleOnPlayerPostUpdate>();
 
@@ -83,6 +202,12 @@ namespace DBT.Players
 
             if (DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaShip")))
                 CheckFriezaShipSpawn();
+
+            HandleMouseOctantAndSyncTracking();
+            //HandleChargeEffects();
+
+            // flight system moved to PostUpdate so that it can benefit from not being client sided!
+            FlightSystem.Update(player);
         }
 
         public override void PostUpdateRunSpeeds()
