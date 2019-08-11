@@ -4,7 +4,7 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        private void SaveGuardian(TagCompound tag)
+        private void SaveWishes(TagCompound tag)
         {
             tag.Add(nameof(PowerWishesLeft), PowerWishesLeft);
             tag.Add(nameof(ImmortalityWishesLeft), ImmortalityWishesLeft);
@@ -13,9 +13,13 @@ namespace DBT.Players
             tag.Add(nameof(ImmortalityRevivesLeft), ImmortalityRevivesLeft);
         }
 
-        private void LoadGuardian(TagCompound tag)
+        private void LoadWishes(TagCompound tag)
         {
-            BaseHealingBonus = tag.GetInt(nameof(BaseHealingBonus));
+            PowerWishesLeft = tag.GetInt(nameof(PowerWishesLeft));
+            ImmortalityWishesLeft = tag.GetInt(nameof(ImmortalityWishesLeft));
+            SkillWishesLeft = tag.GetInt(nameof(SkillWishesLeft));
+            AwakeningWishesLeft = tag.GetInt(nameof(AwakeningWishesLeft));
+            ImmortalityRevivesLeft = tag.GetInt(nameof(ImmortalityRevivesLeft));
         }
     }
 }

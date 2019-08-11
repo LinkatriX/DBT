@@ -8,12 +8,14 @@ namespace DBT.Players
         {
             tag.Add(nameof(Ki), Ki);
             tag.Add(nameof(BaseMaxKi), BaseMaxKi);
+            tag.Add(nameof(MaxKiModifierPerm), MaxKiModifierPerm);
         }
 
         private void LoadKi(TagCompound tag)
         {
             Ki = tag.GetFloat(nameof(Ki));
             BaseMaxKi = tag.GetFloat(nameof(BaseMaxKi));
+            MaxKiModifierPerm = tag.GetFloat(nameof(MaxKiModifierPerm));
         }
 
         private bool HasKi(float kiAmount)

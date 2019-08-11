@@ -21,6 +21,7 @@ namespace DBT.Players
             SaveGuardian(tag);
             SaveNPCs(tag);
             SaveHair(tag);
+            SaveWishes(tag);
 
             TransformationDefinitionManager.Instance.ForAllItems(t => t.OnPreAcquirePlayerSaving(this, tag));
             ForAllAcquiredTransformations(t => t.Definition.OnPlayerSaving(this, tag));
@@ -40,6 +41,7 @@ namespace DBT.Players
             LoadGuardian(tag);
             LoadNPCs(tag);
             LoadHair(tag);
+            LoadWishes(tag);
 
             TransformationDefinitionManager.Instance.ForAllItems(t => t.OnPreAcquirePlayerLoading(this, tag));
             ForAllAcquiredTransformations(t => t.Definition.OnPlayerLoading(this, tag));

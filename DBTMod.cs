@@ -18,6 +18,7 @@ using DBT.Effects;
 using Microsoft.Xna.Framework.Graphics;
 using DBT.UserInterfaces.KiAttackUI;
 using DBT.UserInterfaces.HairMenu.StylePreviews;
+using DBT.UserInterfaces.WishMenu;
 
 namespace DBT
 {
@@ -36,6 +37,8 @@ namespace DBT
         internal DBTMenu dbtMenu;
         internal CharacterTransformationsMenu characterTransformationsMenu;
         internal UserInterface characterMenuInterface;
+        internal WishMenu wishMenu;
+        internal UserInterface wishMenuInterface;
 
         public DBTMod()
         {
@@ -96,6 +99,12 @@ namespace DBT
                 characterMenuInterface = new UserInterface();
                 characterMenuInterface.SetState(characterTransformationsMenu);
 
+                wishMenu = new WishMenu();
+                wishMenu.Activate();
+                wishMenuInterface = new UserInterface();
+                wishMenuInterface.SetState(wishMenu);
+
+
                 Properties = new ModProperties()
                 {
                     Autoload = true,
@@ -105,6 +114,7 @@ namespace DBT
                 };
 
                 StylePreviewGFX.LoadPreviewGFX(this);
+                WishMenuGFX.LoadWishGFX(this);
 
                 Instance = this;
 
@@ -126,7 +136,10 @@ namespace DBT
 
                 overloadBar.Visible = false;
 
+                WishMenu.menuVisible = false;
+
                 StylePreviewGFX.UnloadPreviewGFX();
+                WishMenuGFX.UnloadWishGFX();
             }
 
             Instance = null;
