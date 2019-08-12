@@ -30,7 +30,6 @@ namespace DBT
         internal UserInterface kiBarInterface;
 
         internal static CircleShader circle;
-        internal KiBrowserUIMenu kiBrowserMenu;
         internal UserInterface kiBrowserInterface;
         internal OverloadBar overloadBar;
         internal UserInterface overloadBarInterface;
@@ -89,11 +88,6 @@ namespace DBT
                 dbtMenu = new DBTMenu();
                 dbtMenu.Activate();
 
-                kiBrowserMenu = new KiBrowserUIMenu();
-                kiBrowserMenu.Activate();
-                kiBrowserInterface = new UserInterface();
-                kiBrowserInterface.SetState(kiBrowserMenu);
-
                 characterTransformationsMenu = new CharacterTransformationsMenu(this);
                 characterTransformationsMenu.Activate();
                 characterMenuInterface = new UserInterface();
@@ -119,8 +113,6 @@ namespace DBT
                 Instance = this;
 
                 circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
-
-                kiBrowserMenu.Visible = true;
             }
         }
 
@@ -129,8 +121,6 @@ namespace DBT
             if (!Main.dedServ)
             {
                 kiBar.Visible = false;
-
-                kiBrowserMenu.Visible = false;
 
                 characterTransformationsMenu.Visible = false;
 
@@ -149,9 +139,6 @@ namespace DBT
         {
             if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
-
-            if (kiBrowserInterface != null && kiBrowserMenu.Visible)
-                kiBrowserInterface.Update(gameTime);
 
         }
 
@@ -203,7 +190,6 @@ namespace DBT
             if (characterMenuIndex != -1)
             {
                 layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
-                layers.Insert(characterMenuIndex, new KiBrowserLayer(kiBrowserMenu, kiBrowserInterface));
             }
         }
         public static uint GetTicks() => Main.GameUpdateCount;
