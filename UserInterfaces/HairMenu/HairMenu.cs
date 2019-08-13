@@ -19,6 +19,7 @@ namespace DBT.UserInterfaces.HairMenu
         public static bool menuVisible;
         private bool selected = false;
         public UIImage backPanelImage;
+        public string hairText = null;
 
         public override void OnInitialize()
         {
@@ -38,16 +39,16 @@ namespace DBT.UserInterfaces.HairMenu
             backPanelImage.Left.Set(-12, 0f);
             backPanelImage.Top.Set(-12, 0f);
 
-            InitializeText("Hair Selection Menu", 0.88f, 8, -16, Color.White, backPanelImage);
+            InitializeText("Hair Selection Menu", 8, -16, 0.88f, Color.White, backPanelImage);
 
-            InitializeText("Choose a style for your hair in each of the following columns.\nYou must select a style for each form presented below.", 0.62f, 8, 6, Color.White, backPanelImage);
+            //InitializeText("Choose a style for your hair in each of the following columns.\nYou must select a style for each form presented below.", 8, 6, 0.62f, Color.White, backPanelImage);
 
-            InitializeText("Style 1: Goku", 0.56f, 12, 58, Color.White, backPanelImage);
+            InitializeText("Style 1: Goku", 12, 58, 0.56f, Color.White, backPanelImage);
 
             InitializeButton(StylePreviewGFX.style1BasePreview, new MouseEvent((evt, element) => SelectHairStyle(HairStyleManager.Instance.Goku, evt, element)), 32, 80, backPanelImage);
 
 
-            InitializeText("Style 2: Gogeta", 0.56f, 12, 120, Color.White, backPanelImage);
+            InitializeText("Style 2: Gogeta", 12, 120, 0.56f, Color.White, backPanelImage);
 
             /*InitializeButton(ref _style2BaseButton, GFX.style2BasePreview, new MouseEvent((evt, element) => SelectHairStyle(2, evt, element)), 36, 142, backPanelImage);
 
