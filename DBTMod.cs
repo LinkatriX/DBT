@@ -121,7 +121,6 @@ namespace DBT
                 StylePreviewGFX.UnloadPreviewGFX();
                 WishMenuGFX.UnloadWishGFX();
             }
-
             Instance = null;
         }
 
