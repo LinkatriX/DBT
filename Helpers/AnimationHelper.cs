@@ -1,4 +1,4 @@
-﻿using DBT.Auras;
+﻿/*using DBT.Auras;
 using DBT.Extensions;
 using DBT.Players;
 using Microsoft.Xna.Framework;
@@ -80,9 +80,9 @@ namespace DBT.Helpers
 
             bool isAnyAnimationPlaying = false;
             // ssj 1 through 3. (forcibly exclude ssj3 and god form)
-            if (DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJ1Definition) &&
-                !DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJGDefinition) &&
-                !DBTPlayer.IsTransformedInto(DBTPlayer.TransformationDefinitionManager.SSJ3Definition))
+            if (DBTPlayer.IsTransformed(DBTPlayer.TransformationDefinitionManager.SSJ1Definition) &&
+                !DBTPlayer.IsTransformed(DBTPlayer.TransformationDefinitionManager.SSJGDefinition) &&
+                !DBTPlayer.IsTransformed(DBTPlayer.TransformationDefinitionManager.SSJ3Definition))
             {
                 var frameCounterLimit = 4;
                 var numberOfFrames = 4;
@@ -245,4 +245,4 @@ namespace DBT.Helpers
             return new DrawData(texture, new Vector2(drawX, drawY), new Rectangle(0, 0, texture.Width, texture.Height), Color.White, angleInRadians, new Vector2(texture.Width / 2f, texture.Height / 2f), radarArrowScale, SpriteEffects.None, 0);
         }
     }
-}
+}*/

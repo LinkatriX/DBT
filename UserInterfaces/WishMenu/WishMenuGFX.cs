@@ -1,17 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace DBT.UserInterfaces.WishMenu
 {
-    public class WishMenuGFX
+    public static class WishMenuGFX
     {
         private const string
-            WISH_MENU_DIRECTORY = "UserInterfaces/WishMenu/",
+            UI_DIRECTORY = "UserInterfaces/",
+            WISH_MENU_DIRECTORY = UI_DIRECTORY + "WishMenu/",
             WISH_BACK_PANEL = WISH_MENU_DIRECTORY + "WishBackPanel",
             GRANT_BUTTON = WISH_MENU_DIRECTORY + "GrantButton",
             WISH_POWER_BUTTON = WISH_MENU_DIRECTORY + "WishforPower",

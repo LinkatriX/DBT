@@ -16,7 +16,6 @@ using DBT.UserInterfaces.OverloadBar;
 using DBT.UserInterfaces;
 using DBT.Effects;
 using Microsoft.Xna.Framework.Graphics;
-using DBT.UserInterfaces.KiAttackUI;
 using DBT.UserInterfaces.HairMenu.StylePreviews;
 using DBT.UserInterfaces.WishMenu;
 
@@ -98,15 +97,6 @@ namespace DBT
                 wishMenuInterface = new UserInterface();
                 wishMenuInterface.SetState(wishMenu);
 
-
-                Properties = new ModProperties()
-                {
-                    Autoload = true,
-                    AutoloadGores = true,
-                    AutoloadSounds = true,
-                    AutoloadBackgrounds = true
-                };
-
                 StylePreviewGFX.LoadPreviewGFX(this);
                 WishMenuGFX.LoadWishGFX(this);
 
@@ -139,6 +129,9 @@ namespace DBT
         {
             if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
+
+            if (wishMenuInterface != null && WishMenu.menuVisible)
+                wishMenuInterface.Update(gameTime);
 
         }
 
@@ -186,6 +179,7 @@ namespace DBT
             {
                 layers.Insert(resourcesLayerIndex, new OverloadBarLayer());
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
+                layers.Insert(resourcesLayerIndex, new WishMenuLayer());
             }
             if (characterMenuIndex != -1)
             {
