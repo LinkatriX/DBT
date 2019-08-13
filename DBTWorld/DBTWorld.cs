@@ -41,7 +41,7 @@ namespace DBT.DBTWorld
         // helper utility method for snagging the currently loaded world.
         public static DBTWorld GetWorld()
         {
-            return DBTMod.Instance.GetModWorld("DBZWorld") as DBTWorld;
+            return DBTMod.Instance.GetModWorld("DBTWorld") as DBTWorld;
         }
 
         public override void PostWorldGen()
