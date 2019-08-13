@@ -32,7 +32,7 @@ namespace DBT.NPCs.FriezaForce
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!DBTWorld.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaForceScout")) && NPC.downedBoss2)
+            if (!Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaForceScout")) && NPC.downedBoss2)
             {
                 return spawnInfo.player.GetModPlayer<DBTPlayer>().zoneWasteland ? 10f : 0f;
             }
@@ -75,7 +75,7 @@ namespace DBT.NPCs.FriezaForce
         {
             if(npc.timeLeft == 1 && Alerted)
             {
-                DBTWorld.DBTWorld.friezaShipTriggered = true;
+                Worlds.DBTWorld.friezaShipTriggered = true;
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData);
                 

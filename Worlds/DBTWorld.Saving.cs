@@ -3,7 +3,7 @@ using System.IO;
 using Terraria;
 using Terraria.ModLoader.IO;
 
-namespace DBT.DBTWorld
+namespace DBT.Worlds
 {
     public partial class DBTWorld
     {

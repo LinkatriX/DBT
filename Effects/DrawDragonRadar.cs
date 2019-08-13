@@ -1,6 +1,9 @@
 ﻿using DBT.Players;
+using DBT.Worlds;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace DBT.Effects
@@ -25,7 +28,7 @@ namespace DBT.Effects
             float closestDistance = float.MaxValue;
             for (int i = 1; i <= 7; i++)
             {
-                var location = DBTMod.Instance.GetModWorld("DBTWorld").GetCachedDragonBallLocations();
+                var location = DBTMod.Instance.GetModWorld<DBTWorld>().GetCachedDragonBallLocation(5);
                 if (location.Equals(Point.Zero))
                     continue;
                 // skip this dragon ball if the player is holding a copy
@@ -52,7 +55,7 @@ namespace DBT.Effects
             // player is too close to the dragon ball.
             if (closestDistance < (modPlayer.isHoldingDragonRadarMk1 ? 1280f : (modPlayer.isHoldingDragonRadarMk2 ? 640f : 320f)))
             {
-                radarAngle += (float)(DBZMOD.GetTicks() % 59) * 6f;
+                radarAngle += (float)(DBTMod.GetTicks() % 59) * 6f;
             }
             radarAngle += MathHelper.ToRadians(radarAngle) - drawPlayer.fullRotation;
             var yOffset = -120;
@@ -63,8 +66,8 @@ namespace DBT.Effects
         public static DrawData DragonRadarDrawData(PlayerDrawInfo drawInfo, string dragonRadarSprite, int yOffset, float angleInRadians, float distance, Vector2 location)
         {
             Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = DBZMOD.Instance;
-            MyPlayer modPlayer = drawPlayer.GetModPlayer<MyPlayer>(mod);
+            Mod mod = DBTMod.Instance;
+            DBTPlayer modPlayer = drawPlayer.GetModPlayer<DBTPlayer>(mod);
             float radarArrowScale = (modPlayer.isHoldingDragonRadarMk1 ? 1f : (modPlayer.isHoldingDragonRadarMk2 ? 1.25f : 1.5f));
             Texture2D texture = mod.GetTexture(dragonRadarSprite);
             int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);

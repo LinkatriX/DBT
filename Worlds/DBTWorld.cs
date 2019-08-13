@@ -10,7 +10,7 @@ using Terraria.World.Generation;
 using Terraria.GameContent.Generation;
 using System;
 
-namespace DBT.DBTWorld
+namespace DBT.Worlds
 {
     public partial class DBTWorld : ModWorld
     {

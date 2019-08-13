@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
-namespace DBT.DBTWorld
+namespace DBT.Worlds
 {
     public partial class DBTWorld
     {

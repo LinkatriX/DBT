@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.World.Generation;
 
-namespace DBT.DBTWorld
+namespace DBT.Worlds
 {
     public partial class DBTWorld
     {
