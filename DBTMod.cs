@@ -55,6 +55,9 @@ namespace DBT
         {
             if (!Main.dedServ)
             {
+                StylePreviewGFX.LoadPreviewGFX(this);
+                WishMenuGFX.LoadWishGFX(this);
+
                 SteamHelper.Initialize();
 
                 #region HotKeys
@@ -95,10 +98,7 @@ namespace DBT
                 wishMenu = new WishMenu();
                 wishMenu.Activate();
                 wishMenuInterface = new UserInterface();
-                wishMenuInterface.SetState(wishMenu);
-
-                StylePreviewGFX.LoadPreviewGFX(this);
-                WishMenuGFX.LoadWishGFX(this);
+                wishMenuInterface.SetState(wishMenu);               
 
                 Instance = this;
 

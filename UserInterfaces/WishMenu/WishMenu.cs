@@ -13,8 +13,6 @@ namespace DBT.UserInterfaces.WishMenu
     internal class WishMenu : DBTMenu
     {
         public static bool menuVisible;
-        public UIImage backPanelImage;
-        public UIPanel backPanel;
         private static string _descTextValue = "Select one of the wishes above to grant your deepest desire.\nCertain wishes have limits.";
         private static string _wishTextValue = "";
 
@@ -34,44 +32,44 @@ namespace DBT.UserInterfaces.WishMenu
         {
             base.OnInitialize();
 
-            backPanel = new UIPanel();
-            backPanel.Width.Set(364f, 0f);
-            backPanel.Height.Set(192f, 0f);
-            backPanel.Left.Set(Main.screenWidth / 2f - backPanel.Width.Pixels / 2f, 0f);
-            backPanel.Top.Set(Main.screenHeight / 2f - backPanel.Height.Pixels / 2f, 0f);
-            backPanel.BackgroundColor = new Color(0, 0, 0, 0);
+            BackPanel = new UIPanel();
+            BackPanel.Width.Set(364f, 0f);
+            BackPanel.Height.Set(192f, 0f);
+            BackPanel.Left.Set(Main.screenWidth / 2f - BackPanel.Width.Pixels / 2f, 0f);
+            BackPanel.Top.Set(Main.screenHeight / 2f - BackPanel.Height.Pixels / 2f, 0f);
+            BackPanel.BackgroundColor = new Color(0, 0, 0, 0);
 
-            backPanelImage = new UIImage(WishMenuGFX.wishBackPanel);
-            backPanelImage.Width.Set(WishMenuGFX.wishBackPanel.Width, 0f);
-            backPanelImage.Height.Set(WishMenuGFX.wishBackPanel.Height, 0f);
-            backPanelImage.Left.Set(-12, 0f);
-            backPanelImage.Top.Set(-12, 0f);
+            BackPanelImage = new UIImage(WishMenuGFX.wishBackPanel);
+            BackPanelImage.Width.Set(WishMenuGFX.wishBackPanel.Width, 0f);
+            BackPanelImage.Height.Set(WishMenuGFX.wishBackPanel.Height, 0f);
+            BackPanelImage.Left.Set(-12, 0f);
+            BackPanelImage.Top.Set(-12, 0f);
 
-            InitializeText("I Wish for...", 0.66f, 8, 6, Color.Yellow, backPanelImage);
+            InitializeText("I Wish for...", 0.66f, 8, 6, Color.Yellow, BackPanelImage);
 
-            InitializeText(_wishTextValue, 0.8f, 10, 82, new Color(244, 203, 39), backPanelImage);
+            InitializeText(_wishTextValue, 0.8f, 10, 82, new Color(244, 203, 39), BackPanelImage);
 
-            InitializeText(_descTextValue, 0.66f, 10, 100, Color.Yellow, backPanelImage);
+            InitializeText(_descTextValue, 0.66f, 10, 100, Color.Yellow, BackPanelImage);
 
-            InitializeButton(WishMenuGFX.wishforPower, new MouseEvent(SelectButtonPower), 10, 22, backPanelImage);
+            InitializeButton(WishMenuGFX.wishforPower, new MouseEvent(SelectButtonPower), 10, 22, BackPanelImage);
 
-            InitializeButton(WishMenuGFX.wishforWealth, new MouseEvent(SelectButtonWealth), 55, 22, backPanelImage);
+            InitializeButton(WishMenuGFX.wishforWealth, new MouseEvent(SelectButtonWealth), 55, 22, BackPanelImage);
 
-            InitializeButton(WishMenuGFX.wishforImmortality, new MouseEvent(SelectButtonImmortality), 100, 22, backPanelImage);
+            InitializeButton(WishMenuGFX.wishforImmortality, new MouseEvent(SelectButtonImmortality), 100, 22, BackPanelImage);
 
-            InitializeButton(WishMenuGFX.wishforGenetics, new MouseEvent(SelectButtonGenetics), 145, 22, backPanelImage);
+            InitializeButton(WishMenuGFX.wishforGenetics, new MouseEvent(SelectButtonGenetics), 145, 22, BackPanelImage);
 
-            InitializeButton(WishMenuGFX.wishforSkill, new MouseEvent(SelectButtonSkill), 190, 22, backPanelImage);
+            InitializeButton(WishMenuGFX.wishforSkill, new MouseEvent(SelectButtonSkill), 190, 22, BackPanelImage);
 
-            InitializeButton(WishMenuGFX.wishforAwakening, new MouseEvent(SelectButtonAwakening), 235, 22, backPanelImage);
+            InitializeButton(WishMenuGFX.wishforAwakening, new MouseEvent(SelectButtonAwakening), 235, 22, BackPanelImage);
 
-            InitializeButton(WishMenuGFX.grantButton, new MouseEvent(GrantWish), WishMenuGFX.wishBackPanel.Width - WishMenuGFX.grantButton.Width - 12, WishMenuGFX.wishBackPanel.Height - WishMenuGFX.grantButton.Height - 12, backPanelImage);
+            InitializeButton(WishMenuGFX.grantButton, new MouseEvent(GrantWish), WishMenuGFX.wishBackPanel.Width - WishMenuGFX.grantButton.Width - 12, WishMenuGFX.wishBackPanel.Height - WishMenuGFX.grantButton.Height - 12, BackPanelImage);
 
             InitializeText("Grant Wish", 0.66f, 14, -12, Color.Yellow);
 
-            backPanel.Append(backPanelImage);
+            BackPanel.Append(BackPanelImage);
 
-            Append(backPanel);
+            Append(BackPanel);
         }
         
         private void SelectButtonPower(UIMouseEvent evt, UIElement listeningElement)
