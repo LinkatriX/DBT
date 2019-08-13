@@ -37,9 +37,9 @@ namespace DBT.Players //:ech
         {
             if (player.dead) return null;
 
-            if (ActiveTransformations.Count == 0 && IsCharging)
-                // TODO Change this to racial/trait aura.
-                return AuraAnimationInformation.chargeAura;
+			if (ActiveTransformations.Count == 0 && IsCharging)
+				// TODO Change this to racial/trait aura.
+				return AuraAnimationInformation.chargeAura;
 
             // TODO Support multiple auras.
             PlayerTransformation transformation = GetTransformation();

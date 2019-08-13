@@ -228,7 +228,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				HyperSlamSpeed = -50f;
 			}
 
-			if (UnderThirtyHealth && !Main.expertMode)
+			if (UnderThirtyHealth)
 			{
 				MinionCount = 4;
 				SpeedAdd = 4f;
@@ -240,7 +240,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				HyperSlamSpeed = -55f;
 			}
 
-			if (Main.expertMode && UnderThirtyHealth)
+			if (Main.expertMode && Under10Health)
 			{
 				MinionCount = 6;
 				npc.damage = 80;
@@ -537,11 +537,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			#endregion
 
 			#region Debugging Tools
-			Main.NewText("AiTimer is:" + AITimer, 255, 20, 20);
-			Main.NewText("Current stage is: " + AIStage, 20, 255, 20);
-			Main.NewText("SSDone: " + SSDone, 20, 20, 255);
-			Main.NewText("Player Count:" + PlayerCount().Count);
-			Main.NewText("");
+			//Main.NewText("AiTimer is:" + AITimer, 255, 20, 20);
+			//Main.NewText("Current stage is: " + AIStage, 20, 255, 20);
+			//Main.NewText("SSDone: " + SSDone, 20, 20, 255);
+			//Main.NewText("Player Count:" + PlayerCount().Count);
+			//Main.NewText("");
 			#endregion
 		}
 
@@ -1185,6 +1185,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			get { return npc.life <= npc.lifeMax * .3; }
 		}
 
-		#endregion
-	}
+        private bool Under10Health
+        {
+            get { return npc.life <= npc.lifeMax * .1; }
+        }
+
+        #endregion
+    }
 }
