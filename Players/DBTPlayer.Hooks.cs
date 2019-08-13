@@ -237,6 +237,13 @@ namespace DBT.Players
         {
             HandleAuraDrawLayers(layers);
             HandleHairDrawLayers(layers);
+
+            // handle dragon radar drawing
+            /*if (isHoldingDragonRadarMk1 || isHoldingDragonRadarMk2 || isHoldingDragonRadarMk3)
+            {
+                AnimationHelper.dragonRadarEffects.visible = true;
+                layers.Add(AnimationHelper.dragonRadarEffects);
+            }*/
         }
 
         public override void UpdateBiomes()
