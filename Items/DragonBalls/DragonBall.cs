@@ -66,6 +66,18 @@ namespace DBT.Items.DragonBalls
             }
         }
 
+        /// <summary>
+        ///     Return an item type (int) using the name of an item.
+        /// </summary>
+        /// <param name="name">The internal name of the item.</param>
+        public static int GetItemTypeFromName(string name)
+        {
+            if (DBTMod.Instance.GetItem(name) != null && DBTMod.Instance.GetItem(name).item != null)
+                return DBTMod.Instance.GetItem(name).item.type;
+
+            return -1;
+        }
+
         public DragonBallStarCount StarCount { get; }
     }
 

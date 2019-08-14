@@ -1,6 +1,5 @@
 ﻿using DBT.Players;
 using Terraria;
-using Terraria.ID;
 
 namespace DBT.Items.DragonBallRadar
 {

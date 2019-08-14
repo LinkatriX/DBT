@@ -1,4 +1,5 @@
-﻿using DBT.Players;
+﻿using DBT.Extensions;
+using DBT.Players;
 using DBT.Worlds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -28,11 +29,11 @@ namespace DBT.Effects
             float closestDistance = float.MaxValue;
             for (int i = 1; i <= 7; i++)
             {
-                var location = DBTMod.Instance.GetModWorld<DBTWorld>().GetCachedDragonBallLocation(5);
+                var location = DBTMod.Instance.GetModWorld<DBTWorld>().GetCachedDragonBallLocation(i);
                 if (location.Equals(Point.Zero))
                     continue;
                 // skip this dragon ball if the player is holding a copy
-                if (Main.LocalPlayer.inventory.IsDragonBallPresent(i))
+                if (PlayerExtensions.IsDragonBallPresent(Main.LocalPlayer.inventory, i))
                     continue;
                 var coordVector = location.ToVector2() * 16f;
                 var distance = Vector2.Distance(coordVector, drawPlayer.Center + Vector2.UnitY * -120f);
@@ -59,8 +60,7 @@ namespace DBT.Effects
             }
             radarAngle += MathHelper.ToRadians(radarAngle) - drawPlayer.fullRotation;
             var yOffset = -120;
-            Main.playerDrawData.Add(DragonRadarDrawData(drawInfo, "Items/DragonBalls/DragonRadarPointer", yOffset, radarAngle - 1.57f, closestDistance, closestLocation.ToVector2() * 16f));
-
+            Main.playerDrawData.Add(DragonRadarDrawData(drawInfo, "Items/DragonBallRadar/DragonRadarPointer", yOffset, radarAngle - 1.57f, closestDistance, closestLocation.ToVector2() * 16f));
         });
 
         public static DrawData DragonRadarDrawData(PlayerDrawInfo drawInfo, string dragonRadarSprite, int yOffset, float angleInRadians, float distance, Vector2 location)

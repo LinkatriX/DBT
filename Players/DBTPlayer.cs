@@ -25,9 +25,9 @@ namespace DBT.Players
         
         public bool PlayerInitialized { get; private set; }
         public float HealthDrainMultiplier { get; set; }
-        public bool firstDragonBallPickup { get; set; } = false;
-        public bool isHoldingDragonRadarMk1 { get; set; } = false;
-        public bool isHoldingDragonRadarMk2 { get; set; } = false;
-        public bool isHoldingDragonRadarMk3 { get; set; } = false;
+        public bool firstDragonBallPickup { get; set; } 
+        public bool isHoldingDragonRadarMk1 { get; set; }
+        public bool isHoldingDragonRadarMk2 { get; set; }
+        public bool isHoldingDragonRadarMk3 { get; set; }
     }
 }

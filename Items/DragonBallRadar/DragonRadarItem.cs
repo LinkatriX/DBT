@@ -1,7 +1,4 @@
-﻿using DBT.Players;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria.ID;
 
 namespace DBT.Items.DragonBallRadar
 {

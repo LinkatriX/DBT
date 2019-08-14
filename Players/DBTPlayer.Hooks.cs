@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DBT.Commons.Players;
+using DBT.Effects;
 using DBT.Extensions;
 using DBT.HairStyles;
 using DBT.Transformations;
@@ -154,6 +155,10 @@ namespace DBT.Players
             ResetGuardianEffects();
             ResetSkillEffects();
             ResetOverloadEffects();
+
+            isHoldingDragonRadarMk1 = false;
+            isHoldingDragonRadarMk2 = false;
+            isHoldingDragonRadarMk3 = false;
         }
 
 
@@ -239,11 +244,11 @@ namespace DBT.Players
             HandleHairDrawLayers(layers);
 
             // handle dragon radar drawing
-            /*if (isHoldingDragonRadarMk1 || isHoldingDragonRadarMk2 || isHoldingDragonRadarMk3)
+            if (isHoldingDragonRadarMk1 || isHoldingDragonRadarMk2 || isHoldingDragonRadarMk3)
             {
-                AnimationHelper.dragonRadarEffects.visible = true;
-                layers.Add(AnimationHelper.dragonRadarEffects);
-            }*/
+                DrawDragonRadar.dragonRadarEffects.visible = true;
+                layers.Add(DrawDragonRadar.dragonRadarEffects);
+            }
         }
 
         public override void UpdateBiomes()
