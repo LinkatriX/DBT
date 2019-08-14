@@ -9,7 +9,7 @@ using Terraria.Utilities;
 
 namespace DBT.NPCs.Town.Namekian
 {
-	//[AutoloadHead]
+	[AutoloadHead]
 	public class NamekianNPC : ModNPC
 	{
         public override string Texture => "DBT/NPCs/Town/Namekian/NamekianNPC";
