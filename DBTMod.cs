@@ -18,6 +18,7 @@ using DBT.Effects;
 using Microsoft.Xna.Framework.Graphics;
 using DBT.UserInterfaces.HairMenu.StylePreviews;
 using DBT.UserInterfaces.WishMenu;
+using DBT.UserInterfaces.HairMenu;
 
 namespace DBT
 {
@@ -37,6 +38,8 @@ namespace DBT
         internal UserInterface characterMenuInterface;
         internal WishMenu wishMenu;
         internal UserInterface wishMenuInterface;
+        internal HairMenu hairMenu;
+        internal UserInterface hairMenuInterface;
 
         public DBTMod()
         {
@@ -55,7 +58,7 @@ namespace DBT
         {
             if (!Main.dedServ)
             {
-                StylePreviewGFX.LoadPreviewGFX(this);
+                HairGFX.LoadHairGFX(this);
                 WishMenuGFX.LoadWishGFX(this);
 
                 SteamHelper.Initialize();
@@ -98,7 +101,12 @@ namespace DBT
                 wishMenu = new WishMenu();
                 wishMenu.Activate();
                 wishMenuInterface = new UserInterface();
-                wishMenuInterface.SetState(wishMenu);               
+                wishMenuInterface.SetState(wishMenu);
+
+                hairMenu = new HairMenu();
+                hairMenu.Activate();
+                hairMenuInterface = new UserInterface();
+                hairMenuInterface.SetState(hairMenu);
 
                 Instance = this;
 
@@ -110,6 +118,9 @@ namespace DBT
         {
             if (!Main.dedServ)
             {
+                HairGFX.UnloadHairGFX();
+                WishMenuGFX.UnloadWishGFX();
+
                 kiBar.Visible = false;
 
                 characterTransformationsMenu.Visible = false;
@@ -118,8 +129,7 @@ namespace DBT
 
                 WishMenu.menuVisible = false;
 
-                StylePreviewGFX.UnloadPreviewGFX();
-                WishMenuGFX.UnloadWishGFX();
+                HairMenu.menuVisible = false;
             }
             Instance = null;
         }
@@ -131,6 +141,9 @@ namespace DBT
 
             if (wishMenuInterface != null && WishMenu.menuVisible)
                 wishMenuInterface.Update(gameTime);
+
+            if (hairMenuInterface != null && HairMenu.menuVisible)
+                hairMenuInterface.Update(gameTime);
 
         }
 
@@ -179,6 +192,7 @@ namespace DBT
                 layers.Insert(resourcesLayerIndex, new OverloadBarLayer());
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
                 layers.Insert(resourcesLayerIndex, new WishMenuLayer());
+                layers.Insert(resourcesLayerIndex, new HairMenuLayer());
             }
             if (characterMenuIndex != -1)
             {

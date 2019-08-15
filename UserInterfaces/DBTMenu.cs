@@ -15,7 +15,7 @@ namespace DBT.UserInterfaces
             UIImageButton button = new UIImageButton(texture);
             button.OnClick += onClick;
 
-            InitializeUIElement<UIImageButton>(ref button, texture, offsetX, offsetY, parent);
+            InitializeUIElement(ref button, texture, offsetX, offsetY, parent);
             return button;
         }
 
@@ -24,7 +24,7 @@ namespace DBT.UserInterfaces
             UIHoverImageButton button = new UIHoverImageButton(texture, hoverText);
             button.OnClick += onClick;
 
-            InitializeUIElement<UIHoverImageButton>(ref button, texture, offsetX, offsetY, parent);
+            InitializeUIElement(ref button, texture, offsetX, offsetY, parent);
             return button;
         }
 
@@ -32,7 +32,7 @@ namespace DBT.UserInterfaces
         {
             UIImage image = new UIImage(texture);
 
-            InitializeUIElement<UIImage>(ref image, texture, offsetX, offsetY, parent);
+            InitializeUIElement(ref image, texture, offsetX, offsetY, parent);
             return image;
         }
 
@@ -75,13 +75,16 @@ namespace DBT.UserInterfaces
         public override void MouseDown(UIMouseEvent evt)
         {
             base.MouseDown(evt);
-            DragStart(evt);
+            if (CanDrag)
+                DragStart(evt);
+
         }
 
         public override void MouseUp(UIMouseEvent evt)
         {
             base.MouseUp(evt);
-            DragEnd(evt);
+            if (CanDrag)
+                DragEnd(evt);
         }
 
         public void DragStart(UIMouseEvent evt)
@@ -143,5 +146,7 @@ namespace DBT.UserInterfaces
         public Vector2 Offset { get; protected set; }
 
         public bool Dragging { get; protected set; }
+
+        public bool CanDrag { get; set; } = true;
     }
 }

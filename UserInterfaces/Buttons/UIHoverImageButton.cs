@@ -17,18 +17,8 @@ namespace DBT.UserInterfaces.Buttons
             base.DrawSelf(spriteBatch);
 
             if (IsMouseHovering)
-            {
-                DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
-
-                if (dbtPlayer == null)
-                    Main.hoverItemName = HoverText;
-                else
-                    Main.hoverItemName = GetHoverText(dbtPlayer);
-            }
+                Main.hoverItemName = HoverText;
         }
-
-
-        public virtual string GetHoverText(DBTPlayer dbtPlayer) => HoverText;
 
 
         public string HoverText { get; }
