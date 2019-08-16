@@ -7,7 +7,7 @@ namespace DBT.Items.Weapons
 {
     public class BeamRifle : DBTItem
     {
-        public BeamRifle() : base("Beam Rifle", "A simple laser rifle used by the lower echelons of the frieza force.", 44, 18, Item.buyPrice(gold: 1, silver: 40), 0, 4)
+        public BeamRifle() : base("Beam Rifle", "A simple laser rifle used by the lower echelons of the frieza force.", 44, 18, Item.buyPrice(gold: 1, silver: 40), 0, ItemRarityID.LightRed)
         {
         }
 

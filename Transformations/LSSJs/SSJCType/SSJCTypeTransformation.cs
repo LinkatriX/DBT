@@ -11,7 +11,7 @@ namespace DBT.Transformations.LSSJs.SSJCType
             "SSJCType", "Super Saiyan C-Type", typeof(SSJCTypeTransformationBuff),
             3.9f, 3.9f, 26, 
             new TransformationDrain(4, 2),
-            new LSSJTransformationAppearance(),
+            new SSJCTypeTransformationAppearance(),
             new TransformationOverload(0.06f, 0.03f), 
             parents: parents)
         {
