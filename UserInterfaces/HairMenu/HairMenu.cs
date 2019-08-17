@@ -197,13 +197,13 @@ namespace DBT.UserInterfaces.HairMenu
                     player.ChosenHairStyle = HairStyleManager.Instance.Vegeta;
                     break;
                 case HairSelection.Broly:
-                    //player.ChosenHairStyle = HairStyleManager.Instance.Broly;
+                    player.ChosenHairStyle = HairStyleManager.Instance.Broly;
                     break;
                 case HairSelection.Kale:
                     player.ChosenHairStyle = HairStyleManager.Instance.Kale;
                     break;
                 case HairSelection.Caulifla:
-                    //player.ChosenHairStyle = HairStyleManager.Instance.Caulifla;
+                    player.ChosenHairStyle = HairStyleManager.Instance.Caulifla;
                     break;
                 case HairSelection.Gine:
                     player.ChosenHairStyle = HairStyleManager.Instance.Gine;
