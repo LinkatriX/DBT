@@ -34,7 +34,7 @@ namespace DBT.Players
             else if (FirstTransformation != null && CurrentHair != ChosenHairStyle[FirstTransformation.Definition])
                 CurrentHair = ChosenHairStyle[FirstTransformation.Definition];
 
-            //if (!HairChecked)
+            if (!HairChecked)
                 HairMenu.menuVisible = true;
         }
 

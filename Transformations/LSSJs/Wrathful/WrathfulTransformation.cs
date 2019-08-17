@@ -1,6 +1,7 @@
 ﻿using DBT.Auras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 
 namespace DBT.Transformations.LSSJs.Wrathful
 {
@@ -28,8 +29,8 @@ namespace DBT.Transformations.LSSJs.Wrathful
     {
         public WrathfulTransformationAppearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(WrathfulTransformation), 4, 3, BlendState.Additive, 1f, true),
-                new LightingAppearance(new float[] { })),
-            new HairAppearance(Color.White), /*Main.LocalPlayer.hairColor*/Color.White)
+                new LightingAppearance(new float[] { 0f, 1.25f, 0f })),
+            new HairAppearance(Color.White), Main.LocalPlayer.hairColor)
         {
         }
     }

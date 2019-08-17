@@ -14,8 +14,11 @@ namespace DBT.Items.Weapons
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
+
             item.damage = 74;
             item.melee = true;
+            item.useAnimation = 15;
             item.useStyle = 1;
             item.knockBack = 17;
             /*if (!Main.dedServ)
