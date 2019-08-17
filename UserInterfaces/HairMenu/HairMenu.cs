@@ -11,6 +11,7 @@ using DBT.UserInterfaces.HairMenu.StylePreviews;
 using DBT.Players;
 using DBT.HairStyles;
 using DBT.Helpers;
+using ReLogic.Graphics;
 
 namespace DBT.UserInterfaces.HairMenu
 {
@@ -26,10 +27,6 @@ namespace DBT.UserInterfaces.HairMenu
         public Texture2D nextHairTexture = HairGFX.style2M;
         public bool legendaryTab = false;
         public Texture2D panelTexture = HairGFX.hairBackPanel;
-        public Texture2D bSelect = HairGFX.baseSelected;
-        public Texture2D lSelect = HairGFX.legendarySelect;
-
-        private UIHoverImageButton keepHairButtonThingy;
         public enum HairSelection : int
         {
             Goku = 1,
@@ -39,6 +36,7 @@ namespace DBT.UserInterfaces.HairMenu
             Caulifla = 5,
             Gine = 6,
             Nappa = 7
+            //FutureGohan = 8
         }
         public static HairSelection hairSelection = HairSelection.Goku;
 
@@ -50,49 +48,22 @@ namespace DBT.UserInterfaces.HairMenu
 
             BackPanel.Width.Set(263f, 0f);
             BackPanel.Height.Set(447f, 0f);
-            BackPanel.Left.Set(Main.screenWidth / 2f - BackPanel.Width.Pixels / 2f, 0f);
+            BackPanel.Left.Set(Main.screenWidth / 2f - BackPanel.Width.Pixels / 2f + 12, 0f);
             BackPanel.Top.Set(Main.screenHeight / 2f - BackPanel.Height.Pixels / 2f, 0f);
             BackPanel.BackgroundColor = new Color(0, 0, 0, 0);
             BackPanel.BorderColor = new Color(0, 0, 0, 0);
 
-            BackPanelImage = new UIImage(panelTexture);
-            BackPanelImage.Width.Set(HairGFX.hairBackPanel.Width, 0f);
-            BackPanelImage.Height.Set(HairGFX.hairBackPanel.Height, 0f);
-            BackPanelImage.Left.Set(-12, 0f);
-            BackPanelImage.Top.Set(-12, 0f);
+            InitializeButton(HairGFX.arrowLeft, new MouseEvent(LastHairStyle), 56, 2, BackPanel);
 
-            InitializeText("Hair Selection Menu", 40, -16, 0.88f, Color.White, BackPanelImage);
-           
-            InitializeText(hairText, 96, 16, 0.6f, Color.White, BackPanelImage);
+            InitializeButton(HairGFX.arrowRight, new MouseEvent(NextHairStyle), 112, 2, BackPanel);
 
-            InitializeText(totalText, 96, 28, 0.5f, Color.White, BackPanelImage);
+            InitializeButton(HairGFX.hairConfirmButton, new MouseEvent(ConfirmHair), 126, 113, BackPanel);
 
-            InitializeImage(hairTexture, 80, 54, BackPanelImage);
+            InitializeButton(HairGFX.baseSelect, new MouseEvent(SelectBaseStyles), 54, 18, BackPanel);
 
-            InitializeImage(prevHairTexture, 8, 54, BackPanelImage);
+            InitializeButton(HairGFX.legendarySelect, new MouseEvent(SelectLegendaryStyles), 111, 18, BackPanel);
 
-            InitializeImage(nextHairTexture, 155, 54, BackPanelImage);
-
-            InitializeButton(HairGFX.arrowLeft, new MouseEvent(LastHairStyle), 80, 26, BackPanelImage);
-
-            InitializeButton(HairGFX.arrowRight, new MouseEvent(NextHairStyle), 136, 26, BackPanelImage);
-
-            InitializeButton(HairGFX.hairConfirmButton, new MouseEvent(ConfirmHair), 148, 135, BackPanelImage);
-
-            InitializeButton(bSelect, new MouseEvent(SelectBaseStyles), 82, 42, BackPanelImage);
-
-            InitializeButton(lSelect, new MouseEvent(SelectLegendaryStyles), 136, 42, BackPanelImage);
-
-            //InitializeHoverTextButton(HairGFX.keepHairButton, "Press this to instead use the hair you selected at character creation \nfor your base form, then goku style for the other forms.", new MouseEvent(ConfirmVanillaHair), -22, 135, BackPanelImage);
-
-            keepHairButtonThingy = new UIHoverImageButton(HairGFX.keepHairButton, "Press this to instead use the hair you selected at character creation \nfor your base form, then goku style for the other forms.");
-            keepHairButtonThingy.Left.Set(-22, 0f);
-            keepHairButtonThingy.Top.Set(135, 0f);
-            keepHairButtonThingy.OnClick += new MouseEvent(ConfirmVanillaHair);
-
-            BackPanelImage.Append(keepHairButtonThingy);
-
-            BackPanel.Append(BackPanelImage);
+            InitializeButton(HairGFX.keepHairButton, new MouseEvent(ConfirmVanillaHair), -47, 113, BackPanel);
 
             Append(BackPanel);
         }
@@ -181,6 +152,41 @@ namespace DBT.UserInterfaces.HairMenu
             base.Update(gameTime);
         }
 
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            base.DrawSelf(spriteBatch);
+            DrawBackPanel(spriteBatch);
+            DrawMiddleHair(spriteBatch);
+            DrawNextHair(spriteBatch);
+            DrawPrevHair(spriteBatch);
+            DrawTexts(spriteBatch);
+        }
+
+        public void DrawTexts(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(Main.fontMouseText, "Hair Selection Menu", new Vector2(BackPanel.Left.Pixels + 28, BackPanel.Top.Pixels - 26), Color.WhiteSmoke, 0, Vector2.Zero, 0.88f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(Main.fontMouseText, totalText, new Vector2(BackPanel.Left.Pixels + 90, BackPanel.Top.Pixels + 16), Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(Main.fontMouseText, hairText, new Vector2(BackPanel.Left.Pixels + 84, BackPanel.Top.Pixels - 4), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+        }
+
+        public void DrawMiddleHair(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(hairTexture, new Vector2(BackPanel.Left.Pixels + 68, BackPanel.Top.Pixels + 42), Color.White);
+        }
+        public void DrawPrevHair(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(prevHairTexture, new Vector2(BackPanel.Left.Pixels - 4, BackPanel.Top.Pixels + 42), Color.White);
+        }
+        public void DrawNextHair(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(nextHairTexture, new Vector2(BackPanel.Left.Pixels + 143, BackPanel.Top.Pixels + 42), Color.White);
+        }
+
+        public void DrawBackPanel(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(panelTexture, new Vector2(BackPanel.Left.Pixels - 12, BackPanel.Top.Pixels - 12), Color.White);
+        }
+
         private void ConfirmHair(UIMouseEvent evt, UIElement listeningElement)
         {
             DBTPlayer player = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
@@ -212,7 +218,6 @@ namespace DBT.UserInterfaces.HairMenu
                     player.ChosenHairStyle = HairStyleManager.Instance.Nappa;
                     break;
             }
-            Initialize();
         }
 
         private void ConfirmVanillaHair(UIMouseEvent evt, UIElement listeningElement)
@@ -222,7 +227,6 @@ namespace DBT.UserInterfaces.HairMenu
             menuVisible = false;
             player.ChosenHairStyle = HairStyleManager.Instance.NoChoice;
             player.HairChecked = true;
-            Initialize();
         }
         private void LastHairStyle(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -231,7 +235,6 @@ namespace DBT.UserInterfaces.HairMenu
                 hairSelection = HairSelection.Nappa;
             else
                 hairSelection -= 1;
-            Initialize();
         }
         private void NextHairStyle(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -240,22 +243,15 @@ namespace DBT.UserInterfaces.HairMenu
                 hairSelection = HairSelection.Goku;
             else
                 hairSelection += 1;
-            Initialize();
         }
 
         private void SelectBaseStyles(UIMouseEvent evt, UIElement listeningElement)
         {
             legendaryTab = false;
-            bSelect = HairGFX.baseSelected;
-            lSelect = HairGFX.legendarySelect;
-            Initialize();
         }
         private void SelectLegendaryStyles(UIMouseEvent evt, UIElement listeningElement)
         {
             legendaryTab = true;
-            bSelect = HairGFX.baseSelect;
-            lSelect = HairGFX.legendarySelected;
-            Initialize();
         }
     }
 }

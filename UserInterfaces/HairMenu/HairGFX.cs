@@ -44,9 +44,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             ARROW_LEFT = BUTTON_DIRECTORY + "ArrowLeft",
             ARROW_RIGHT = BUTTON_DIRECTORY + "ArrowRight",
             BASE_SELECT = BUTTON_DIRECTORY + "BaseSelect",
-            BASE_SELECTED = BUTTON_DIRECTORY + "BaseSelected",
-            LEGENDARY_SELECT = BUTTON_DIRECTORY + "LegendarySelect",
-            LEGENDARY_SELECTED = BUTTON_DIRECTORY + "LegendarySelected";
+            LEGENDARY_SELECT = BUTTON_DIRECTORY + "LegendarySelect";
 
 
         public static Texture2D
@@ -78,9 +76,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             arrowLeft,
             arrowRight,
             baseSelect,
-            baseSelected,
-            legendarySelect,
-            legendarySelected;
+            legendarySelect;
 
         public static void LoadHairGFX(Mod mod)
         {
@@ -113,9 +109,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             arrowLeft = mod.GetTexture(ARROW_LEFT);
             arrowRight = mod.GetTexture(ARROW_RIGHT);
             baseSelect = mod.GetTexture(BASE_SELECT);
-            baseSelected = mod.GetTexture(BASE_SELECTED);
             legendarySelect = mod.GetTexture(LEGENDARY_SELECT);
-            legendarySelected = mod.GetTexture(LEGENDARY_SELECTED);
         }
 
         public static void UnloadHairGFX()
@@ -148,9 +142,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             arrowLeft = null;
             arrowRight = null;
             baseSelect = null;
-            baseSelected = null;
             legendarySelect = null;
-            legendarySelected = null;
         }
         
     }
