@@ -6,11 +6,7 @@ namespace DBT.Players
     {
         private void SaveGuardian(TagCompound tag)
         {
-            tag.Add(nameof(PowerWishesLeft), PowerWishesLeft);
-            tag.Add(nameof(ImmortalityWishesLeft), ImmortalityWishesLeft);
-            tag.Add(nameof(SkillWishesLeft), SkillWishesLeft);
-            tag.Add(nameof(AwakeningWishesLeft), AwakeningWishesLeft);
-            tag.Add(nameof(ImmortalityRevivesLeft), ImmortalityRevivesLeft);
+            tag.Add(nameof(BaseHealingBonus), BaseHealingBonus);
         }
 
         private void LoadGuardian(TagCompound tag)
