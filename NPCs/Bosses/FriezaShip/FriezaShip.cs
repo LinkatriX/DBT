@@ -75,9 +75,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		{
 			npc.width = 220;
 			npc.height = 120;
-			npc.damage = 50;
-			npc.defense = 17;
-			npc.lifeMax = 3000;
+			npc.damage = 40;
+			npc.defense = 8;
+			npc.lifeMax = 3200;
 			npc.HitSound = SoundID.NPCHit4;
 			npc.DeathSound = SoundID.NPCDeath2;
 			npc.value = Item.buyPrice(0, 3, 25, 80);
@@ -211,39 +211,39 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			if (UnderEightyHealth)
 			{
 				SpeedAdd = 1f;
-				npc.damage = 60;
+				npc.damage = 40;
 				SSDelay = 15;
 				ShieldDuration = 220;
 				HoverCooldown = 350;
-				HyperSlamSpeed = -45f;
+				HyperSlamSpeed = -30f;
 			}
 
 			if (UnderFiftyHealth)
 			{
 				MinionCount = 3;
 				SpeedAdd = 2f;
-				npc.damage = 65;
+				npc.damage = 50;
 				ShieldDuration = 230;
 				HoverCooldown = 300;
-				HyperSlamSpeed = -50f;
+				HyperSlamSpeed = -40f;
 			}
 
 			if (UnderThirtyHealth)
 			{
 				MinionCount = 4;
 				SpeedAdd = 4f;
-				npc.damage = 70;
+				npc.damage = 55;
 				SSDelay = 10;
 				ShieldDuration = 240;
 				ShieldLife = 2;
 				HoverCooldown = 200;
-				HyperSlamSpeed = -55f;
+				HyperSlamSpeed = -50f;
 			}
 
 			if (Main.expertMode && Under10Health)
 			{
 				MinionCount = 6;
-				npc.damage = 80;
+				npc.damage = 60;
 				SSDelay = 8;
 				ShieldDuration = 250;
 				ShieldLife = 3;
@@ -571,8 +571,8 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					count++;
 					npc.velocity = Vector2.Zero;
 				}
-				if (AITimer > 81 && AITimer < 230 && AITimer % 8 == 0)
-					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 2 * 16f), new Vector2(13f, 13f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 40, 1f);
+				if (AITimer > 81 && AITimer < 230 && AITimer % 12 == 0)
+					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 2 * 16f), new Vector2(13f, 13f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 20, 1f);
 				if (count == PlayerCount().Count)
 				{
 					AdvanceStage(true);
@@ -832,9 +832,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		public int SummonSaibamen()
 		{
-#pragma warning disable CS0162 // Unreachable code detected
 			for (int i = 0; i <= MinionCount / 2; i++)
-#pragma warning restore CS0162 // Unreachable code detected
 			{
 				npc.netUpdate = true;
 
@@ -863,9 +861,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
                     TileVariablesDefinition();
                 }*/
 
-#pragma warning disable CS0162 // Unreachable code detected
 			for (int i = 0; i <= MinionCount / 2; i++)
-#pragma warning restore CS0162 // Unreachable code detected
 			{
 				npc.netUpdate = true;
 				switch (Main.rand.Next(0, 2))
@@ -922,33 +918,29 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			if (resetTimer)
 				AITimer = 0;
 
-			//SSDone 2, 8 - Shield
-			//SSDone 3, 7 - Minions
-			//SSDone 5, 9 - Warp
-
 			if (AIStage == STAGE_HOVER)
 			{
 				AIStage++;
 				return;
 			}
-			else if (AIStage == STAGE_SLAM && (SSDone == 2 || SSDone == 8))
+			else if (Main.expertMode && AIStage == STAGE_SLAM && SSDone == 5)
 			{
 				AIStage = STAGE_GUNNING;
 				return;
 			}
-			else if (AIStage == STAGE_GUNNING && (SSDone == 2 || SSDone == 8))
+			else if (AIStage == STAGE_GUNNING)
 			{
 				AIStage = STAGE_SHIELD;
 				return;
 			}
-			else if (AIStage == STAGE_SHIELD && (SSDone == 2 || SSDone == 8))
+			else if (AIStage == STAGE_SHIELD && SSDone == 5)
 			{
 				AIStage = STAGE_MINION;
 				return;
 			}
-			else if (AIStage == STAGE_MINION && (SSDone == 2 || SSDone == 8))
+			else if (AIStage == STAGE_MINION && SSDone == 5)
 			{
-				AIStage = STAGE_SLAM;
+				AIStage = STAGE_HOVER;
 				return;
 			}
 			else if (AIStage == STAGE_SLAM && (SSDone == 3 || SSDone == 9))
@@ -958,7 +950,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			}
 			else if (AIStage == STAGE_HYPER && (SSDone == 3 || SSDone == 9))
 			{
-				AIStage = STAGE_SLAM;
+				AIStage = STAGE_HOVER;
 				return;
 			}
 			else if (AIStage == STAGE_SLAM && SSDone == 4)
@@ -966,21 +958,22 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				AIStage = STAGE_MINION;
 				return;
 			}
-			else if (AIStage == STAGE_MINION && SSDone == 4)
+            else if (AIStage == STAGE_SHIELD && SSDone == 4)
+            {
+                AIStage = STAGE_MINION;
+                return;
+            }
+            else if (AIStage == STAGE_MINION && SSDone == 4)
 			{
-				AIStage = STAGE_SHIELD;
+				AIStage = STAGE_HOVER;
 				return;
 			}
-			else if (AIStage == STAGE_SHIELD && SSDone == 4)
+            
+            /*else if (AIStage == STAGE_SHIELD && SSDone == 4)
 			{
 				AIStage = STAGE_WARP;
 				return;
-			}
-			else if (AIStage == STAGE_WARP && SSDone == 4)
-			{
-				AIStage = STAGE_GUNNING;
-				return;
-			}
+			}*/
 			else
 			{
 				npc.noTileCollide = false;

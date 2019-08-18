@@ -5,12 +5,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
-
-
-
-
-
 namespace DBT.NPCs.Saibamen
 {
     public class Saibaman4 : ModNPC
@@ -25,7 +19,7 @@ namespace DBT.NPCs.Saibamen
         {
             npc.width = 26;
             npc.height = 36;
-            npc.damage = 54;
+            npc.damage = 34;
             npc.defense = 4;
             npc.lifeMax = 50;
             npc.HitSound = SoundID.NPCHit1;
