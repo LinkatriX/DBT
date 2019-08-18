@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework.Graphics;
 using DBT.UserInterfaces.HairMenu.StylePreviews;
 using DBT.UserInterfaces.WishMenu;
 using DBT.UserInterfaces.HairMenu;
+using DBT.Items.Tiles.MusicBoxes;
+using DBT.Tiles.MusicBoxes;
 
 namespace DBT
 {
@@ -111,6 +113,19 @@ namespace DBT
                 Instance = this;
 
                 circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
+
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/BirthOfAGod"), ItemType<AngelStaffBoxItem>(), TileType<AngelStaffBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/HeadChala"), ItemType<OneStarBoxItem>(), TileType<OneStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Budokai2"), ItemType<TwoStarBoxItem>(), TileType<TwoStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Budokai3"), ItemType<ThreeStarBoxItem>(), TileType<ThreeStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/SSJ3Song"), ItemType<FourStarBoxItem>(), TileType<FourStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Challenge"), ItemType<FiveStarBoxItem>(), TileType<FiveStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/LostCourage"), ItemType<SixStarBoxItem>(), TileType<SixStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/VegetaSSJ"), ItemType<SevenStarBoxItem>(), TileType<SevenStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/XV2Villain"), ItemType<DragonBallsBoxItem>(), TileType<DragonBallsBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/BurstLimit"), ItemType<BabidisMagicBoxItem>(), TileType<BabidisMagicBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Wastelands"), ItemType<WastelandsBoxItem>(), TileType<WastelandsBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TheUnexpectedArrival"), ItemType<FFBoxItem>(), TileType<FFBoxTile>());
             }
         }
 

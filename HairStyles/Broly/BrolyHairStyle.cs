@@ -2,7 +2,7 @@
 {
     public sealed class BrolyHairStyle : HairStyle
     {
-        public BrolyHairStyle() : base(xOffset: 0, yOffset: 2)
+        public BrolyHairStyle() : base(xOffsetRight: -2, yOffsetRight: 2, xOffsetLeft: 2, yOffsetLeft: 2)
         {
         }
     }

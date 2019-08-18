@@ -20,6 +20,7 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             STYLE_FIVE_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style5/",
             STYLE_SIX_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style6/",
             STYLE_SEVEN_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style7/",
+            STYLE_EIGHT_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style8/",
             STYLE_ONE = STYLE_ONE_DIRECTORY + "Style1",
             STYLE_ONE_L = STYLE_ONE_DIRECTORY + "Style1L",
             STYLE_ONE_M = STYLE_ONE_DIRECTORY + "Style1M",
@@ -41,6 +42,9 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             STYLE_SEVEN = STYLE_SEVEN_DIRECTORY + "Style7",
             STYLE_SEVEN_L = STYLE_SEVEN_DIRECTORY + "Style7L",
             STYLE_SEVEN_M = STYLE_SEVEN_DIRECTORY + "Style7M",
+            STYLE_EIGHT = STYLE_EIGHT_DIRECTORY + "Style8",
+            STYLE_EIGHT_L = STYLE_EIGHT_DIRECTORY + "Style8L",
+            STYLE_EIGHT_M = STYLE_EIGHT_DIRECTORY + "Style8M",
             ARROW_LEFT = BUTTON_DIRECTORY + "ArrowLeft",
             ARROW_RIGHT = BUTTON_DIRECTORY + "ArrowRight",
             BASE_SELECT = BUTTON_DIRECTORY + "BaseSelect",
@@ -73,6 +77,9 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             style7,
             style7L,
             style7M,
+            style8,
+            style8L,
+            style8M,
             arrowLeft,
             arrowRight,
             baseSelect,
@@ -106,6 +113,9 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             style7 = mod.GetTexture(STYLE_SEVEN);
             style7L = mod.GetTexture(STYLE_SEVEN_L);
             style7M = mod.GetTexture(STYLE_SEVEN_M);
+            style8 = mod.GetTexture(STYLE_EIGHT);
+            style8L = mod.GetTexture(STYLE_EIGHT_L);
+            style8M = mod.GetTexture(STYLE_EIGHT_M);
             arrowLeft = mod.GetTexture(ARROW_LEFT);
             arrowRight = mod.GetTexture(ARROW_RIGHT);
             baseSelect = mod.GetTexture(BASE_SELECT);
@@ -139,6 +149,9 @@ namespace DBT.UserInterfaces.HairMenu.StylePreviews
             style7 = null;
             style7L = null;
             style7M = null;
+            style8 = null;
+            style8L = null;
+            style8M = null;
             arrowLeft = null;
             arrowRight = null;
             baseSelect = null;

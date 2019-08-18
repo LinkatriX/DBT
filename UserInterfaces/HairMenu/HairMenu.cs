@@ -35,8 +35,8 @@ namespace DBT.UserInterfaces.HairMenu
             Kale = 4,
             Caulifla = 5,
             Gine = 6,
-            Nappa = 7
-            //FutureGohan = 8
+            Nappa = 7,
+            FutureGohan = 8
         }
         public static HairSelection hairSelection = HairSelection.Goku;
 
@@ -53,9 +53,9 @@ namespace DBT.UserInterfaces.HairMenu
             BackPanel.BackgroundColor = new Color(0, 0, 0, 0);
             BackPanel.BorderColor = new Color(0, 0, 0, 0);
 
-            InitializeButton(HairGFX.arrowLeft, new MouseEvent(LastHairStyle), 56, 2, BackPanel);
+            InitializeButton(HairGFX.arrowLeft, new MouseEvent(LastHairStyle), 55, -2, BackPanel);
 
-            InitializeButton(HairGFX.arrowRight, new MouseEvent(NextHairStyle), 112, 2, BackPanel);
+            InitializeButton(HairGFX.arrowRight, new MouseEvent(NextHairStyle), 108, -2, BackPanel);
 
             InitializeButton(HairGFX.hairConfirmButton, new MouseEvent(ConfirmHair), 126, 113, BackPanel);
 
@@ -75,7 +75,7 @@ namespace DBT.UserInterfaces.HairMenu
             else
                 panelTexture = HairGFX.hairBackPanel;
             int currentSelection = (int)hairSelection;
-            totalText = currentSelection + "/" + 7;
+            totalText = currentSelection + "/" + 8;
             CanDrag = false;
             #region Cancer
             if (hairSelection == HairSelection.Goku)
@@ -85,7 +85,7 @@ namespace DBT.UserInterfaces.HairMenu
                 else
                     hairTexture = HairGFX.style1;
                 hairText = "Goku";
-                prevHairTexture = HairGFX.style7M;
+                prevHairTexture = HairGFX.style8M;
                 nextHairTexture = HairGFX.style2M;
             }
             if (hairSelection == HairSelection.Vegeta)
@@ -146,6 +146,16 @@ namespace DBT.UserInterfaces.HairMenu
                     hairTexture = HairGFX.style7;
                 hairText = "Nappa";
                 prevHairTexture = HairGFX.style6M;
+                nextHairTexture = HairGFX.style8M;
+            }
+            if (hairSelection == HairSelection.FutureGohan)
+            {
+                if (legendaryTab)
+                    hairTexture = HairGFX.style8L;
+                else
+                    hairTexture = HairGFX.style8;
+                hairText = "F.Gohan";
+                prevHairTexture = HairGFX.style7M;
                 nextHairTexture = HairGFX.style1M;
             }
             #endregion
@@ -164,7 +174,7 @@ namespace DBT.UserInterfaces.HairMenu
 
         public void DrawTexts(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Main.fontMouseText, "Hair Selection Menu", new Vector2(BackPanel.Left.Pixels + 28, BackPanel.Top.Pixels - 26), Color.WhiteSmoke, 0, Vector2.Zero, 0.88f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(Main.fontMouseText, "Hair Selection Menu", new Vector2(BackPanel.Left.Pixels + 28, BackPanel.Top.Pixels - 30), Color.WhiteSmoke, 0, Vector2.Zero, 0.88f, SpriteEffects.None, 0);
             spriteBatch.DrawString(Main.fontMouseText, totalText, new Vector2(BackPanel.Left.Pixels + 90, BackPanel.Top.Pixels + 16), Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
             spriteBatch.DrawString(Main.fontMouseText, hairText, new Vector2(BackPanel.Left.Pixels + 84, BackPanel.Top.Pixels - 4), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
         }
@@ -217,6 +227,9 @@ namespace DBT.UserInterfaces.HairMenu
                 case HairSelection.Nappa:
                     player.ChosenHairStyle = HairStyleManager.Instance.Nappa;
                     break;
+                case HairSelection.FutureGohan:
+                    player.ChosenHairStyle = HairStyleManager.Instance.FutureGohan;
+                    break;
             }
         }
 
@@ -232,14 +245,14 @@ namespace DBT.UserInterfaces.HairMenu
         {
             SoundHelper.PlayVanillaSound(SoundID.MenuTick, Main.LocalPlayer.position);
             if (hairSelection == HairSelection.Goku)
-                hairSelection = HairSelection.Nappa;
+                hairSelection = HairSelection.FutureGohan;
             else
                 hairSelection -= 1;
         }
         private void NextHairStyle(UIMouseEvent evt, UIElement listeningElement)
         {
             SoundHelper.PlayVanillaSound(SoundID.MenuTick, Main.LocalPlayer.position);
-            if (hairSelection == HairSelection.Nappa)
+            if (hairSelection == HairSelection.FutureGohan)
                 hairSelection = HairSelection.Goku;
             else
                 hairSelection += 1;
