@@ -923,7 +923,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				AIStage++;
 				return;
 			}
-			else if (Main.expertMode && AIStage == STAGE_SLAM && SSDone == 5)
+			else if (Main.expertMode && AIStage == STAGE_SLAM && (SSDone == 2 || SSDone == 5))
 			{
 				AIStage = STAGE_GUNNING;
 				return;
@@ -933,13 +933,13 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				AIStage = STAGE_SHIELD;
 				return;
 			}
-			else if (AIStage == STAGE_SHIELD && SSDone == 5)
-			{
+			else if (AIStage == STAGE_SHIELD && (SSDone == 2 || SSDone == 5))
+            {
 				AIStage = STAGE_MINION;
 				return;
 			}
-			else if (AIStage == STAGE_MINION && SSDone == 5)
-			{
+			else if (AIStage == STAGE_MINION && (SSDone == 2 || SSDone == 5))
+            {
 				AIStage = STAGE_HOVER;
 				return;
 			}
@@ -950,21 +950,21 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			}
 			else if (AIStage == STAGE_HYPER && (SSDone == 3 || SSDone == 9))
 			{
-				AIStage = STAGE_HOVER;
+				AIStage = STAGE_SHIELD;
 				return;
 			}
-			else if (AIStage == STAGE_SLAM && SSDone == 4)
+            else if (AIStage == STAGE_SHIELD && (SSDone == 3 || SSDone == 9))
+            {
+                AIStage = STAGE_HOVER;
+                return;
+            }
+            else if (AIStage == STAGE_SLAM && (SSDone == 4 || SSDone == 8))
 			{
 				AIStage = STAGE_MINION;
 				return;
 			}
-            else if (AIStage == STAGE_SHIELD && SSDone == 4)
+            else if (AIStage == STAGE_MINION && (SSDone == 4 || SSDone == 8))
             {
-                AIStage = STAGE_MINION;
-                return;
-            }
-            else if (AIStage == STAGE_MINION && SSDone == 4)
-			{
 				AIStage = STAGE_HOVER;
 				return;
 			}
