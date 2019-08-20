@@ -22,7 +22,6 @@ namespace DBT.Players
         public void UpdateBossKill(NPC npcKilled)
         {
             int divide = 0;
-            float gain = 0f;
             if (!Main.hardMode)
                 divide = 2;
             else if (Main.hardMode)
@@ -32,61 +31,60 @@ namespace DBT.Players
             if (!BossesKilled.Contains(npcKilled.whoAmI))
             {
                 // If you killed EoC for the first time with 700 max ki, a damage multi of x1.1 and 8 defence then you would gain 280 max ki.
-                gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel) / (npcKilled.lifeMax + Powerlevel) / 2) / divide;
+                Gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel) / (npcKilled.lifeMax + Powerlevel) / 2) / divide;
                 BossesKilled.Add(npcKilled.whoAmI);
             }
             if (BossesKilled.Contains(npcKilled.whoAmI))
             {
-                gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel) / (npcKilled.lifeMax + Powerlevel) / 2) / divide * 5;
+                Gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel) / (npcKilled.lifeMax + Powerlevel) / 2) / divide * 5;
             }
 
-            if (gain >= 1)
+            if (Gain >= 1)
             {
-                if (GainLimits(gain))
+                if (GainLimits(Gain))
                 {
-                    int text = CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), "+" + (int)gain + "Max Ki", true, false);
+                    int text = CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), "+" + (int)Gain + "Max Ki", true, false);
                     Main.combatText[text].scale = 0.5f;
-                    MaxKiModifierPerm += gain;
+                    MaxKiModifierPerm += Gain;
                 }
             }
         }
 
         public void UpdateKill(NPC npcKilled)
         {
-            float gain = 0f;
-            gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel / 100) / (npcKilled.lifeMax + Powerlevel / 100) / 2) / 6;
+            Gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel / 100) / (npcKilled.lifeMax + Powerlevel / 100) / 2) / 6;
 
-            if (gain >= 1)
+            if (Gain >= 1)
             {
-                if (GainLimits(gain))
+                if (GainLimits(Gain))
                 {
-                    int text = CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), "+" + (int)gain + "Max Ki", true, false);
+                    int text = CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), "+" + (int)Gain + "Max Ki", true, false);
                     Main.combatText[text].scale = 0.5f;
-                    MaxKiModifierPerm += gain;
+                    MaxKiModifierPerm += Gain;
                 }
             }
         }
 
-        public bool GainLimits(float gain)
+        public bool GainLimits(float gainAmount)
         {
             if (!NPC.downedPlantBoss)
-                if (gain > 1000)
+                if (gainAmount > 1000)
                 {
-                    gain = 1000;
+                    Gain = 1000;
                     return true;
                 }
                     
             if (NPC.downedPlantBoss && !NPC.downedMoonlord)
-                if (gain > 2500)
+                if (gainAmount > 2500)
                 {
-                    gain = 2500;
+                    Gain = 2500;
                     return true;
                 }
                     
             if (NPC.downedMoonlord)
-                if (gain > 5000)
+                if (gainAmount > 5000)
                 {
-                    gain = 5000;
+                    Gain = 5000;
                     return true;
                 }    
             return true;
@@ -102,5 +100,7 @@ namespace DBT.Players
         public IList<int> BossesKilled { get; set; }
         public float ProgressionKiRegenerationModifier { get; set; }
         public float ProgressionMaxKiModifier { get; set; }
+
+        public float Gain { get; set; }
     }
 }
