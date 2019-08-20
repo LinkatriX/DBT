@@ -70,7 +70,7 @@ namespace DBT.Players
 
         internal void PreUpdateKi()
         {
-            
+            //Main.NewText("Powerlevel is: " + Powerlevel);
         }
 
         internal void PostUpdateKi()
@@ -98,7 +98,7 @@ namespace DBT.Players
                 MaxKiMultiplier += OverloadKiMultiplier - 1f;
 
             if (Ki < MaxKi)
-                ModifyKi(NaturalKiRegeneration + ExternalKiRegenerationModifier);
+                ModifyKi(NaturalKiRegeneration / 2 + ExternalKiRegenerationModifier);
         }
 
 
@@ -107,7 +107,7 @@ namespace DBT.Players
         public float GetKiDrain(float kiDrain) => (kiDrain + KiDrainMultiplier) + KiDrainModifier;
 
 
-        public float KiDamageMultiplier { get; set; } = 1;
+        public float KiDamageMultiplier { get; set; } = 1f;
 
         public float Ki { get; private set; }
 

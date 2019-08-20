@@ -10,6 +10,8 @@ namespace DBT.Players
         {
             TransformationDefinitionManager.Instance.ForAllItems(t => t.OnPreAcquirePlayerKilledNPC(this, npc));
             ForAllActiveTransformations(t => t.OnActivePlayerKilledNPC(this, npc));
+
+            UpdateProgression(npc);
         }
 
         public override void OnEnterWorld(Player player)

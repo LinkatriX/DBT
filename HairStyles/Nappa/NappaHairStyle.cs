@@ -2,7 +2,7 @@
 {
     public sealed class NappaHairStyle : HairStyle
     {
-        public NappaHairStyle() : base(xOffset: -4, yOffset: -2)
+        public NappaHairStyle() : base(xOffsetRight: -4, yOffsetRight: -2)
         {
         }
     }

@@ -12,14 +12,6 @@ namespace DBT.Items.Guardian
         {
         }
 
-        public override void PostModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine line = new TooltipLine(mod, TOOLTIP_GUARDIAN_LINE_NAME, "- Guardian -") { overrideColor = new Color(69, 255, 56) };
-            tooltips.Add(line);
-
-            base.ModifyTooltips(tooltips);
-        }
-
         public override bool CloneNewInstances => true;
     }
 }

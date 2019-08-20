@@ -19,7 +19,7 @@ namespace DBT.NPCs.Saibamen
         {
             npc.width = 26;
             npc.height = 36;
-            npc.damage = 54;
+            npc.damage = 34;
             npc.defense = 4;
             npc.lifeMax = 50;
             npc.HitSound = SoundID.NPCHit1;

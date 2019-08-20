@@ -2,7 +2,7 @@
 {
     public sealed class KaleHairStyle : HairStyle
     {
-        public KaleHairStyle() : base(xOffset: -4, yOffset: 4)
+        public KaleHairStyle() : base(xOffsetRight: -4, yOffsetRight: 2, xOffsetLeft: -4, yOffsetLeft: 2)
         {
         }
     }

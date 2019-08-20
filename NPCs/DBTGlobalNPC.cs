@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DBT.NPCs
 {
-    public sealed class DBTGlobalNPC : GlobalNPC
+    public sealed partial class DBTGlobalNPC : GlobalNPC
     {
         public override void NPCLoot(NPC npc)
         {

@@ -15,7 +15,6 @@ namespace DBT.Projectiles.FriezaForce
 
 		public override void SetDefaults()
 		{
-			projectile.damage = 40;
 			projectile.width = 10;
 			projectile.height = 89;
 			projectile.timeLeft = 240;

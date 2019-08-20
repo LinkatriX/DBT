@@ -31,6 +31,14 @@ namespace DBT.HairStyles
 
             if (dbtPlayer.ChosenHairStyle.AutoBobbing)
                 bobbingOffset = Main.OffsetsPlayerHeadgear[bodyFrame];
+            Vector2 overallOffset = Vector2.Zero;
+            Vector2 overallOffsetLeft = dbtPlayer.ChosenHairStyle.Offset.ZW();
+            Vector2 overallOffsetRight = dbtPlayer.ChosenHairStyle.Offset.XY();
+
+            if (drawInfo.drawPlayer.direction == -1)
+                overallOffset = overallOffsetLeft;
+            else
+                overallOffset = overallOffsetRight;
 
             int height = dbtPlayer.CurrentHair.Height / 14;
 
@@ -44,7 +52,7 @@ namespace DBT.HairStyles
                 new Vector2(
                     (int)(drawInfo.position.X - Main.screenPosition.X - player.bodyFrame.Width / 2 + player.width / 2),
                     (int)(drawInfo.position.Y - Main.screenPosition.Y + player.height - player.bodyFrame.Height)) 
-                    + player.headPosition + drawInfo.headOrigin + dbtPlayer.ChosenHairStyle.Offset + bobbingOffset,
+                    + player.headPosition + drawInfo.headOrigin + overallOffset + bobbingOffset,
 
                 // TODO Add hair animation.
                 new Rectangle(0, 0, dbtPlayer.CurrentHair.Width, height),

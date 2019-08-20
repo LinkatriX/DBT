@@ -30,7 +30,7 @@ namespace DBT.Players
                 ChosenHairStyle = HairStyleManager.Instance.NoChoice;
 
                 Ki = 0;
-                BaseMaxKi = 1000;
+                BaseMaxKi = 500;
             }
 
             PlayerInitialized = true;

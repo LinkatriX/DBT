@@ -14,20 +14,12 @@ namespace DBT.HairStyles
 
         protected readonly Dictionary<string, Texture2D> texturesPerTransformationUnlocalized = new Dictionary<string, Texture2D>();
 
-        public HairStyle(int xOffset = 0, int yOffset = 0, bool autoBobbing = true, string hairStyleSuffix = HAIR_STYLE_SUFFIX)
+        public HairStyle(int xOffsetRight = 0, int yOffsetRight = 0, int xOffsetLeft = 0, int yOffsetLeft = 0, bool autoBobbing = true, string hairStyleSuffix = HAIR_STYLE_SUFFIX)
         {
-            Offset = new Vector2(xOffset, -yOffset);
+            Offset = new Vector4(xOffsetRight, -yOffsetRight, xOffsetLeft, -yOffsetLeft);
             AutoBobbing = autoBobbing;
 
             Initialize(this.GetType(), hairStyleSuffix);
-        }
-
-        public HairStyle(Type type, int xOffset = 0, int yOffset = 0, bool autoBobbing = false, string hairStyleSuffix = HAIR_STYLE_SUFFIX)
-        {
-            Offset = new Vector2(xOffset, -yOffset);
-            AutoBobbing = autoBobbing;
-
-            Initialize(type, hairStyleSuffix);
         }
 
 
@@ -74,7 +66,7 @@ namespace DBT.HairStyles
         public string RootPath { get; protected set; }
 
 
-        public Vector2 Offset { get; }
+        public Vector4 Offset { get; }
 
         public bool AutoBobbing { get; }
 
