@@ -18,10 +18,12 @@ using DBT.Transformations.SSJs.SSJ4s.SSJ4;
 
 namespace DBT.Transformations
 {
-    public sealed class TransformationDefinitionManager : SingletonManager<TransformationDefinitionManager, TransformationDefinition>
+    public sealed class TransformationDefinitionManager : SingletonManager<TransformationDefinitionManager, TransformationDefinition> 
     {
         internal override void DefaultInitialize()
         {
+            //DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
+
             SSJ1 = Add(new SSJ1Transformation()) as SSJ1Transformation;
             ASSJ1 = Add(new ASSJ1Transformation(SSJ1)) as ASSJ1Transformation;
             USSJ1 = Add(new USSJ1Transformation(ASSJ1)) as USSJ1Transformation;
@@ -30,31 +32,48 @@ namespace DBT.Transformations
             SSJ3 = Add(new SSJ3Transformation(SSJ2)) as SSJ3Transformation;
 
             SSJ4 = Add(new SSJ4Transformation(SSJ3)) as SSJ4Transformation;
+            SSJ5 = Add(new SSJ5Transformation(SSJ4)) as SSJ5Transformation;
 
             SSJG = Add(new SSJGTransformation(SSJ3)) as SSJGTransformation;
             SSJB = Add(new SSJBTransformation(SSJG)) as SSJBTransformation;
             SSJR = Add(new SSJRTransformation(SSJG)) as SSJRTransformation;
             SSJBE = Add(new SSJBETransformation(SSJB)) as SSJBETransformation;
-
-            Wrathful = Add(new WrathfulTransformation()) as WrathfulTransformation;
+            //This is Act1 for now so the code doesn't omega bork when I test other things
+            Wrathful = Add(new WrathfulTransformationAct1()) as WrathfulTransformation;
             SSJC = Add(new SSJCTypeTransformation(Wrathful)) as SSJCTypeTransformation;
             LSSJ = Add(new LSSJTransformation(SSJC)) as LSSJTransformation;
 
             SoulStealer = Add(new SoulStealerTransformation()) as SoulStealerTransformation;
 
-            SSJ5 = Add(new SSJ5Transformation(SSJ4)) as SSJ5Transformation;
-
             Tree = new Tree<TransformationDefinition>(byIndex);
 
-            base.DefaultInitialize();
+            base.DefaultInitialize(); 
         }
-
 
         /*public Tree<TransformationDefinition> GenerateConditionalTree(Predicate<TransformationDefinition> condition)
         {
             
         }*/
 
+        /*public WrathfulTransformation ReturnWrathfulType(DBTPlayer modPlayer)
+        {
+
+            if (modPlayer.BaseMaxKi >= 10000)
+            {
+                return new WrathfulTransformationAct3();
+            }
+            else
+            {
+                if (modPlayer.BaseMaxKi >= 5000 && modPlayer.BaseMaxKi < 10000)
+                {
+                    return new WrathfulTransformationAct2();
+                }
+                else
+                {
+                    return new WrathfulTransformationAct1();
+                }
+            }
+        }*/
 
         public SSJ1Transformation SSJ1 { get; private set; }
         public ASSJ1Transformation ASSJ1 { get; private set; }
