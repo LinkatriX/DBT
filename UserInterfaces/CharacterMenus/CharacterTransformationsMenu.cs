@@ -203,7 +203,8 @@ namespace DBT.UserInterfaces.CharacterMenus
             lockedImage = InitializeImage(LockedImageTexture, 0, 0, unknownGrayImage);
             lockedImage.ImageScale = 0f;
 
-            _transformationImagePairs.Add(transformation, new UIImagePair(new Point(left, top), transformationButton, unknownImage, unknownGrayImage, lockedImage));
+            if (!_transformationImagePairs.ContainsKey(transformation))
+                _transformationImagePairs.Add(transformation, new UIImagePair(new Point(left, top), transformationButton, unknownImage, unknownGrayImage, lockedImage));
         }
 
         private void RecursiveInitializeTransformation(UIPanel panel, Node<TransformationDefinition> node, ref int yOffset)

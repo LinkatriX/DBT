@@ -43,6 +43,8 @@ namespace DBT
         internal HairMenu hairMenu;
         internal UserInterface hairMenuInterface;
 
+        internal bool calamityEnabled;
+
         public DBTMod()
         {
             Properties = new ModProperties()
@@ -195,6 +197,8 @@ namespace DBT
             {
                 bossChecklist.Call("AddBossWithInfo", "A Frieza Force Ship", 3.8f, (Func<bool>)(() => DBTWorld.DBTWorld.downedFriezaShip), "Alert and let a frieza force scout escape in the wasteland biome after the world evil has been killed.");
             }
+
+            calamityEnabled = ModLoader.GetMod("CalamityMod") != null;
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
