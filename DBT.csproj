@@ -3,9 +3,17 @@
   <Import Project="..\..\references\tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>DBT</AssemblyName>
-    <TargetFramework>net45</TargetFramework>
-    <PlatformTarget>x86</PlatformTarget>
+    <TargetFramework>net472</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\</OutputPath>
   </PropertyGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
@@ -32,6 +40,7 @@
     <Folder Include="Skills\KiOvercharge\" />
     <Folder Include="Skills\KiSiphonScepter\" />
     <Folder Include="Skills\GuardianMending\" />
+    <Folder Include="Skills\ProminenceFlash\" />
     <Folder Include="Skills\ShiningLight\" />
     <Folder Include="Skills\ThunderShockSurprise\" />
     <Folder Include="Skills\SolarFlare\" />

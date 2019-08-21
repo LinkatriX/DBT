@@ -16,8 +16,8 @@ using DBT.UserInterfaces.OverloadBar;
 using DBT.UserInterfaces;
 using DBT.Effects;
 using Microsoft.Xna.Framework.Graphics;
-using DBT.UserInterfaces.KiAttackUI;
 using DBT.UserInterfaces.HairMenu.StylePreviews;
+using DBT.UserInterfaces.WishMenu;
 
 namespace DBT
 {
@@ -29,13 +29,14 @@ namespace DBT
         internal UserInterface kiBarInterface;
 
         internal static CircleShader circle;
-        internal KiBrowserUIMenu kiBrowserMenu;
         internal UserInterface kiBrowserInterface;
         internal OverloadBar overloadBar;
         internal UserInterface overloadBarInterface;
         internal DBTMenu dbtMenu;
         internal CharacterTransformationsMenu characterTransformationsMenu;
         internal UserInterface characterMenuInterface;
+        internal WishMenu wishMenu;
+        internal UserInterface wishMenuInterface;
 
         public DBTMod()
         {
@@ -54,6 +55,9 @@ namespace DBT
         {
             if (!Main.dedServ)
             {
+                StylePreviewGFX.LoadPreviewGFX(this);
+                WishMenuGFX.LoadWishGFX(this);
+
                 SteamHelper.Initialize();
 
                 #region HotKeys
@@ -86,31 +90,19 @@ namespace DBT
                 dbtMenu = new DBTMenu();
                 dbtMenu.Activate();
 
-                kiBrowserMenu = new KiBrowserUIMenu();
-                kiBrowserMenu.Activate();
-                kiBrowserInterface = new UserInterface();
-                kiBrowserInterface.SetState(kiBrowserMenu);
-
                 characterTransformationsMenu = new CharacterTransformationsMenu(this);
                 characterTransformationsMenu.Activate();
                 characterMenuInterface = new UserInterface();
                 characterMenuInterface.SetState(characterTransformationsMenu);
 
-                Properties = new ModProperties()
-                {
-                    Autoload = true,
-                    AutoloadGores = true,
-                    AutoloadSounds = true,
-                    AutoloadBackgrounds = true
-                };
-
-                StylePreviewGFX.LoadPreviewGFX(this);
+                wishMenu = new WishMenu();
+                wishMenu.Activate();
+                wishMenuInterface = new UserInterface();
+                wishMenuInterface.SetState(wishMenu);               
 
                 Instance = this;
 
                 circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
-
-                kiBrowserMenu.Visible = true;
             }
         }
 
@@ -120,13 +112,14 @@ namespace DBT
             {
                 kiBar.Visible = false;
 
-                kiBrowserMenu.Visible = false;
-
                 characterTransformationsMenu.Visible = false;
 
                 overloadBar.Visible = false;
 
+                WishMenu.menuVisible = false;
+
                 StylePreviewGFX.UnloadPreviewGFX();
+                WishMenuGFX.UnloadWishGFX();
             }
 
             Instance = null;
@@ -137,8 +130,8 @@ namespace DBT
             if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
 
-            if (kiBrowserInterface != null && kiBrowserMenu.Visible)
-                kiBrowserInterface.Update(gameTime);
+            if (wishMenuInterface != null && WishMenu.menuVisible)
+                wishMenuInterface.Update(gameTime);
 
         }
 
@@ -172,7 +165,7 @@ namespace DBT
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "A Frieza Force Ship", 3.8f, (Func<bool>)(() => DBTWorld.downedFriezaShip), "Alert and let a frieza force scout escape in the wasteland biome after the world evil has been killed.");
+                bossChecklist.Call("AddBossWithInfo", "A Frieza Force Ship", 3.8f, (Func<bool>)(() => DBTWorld.DBTWorld.downedFriezaShip), "Alert and let a frieza force scout escape in the wasteland biome after the world evil has been killed.");
             }
         }
 
@@ -186,11 +179,11 @@ namespace DBT
             {
                 layers.Insert(resourcesLayerIndex, new OverloadBarLayer());
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
+                layers.Insert(resourcesLayerIndex, new WishMenuLayer());
             }
             if (characterMenuIndex != -1)
             {
                 layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
-                layers.Insert(characterMenuIndex, new KiBrowserLayer(kiBrowserMenu, kiBrowserInterface));
             }
         }
         public static uint GetTicks() => Main.GameUpdateCount;

@@ -82,13 +82,8 @@ namespace DBT.Transformations
                 damageMultiplier = Definition.GetDamageMultiplier(dbtPlayer),
                 halvedDamageMultiplier = damageMultiplier / 2;
 
-            player.meleeDamage *= damageMultiplier;
+            player.allDamage *= damageMultiplier;
             dbtPlayer.KiDamageMultiplier = damageMultiplier;
-
-            player.rangedDamage *= halvedDamageMultiplier;
-            player.thrownDamage *= halvedDamageMultiplier;
-            player.magicDamage *= halvedDamageMultiplier;
-            player.minionDamage *= halvedDamageMultiplier;
 
             player.statDefense += Definition.GetDefenseAdditive(dbtPlayer);
 

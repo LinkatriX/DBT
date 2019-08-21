@@ -41,7 +41,7 @@ namespace DBT.Players
             KiDamageMultiplier = 1;
 
             MaxKiMultiplier = 1;
-            MaxKiModifier = 1;
+            MaxKiModifier = 0;
 
             KiSpeedAddition = 0;
             KiKnockbackAddition = 0;
@@ -158,7 +158,9 @@ namespace DBT.Players
         public float MaxKiMultiplier { get; set; } = 1;
         public float MaxKiModifier { get; set; }
 
-        public int MaxKi => (int)(Math.Round(BaseMaxKi * MaxKiMultiplier) + MaxKiModifier);
+        public float MaxKiModifierPerm { get; set; }
+
+        public int MaxKi => (int)(Math.Round(BaseMaxKi * MaxKiMultiplier) + MaxKiModifier + MaxKiModifierPerm);
 
         public float KiSpeedAddition { get; set; }
         public float KiKnockbackAddition { get; set; }
