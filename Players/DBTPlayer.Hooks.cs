@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DBT.Commons.Players;
+using DBT.Effects;
 using DBT.Extensions;
 using DBT.HairStyles;
 using DBT.Transformations;
@@ -9,6 +10,7 @@ using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using DBT.Transformations.LSSJs.Wrathful;
 
 namespace DBT.Players
 {
@@ -154,6 +156,10 @@ namespace DBT.Players
             ResetGuardianEffects();
             ResetSkillEffects();
             ResetOverloadEffects();
+
+            isHoldingDragonRadarMk1 = false;
+            isHoldingDragonRadarMk2 = false;
+            isHoldingDragonRadarMk3 = false;
         }
 
 
@@ -200,7 +206,7 @@ namespace DBT.Players
             for (int i = 0; i < items.Count; i++)
                 items[i].OnPlayerPostUpdate(this);
 
-            if (DBTWorld.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaShip")))
+            if (Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaShip")))
                 CheckFriezaShipSpawn();
 
             HandleMouseOctantAndSyncTracking();
@@ -237,6 +243,13 @@ namespace DBT.Players
         {
             HandleAuraDrawLayers(layers);
             HandleHairDrawLayers(layers);
+
+            // handle dragon radar drawing
+            if (isHoldingDragonRadarMk1 || isHoldingDragonRadarMk2 || isHoldingDragonRadarMk3)
+            {
+                DrawDragonRadar.dragonRadarEffects.visible = true;
+                layers.Add(DrawDragonRadar.dragonRadarEffects);
+            }
         }
 
         public override void UpdateBiomes()

@@ -148,7 +148,6 @@ namespace DBT
 
                 HairMenu.menuVisible = false;
             }
-
             Instance = null;
         }
 
@@ -195,7 +194,7 @@ namespace DBT
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "A Frieza Force Ship", 3.8f, (Func<bool>)(() => DBTWorld.DBTWorld.downedFriezaShip), "Alert and let a frieza force scout escape in the wasteland biome after the world evil has been killed.");
+                bossChecklist.Call("AddBossWithInfo", "A Frieza Force Ship", 3.8f, (Func<bool>)(() => Worlds.DBTWorld.downedFriezaShip), "Alert and let a frieza force scout escape in the wasteland biome after the world evil has been killed.");
             }
 
             calamityEnabled = ModLoader.GetMod("CalamityMod") != null;

@@ -4,7 +4,7 @@ using DBT.Transformations;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace DBT.Players //:ech
+namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {

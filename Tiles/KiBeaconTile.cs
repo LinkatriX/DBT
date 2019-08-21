@@ -108,7 +108,7 @@ namespace DBT.Tiles
         public override void PlaceInWorld(int i, int j, Item item)
         {
             var kiBeaconLocation = new Vector2(i * 16f, j * 16f);
-            DBTWorld.DBTWorld.GetWorld().kiBeacons.Add(kiBeaconLocation);
+            Worlds.DBTWorld.GetWorld().kiBeacons.Add(kiBeaconLocation);
             //if (Main.netMode == NetmodeID.MultiplayerClient)
                 //NetworkHelper.playerSync.SendKiBeaconAdd(256, Main.myPlayer, kiBeaconLocation);
         }
@@ -116,7 +116,7 @@ namespace DBT.Tiles
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             var kiBeaconLocation = new Vector2(i * 16f, j * 16f);
-            DBTWorld.DBTWorld.GetWorld().kiBeacons.Remove(kiBeaconLocation);
+            Worlds.DBTWorld.GetWorld().kiBeacons.Remove(kiBeaconLocation);
             //if (Main.netMode == NetmodeID.MultiplayerClient)
                 //NetworkHelper.playerSync.SendKiBeaconRemove(256, Main.myPlayer, kiBeaconLocation);
         }
