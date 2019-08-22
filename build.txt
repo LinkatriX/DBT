@@ -1,5 +1,6 @@
 version = 1.1.0.0
-author = NuovaPrime, Mak0-Z, Skipping, Dawn
+author = NuovaPrime, Skipping, Dawn, Fullnovaalchemist
 displayName = Dragon Ball Terraria
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, .git\*, *.db
+weakReferences = CalamityMod@1.4.2.103
 includePDB = true

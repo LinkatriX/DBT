@@ -30,7 +30,6 @@ namespace DBT.Players
                 divide = 8;
             if (!BossesKilled.Contains(npcKilled.whoAmI))
             {
-                // If you killed EoC for the first time with 700 max ki, a damage multi of x1.1 and 8 defence then you would gain 280 max ki.
                 Gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel) / (npcKilled.lifeMax + Powerlevel) / 2) / divide;
                 BossesKilled.Add(npcKilled.whoAmI);
             }
@@ -38,6 +37,8 @@ namespace DBT.Players
             {
                 Gain = npcKilled.lifeMax / 2 * 1f * ((npcKilled.lifeMax - Powerlevel) / (npcKilled.lifeMax + Powerlevel) / 2) / divide * 5;
             }
+
+            Main.NewText("Ki gain is: " + Gain);
 
             if (Gain >= 1)
             {
@@ -94,7 +95,7 @@ namespace DBT.Players
         {
             get
             {
-                return MaxKi * 1.5f * (player.meleeDamage + player.rangedDamage + player.magicDamage + player.thrownDamage + player.minionDamage + KiDamageMultiplier / 6) + (player.statDefense * 50);
+                return MaxKi * 1.5f * ((player.meleeDamage + player.rangedDamage + player.magicDamage + player.thrownDamage + player.minionDamage + KiDamageMultiplier) / 6) + (player.statDefense * 50);
             }
         }
         public IList<int> BossesKilled { get; set; }

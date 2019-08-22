@@ -22,7 +22,8 @@ namespace DBT.NPCs.Bosses.FriezaShip
 	[AutoloadBossHead] //TODO: Work on teleportation dust.
 	public class FriezaShip : ModNPC
 	{
-		public FriezaShip()
+        private readonly Mod calamity = ModLoader.GetMod("CalamityMod");
+        public FriezaShip()
 		{
 			HoverDistance = new Vector2(0, 380);
 			HyperPosition = new Vector2(0, 0);
@@ -969,11 +970,22 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				return;
 			}
             
-            /*else if (AIStage == STAGE_SHIELD && SSDone == 4)
-			{
-				AIStage = STAGE_WARP;
-				return;
-			}*/
+            /*if (calamity != null)
+            {
+                if (DBTMod.Instance.calamityEnabled)
+                {
+                    if (calamity.GetModWorld<CalamityWorld>().revenge)
+                    {
+                        if (AIStage == STAGE_MINION && (SSDone == 5 || SSDone == 8))
+                        {
+                            AIStage = STAGE_WARP;
+                            return;
+                        }
+                    }
+                } 
+            }*/
+
+            
 			else
 			{
 				npc.noTileCollide = false;

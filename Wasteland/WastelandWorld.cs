@@ -31,7 +31,7 @@ namespace DBT.Wasteland
             progress.Message = "Creating a barren wasteland.";
             progress.Set(0.20f);
             int startPositionX = WorldGen.genRand.Next(Main.maxTilesX / 2 - 1200, Main.maxTilesX / 2 - 400);
-            int startPositionY = (int)Main.worldSurface - 300;
+            int startPositionY = (int)Main.worldSurface - 200;
             Vector2 generationSize = new Vector2(0, 0);
             if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200)
             {
