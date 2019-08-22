@@ -18,6 +18,7 @@ namespace DBT.Worlds
         public override TagCompound Save()
         {
             SaveDownedBools();
+            SaveExtras();
 
             var dbtWorldTag = new TagCompound
             {
@@ -41,6 +42,15 @@ namespace DBT.Worlds
             if (downedFriezaShip) downed.Add("friezaShip");
 
             return new TagCompound { { "downed", downed } };
+        }
+
+        public TagCompound SaveExtras()
+        {
+            List<string> tag = new List<string>();
+
+            if (repairedGravModule) tag.Add("repairedGravModule");
+
+            return new TagCompound { { "tag", tag } };
         }
 
         public override void LoadLegacy(BinaryReader reader)
