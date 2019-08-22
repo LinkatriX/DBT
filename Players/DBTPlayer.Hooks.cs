@@ -241,6 +241,17 @@ namespace DBT.Players
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
+            PlayerTransformation transformation = GetTransformation();
+
+            if (transformation == null)
+            {
+                if (originalEyeColor.HasValue && player.eyeColor != originalEyeColor.Value)
+                    player.eyeColor = originalEyeColor.Value;
+
+                return;
+            }
+
+
             HandleAuraDrawLayers(layers);
             HandleHairDrawLayers(layers);
 
@@ -250,6 +261,9 @@ namespace DBT.Players
                 DrawDragonRadar.dragonRadarEffects.visible = true;
                 layers.Add(DrawDragonRadar.dragonRadarEffects);
             }
+
+            if (transformation.Definition.Appearance.EyeColor != null)
+                ChangeEyeColor(transformation.Definition.Appearance.EyeColor.Value);
         }
 
         public override void UpdateBiomes()

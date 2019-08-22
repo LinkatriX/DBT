@@ -29,7 +29,7 @@ namespace DBT.Transformations.SSJs.SSJ3
         public SSJ3Appearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJ3Transformation), 4, 3, BlendState.Additive, 1f, true),
                 new LightingAppearance(new float[] { 1.50f, 1.50f, 0f })),
-            new HairAppearance(Color.White), Color.Yellow)
+            new HairAppearance(Color.White), Color.Yellow, Color.Turquoise)
         {
         }
     }

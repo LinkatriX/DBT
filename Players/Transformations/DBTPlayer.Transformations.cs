@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DBT.Network;
 using DBT.Transformations;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -153,6 +154,18 @@ namespace DBT.Players
             }
             else 
                 SelectedTransformations.Add(transformation);
+        }
+
+        public Color? originalEyeColor = null;
+
+        public void ChangeEyeColor(Color eyeColor)
+        {
+            // only fire this when attempting to change the eye color.
+            if (originalEyeColor == null)
+            {
+                originalEyeColor = player.eyeColor;
+            }
+            player.eyeColor = eyeColor;
         }
 
 

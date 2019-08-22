@@ -28,7 +28,7 @@ namespace DBT.Transformations.SSJGs.SSJG
         public SSJGAppearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJGTransformation), 8, 3, BlendState.Additive, 1f, true),
                 new LightingAppearance(new float[] { 1.25f, 0.45f, 0.28f })), 
-            new HairAppearance(new Color(255, 57, 74)), Color.Red)
+            new HairAppearance(new Color(255, 57, 74)), Color.Red, new Color(255, 57, 74))
         {
         }
     }
