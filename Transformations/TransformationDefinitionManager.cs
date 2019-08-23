@@ -22,8 +22,6 @@ namespace DBT.Transformations
     {
         internal override void DefaultInitialize()
         {
-            //DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
-
             SSJ1 = Add(new SSJ1Transformation()) as SSJ1Transformation;
             ASSJ1 = Add(new ASSJ1Transformation(SSJ1)) as ASSJ1Transformation;
             USSJ1 = Add(new USSJ1Transformation(ASSJ1)) as USSJ1Transformation;
@@ -38,8 +36,8 @@ namespace DBT.Transformations
             SSJB = Add(new SSJBTransformation(SSJG)) as SSJBTransformation;
             SSJR = Add(new SSJRTransformation(SSJG)) as SSJRTransformation;
             SSJBE = Add(new SSJBETransformation(SSJB)) as SSJBETransformation;
-            //This is Act1 for now so the code doesn't omega bork when I test other things
-            Wrathful = Add(new WrathfulTransformationAct1()) as WrathfulTransformation;
+
+            Wrathful = Add(new WrathfulTransformation()) as WrathfulTransformation;
             SSJC = Add(new SSJCTypeTransformation(Wrathful)) as SSJCTypeTransformation;
             LSSJ = Add(new LSSJTransformation(SSJC)) as LSSJTransformation;
 
@@ -53,26 +51,6 @@ namespace DBT.Transformations
         /*public Tree<TransformationDefinition> GenerateConditionalTree(Predicate<TransformationDefinition> condition)
         {
             
-        }*/
-
-        /*public WrathfulTransformation ReturnWrathfulType(DBTPlayer modPlayer)
-        {
-
-            if (modPlayer.BaseMaxKi >= 10000)
-            {
-                return new WrathfulTransformationAct3();
-            }
-            else
-            {
-                if (modPlayer.BaseMaxKi >= 5000 && modPlayer.BaseMaxKi < 10000)
-                {
-                    return new WrathfulTransformationAct2();
-                }
-                else
-                {
-                    return new WrathfulTransformationAct1();
-                }
-            }
         }*/
 
         public SSJ1Transformation SSJ1 { get; private set; }

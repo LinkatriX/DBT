@@ -168,7 +168,6 @@ namespace DBT.Players
             player.eyeColor = eyeColor;
         }
 
-
         public Dictionary<TransformationDefinition, PlayerTransformation> AcquiredTransformations { get; internal set; }
         public List<TransformationDefinition> ActiveTransformations { get; internal set; }
 

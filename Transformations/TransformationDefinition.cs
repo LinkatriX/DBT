@@ -61,7 +61,7 @@ namespace DBT.Transformations
 
         #region Player Hooks Active
 
-        public virtual void OnPlayerTransformed(PlayerTransformation transformation) { }
+        public virtual void OnPlayerTransformed(DBTPlayer dbtPlayer, PlayerTransformation transformation) { }
 
         public virtual void OnPlayerMasteryGain(DBTPlayer dbtPlayer, float gain, float currentMastery) { }
 
@@ -139,11 +139,17 @@ namespace DBT.Transformations
 
         #endregion
 
+        /*#region Ki
+
+        public virtual float GetBaseKiAmount(DBTPlayer dbtPlayer) => dbtPlayer.BaseMaxKi;
+
+        #endregion*/
+
         #region Ki Drain
 
-        public float GetUnmasteredKiDrain(DBTPlayer dbtPlayer) => Drain.baseUnmasteredKiDrain;
+        public virtual float GetUnmasteredKiDrain(DBTPlayer dbtPlayer) => Drain.baseUnmasteredKiDrain;
 
-        public float GetMasteredKiDrain(DBTPlayer dbtPlayer) => Drain.baseMasteredKiDrain;
+        public virtual float GetMasteredKiDrain(DBTPlayer dbtPlayer) => Drain.baseMasteredKiDrain;
 
         #endregion
 
@@ -190,7 +196,6 @@ namespace DBT.Transformations
 
         public Type BuffType { get; }
 
-
         #region Statistics
 
         #region Multipliers
@@ -220,7 +225,6 @@ namespace DBT.Transformations
         public TransformationOverload Overload { get; }
 
         #endregion
-
 
         public TransformationAppearance Appearance { get; }
 
