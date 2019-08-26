@@ -31,8 +31,8 @@ namespace DBT.Transformations.Patreon.SSJ5
     {            
         public SSJ5Appearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJ5Transformation), 8, 3, BlendState.Additive, 1f, true),
-                new LightingAppearance(new float[] { 1.475f, 1.475f, 1.475f })),
-            new HairAppearance(Color.White), Color.Red, new Color(255, 57, 74))
+                new LightingAppearance(new float[] { 2.11f, 1.86f, 0.44f })),//1.475f, 1.475f, 1.475f white
+            new HairAppearance(Color.White), Color.Red, new Color(211, 186, 44))
         {
         }
     }
