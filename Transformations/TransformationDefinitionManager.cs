@@ -15,6 +15,8 @@ using DBT.Transformations.SSJs.SSJ1s.USSJ1;
 using DBT.Transformations.SSJs.SSJ2;
 using DBT.Transformations.SSJs.SSJ3;
 using DBT.Transformations.SSJs.SSJ4s.SSJ4;
+using DBT.Transformations.Mystics.Mystic;
+using DBT.Transformations.Mystics.AwakenedMystic;
 
 namespace DBT.Transformations
 {
@@ -40,6 +42,9 @@ namespace DBT.Transformations
             Wrathful = Add(new WrathfulTransformation()) as WrathfulTransformation;
             SSJC = Add(new SSJCTypeTransformation(Wrathful)) as SSJCTypeTransformation;
             LSSJ = Add(new LSSJTransformation(SSJC)) as LSSJTransformation;
+
+            Mystic = Add(new MysticTransformation()) as MysticTransformation;
+            AwakenedMystic = Add(new AwakenedMysticTransformation(Mystic)) as AwakenedMysticTransformation;
 
             SoulStealer = Add(new SoulStealerTransformation()) as SoulStealerTransformation;
 
@@ -70,6 +75,9 @@ namespace DBT.Transformations
         public WrathfulTransformation Wrathful { get; private set; }
         public SSJCTypeTransformation SSJC { get; private set; }
         public LSSJTransformation LSSJ { get; private set; }
+
+        public MysticTransformation Mystic { get; private set; }
+        public AwakenedMysticTransformation AwakenedMystic { get; private set; }
 
         public SoulStealerTransformation SoulStealer { get; private set; }
 
