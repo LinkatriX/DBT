@@ -104,7 +104,7 @@ namespace DBT.UserInterfaces.CharacterMenus
                     continue;
                 }
 
-                lastXOffset += PADDING_X * (_tabs.Count + 1);
+                lastXOffset += PADDING_X * 2;// Prior code: (_tabs.Count + 1); changed due to the spacing growing exponentially with each tab.
 
                 UIHoverImageButton tabButton = InitializeHoverTextButton(rootNode.Value.TransformationIcon, rootNode.Value.TabHoverText, OnUITabClick, lastXOffset, PADDING_Y, BackPanelImage);
 
