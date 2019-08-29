@@ -35,7 +35,8 @@ namespace DBT.Transformations.LSSJs.Wrathful
             return BaseDamageMultiplier;
         }
 
-        public override float GetSpeedMultiplier(DBTPlayer dbtPlayer)
+
+        public override float GetSpeedMultiplier(DBTPlayer dbtPlayer) 
         {
             if (dbtPlayer.BaseMaxKi >= WrathfulAct3KiRequirement)
             {
@@ -99,7 +100,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
         public WrathfulTransformationAppearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(WrathfulTransformation), 4, 3, BlendState.Additive, 1f, true),
                 new LightingAppearance(new float[] { 0f, 1.25f, 0f })),
-            new HairAppearance(Main.LocalPlayer.hairColor), Main.LocalPlayer.hairColor, new Color(211, 186, 44))
+            new HairAppearance(Main.LocalPlayer.hairColor), Color.Lime, new Color(211, 186, 44))
         {
         }
     }
