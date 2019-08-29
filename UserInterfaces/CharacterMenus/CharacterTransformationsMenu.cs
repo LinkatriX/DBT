@@ -157,12 +157,12 @@ namespace DBT.UserInterfaces.CharacterMenus
 
             foreach (KeyValuePair<UIHoverImageButton, Tab> kvp in _tabButtons)
             {
-                if (dbtPlayer.HasAcquiredTransformation(_tabsForTransformations[kvp.Value]))
+                /*if (dbtPlayer.HasAcquiredTransformation(_tabsForTransformations[kvp.Value]))
                 {
-                    kvp.Value.TabButton.SetImage(null);
+                    kvp.Value.TabButton.SetImage(Main.magicPixel);
                 }
-                else
-                    kvp.Value.TabButton.SetImage(_tabsForTransformations[kvp.Value].TransformationIcon);
+                else*/
+                kvp.Value.TabButton.SetImage(_tabsForTransformations[kvp.Value].TransformationIcon);
             }
 
             // Imported from old transformations menu
