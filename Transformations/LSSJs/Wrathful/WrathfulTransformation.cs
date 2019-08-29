@@ -9,7 +9,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
     public partial class WrathfulTransformation : TransformationDefinition
     {
         public WrathfulTransformation(params TransformationDefinition[] parents)
-            : base("Wrathful", "Wrathful", typeof(WrathfulTransformationBuff), 1.5f, 1.5f, 3,
+            : base("Wrathful", "Wrathful", typeof(WrathfulTransformationBuff), 1.5f, 1f, 3,
             new TransformationDrain(60f / Constants.TICKS_PER_SECOND, 0f),
             new WrathfulTransformationAppearance(),
             new TransformationOverload(0, 0), mastereable: false,
@@ -39,13 +39,13 @@ namespace DBT.Transformations.LSSJs.Wrathful
         {
             if (dbtPlayer.BaseMaxKi >= WrathfulAct3KiRequirement)
             {
-                return BaseSpeedMultiplier + 1.4f;
+                return BaseSpeedMultiplier + 0.45f;
             }
             else
             {
                 if (dbtPlayer.BaseMaxKi >= WrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < WrathfulAct3KiRequirement)
                 {
-                    return BaseSpeedMultiplier + 0.75f;
+                    return BaseSpeedMultiplier + 0.125f;
                 }
             }
             return BaseSpeedMultiplier;

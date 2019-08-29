@@ -7,8 +7,8 @@ namespace DBT.Transformations.Mystics.Mystic
 {
     public sealed class MysticTransformation : TransformationDefinition
     {
-        public MysticTransformation(params TransformationDefinition[] parents) : base("Mystic", "Mystic", typeof(MysticTransformationBuff), 1.6f, 1.6f, 3,
-            new TransformationDrain(25f / Constants.TICKS_PER_SECOND, 0f), new MysticTransformationAppearance(), 
+        public MysticTransformation(params TransformationDefinition[] parents) : base("Mystic", "Mystic", typeof(MysticTransformationBuff),
+            1.6f, 1.125f, 3, new TransformationDrain(25f / Constants.TICKS_PER_SECOND, 0f), new MysticTransformationAppearance(), 
             new TransformationOverload(0, 0), mastereable: false,
             parents: parents)
         {

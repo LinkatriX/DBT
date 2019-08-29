@@ -8,7 +8,7 @@ namespace DBT.Transformations.SSJs.SSJ3
     {
         public SSJ3Transformation(params TransformationDefinition[] parents) : base(
             "SSJ3", "Super Saiyan 3", typeof(SSJ3TransformationBuff),
-            2.90f, 2.90f, 16, 
+            2.90f, 1.45f, 16, 
             new TransformationDrain(160f / 60, 80f / 60), 
             new SSJ3Appearance(),
             new TransformationOverload(0, 0), 

@@ -8,7 +8,7 @@ namespace DBT.Transformations.Mystics.AwakenedMystic
     {
         public AwakenedMysticTransformation(params TransformationDefinition[] parents) : base(
             "AwakenedMystic", "Awakened Mystic", typeof(AwakenedMysticTransformationBuff),
-            4.2f, 4.2f, 28, new TransformationDrain(80f / Constants.TICKS_PER_SECOND, 0f), new AwakenedMysticTransformationAppearance(),
+            4.2f, 2.1f, 28, new TransformationDrain(80f / Constants.TICKS_PER_SECOND, 0f), new AwakenedMysticTransformationAppearance(),
             new TransformationOverload(0f, 0f), mastereable: false, parents: parents)
         {
         }
