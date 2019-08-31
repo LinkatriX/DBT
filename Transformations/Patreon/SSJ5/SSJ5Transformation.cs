@@ -17,7 +17,7 @@ namespace DBT.Transformations.Patreon.SSJ5
         {
         }
 
-        public override bool CheckPrePlayerConditions() => SteamHelper.CanAccess(SteamHelper.Skipping, SteamHelper.Megawarrior101);
+        public override bool CheckPrePlayerConditions() => false; //SteamHelper.CanAccess(SteamHelper.Skipping, SteamHelper.Megawarrior101);
     }
 
     public sealed class SSJ5TransformationBuff : TransformationBuff
