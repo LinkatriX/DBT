@@ -300,7 +300,23 @@ namespace DBT.UserInterfaces.CharacterMenus
                     hasOverload = true;
 
                 FormName = InitializeText(def.DisplayName, 12, 8, 0.8f, def.Appearance.GeneralColor.Value, InfoPanel);
-                FormStats = InitializeText("Stats: \nDamage: " + def.GetDamageMultiplier(dbtPlayer) + "x \nSpeed: " + def.GetSpeedMultiplier(dbtPlayer) + "x \nKi Drain: While Unmastered = " + def.GetUnmasteredKiDrain(dbtPlayer) * 60 + "/s + While Mastered = " + def.GetMasteredKiDrain(dbtPlayer) * 60 + (hasOverload ? "/s \nOverload: Unmastered = " + def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s + Mastered = " + def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s" : null), 12, 28, 0.6f, Color.White, InfoPanel);
+                
+                if (def.GetMasteredKiDrain(dbtPlayer) <= 0)
+                {
+                    FormStats = InitializeText("Stats: \nDamage: " + def.GetDamageMultiplier(dbtPlayer) + "x \nSpeed: "
+                    + def.GetSpeedMultiplier(dbtPlayer) + "x \nKi Drain: " + def.GetUnmasteredKiDrain(dbtPlayer) * 60 + "/s" 
+                    + (hasOverload ? "\nOverload: While Unmastered = " + def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60 +
+                    "/s + While Mastered = " + def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s" : null),
+                    12, 28, 0.6f, Color.White, InfoPanel);
+                }
+                else
+                {
+                    FormStats = InitializeText("Stats: \nDamage: " + def.GetDamageMultiplier(dbtPlayer) + "x \nSpeed: "
+                    + def.GetSpeedMultiplier(dbtPlayer) + "x \nKi Drain: While Unmastered = " + def.GetUnmasteredKiDrain(dbtPlayer) * 60
+                    + "/s + While Mastered = " + def.GetMasteredKiDrain(dbtPlayer) * 60 + "/s" + (hasOverload ? "\nOverload: While Unmastered = "
+                    + def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s + While Mastered = " + def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60 
+                    + "/s" : null), 12, 28, 0.6f, Color.White, InfoPanel);
+                }
                 FormUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
             }
             else

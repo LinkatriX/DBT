@@ -8,7 +8,7 @@ namespace DBT.Transformations.SSJs.SSJ2
     {
         public SSJ2Transformation(params TransformationDefinition[] parents) : base(
             "SSJ2", "Super Saiyan 2", typeof(SSJ2TransformationBuff),
-            2.25f, 1.125f, 8, 
+            2.25f, 1.625f, 8, 
             new TransformationDrain(2f, 1f), 
             new SSJ2Appearance(),
             new TransformationOverload(0, 0), 
