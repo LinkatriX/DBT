@@ -40,6 +40,7 @@ namespace DBT.UserInterfaces.CharacterMenus
         {
             AuthorMod = authorMod;
             BackPanelTexture = authorMod.GetTexture(CHARACTER_MENU_PATH + "/BackPanel");
+            InfoPanelTexture = authorMod.GetTexture(CHARACTER_MENU_PATH + "/InfoPanel");
 
             UnknownImageTexture = authorMod.GetTexture(UNKNOWN_TEXTURE);
             UnknownGrayImageTexture = authorMod.GetTexture(UNKNOWN_GRAY_TEXTURE);
@@ -120,7 +121,7 @@ namespace DBT.UserInterfaces.CharacterMenus
                     BorderColor = rootNode.Value.Appearance.GeneralColor.HasValue ? rootNode.Value.Appearance.GeneralColor.Value : Color.White
                 };
 
-                BackPanel.Append(tabPanel);
+                BackPanelImage.Append(tabPanel);
 
                 Tab tab = new Tab(tabButton, tabPanel);
                 tab.Panel.Deactivate();
@@ -150,8 +151,8 @@ namespace DBT.UserInterfaces.CharacterMenus
                 }
                 else
                 {
-                    tab.Panel.Left.Set(0, 0);
-                    tab.Panel.Top.Set(_panelsYOffset, 0);
+                    tab.Panel.Left.Set(12, 0);
+                    tab.Panel.Top.Set(_panelsYOffset + 6, 0);
                 }
             }
 
@@ -181,6 +182,10 @@ namespace DBT.UserInterfaces.CharacterMenus
                 kvp.Value.unknownImage.ImageScale = visible && unlockable ? 0f : 1f;
                 kvp.Value.unknownImageGray.ImageScale = visible && unlockable && dbtPlayer.HasAcquiredTransformation(kvp.Key) ? 0f : 1f;
                 kvp.Value.lockedImage.ImageScale = visible && unlockable ? 0f : 1f;
+
+                //Main.NewText(kvp.Key.ToString() + "'s unknown image is at" + kvp.Value.unknownImage.ImageScale);
+                //Main.NewText(kvp.Key.ToString() + "'s unknown image gray is at" + kvp.Value.unknownImageGray.ImageScale);
+                //Main.NewText(kvp.Key.ToString() + "'s locked image is at" + kvp.Value.lockedImage.ImageScale);
             }
         }
 
@@ -196,12 +201,18 @@ namespace DBT.UserInterfaces.CharacterMenus
 
             unknownImage = InitializeImage(UnknownImageTexture, 0, 0, transformationButton);
             unknownImage.ImageScale = 0f;
+            unknownImage.Width.Set(1, 0f);
+            unknownImage.Height.Set(1, 0f);
 
             unknownGrayImage = InitializeImage(UnknownGrayImageTexture, 0, 0, unknownImage);
             unknownGrayImage.ImageScale = 0f;
+            unknownGrayImage.Width.Set(1, 0f);
+            unknownGrayImage.Height.Set(1, 0f);
 
             lockedImage = InitializeImage(LockedImageTexture, 0, 0, unknownGrayImage);
             lockedImage.ImageScale = 0f;
+            lockedImage.Width.Set(1, 0f);
+            lockedImage.Height.Set(1, 0f);
 
             if (!_transformationImagePairs.ContainsKey(transformation))
                 _transformationImagePairs.Add(transformation, new UIImagePair(new Point(left, top), transformationButton, unknownImage, unknownGrayImage, lockedImage));
@@ -212,7 +223,7 @@ namespace DBT.UserInterfaces.CharacterMenus
             TransformationDefinition transformation = node.Value;
             Texture2D texture = transformation.BuffType.GetTexture();
 
-            if (!CheckIfDraw(transformation)) return; // Needs edge-case check.
+            if (!CheckIfDraw(transformation)) return;
             int xOffset = PADDING_X;
 
             if (node.Parents.Count > 0 && _transformationImagePairs.ContainsKey(node.Parents[0].Value))
@@ -245,12 +256,16 @@ namespace DBT.UserInterfaces.CharacterMenus
             UIHoverImageButton button = listeningelement as UIHoverImageButton;
 
             LastActiveTransformationTab = _tabsForTransformations[_tabButtons[button]];
+
+            InfoPanelOpened = false;
         }
 
 
-        private static void TrySelectingTransformation(TransformationDefinition def, UIMouseEvent evt, UIElement listeningElement)
+        private void TrySelectingTransformation(TransformationDefinition def, UIMouseEvent evt, UIElement listeningElement)
         {
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
+
+            DrawInfoPanel(def);
 
             if (def.CheckPrePlayerConditions() && dbtPlayer.HasAcquiredTransformation(def) && def.BaseConditions(dbtPlayer))
             {
@@ -267,12 +282,55 @@ namespace DBT.UserInterfaces.CharacterMenus
             }
         }
 
+        private void DrawInfoPanel(TransformationDefinition def)
+        {
+            DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
+            
+
+            bool hasOverload = false;
+
+            if (!InfoPanelOpened)
+            {
+                InfoPanelOpened = true;
+                InfoPanel = InitializeImage(InfoPanelTexture, -12, 294, BackPanel);
+                InfoPanel.Width.Set(InfoPanelTexture.Width, 0f);
+                InfoPanel.Height.Set(InfoPanelTexture.Height, 0f);
+
+                if (def.GetUnmasteredOverloadGrowthRate(dbtPlayer) > 0)
+                    hasOverload = true;
+
+                FormName = InitializeText(def.DisplayName, 12, 8, 0.8f, def.Appearance.GeneralColor.Value, InfoPanel);
+                FormStats = InitializeText("Stats: \nDamage: " + def.GetDamageMultiplier(dbtPlayer) + "x \nSpeed: " + def.GetSpeedMultiplier(dbtPlayer) + "x \nKi Drain: While Unmastered = " + def.GetUnmasteredKiDrain(dbtPlayer) * 60 + "/s + While Mastered = " + def.GetMasteredKiDrain(dbtPlayer) * 60 + (hasOverload ? "/s \nOverload: Unmastered = " + def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s + Mastered = " + def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s" : null), 12, 28, 0.6f, Color.White, InfoPanel);
+                FormUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
+            }
+            else
+            {
+                InfoPanel = null;
+                FormName = null;
+                FormStats = null;
+                FormUnlock = null;
+
+                InfoPanelOpened = false;
+                DrawInfoPanel(def);
+            }
+        }
+
         public Mod AuthorMod { get; }
         public bool Visible { get; set; }
 
         public Texture2D UnknownImageTexture { get; }
         public Texture2D UnknownGrayImageTexture { get; }
         public Texture2D LockedImageTexture { get; }
+
+        public Texture2D InfoPanelTexture { get; }
+        public bool InfoPanelOpened { get; internal set; }
+
+        public UIImage InfoPanel { get; set; } = null;
+
+        public UIText
+            FormName = null,
+            FormStats = null,
+            FormUnlock = null;
 
         public static TransformationDefinition LastActiveTransformationTab { get; internal set; }
     }
