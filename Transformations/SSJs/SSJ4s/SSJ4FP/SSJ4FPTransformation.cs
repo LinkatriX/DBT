@@ -13,6 +13,8 @@ namespace DBT.Transformations.SSJs.SSJ4s.SSJ4FP
                 new TransformationDrain(250f / 60, 125f / 60),
                 new SSJ4FPAppearance(),
                 new TransformationOverload(0, 0),
+                isManualLookup: true,
+                manualHairLookup: "SSJ4",
                 parents: parents)
         {
         }

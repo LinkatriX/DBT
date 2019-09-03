@@ -12,8 +12,7 @@ namespace DBT.Transformations.Patreon.SSJ5
             5.2f, 3.1f, 45,
             new TransformationDrain(260f / Constants.TICKS_PER_SECOND, 100f / Constants.TICKS_PER_SECOND),
             new SSJ5Appearance(),
-            new TransformationOverload(0, 0), 
-            parents: parents)
+            new TransformationOverload(0, 0), parents: parents)
         {
         }
 

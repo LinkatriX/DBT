@@ -46,8 +46,9 @@ namespace DBT.HairStyles
 
         public virtual bool CanAccess() => true;
 
-
-        public Texture2D this[TransformationDefinition transformation] => this[transformation.UnlocalizedName];
+        
+        public Texture2D this[TransformationDefinition transformation] => transformation.IsManualLookup ? 
+            this[transformation.ManualHairLookup] : this[transformation.UnlocalizedName];
 
         public Texture2D this[string key]
         {
