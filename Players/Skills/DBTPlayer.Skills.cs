@@ -1,4 +1,7 @@
-﻿namespace DBT.Players
+﻿using DBT.Skills;
+using System.Collections.Generic;
+
+namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
@@ -12,7 +15,8 @@
 
         public int SkillChargeLevelLimitModifier { get; set; }
         public int SkillChargeLevelLimitMultiplier { get; set; }
-
+        public List<SkillDefinition> AcquiredSkills { get; internal set; }
+        public List<SkillDefinition> ActiveSkills { get; internal set; }
         public float SkillChargeMoveSpeedModifier { get; set; }
     }
 }

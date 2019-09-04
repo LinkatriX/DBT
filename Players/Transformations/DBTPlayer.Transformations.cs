@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DBT.Network;
+using DBT.Skills;
 using DBT.Transformations;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -122,6 +123,14 @@ namespace DBT.Players
         {
             for (int i = 0; i < AcquiredTransformations.Count; i++)
                 if (AcquiredTransformations.ContainsKey(definition))
+                    return true;
+
+            return false;
+        }
+        public bool HasAcquiredSkill(SkillDefinition definition)
+        {
+            for (int i = 0; i < AcquiredSkills.Count; i++)
+                if (AcquiredSkills.Contains(definition))
                     return true;
 
             return false;

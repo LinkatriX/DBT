@@ -31,6 +31,7 @@ using DBT.Skills.FinalShineAttack;
 using DBT.Skills.HolyWrath;
 using DBT.Skills.MajinExtinctionAttack;
 using DBT.Skills.SuperSpiritBomb;
+using DBT.Dynamicity;
 
 namespace DBT.Skills
 {
@@ -88,6 +89,8 @@ namespace DBT.Skills
             SuperSpiritBomb = Add(new SuperSpiritBombDefinition()) as SuperSpiritBombDefinition;
             #endregion
 
+            Tree = new Tree<SkillDefinition>(byIndex);
+
             base.DefaultInitialize();
         }
 
@@ -124,7 +127,8 @@ namespace DBT.Skills
         public HolyWrathDefinition HolyWrath { get; private set; }
         public MajinExtinctionAttackDefinition MajinExtinctionAttack { get; private set; }
         public SuperSpiritBombDefinition SuperSpiritBomb { get; private set; }
-        
+
+        public Tree<SkillDefinition> Tree { get; private set; }
         #endregion
     }
 }
