@@ -2,7 +2,7 @@
 {
     public sealed class EnergyShotDefinition : SkillDefinition
     {
-        public EnergyShotDefinition() : base("EnergyShot", "Energy Shot", "An enhanced version of a regular ki blast", new EnergyShotCharacteristics())
+        public EnergyShotDefinition() : base("EnergyShot", "Energy Shot", "An enhanced version of a regular ki blast", typeof(EnergyShotItem), new EnergyShotCharacteristics())
         {
         }
     }

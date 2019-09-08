@@ -2,7 +2,7 @@
 {
     public sealed class DirtyFireworksDefinition : SkillDefinition
     {
-        public DirtyFireworksDefinition() : base("DirtyFireworks", "DirtyFireworks", "Immobilizes your opponent before blowing them to pieces.", new DirtyFireworksCharacteristics())
+        public DirtyFireworksDefinition() : base("DirtyFireworks", "DirtyFireworks", "Immobilizes your opponent before blowing them to pieces.", typeof(DirtyFireworksItem) , new DirtyFireworksCharacteristics())
         {
         }
     }

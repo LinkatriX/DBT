@@ -4,6 +4,7 @@ using DBT.Extensions;
 using DBT.Players;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria.ModLoader;
 
 namespace DBT.Skills
 {

@@ -2,7 +2,7 @@
 {
     public sealed class KiBlastDefinition : SkillDefinition
     {
-        public KiBlastDefinition() : base("KiBlast", "Ki Blast", "A small Ki blast that damages enemies.", new KiBlastCharacteristics())
+        public KiBlastDefinition() : base("KiBlast", "Ki Blast", "A small Ki blast that damages enemies.", typeof(KiBlastItem), new KiBlastCharacteristics())
         {
         }
     }

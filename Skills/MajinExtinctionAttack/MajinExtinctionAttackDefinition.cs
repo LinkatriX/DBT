@@ -2,7 +2,7 @@
 {//This move will need to be completely redone, so I'm treating it as a new attack and leaving it for later.
     public sealed class MajinExtinctionAttackDefinition : SkillDefinition
     {
-        public MajinExtinctionAttackDefinition() : base("MajinExtinctionAttack", "Majin Extinction Attack", "'Human Extinction...'", new MajinExtinctionAttackCharacteristics())
+        public MajinExtinctionAttackDefinition() : base("MajinExtinctionAttack", "Majin Extinction Attack", "'Human Extinction...'", typeof(MajinExtinctionAttackItem), new MajinExtinctionAttackCharacteristics())
         {
         }
     }

@@ -2,7 +2,7 @@
 {
     public sealed class SupernovaDefinition : SkillDefinition
     {
-        public SupernovaDefinition() : base("Supernova", "Supernova", "A massive blast attack powerful enough to destroy a planet.", new SupernovaCharacteristics())
+        public SupernovaDefinition() : base("Supernova", "Supernova", "A massive blast attack powerful enough to destroy a planet.", typeof(SupernovaItem), new SupernovaCharacteristics())
         {
         }
     }

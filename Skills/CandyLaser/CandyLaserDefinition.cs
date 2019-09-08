@@ -2,7 +2,7 @@
 {
     public sealed class CandyLaserDefinition : SkillDefinition
     {
-        public CandyLaserDefinition() : base("CandyLaser", "Candy Laser", "Fires a beam of energy that transforms your enemy into candy. Doesn't change bosses.", new CandyLaserCharacteristics())
+        public CandyLaserDefinition() : base("CandyLaser", "Candy Laser", "Fires a beam of energy that transforms your enemy into candy. Doesn't change bosses.", typeof(CandyLaserItem), new CandyLaserCharacteristics())
         {
         }
     }

@@ -2,7 +2,7 @@
 {
     public sealed class HolyWrathDefinition : SkillDefinition
     {
-        public HolyWrathDefinition() : base("HolyWrath", "Holy Wrath", "A massive blast formed with divine energy.", new HolyWrathCharacteristics())
+        public HolyWrathDefinition() : base("HolyWrath", "Holy Wrath", "A massive blast formed with divine energy.", typeof(HolyWrathItem), new HolyWrathCharacteristics())
         {
         }
     }

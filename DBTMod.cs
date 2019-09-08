@@ -21,12 +21,15 @@ using DBT.UserInterfaces.WishMenu;
 using DBT.UserInterfaces.HairMenu;
 using DBT.Items.Tiles.MusicBoxes;
 using DBT.Tiles.MusicBoxes;
+using DBT.UserInterfaces.TechniqueMenu;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 
 namespace DBT
 {
     public sealed class DBTMod : Mod
     {
-        internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey, instantTransmission;
+        internal ModHotKey characterMenuKey, energyChargeKey, transformDownKey, speedToggleKey, transformUpKey, flightToggleKey, instantTransmission, techniqueMenuKey;
 
         internal KiBar kiBar;
         internal UserInterface kiBarInterface;
@@ -38,6 +41,8 @@ namespace DBT
         internal DBTMenu dbtMenu;
         internal CharacterTransformationsMenu characterTransformationsMenu;
         internal UserInterface characterMenuInterface;
+        internal TechniqueMenu techniqueMenu;
+        internal UserInterface techniqueMenuInterface;
         internal WishMenu wishMenu;
         internal UserInterface wishMenuInterface;
         internal HairMenu hairMenu;
@@ -76,6 +81,7 @@ namespace DBT
                 transformUpKey = RegisterHotKey("Transform Up", "X");
                 flightToggleKey = RegisterHotKey("Flight Toggle", "Q");
                 instantTransmission = RegisterHotKey("Instant Transmission", "I");
+                techniqueMenuKey = RegisterHotKey("Technique Menu", "N");
 
                 #endregion
 
@@ -102,6 +108,11 @@ namespace DBT
                 characterMenuInterface = new UserInterface();
                 characterMenuInterface.SetState(characterTransformationsMenu);
 
+                techniqueMenu = new TechniqueMenu(this);
+                techniqueMenu.Activate();
+                techniqueMenuInterface = new UserInterface();
+                techniqueMenuInterface.SetState(techniqueMenu);
+
                 wishMenu = new WishMenu();
                 wishMenu.Activate();
                 wishMenuInterface = new UserInterface();
@@ -113,6 +124,11 @@ namespace DBT
                 hairMenuInterface.SetState(hairMenu);
 
                 Instance = this;
+
+                Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect"));
+
+                Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
+                Filters.Scene["Shockwave"].Load();
 
                 circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
 
@@ -142,6 +158,8 @@ namespace DBT
 
                 characterTransformationsMenu.Visible = false;
 
+                techniqueMenu.Visible = false;
+
                 overloadBar.Visible = false;
 
                 WishMenu.menuVisible = false;
@@ -155,6 +173,9 @@ namespace DBT
         {
             if (characterMenuInterface != null && characterTransformationsMenu.Visible)
                 characterMenuInterface.Update(gameTime);
+
+            if (techniqueMenuInterface != null && techniqueMenu.Visible)
+                techniqueMenuInterface.Update(gameTime);
 
             if (wishMenuInterface != null && WishMenu.menuVisible)
                 wishMenuInterface.Update(gameTime);
@@ -213,6 +234,7 @@ namespace DBT
             if (characterMenuIndex != -1)
             {
                 layers.Insert(characterMenuIndex, new CharacterTransformationsMenuLayer(characterTransformationsMenu, characterMenuInterface));
+                layers.Insert(characterMenuIndex, new TechniqueMenuLayer(techniqueMenu, techniqueMenuInterface));
             }
         }
 

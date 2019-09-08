@@ -2,7 +2,7 @@
 {
     public sealed class BigBangAttackDefinition : SkillDefinition
     {
-        public BigBangAttackDefinition() : base("BigBangAttack", "Big Bang Attack", "A blast attack capable of being charged for greater damage.", new BigBangAttackCharacteristics())
+        public BigBangAttackDefinition() : base("BigBangAttack", "Big Bang Attack", "A blast attack capable of being charged for greater damage.", typeof(BigBangAttackItem) , new BigBangAttackCharacteristics())
         {
         }
     }

@@ -2,7 +2,7 @@
 {
     public sealed class FinalShineAttackDefinition : SkillDefinition
     {
-        public FinalShineAttackDefinition() : base("FinalShineAttack", "Final Shine Attack", "An evolved version of the Final Flash technique.\n" + DEFAULT_BEAM_INSTRUCTIONS, new FinalShineAttackCharacteristics())
+        public FinalShineAttackDefinition() : base("FinalShineAttack", "Final Shine Attack", "An evolved version of the Final Flash technique.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(FinalShineAttackItem), new FinalShineAttackCharacteristics())
         {
         }
     }

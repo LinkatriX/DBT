@@ -2,7 +2,7 @@
 {
     public sealed class TrapShooterDefinition : SkillDefinition
     {
-        public TrapShooterDefinition() : base("TrapShooter", "Trap Shooter", "A ki blast.", new TrapShooterCharacteristics())
+        public TrapShooterDefinition() : base("TrapShooter", "Trap Shooter", "A ki blast.", typeof(TrapShooterItem), new TrapShooterCharacteristics())
         {
         }
     }

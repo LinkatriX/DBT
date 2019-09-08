@@ -2,7 +2,7 @@
 {
     public sealed class Kamehamehax10Definition : SkillDefinition
     {
-        public Kamehamehax10Definition() : base("Kamehamehax10", "Kamehameha x10", "A kamehameha wave boosted x10 by the power of a great ape.\n" + DEFAULT_BEAM_INSTRUCTIONS, new Kamehamehax10Characteristics())
+        public Kamehamehax10Definition() : base("Kamehamehax10", "Kamehameha x10", "A kamehameha wave boosted x10 by the power of a great ape.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(Kamehamehax10Item), new Kamehamehax10Characteristics())
         {
         }
     }

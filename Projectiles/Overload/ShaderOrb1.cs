@@ -3,18 +3,20 @@ using DBT.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
 namespace DBT.Projectiles.Overload
 {
     public class ShaderOrb1 : ModProjectile
     {
+        private int shockwaveSpeed = 18;
         private bool hasHitAlphaRequirement = false;
         public override void SetDefaults()
         {
             projectile.width = 1214;
             projectile.height = 1214;
-            projectile.timeLeft = 2000;
+            projectile.timeLeft = 600;
             projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
@@ -37,9 +39,16 @@ namespace DBT.Projectiles.Overload
 			Player player = Main.player[projectile.owner];
 			projectile.Center = player.Center + new Vector2(-590 + projectile.scale * 590, 0);
             projectile.alpha -= 5;
-
+            if (!Filters.Scene["Shockwave"].IsActive())
+            {
+                Filters.Scene.Activate("Shockwave", player.Center).GetShader().UseColor(1, 5, shockwaveSpeed).UseTargetPosition(player.Center);
+            }
+            float progress = (600f - projectile.timeLeft) / 60f;
+            Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(100f * (1 - progress / 3f));
             if (projectile.scale < 2.5f)
             {
+                if (projectile.scale < .5f)
+                    shockwaveSpeed = 22;
                 projectile.scale += 0.03f;
             }
             else
@@ -48,6 +57,7 @@ namespace DBT.Projectiles.Overload
 
         public override void Kill(int timeLeft)
         {
+            Filters.Scene["Shockwave"].Deactivate();
             Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, mod.ProjectileType<ShaderOrb2>(), 0, 0, projectile.whoAmI);
             SoundHelper.PlayCustomSound("Sounds/Overload/Overloadcircle", Main.player[projectile.owner], 0.3f);
         }
