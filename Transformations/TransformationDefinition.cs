@@ -63,7 +63,7 @@ namespace DBT.Transformations
 
         public virtual void OnPlayerTransformed(DBTPlayer dbtPlayer, PlayerTransformation transformation) { }
 
-        public virtual void OnPlayerMasteryGain(DBTPlayer dbtPlayer, float gain, float currentMastery) { }
+        public virtual void OnPlayerMasteryChanged(DBTPlayer dbtPlayer, float change, float currentMastery) { }
 
         public virtual void OnActivePlayerDied(DBTPlayer dbtPlayer, double damage, bool pvp, PlayerDeathReason damageSource) { }
 

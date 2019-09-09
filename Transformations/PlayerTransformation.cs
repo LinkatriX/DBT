@@ -7,19 +7,21 @@ namespace DBT.Transformations
     {
         internal const string MASTERY_PREFIX = "Mastery_";
 
+        private float _currentMastery;
+
         public PlayerTransformation(TransformationDefinition definition, float currentMastery = 0f)
         {
             Definition = definition;
-            CurrentMastery = currentMastery;
+            _currentMastery = currentMastery;
         }
 
 
         #region Player Hooks
 
-        public void OnPlayerMasteryGain(DBTPlayer player, float gain)
+        public void ChangeMastery(DBTPlayer player, float difference)
         {
-            CurrentMastery += gain;
-            Definition.OnPlayerMasteryGain(player, gain, CurrentMastery);
+            CurrentMastery += difference;
+            Definition.OnPlayerMasteryChanged(player, difference, CurrentMastery);
         }
 
         #endregion
@@ -33,7 +35,7 @@ namespace DBT.Transformations
 
         public TransformationDefinition Definition { get; }
 
-        public float CurrentMastery { get; set; }
+        public float CurrentMastery { get; private set; }
 
         public Dictionary<string, object> ExtraInformation { get; } = new Dictionary<string, object>();
     }
