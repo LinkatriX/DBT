@@ -39,8 +39,8 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				}
 			}
 
-			if (friezaNPC != null)
-                npc.position = friezaNPC.position;
+			if (FriezaNPC != null)
+                npc.position = FriezaNPC.position;
 
 
             if (!NPC.AnyNPCs(mod.NPCType<FriezaShip>()))
@@ -61,6 +61,6 @@ namespace DBT.NPCs.Bosses.FriezaShip
             return;
 
         }
-        public NPC friezaNPC { get; set; }
+        public NPC FriezaNPC { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace DBT.NPCs.Town.Roshi
     {
         public override void Initialize()
         {
-            Quests.Clear();
+            quests.Clear();
 
             Quest quest = new ItemQuest(
                 "Oh, its you. I can sense some latent power from you so let me assist. Head to your controls in the options menu and bind hotkeys to every entry there. The most important ones are Energy Charge, Transform, Power down and Transformation Menu.",
@@ -27,7 +27,7 @@ namespace DBT.NPCs.Town.Roshi
                 ModdedQuestReward = "KiBlastItem",
                 QuestRewardAmount = 1
             };
-            Quests.Add(quest);
+            quests.Add(quest);
 
             quest = new ItemQuest(
                 "Ah, welcome back. If you don't mind, could you bring me 30 pieces of that gel-like substance those slimes hold, it'll help with my 'research'.",
@@ -37,7 +37,7 @@ namespace DBT.NPCs.Town.Roshi
                 QuestReward = ItemID.SilverCoin,
                 QuestRewardAmount = 35
             };
-            Quests.Add(quest);
+            quests.Add(quest);
 
             int[] antlions = {NPCID.Antlion};
             quest = new KillQuest(
@@ -48,7 +48,7 @@ namespace DBT.NPCs.Town.Roshi
                 QuestReward = ItemID.SilverCoin,
                 QuestRewardAmount = 50
             };
-            Quests.Add(quest);
+            quests.Add(quest);
 
             //Kill quest example
             /*int[] kingSlime = {NPCID.KingSlime};

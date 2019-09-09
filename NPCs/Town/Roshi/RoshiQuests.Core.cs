@@ -33,7 +33,7 @@ namespace DBT.NPCs.Town.Roshi
             return tag;
         }
 
-        public Quest GetCurrentQuest() => Quests[CurrentQuest];
+        public Quest GetCurrentQuest() => quests[CurrentQuest];
 
         public void CompleteQuest()
         {
@@ -112,7 +112,7 @@ namespace DBT.NPCs.Town.Roshi
             return false;
         }
 
-        public static List<Quest> Quests = new List<Quest>();
+        public static List<Quest> quests = new List<Quest>();
         public int QuestsCompleted { get; set; }
         public int QuestsCompletedToday { get; set; }
         public int QuestLimitPerDay { get; set; } = 3;

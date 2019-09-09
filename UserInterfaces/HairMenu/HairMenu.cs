@@ -18,7 +18,7 @@ namespace DBT.UserInterfaces.HairMenu
     internal class HairMenu : DBTMenu
     {
         public static bool menuVisible;
-        private bool selected = false;
+        private bool _selected = false;
         public int hairSelected = 0;
         public string hairText = "Goku";
         public string totalText = "1/7";

@@ -10,8 +10,8 @@ namespace DBT.Projectiles.Overload
 {
     public class ShaderOrb1 : ModProjectile
     {
-        private int shockwaveSpeed = 18;
-        private bool hasHitAlphaRequirement = false;
+        private int _shockwaveSpeed = 18;
+        private bool _hasHitAlphaRequirement = false;
         public override void SetDefaults()
         {
             projectile.width = 1214;
@@ -41,14 +41,14 @@ namespace DBT.Projectiles.Overload
             projectile.alpha -= 5;
             if (!Filters.Scene["Shockwave"].IsActive())
             {
-                Filters.Scene.Activate("Shockwave", player.Center).GetShader().UseColor(1, 5, shockwaveSpeed).UseTargetPosition(player.Center);
+                Filters.Scene.Activate("Shockwave", player.Center).GetShader().UseColor(1, 5, _shockwaveSpeed).UseTargetPosition(player.Center);
             }
             float progress = (600f - projectile.timeLeft) / 60f;
             Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(100f * (1 - progress / 3f));
             if (projectile.scale < 2.5f)
             {
                 if (projectile.scale < .5f)
-                    shockwaveSpeed = 22;
+                    _shockwaveSpeed = 22;
                 projectile.scale += 0.03f;
             }
             else

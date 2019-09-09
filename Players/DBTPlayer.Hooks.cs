@@ -158,9 +158,9 @@ namespace DBT.Players
             ResetSkillEffects();
             ResetOverloadEffects();
 
-            isHoldingDragonRadarMk1 = false;
-            isHoldingDragonRadarMk2 = false;
-            isHoldingDragonRadarMk3 = false;
+            IsHoldingDragonRadarMk1 = false;
+            IsHoldingDragonRadarMk2 = false;
+            IsHoldingDragonRadarMk3 = false;
         }
 
 
@@ -197,9 +197,9 @@ namespace DBT.Players
             PostUpdateTiles();
 
             // neuters flight if the player gets immobilized. Note the lack of Katchin Feet buff.
-            if (IsPlayerImmobilized() && isFlying)
+            if (IsPlayerImmobilized() && IsFlying)
             {
-                isFlying = false;
+                IsFlying = false;
             }
 
             List<IHandleOnPlayerPostUpdate> items = player.GetItemsByType<IHandleOnPlayerPostUpdate>();
@@ -257,7 +257,7 @@ namespace DBT.Players
             HandleHairDrawLayers(layers);
 
             // handle dragon radar drawing
-            if (isHoldingDragonRadarMk1 || isHoldingDragonRadarMk2 || isHoldingDragonRadarMk3)
+            if (IsHoldingDragonRadarMk1 || IsHoldingDragonRadarMk2 || IsHoldingDragonRadarMk3)
             {
                 DrawDragonRadar.dragonRadarEffects.visible = true;
                 layers.Add(DrawDragonRadar.dragonRadarEffects);

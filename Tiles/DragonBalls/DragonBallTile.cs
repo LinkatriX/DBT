@@ -68,10 +68,10 @@ namespace DBT.Tiles.DragonBalls
             if (player == null)
                 return true;
             DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>(mod);
-            if (modPlayer.firstDragonBallPickup)
+            if (modPlayer.FirstDragonBallPickup)
                 return true;
             Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType("FourStarDragonBall"));
-            modPlayer.firstDragonBallPickup = true;
+            modPlayer.FirstDragonBallPickup = true;
             return true;
         }
     }
