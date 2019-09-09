@@ -2,7 +2,7 @@
 using DBT.HairStyles.Caulifla;
 using DBT.HairStyles.FutureGohan;
 using DBT.HairStyles.Gine;
-using DBT.HairStyles.Gogeta;
+//using DBT.HairStyles.Gogeta;
 using DBT.HairStyles.Goku;
 using DBT.HairStyles.Kale;
 using DBT.HairStyles.Nappa;

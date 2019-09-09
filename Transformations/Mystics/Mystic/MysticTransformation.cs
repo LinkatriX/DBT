@@ -10,7 +10,7 @@ namespace DBT.Transformations.Mystics.Mystic
     {
         public MysticTransformation(params TransformationDefinition[] parents) : base("Mystic", "Mystic", typeof(MysticTransformationBuff),
             1.6f, 1.30f, 3, new TransformationDrain(25f / Constants.TICKS_PER_SECOND, 0f), new MysticTransformationAppearance(), 
-            new TransformationOverload(0, 0), mastereable: false, isManualLookup: true, manualHairLookup: "Wrathful", parents: parents)
+            new TransformationOverload(0, 0), mastereable: false, isManualLookup: true, manualHairLookup: "Base", parents: parents)
         {
         }
 

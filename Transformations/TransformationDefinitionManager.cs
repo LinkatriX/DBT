@@ -58,7 +58,7 @@ namespace DBT.Transformations
 
         /*public Tree<TransformationDefinition> GenerateConditionalTree(Predicate<TransformationDefinition> condition)
         {
-            
+
         }*/
 
         public SSJ1Transformation SSJ1 { get; private set; }
