@@ -93,17 +93,12 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
             foreach (Node<SkillDefinition> rootNode in rootNodes)
             {
-                if (rootNode.Children.Count == 0)
-                {
-                    others.Add(rootNode);
-                    continue;
-                }
 
                 lastXOffset += PADDING_X * 2;// Prior code: (_tabs.Count + 1); changed due to the spacing growing exponentially with each tab.
 
                 int yOffset = 0;
 
-                RecursiveInitializeTransformation(BackPanel, rootNode, ref yOffset);
+                RecursiveInitializeSkill(BackPanel, rootNode, ref yOffset);
 
                 lastXOffset += rootNode.Value.SkillIcon.Width;
             }
@@ -113,7 +108,6 @@ namespace DBT.UserInterfaces.TechniqueMenu
         {
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
 
-            // Imported from old transformations menu
             foreach (KeyValuePair<SkillDefinition, UIImagePair> kvp in _skillImagePairs)
             {
                 bool unlockable = kvp.Key.DoesDisplayInTechniqueMenu(dbtPlayer);
@@ -136,7 +130,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
             }
         }
 
-        private void DrawTransformation(UIPanel panel, SkillDefinition skill, Texture2D icon, int left, int top)
+        private void DrawSkill(UIPanel panel, SkillDefinition skill, Texture2D icon, int left, int top)
         {
             UIImageButton skillButton = null;
             UIImage
@@ -165,7 +159,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
                 _skillImagePairs.Add(skill, new UIImagePair(new Point(left, top), skillButton, unknownImage, unknownGrayImage, lockedImage));
         }
 
-        private void RecursiveInitializeTransformation(UIPanel panel, Node<SkillDefinition> node, ref int yOffset)
+        private void RecursiveInitializeSkill(UIPanel panel, Node<SkillDefinition> node, ref int yOffset)
         {
             SkillDefinition skill = node.Value;
             Texture2D texture = skill.SkillIcon;
@@ -181,12 +175,12 @@ namespace DBT.UserInterfaces.TechniqueMenu
                 xOffset = _skillImagePairs[previousNode.Value].position.X + (int)previousPair.button.Width.Pixels + SMALL_SPACE * 2;
             }
 
-            DrawTransformation(panel, skill, texture, xOffset, yOffset);
+            DrawSkill(panel, skill, texture, xOffset, yOffset);
 
             for (int i = 0; i < node.Children.Count; i++)
             {
                 Node<SkillDefinition> child = node.Children[i];
-                RecursiveInitializeTransformation(panel, child, ref yOffset);
+                RecursiveInitializeSkill(panel, child, ref yOffset);
 
                 if (node.Children.Count > 1 && CheckIfDraw(child) && node.Children[node.Children.Count - 1] != child)
                 {
@@ -222,9 +216,6 @@ namespace DBT.UserInterfaces.TechniqueMenu
         private void DrawInfoPanel(SkillDefinition def)
         {
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
-            
-
-            bool hasOverload = false;
 
             if (!InfoPanelOpened)
             {
@@ -250,7 +241,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
         }
 
         public Mod AuthorMod { get; }
-        public bool Visible { get; set; }
+        public bool Visible { get; set; } = true;
 
         public Texture2D UnknownImageTexture { get; }
         public Texture2D UnknownGrayImageTexture { get; }

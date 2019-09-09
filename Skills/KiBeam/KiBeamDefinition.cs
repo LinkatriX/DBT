@@ -2,7 +2,7 @@
 {
     public sealed class KiBeamDefinition : SkillDefinition
     {
-        public KiBeamDefinition() : base("KiBeam", "Ki Beam", "A quick firing beam of Ki that pierces enemies.", typeof(KiBeamItem), new KiBeamCharacteristics())
+        public KiBeamDefinition(params SkillDefinition[] parents) : base("KiBeam", "Ki Beam", "A quick firing beam of Ki that pierces enemies.", typeof(KiBeamItem), new KiBeamCharacteristics(), parents: parents)
         {
         }
 

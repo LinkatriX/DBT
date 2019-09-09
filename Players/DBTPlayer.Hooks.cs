@@ -24,6 +24,7 @@ namespace DBT.Players
         {
             Aura = null;
             InitializeTransformations();
+            InitializeSkills();
 
             if (!PlayerInitialized)
             {

@@ -2,7 +2,7 @@
 {
     public sealed class MasenkoDefinition : SkillDefinition
     {
-        public MasenkoDefinition() : base("Masenko", "Masenko", "A technique created by the son of the demon king Piccolo.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(MasenkoItem), new MasenkoCharacteristics())
+        public MasenkoDefinition(params SkillDefinition[] parents) : base("Masenko", "Masenko", "A technique created by the son of the demon king Piccolo.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(MasenkoItem), new MasenkoCharacteristics(), parents: parents)
         {
         }
     }

@@ -4,7 +4,7 @@
    //Add armor piercing.
     public sealed class DestructoDiskAssaultDefinition : SkillDefinition
     {
-        public DestructoDiskAssaultDefinition() : base("DestructoDiskAssault", "Destructo Disk Assault", "Fires a barrage of Destructo Disks. Charge to unleash a larger assault.", typeof(DestructoDiskAssaultItem), new DestructoDiskAssaultCharacteristics())
+        public DestructoDiskAssaultDefinition(params SkillDefinition[] parents) : base("DestructoDiskAssault", "Destructo Disk Assault", "Fires a barrage of Destructo Disks. Charge to unleash a larger assault.", typeof(DestructoDiskAssaultItem), new DestructoDiskAssaultCharacteristics(), parents: parents)
         {
         }
     }

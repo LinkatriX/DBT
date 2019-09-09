@@ -2,7 +2,7 @@
 {
     public sealed class EnergyWaveDefinition : SkillDefinition
     {
-        public EnergyWaveDefinition() : base("EnergyWave", "Energy Wave", "Fires a concentrated beam of ki.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(EnergyWaveItem), new EnergyWaveCharacteristics())
+        public EnergyWaveDefinition(params SkillDefinition[] parents) : base("EnergyWave", "Energy Wave", "Fires a concentrated beam of ki.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(EnergyWaveItem), new EnergyWaveCharacteristics(), parents: parents)
         {
         }
     }

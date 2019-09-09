@@ -2,7 +2,7 @@
 {
     public sealed class SuperSpiritBombDefinition : SkillDefinition
     {
-        public SuperSpiritBombDefinition() : base("SuperSpiritBomb", "Super Spirit Bomb", "A stronger version of the Spirit Bomb.", typeof(SuperSpiritBombItem), new SuperSpiritBombCharacteristics())
+        public SuperSpiritBombDefinition(params SkillDefinition[] parents) : base("SuperSpiritBomb", "Super Spirit Bomb", "A stronger version of the Spirit Bomb.", typeof(SuperSpiritBombItem), new SuperSpiritBombCharacteristics(), parents: parents)
         {
         }
     }

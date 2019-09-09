@@ -2,7 +2,7 @@
 {
     public sealed class SuperEnergyBarrageDefinition : SkillDefinition
     {
-        public SuperEnergyBarrageDefinition() : base("SuperEnergyBarrage", "Super Energy Barrage", "Fires a powerful barrage of energy blasts.", typeof(SuperEnergyBarrageItem), new SuperEnergyBarrageCharacteristics())
+        public SuperEnergyBarrageDefinition(params SkillDefinition[] parents) : base("SuperEnergyBarrage", "Super Energy Barrage", "Fires a powerful barrage of energy blasts.", typeof(SuperEnergyBarrageItem), new SuperEnergyBarrageCharacteristics(), parents: parents)
         {
         }
     }

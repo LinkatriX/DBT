@@ -2,7 +2,7 @@
 {
     public sealed class SpiritBallDefinition : SkillDefinition
     {
-        public SpiritBallDefinition() : base("SpiritBall", "Spirit Ball", "The user creates a controllable, concentrated orb of ki.", typeof(SpiritBallItem), new SpiritBallCharacteristics())
+        public SpiritBallDefinition(params SkillDefinition[] parents) : base("SpiritBall", "Spirit Ball", "The user creates a controllable, concentrated orb of ki.", typeof(SpiritBallItem), new SpiritBallCharacteristics(), parents: parents)
         {
         }
     }

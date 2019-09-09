@@ -17,6 +17,7 @@ namespace DBT.Players
         public override void OnEnterWorld(Player player)
         {
             HandleTransformationsOnEnterWorld(player);
+            HandleSkillsOnEnterWorld(player);
         }
 
         public bool PlayerInitialized { get; private set; }

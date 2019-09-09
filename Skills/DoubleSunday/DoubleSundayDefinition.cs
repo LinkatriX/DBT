@@ -2,7 +2,7 @@
 {
     public sealed class DoubleSundayDefinition : SkillDefinition
     {
-        public DoubleSundayDefinition() : base("DoubleSunday", "Double Sunday", "A twin beam attack fired from both hands.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(DoubleSundayItem), new DoubleSundayCharacteristics())
+        public DoubleSundayDefinition(params SkillDefinition[] parents) : base("DoubleSunday", "Double Sunday", "A twin beam attack fired from both hands.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(DoubleSundayItem), new DoubleSundayCharacteristics(), parents: parents)
         {
         }
     }

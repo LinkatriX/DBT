@@ -126,15 +126,7 @@ namespace DBT.Players
                     return true;
 
             return false;
-        }
-        public bool HasAcquiredSkill(SkillDefinition definition)
-        {
-            for (int i = 0; i < AcquiredSkills.Count; i++)
-                if (AcquiredSkills.Contains(definition))
-                    return true;
-
-            return false;
-        }
+        }   
 
         public bool HasMastered() => GetTransformation().HasPlayerMastered(this);
 

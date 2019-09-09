@@ -2,7 +2,7 @@
 {//Needs armor piercing added.
     public sealed class SpecialBeamCannonDefinition : SkillDefinition
     {
-        public SpecialBeamCannonDefinition() : base("SpecialBeamCannon", "Special Beam Cannon", "A concentrated beam of energy that pierces through foes.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(SpecialBeamCannonItem), new SpecialBeamCannonCharacteristics())
+        public SpecialBeamCannonDefinition(params SkillDefinition[] parents) : base("SpecialBeamCannon", "Special Beam Cannon", "A concentrated beam of energy that pierces through foes.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(SpecialBeamCannonItem), new SpecialBeamCannonCharacteristics(), parents: parents)
         {
         }
     }
