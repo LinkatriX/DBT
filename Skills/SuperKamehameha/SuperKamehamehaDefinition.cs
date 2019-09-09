@@ -2,7 +2,7 @@
 {
     public sealed class SuperKamehamehaDefinition : SkillDefinition
     {
-        public SuperKamehamehaDefinition() : base("SuperKamehameha", "Super Kamehameha", "A superior version of the Kamehameha wave.\n" + DEFAULT_BEAM_INSTRUCTIONS, new SuperkamehamehaCharacteristics())
+        public SuperKamehamehaDefinition(params SkillDefinition[] parents) : base("SuperKamehameha", "Super Kamehameha", "A superior version of the Kamehameha wave.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(SuperKamehamehaItem), new SuperkamehamehaCharacteristics(), parents: parents)
         {
         }
     }

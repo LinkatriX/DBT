@@ -115,17 +115,17 @@ namespace DBT.NPCs.Town.Roshi
                     }
                     if (questSystem.CurrentQuest < 0)
                     {
-                        int NewQuest = RoshiQuests.ChooseNewQuest();
-                        Main.npcChatText = RoshiQuests.Quests[NewQuest].ToString();
-                        if (RoshiQuests.Quests[NewQuest] is ItemQuest)
+                        int newQuest = RoshiQuests.ChooseNewQuest();
+                        Main.npcChatText = RoshiQuests.quests[newQuest].ToString();
+                        if (RoshiQuests.quests[newQuest] is ItemQuest)
                         {
-                            Main.npcChatCornerItem = (RoshiQuests.Quests[NewQuest] as ItemQuest).ItemType;
-                            questSystem.CurrentQuest = NewQuest;
+                            Main.npcChatCornerItem = (RoshiQuests.quests[newQuest] as ItemQuest).ItemType;
+                            questSystem.CurrentQuest = newQuest;
                         }
-                        if (RoshiQuests.Quests[NewQuest] is KillQuest)
+                        if (RoshiQuests.quests[newQuest] is KillQuest)
                         {
                             Main.npcChatCornerItem = 0;
-                            questSystem.CurrentQuest = NewQuest;
+                            questSystem.CurrentQuest = newQuest;
                         }
                         return;
                     }

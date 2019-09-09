@@ -17,7 +17,7 @@ namespace DBT.Tiles
 {
     public class GravityGenerator : ModTile
     {
-        private bool activated = false;
+        private bool _activated = false;
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = false;
@@ -48,7 +48,7 @@ namespace DBT.Tiles
             DBTWorld world = DBTMod.Instance.GetModWorld<DBTWorld>();
             if (world.repairedGravModule)
             {
-                if (activated)
+                if (_activated)
                     texture = mod.GetTexture("Tiles/ActiveRepairedGravityGenerator");
                 else
                     texture = mod.GetTexture("Tiles/RepairedGravityGenerator");
@@ -86,10 +86,10 @@ namespace DBT.Tiles
             }
             else
             {
-                if (!activated)
-                    activated = true;
-                else if (activated)
-                    activated = false;
+                if (!_activated)
+                    _activated = true;
+                else if (_activated)
+                    _activated = false;
             }
         }
 
@@ -97,19 +97,19 @@ namespace DBT.Tiles
         {
             if (!Main.gamePaused && Main.instance.IsActive && (!Lighting.UpdateEveryFrame))
             {
-                if (activated)
+                if (_activated)
                     CircularDust(i, j, 2, 20, 100, 1);
             }
         }
 
-        public void CircularDust(int i, int j, int quantity, short DustID, float radius, float scale)
+        public void CircularDust(int i, int j, int quantity, short dustID, float radius, float scale)
         {
             Tile tile = Main.tile[i, j];
             for (int l = 0; l < quantity; l++)
             {
                 Vector2 pos = new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)) + new Vector2(i * 16, i * 16);
                 float angle = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                Dust dust = Dust.NewDustPerfect(pos, DustID,
+                Dust dust = Dust.NewDustPerfect(pos, dustID,
                     new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * radius, 255, default(Color),
                     scale);
                 dust.noGravity = true;

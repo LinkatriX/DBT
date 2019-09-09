@@ -2,7 +2,7 @@
 {
     public sealed class GalickGunDefinition : SkillDefinition
     {
-        public GalickGunDefinition() : base("GalickGun", "Galick Gun", "No it doesn't smell like garlic.\n" + DEFAULT_BEAM_INSTRUCTIONS, new GalickGunCharacteristics())
+        public GalickGunDefinition(params SkillDefinition[] parents) : base("GalickGun", "Galick Gun", "No it doesn't smell like garlic.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(GalickGunItem), new GalickGunCharacteristics(), parents: parents)
         {
         }
     }

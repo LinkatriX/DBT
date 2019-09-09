@@ -42,7 +42,7 @@ namespace DBT
             }
 		}
 
-		public static void AIMinionPlant(Projectile projectile, ref float[] ai, Entity owner, Vector2 endPoint, bool setTime = true, float vineLength = 150f, float vineLengthLong = 200f, int vineTimeExtend = 300, int vineTimeMax = 450, float moveInterval = 0.035f, float speedMax = 2f, Vector2 targetOffset = default, Func<Entity, Entity, Entity> GetTarget = null, Func<Entity, Entity, Entity, bool> ShootTarget = null)
+		public static void AIMinionPlant(Projectile projectile, ref float[] ai, Entity owner, Vector2 endPoint, bool setTime = true, float vineLength = 150f, float vineLengthLong = 200f, int vineTimeExtend = 300, int vineTimeMax = 450, float moveInterval = 0.035f, float speedMax = 2f, Vector2 targetOffset = default, Func<Entity, Entity, Entity> GetTarget = null, Func<Entity, Entity, Entity, bool> shootTarget = null)
 		{
 			if (setTime){ projectile.timeLeft = 10; }
 			Entity target = (GetTarget == null ? null : GetTarget(projectile, owner));
@@ -68,7 +68,7 @@ namespace DBT
 					distTargetX *= distTarget;
 					distTargetY *= distTarget;
 				}
-				bool dontMove = (ShootTarget != null && ShootTarget(projectile, owner, target));
+				bool dontMove = (shootTarget != null && shootTarget(projectile, owner, target));
 				if (!dontMove)
 				{
 					if (projectile.position.X < endPoint.X + distTargetX)
@@ -141,14 +141,14 @@ namespace DBT
 		}
 
 
-		public static void AIMinionFlier(Projectile projectile, ref float[] ai, Entity owner, bool pet = false, bool movementFixed = false, bool hover = false, int hoverHeight = 40, int lineDist = 40, int returnDist = 400, int teleportDist = 800, float moveInterval = -1f, float maxSpeed = -1f, float maxSpeedFlying = -1f, bool autoSpriteDir = true, bool dummyTileCollide = false, Func<Entity, Entity, Entity> GetTarget = null, Func<Entity, Entity, Entity, bool> ShootTarget = null)
+		public static void AIMinionFlier(Projectile projectile, ref float[] ai, Entity owner, bool pet = false, bool movementFixed = false, bool hover = false, int hoverHeight = 40, int lineDist = 40, int returnDist = 400, int teleportDist = 800, float moveInterval = -1f, float maxSpeed = -1f, float maxSpeedFlying = -1f, bool autoSpriteDir = true, bool dummyTileCollide = false, Func<Entity, Entity, Entity> GetTarget = null, Func<Entity, Entity, Entity, bool> shootTarget = null)
 		{
 			if (moveInterval == -1f) { moveInterval = (0.08f * Main.player[projectile.owner].moveSpeed); }
 			if (maxSpeed == -1f) { maxSpeed = Math.Max(Main.player[projectile.owner].maxRunSpeed, Main.player[projectile.owner].accRunSpeed); }
 			if (maxSpeedFlying == -1f) { maxSpeedFlying = Math.Max(maxSpeed, Math.Max(Main.player[projectile.owner].maxRunSpeed, Main.player[projectile.owner].accRunSpeed)); }
 			projectile.timeLeft = 10;
 			bool tileCollide = projectile.tileCollide;
-			AIMinionFlier(projectile, ref ai, owner, ref tileCollide, ref projectile.netUpdate, pet ? 0 : projectile.minionPos, movementFixed, hover, hoverHeight, lineDist, returnDist, teleportDist, moveInterval, maxSpeed, maxSpeedFlying, GetTarget, ShootTarget);
+			AIMinionFlier(projectile, ref ai, owner, ref tileCollide, ref projectile.netUpdate, pet ? 0 : projectile.minionPos, movementFixed, hover, hoverHeight, lineDist, returnDist, teleportDist, moveInterval, maxSpeed, maxSpeedFlying, GetTarget, shootTarget);
 			if(!dummyTileCollide) projectile.tileCollide = tileCollide;
 			if (autoSpriteDir) { projectile.spriteDirection = projectile.direction; }
 			if (ai[0] == 1) { projectile.spriteDirection = (owner.velocity.X == 0 ? projectile.spriteDirection : owner.velocity.X > 0 ? 1 : -1); }
@@ -172,7 +172,7 @@ namespace DBT
 		 * maxSpeedFlying : The maximum speed whist 'flying' back to the player.
 		 * GetTarget : a Func(Entity codable, Entity owner), returns a Vector2 of the a target's position. If GetTarget is null or it returns default the target is assumed to be the owner.
 		 */
-		public static void AIMinionFlier(Entity codable, ref float[] ai, Entity owner, ref bool tileCollide, ref bool netUpdate, int minionPos, bool movementFixed, bool hover = false, int hoverHeight = 40, int lineDist = 40, int returnDist = 400, int teleportDist = 800, float moveInterval = 0.2f, float maxSpeed = 4.5f, float maxSpeedFlying = 4.5f, Func<Entity, Entity, Entity> GetTarget = null, Func<Entity, Entity, Entity, bool> ShootTarget = null)
+		public static void AIMinionFlier(Entity codable, ref float[] ai, Entity owner, ref bool tileCollide, ref bool netUpdate, int minionPos, bool movementFixed, bool hover = false, int hoverHeight = 40, int lineDist = 40, int returnDist = 400, int teleportDist = 800, float moveInterval = 0.2f, float maxSpeed = 4.5f, float maxSpeedFlying = 4.5f, Func<Entity, Entity, Entity> GetTarget = null, Func<Entity, Entity, Entity, bool> shootTarget = null)
 		{
 			float dist = Vector2.Distance(codable.Center, owner.Center);
 			if (dist > teleportDist) { codable.Center = owner.Center; }
@@ -190,7 +190,7 @@ namespace DBT
 				if (target == null) { target = owner; }
 				Vector2 targetCenter = target.Center;
 				bool isOwner = target == owner;
-				bool dontMove = (ai[0] == 0 && ShootTarget != null && ShootTarget(codable, owner, target));
+				bool dontMove = (ai[0] == 0 && shootTarget != null && shootTarget(codable, owner, target));
 				if (isOwner)
 				{
 					targetCenter.Y -= hoverHeight;
@@ -4321,7 +4321,7 @@ namespace DBT
 		 * CanTeleportTo<int, int> : Action that can be used to check if the npc can teleport to a specific place.
 		 * Attack : Action that can be used to have the npc periodically attack.
 		 */
-		public static void AITeleporter(NPC npc, ref float[] ai, bool checkGround = true, bool immobile = true, int distFromPlayer = 20, int teleportInterval = 650, int attackInterval = 100, int stopAttackInterval = 500, bool delayOnHit = true, Action<bool> TeleportEffects = null, Func<int, int, bool> CanTeleportTo = null, Action Attack = null)
+		public static void AITeleporter(NPC npc, ref float[] ai, bool checkGround = true, bool immobile = true, int distFromPlayer = 20, int teleportInterval = 650, int attackInterval = 100, int stopAttackInterval = 500, bool delayOnHit = true, Action<bool> TeleportEffects = null, Func<int, int, bool> canTeleportTo = null, Action attack = null)
         {
             npc.TargetClosest(true);
             if (immobile)
@@ -4370,7 +4370,7 @@ namespace DBT
                     {
                         if ((tpY < playerTileY - 4 || tpY > playerTileY + 4 || tpTileX < playerTileX - 4 || tpTileX > playerTileX + 4) && (tpY < tileY - 1 || tpY > tileY + 1 || tpTileX < tileX - 1 || tpTileX > tileX + 1) && (!checkGround || Main.tile[tpTileX, tpY].nactive()))
                         {
-                            if ((CanTeleportTo != null && CanTeleportTo(tpTileX, tpY)) || (!Main.tile[tpTileX, tpY - 1].lava() && (!checkGround || Main.tileSolid[Main.tile[tpTileX, tpY].type]) && !Collision.SolidTiles(tpTileX - 1, tpTileX + 1, tpY - 4, tpY - 1)))
+                            if ((canTeleportTo != null && canTeleportTo(tpTileX, tpY)) || (!Main.tile[tpTileX, tpY - 1].lava() && (!checkGround || Main.tileSolid[Main.tile[tpTileX, tpY].type]) && !Collision.SolidTiles(tpTileX - 1, tpTileX + 1, tpY - 4, tpY - 1)))
                             {
                                 if (attackInterval != -1) { ai[1] = 20f; }
                                 ai[2] = tpTileX;
@@ -4383,10 +4383,10 @@ namespace DBT
                 }
                 npc.netUpdate = true;
             }
-            if (Attack != null && attackInterval != -1 && ai[1] > 0f)
+            if (attack != null && attackInterval != -1 && ai[1] > 0f)
             {
                 ai[1] -= 1f;
-                if (ai[1] == 25f) { Attack(); }
+                if (ai[1] == 25f) { attack(); }
             }
         }
 
@@ -5593,7 +5593,7 @@ namespace DBT
 		 * npcType : If -1, check for ANY npcs in the area. If not, check for the npcs who match the type given.
 		 * npcsToExclude : An array of npc whoAmIs to exclude from the search.
 		 */
-		public static int[] GetNPCsInBox(Rectangle rect, int npcType = -1, int[] npcsToExclude = default(int[]), Func<NPC, bool> CanAdd = null)
+		public static int[] GetNPCsInBox(Rectangle rect, int npcType = -1, int[] npcsToExclude = default(int[]), Func<NPC, bool> canAdd = null)
 		{
 			List<int> allNPCs = new List<int>();
 			for (int i = 0; i < Main.npc.Length; i++)
@@ -5610,7 +5610,7 @@ namespace DBT
 							if (m == npc.whoAmI) { add = false; break; }
 						}
 					}
-					if (add && CanAdd != null && !CanAdd(npc)) continue;
+					if (add && canAdd != null && !canAdd(npc)) continue;
 					if (add) { allNPCs.Add(i); }
 				}
 			}
@@ -5655,9 +5655,9 @@ namespace DBT
             return currentNPC;
         }
 
-		public static int[] GetNPCs(Vector2 center, int npcType = -1, float distance = 500F, Func<NPC, bool> CanAdd = null)
+		public static int[] GetNPCs(Vector2 center, int npcType = -1, float distance = 500F, Func<NPC, bool> canAdd = null)
         {
-            return GetNPCs(center, npcType, new int[0], distance, CanAdd);
+            return GetNPCs(center, npcType, new int[0], distance, canAdd);
         }
         /*
          * Gets all NPCs of the given type within a given distance from the center.
@@ -5666,7 +5666,7 @@ namespace DBT
          * npcsToExclude : an array of npc whoAmIs to exclude from the search.
          * distance : the distance to check.
          */
-		public static int[] GetNPCs(Vector2 center, int npcType = -1, int[] npcsToExclude = default(int[]), float distance = 500F, Func<NPC, bool> CanAdd = null)
+		public static int[] GetNPCs(Vector2 center, int npcType = -1, int[] npcsToExclude = default(int[]), float distance = 500F, Func<NPC, bool> canAdd = null)
         {
             List<int> allNPCs = new List<int>();
             for (int i = 0; i < Main.npc.Length; i++)
@@ -5682,7 +5682,7 @@ namespace DBT
                             if (m == npc.whoAmI) { add = false; break; }
                         }
                     }
-					if (add && CanAdd != null && !CanAdd(npc)) { continue; }
+					if (add && canAdd != null && !canAdd(npc)) { continue; }
                     if (add) { allNPCs.Add(i); }
                 }
             }

@@ -2,7 +2,7 @@
 {
     public sealed class HellzoneGrenadeDefinition : SkillDefinition
     {
-        public HellzoneGrenadeDefinition() : base("HellzoneGrenade", "Hellzone Grenade", "Fires a barrage of homing ki blasts.", new HellzoneGrenadeCharactersitics())
+        public HellzoneGrenadeDefinition(params SkillDefinition[] parents) : base("HellzoneGrenade", "Hellzone Grenade", "Fires a barrage of homing ki blasts.", typeof(HellzoneGrenadeItem), new HellzoneGrenadeCharactersitics(), parents: parents)
         {
         }
     }

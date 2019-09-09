@@ -50,13 +50,13 @@ namespace DBT.Skills
             return (int) (BaseKiRegenerationHaltedForDurationChargeMultiplier * BaseKiRegenerationHaltedForDuration);
         }
 
-        public int BaseChargeTimer { get; protected set; }
-        public int BaseMaxChargeLevel { get; protected set; }
+        public int BaseChargeTimer { get; set; } = 60;
+        public int BaseMaxChargeLevel { get; set; } = 3;
 
-        public float BaseCastKiDrain { get; protected set; }
-        public float BaseChargeTickKiDrain { get; protected set; }
+        public float BaseCastKiDrain { get; set; } = 30;
+        public float BaseChargeTickKiDrain { get; set; } = 2;
 
-        public int BaseKiRegenerationHaltedForDuration { get; protected set; }
-        public float BaseKiRegenerationHaltedForDurationChargeMultiplier { get; protected set; }
+        public int BaseKiRegenerationHaltedForDuration { get; set; }
+        public float BaseKiRegenerationHaltedForDurationChargeMultiplier { get; set; }
     }
 }

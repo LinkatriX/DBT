@@ -2,7 +2,7 @@
 {
     public sealed class BloodThiefDefinition : SkillDefinition
     {
-        public BloodThiefDefinition() : base("BloodThief", "Blood Thief", "Fires life stealing ki blasts.", new BloodThiefCharacteristics())
+        public BloodThiefDefinition(params SkillDefinition[] parents) : base("BloodThief", "Blood Thief", "Fires life stealing ki blasts.", typeof(BloodThiefItem) , new BloodThiefCharacteristics(), parents: parents)
         {
         }
     }

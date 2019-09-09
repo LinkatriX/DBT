@@ -1186,9 +1186,9 @@ namespace DBT
             }
         }
 
-        public static void DrawChain(object sb, Texture2D texture, int shader, Vector2 start, Vector2 end, float Jump = 0f, Color? overrideColor = null, float scale = 1f, bool drawEndsUnder = false, Func<Texture2D, Vector2, Vector2, Vector2, Rectangle, Color, float, float, int, bool> OnDrawTex = null)
+        public static void DrawChain(object sb, Texture2D texture, int shader, Vector2 start, Vector2 end, float Jump = 0f, Color? overrideColor = null, float scale = 1f, bool drawEndsUnder = false, Func<Texture2D, Vector2, Vector2, Vector2, Rectangle, Color, float, float, int, bool> onDrawTex = null)
         {
-			DrawChain(sb, new Texture2D[]{ texture, texture, texture }, shader, start, end, Jump, overrideColor, scale, drawEndsUnder, OnDrawTex);
+			DrawChain(sb, new Texture2D[]{ texture, texture, texture }, shader, start, end, Jump, overrideColor, scale, drawEndsUnder, onDrawTex);
 		}
 
         //code written by Yoraiz0r, heavily edited by GroxTheGreat
@@ -1213,7 +1213,7 @@ namespace DBT
          *             8 - The scale of the chain.
          *             9 - The count of this chain piece in the entire thing. (-1 for start tex, -2 for end tex)
          */
-        public static void DrawChain(object sb, Texture2D[] textures, int shader, Vector2 start, Vector2 end, float Jump = 0f, Color? overrideColor = null, float scale = 1f, bool drawEndsUnder = false, Func<Texture2D, Vector2, Vector2, Vector2, Rectangle, Color, float, float, int, bool> OnDrawTex = null)
+        public static void DrawChain(object sb, Texture2D[] textures, int shader, Vector2 start, Vector2 end, float Jump = 0f, Color? overrideColor = null, float scale = 1f, bool drawEndsUnder = false, Func<Texture2D, Vector2, Vector2, Vector2, Rectangle, Color, float, float, int, bool> onDrawTex = null)
         {
             if(Jump <= 0f){ Jump = (textures[1].Height - 2f) * scale; }
             Vector2 dir = end - start;
@@ -1240,7 +1240,7 @@ namespace DBT
                         Vector2 texCenter2 = new Vector2(texWidth2 / 2f, texHeight2 / 2f) * scale;
                         Vector2 v2 = start - Main.screenPosition + texCenter2;
                         Color lightColor2 = (overrideColor != null ? (Color)overrideColor : GetLightColor(start + texCenter2));
-                        if (OnDrawTex != null && !OnDrawTex(textures[0], start + texCenter2, v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -1)) { }
+                        if (onDrawTex != null && !onDrawTex(textures[0], start + texCenter2, v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -1)) { }
                         else
                         {
 							if (sb is List<DrawData>)
@@ -1262,7 +1262,7 @@ namespace DBT
                         Vector2 texCenter2 = new Vector2(texWidth2 / 2f, texHeight2 / 2f) * scale;
                         Vector2 v2 = end - Main.screenPosition + texCenter2;
                         Color lightColor2 = (overrideColor != null ? (Color)overrideColor : GetLightColor(end + texCenter2));
-                        if (OnDrawTex != null && !OnDrawTex(textures[maxTextures + 1], end + texCenter2,  v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -2)) { }
+                        if (onDrawTex != null && !onDrawTex(textures[maxTextures + 1], end + texCenter2,  v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -2)) { }
                         else
                         {
 							if (sb is List<DrawData>)
@@ -1290,7 +1290,7 @@ namespace DBT
 					lightColor = (overrideColor != null ? (Color)overrideColor : GetLightColor((start + dir * Way) + texCenter));
 					texID++;
 					if(texID >= maxTextures){ texID = 0; }
-					if (OnDrawTex != null && !OnDrawTex(textures[texID + 1], (start + dir * Way) + texCenter, v - texCenter, texCenter, new Rectangle(0, 0, (int)texWidth, (int)texHeight), lightColor, rotation, scale, currentChain)) { }
+					if (onDrawTex != null && !onDrawTex(textures[texID + 1], (start + dir * Way) + texCenter, v - texCenter, texCenter, new Rectangle(0, 0, (int)texWidth, (int)texHeight), lightColor, rotation, scale, currentChain)) { }
 					else
 					{
 						if (sb is List<DrawData>)
@@ -1311,7 +1311,7 @@ namespace DBT
             }
         }
 	
-        public static void DrawVectorChain(object sb, Texture2D[] textures, int shader, Vector2[] chain, float Jump = 0f, Color? overrideColor = null, float scale = 1f, bool drawEndsUnder = false, Func<Texture2D, Vector2, Vector2, Vector2, Rectangle, Color, float, float, int, bool> OnDrawTex = null)
+        public static void DrawVectorChain(object sb, Texture2D[] textures, int shader, Vector2[] chain, float Jump = 0f, Color? overrideColor = null, float scale = 1f, bool drawEndsUnder = false, Func<Texture2D, Vector2, Vector2, Vector2, Rectangle, Color, float, float, int, bool> onDrawTex = null)
         {
             if(Jump <= 0f){ Jump = (textures[1].Height - 2f) * scale; }
 
@@ -1346,7 +1346,7 @@ namespace DBT
                         Vector2 texCenter2 = new Vector2(texWidth2 / 2f, texHeight2 / 2f) * scale;
                         Vector2 v2 = start - Main.screenPosition + texCenter2;
                         Color lightColor2 = (overrideColor != null ? (Color)overrideColor : GetLightColor(start + texCenter2));
-                        if (OnDrawTex != null && !OnDrawTex(textures[0], start + texCenter2, v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -1)) { }
+                        if (onDrawTex != null && !onDrawTex(textures[0], start + texCenter2, v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -1)) { }
                         else
                         {
 							if (sb is List<DrawData>)
@@ -1368,7 +1368,7 @@ namespace DBT
                         Vector2 texCenter2 = new Vector2(texWidth2 / 2f, texHeight2 / 2f) * scale;
                         Vector2 v2 = end - Main.screenPosition + texCenter2;
                         Color lightColor2 = (overrideColor != null ? (Color)overrideColor : GetLightColor(end + texCenter2));
-                        if (OnDrawTex != null && !OnDrawTex(textures[maxTextures + 1], end + texCenter2,  v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -2)) { }
+                        if (onDrawTex != null && !onDrawTex(textures[maxTextures + 1], end + texCenter2,  v2 - texCenter2, texCenter2, new Rectangle(0, 0, (int)texWidth2, (int)texHeight2), lightColor2, rotation, scale, -2)) { }
                         else
                         {
 							if (sb is List<DrawData>)
@@ -1402,7 +1402,7 @@ namespace DBT
 					lightColor = (overrideColor != null ? (Color)overrideColor : GetLightColor((start + dir * Way) + texCenter));
 					texID++;
 					if(texID >= maxTextures){ texID = 0; }
-					if (OnDrawTex != null && !OnDrawTex(textures[texID + 1], (start + dir * Way) + texCenter, v - texCenter, texCenter, new Rectangle(0, 0, (int)texWidth, (int)texHeight), lightColor, rotation, scale, currentChain)) { }
+					if (onDrawTex != null && !onDrawTex(textures[texID + 1], (start + dir * Way) + texCenter, v - texCenter, texCenter, new Rectangle(0, 0, (int)texWidth, (int)texHeight), lightColor, rotation, scale, currentChain)) { }
 					else
 					{
 						if (sb is List<DrawData>)

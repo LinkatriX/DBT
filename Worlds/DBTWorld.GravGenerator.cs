@@ -15,7 +15,7 @@ namespace DBT.Worlds
 {
     public partial class DBTWorld
     {
-        public bool _generateGravStructure = false;
+        public bool generateGravStructure = false;
         public bool placedGravModule = false;
         public bool repairedGravModule = false;
         public int gravGeneratorStartPositionX = 0;
@@ -23,7 +23,7 @@ namespace DBT.Worlds
 
         public void AddGravGenerator(GenerationProgress progress = null)
         {
-            if (_generateGravStructure)
+            if (generateGravStructure)
                 return;
 
             try
@@ -31,7 +31,7 @@ namespace DBT.Worlds
                 bool success = MakeGravGenerator(progress);
                 if (success)
                 {
-                    _generateGravStructure = true;
+                    generateGravStructure = true;
                 }
             }
             catch (Exception exception)

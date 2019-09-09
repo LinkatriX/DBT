@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DBT.Network;
+using DBT.Skills;
 using DBT.Transformations;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -125,7 +126,7 @@ namespace DBT.Players
                     return true;
 
             return false;
-        }
+        }   
 
         public bool HasMastered() => GetTransformation().HasPlayerMastered(this);
 

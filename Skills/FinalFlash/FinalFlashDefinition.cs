@@ -2,7 +2,7 @@
 {
     public sealed class FinalFlashDefinition : SkillDefinition
     {
-        public FinalFlashDefinition() : base("FinalFlash", "Final Flash", "A full powered beam attack.\n" + DEFAULT_BEAM_INSTRUCTIONS, new FinalFlashCharacteristics())
+        public FinalFlashDefinition(params SkillDefinition[] parents) : base("FinalFlash", "Final Flash", "A full powered beam attack.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(FinalFlashItem), new FinalFlashCharacteristics(), parents: parents)
         {
         }
     }

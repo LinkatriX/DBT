@@ -31,6 +31,7 @@ using DBT.Skills.FinalShineAttack;
 using DBT.Skills.HolyWrath;
 using DBT.Skills.MajinExtinctionAttack;
 using DBT.Skills.SuperSpiritBomb;
+using DBT.Dynamicity;
 
 namespace DBT.Skills
 {
@@ -39,54 +40,56 @@ namespace DBT.Skills
         internal override void DefaultInitialize()
         {
             #region Tier 1 Skills
-            EnergyWave = Add(new EnergyWaveDefinition()) as EnergyWaveDefinition;
             KiBlast = Add(new KiBlastDefinition()) as KiBlastDefinition;
-            KiBeam = Add(new KiBeamDefinition()) as KiBeamDefinition;
+            KiBeam = Add(new KiBeamDefinition(KiBlast)) as KiBeamDefinition;
+            EnergyWave = Add(new EnergyWaveDefinition(KiBeam)) as EnergyWaveDefinition;
             #endregion
 
             #region Tier 2 Skills
-            DestructoDisk = Add(new DestructoDiskDefinition()) as DestructoDiskDefinition;
-            DoubleSunday = Add(new DoubleSundayDefinition()) as DoubleSundayDefinition;
-            EnergyBlastBarrage = Add(new EnergyBlastBarrageDefinition()) as EnergyBlastBarrageDefinition;
-            Masenko = Add(new MasenkoDefinition()) as MasenkoDefinition;
-            SpiritBall = Add(new SpiritBallDefinition()) as SpiritBallDefinition;
+            DestructoDisk = Add(new DestructoDiskDefinition(KiBeam)) as DestructoDiskDefinition;
+            DoubleSunday = Add(new DoubleSundayDefinition(EnergyWave)) as DoubleSundayDefinition;
+            EnergyBlastBarrage = Add(new EnergyBlastBarrageDefinition(KiBlast)) as EnergyBlastBarrageDefinition;
+            Masenko = Add(new MasenkoDefinition(EnergyWave)) as MasenkoDefinition;
+            SpiritBall = Add(new SpiritBallDefinition(KiBlast)) as SpiritBallDefinition;
             #endregion
 
             #region Tier 3 Skills
-            BloodThief = Add(new BloodThiefDefinition()) as BloodThiefDefinition;
-            DirtyFireworks = Add(new DirtyFireworksDefinition()) as DirtyFireworksDefinition;
-            GalickGun = Add(new GalickGunDefinition()) as GalickGunDefinition;
-            HellzoneGrenade = Add(new HellzoneGrenadeDefinition()) as HellzoneGrenadeDefinition;
-            Kamehameha = Add(new KamehamehaDefinition()) as KamehamehaDefinition;
+            BloodThief = Add(new BloodThiefDefinition(KiBlast)) as BloodThiefDefinition;
+            DirtyFireworks = Add(new DirtyFireworksDefinition(KiBlast)) as DirtyFireworksDefinition;
+            GalickGun = Add(new GalickGunDefinition(EnergyWave)) as GalickGunDefinition;
+            HellzoneGrenade = Add(new HellzoneGrenadeDefinition(EnergyBlastBarrage)) as HellzoneGrenadeDefinition;
+            Kamehameha = Add(new KamehamehaDefinition(EnergyWave)) as KamehamehaDefinition;
             #endregion
 
             #region Tier 4 Skills
-            BigBangAttack = Add(new BigBangAttackDefinition()) as BigBangAttackDefinition;
-            EnergyShot = Add(new EnergyShotDefinition()) as EnergyShotDefinition;
-            Scattershot = Add(new ScattershotDefinition()) as ScattershotDefinition;
-            SpecialBeamCannon = Add(new SpecialBeamCannonDefinition()) as SpecialBeamCannonDefinition;
-            SpiritBomb = Add(new SpiritBombDefinition()) as SpiritBombDefinition;
-            SuperKamehameha = Add(new SuperKamehamehaDefinition()) as SuperKamehamehaDefinition;
-            TrapShooter = Add(new TrapShooterDefinition()) as TrapShooterDefinition;
+            BigBangAttack = Add(new BigBangAttackDefinition(KiBlast)) as BigBangAttackDefinition;
+            EnergyShot = Add(new EnergyShotDefinition(KiBlast)) as EnergyShotDefinition;
+            Scattershot = Add(new ScattershotDefinition(HellzoneGrenade)) as ScattershotDefinition;
+            SpecialBeamCannon = Add(new SpecialBeamCannonDefinition(KiBeam)) as SpecialBeamCannonDefinition;
+            SpiritBomb = Add(new SpiritBombDefinition(SpiritBall)) as SpiritBombDefinition;
+            SuperKamehameha = Add(new SuperKamehamehaDefinition(Kamehameha)) as SuperKamehamehaDefinition;
+            TrapShooter = Add(new TrapShooterDefinition(EnergyShot)) as TrapShooterDefinition;
             #endregion
 
             # region Tier 5 Skills
-            DestructoDiskAssault = Add(new DestructoDiskAssaultDefinition()) as DestructoDiskAssaultDefinition;
-            FinalFlash = Add(new FinalFlashDefinition()) as FinalFlashDefinition;
-            Kamehamehax10 = Add(new Kamehamehax10Definition()) as Kamehamehax10Definition;
-            SuperEnergyBarrage = Add(new SuperEnergyBarrageDefinition()) as SuperEnergyBarrageDefinition;
-            Supernova = Add(new SupernovaDefinition()) as SupernovaDefinition;
+            DestructoDiskAssault = Add(new DestructoDiskAssaultDefinition(DestructoDisk)) as DestructoDiskAssaultDefinition;
+            FinalFlash = Add(new FinalFlashDefinition(GalickGun)) as FinalFlashDefinition;
+            Kamehamehax10 = Add(new Kamehamehax10Definition(SuperKamehameha)) as Kamehamehax10Definition;
+            SuperEnergyBarrage = Add(new SuperEnergyBarrageDefinition(EnergyBlastBarrage)) as SuperEnergyBarrageDefinition;
+            Supernova = Add(new SupernovaDefinition(SpiritBall)) as SupernovaDefinition;
             #endregion
 
             #region Tier 6 Skills
-            BlackPowerBall = Add(new BlackPowerBallDefinition()) as BlackPowerBallDefinition;
-            CandyLaser = Add(new CandyLaserDefinition()) as CandyLaserDefinition;
-            CelestialRapture = Add(new CelestialRaptureDefinition()) as CelestialRaptureDefinition;
-            FinalShineAttack = Add(new FinalShineAttackDefinition()) as FinalShineAttackDefinition;
-            HolyWrath = Add(new HolyWrathDefinition()) as HolyWrathDefinition;
-            MajinExtinctionAttack = Add(new MajinExtinctionAttackDefinition()) as MajinExtinctionAttackDefinition;
-            SuperSpiritBomb = Add(new SuperSpiritBombDefinition()) as SuperSpiritBombDefinition;
+            BlackPowerBall = Add(new BlackPowerBallDefinition(EnergyShot)) as BlackPowerBallDefinition;
+            CandyLaser = Add(new CandyLaserDefinition(KiBeam)) as CandyLaserDefinition;
+            CelestialRapture = Add(new CelestialRaptureDefinition(KiBlast)) as CelestialRaptureDefinition;
+            FinalShineAttack = Add(new FinalShineAttackDefinition(FinalFlash)) as FinalShineAttackDefinition;
+            HolyWrath = Add(new HolyWrathDefinition(Supernova)) as HolyWrathDefinition;
+            MajinExtinctionAttack = Add(new MajinExtinctionAttackDefinition(SuperEnergyBarrage)) as MajinExtinctionAttackDefinition;
+            SuperSpiritBomb = Add(new SuperSpiritBombDefinition(SpiritBomb)) as SuperSpiritBombDefinition;
             #endregion
+
+            Tree = new Tree<SkillDefinition>(byIndex);
 
             base.DefaultInitialize();
         }
@@ -124,7 +127,8 @@ namespace DBT.Skills
         public HolyWrathDefinition HolyWrath { get; private set; }
         public MajinExtinctionAttackDefinition MajinExtinctionAttack { get; private set; }
         public SuperSpiritBombDefinition SuperSpiritBomb { get; private set; }
-        
+
+        public Tree<SkillDefinition> Tree { get; private set; }
         #endregion
     }
 }

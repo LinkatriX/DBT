@@ -13,10 +13,10 @@ namespace DBT.UserInterfaces
     // TODO Make this use classes/structs.
     public class EnergyResourceBar : UIElement
     {
-        public UIText _label;
-        public Rectangle _dragRectangle;
+        public UIText label;
+        public Rectangle dragRectangle;
 
-        public int _frameTimer;
+        public int frameTimer;
 
         public static readonly List<float> _cleanAverageEnergy = new List<float>();
 
@@ -34,16 +34,16 @@ namespace DBT.UserInterfaces
             Width.Set(CWidth, 0f);
             Height.Set(CHeight, 0f);
 
-            _label = new UIText("0/0");
+            label = new UIText("0/0");
 
-            _label.Width.Set(CWidth, 0f);
-            _label.Height.Set(CHeight, 0f);
+            label.Width.Set(CWidth, 0f);
+            label.Height.Set(CHeight, 0f);
 
-            _label.Left.Set(14f, 0f);
-            _label.Top.Set(20f, 0f);
+            label.Left.Set(14f, 0f);
+            label.Top.Set(20f, 0f);
 
-            Append(_label);
-            _dragRectangle = new Rectangle(6, 6, (int) CWidth - 2, (int) CHeight - 6);
+            Append(label);
+            dragRectangle = new Rectangle(6, 6, (int) CWidth - 2, (int) CHeight - 6);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -54,19 +54,19 @@ namespace DBT.UserInterfaces
             float quotient = Utils.Clamp((float) Math.Floor(_cleanAverageEnergy.Sum() / 15f) / dbtPlayer.MaxKi, 0, 1);
 
             Rectangle hitBox = GetInnerDimensions().ToRectangle();
-            hitBox.X += _dragRectangle.X;
-            hitBox.Y += _dragRectangle.Y;
+            hitBox.X += dragRectangle.X;
+            hitBox.Y += dragRectangle.Y;
 
-            hitBox.Width = _dragRectangle.Width;
-            hitBox.Height = _dragRectangle.Height;
+            hitBox.Width = dragRectangle.Width;
+            hitBox.Height = dragRectangle.Height;
 
-            _frameTimer++;
+            frameTimer++;
 
-            if (_frameTimer >= 20)
-                _frameTimer = 0;
+            if (frameTimer >= 20)
+                frameTimer = 0;
 
             int frameHeight = 0;
-            int frame = _frameTimer / 5;
+            int frame = frameTimer / 5;
 
             Vector2 textureOffset = Vector2.Zero;
 
@@ -126,9 +126,9 @@ namespace DBT.UserInterfaces
 
             int averageKi = (int) Math.Floor(_cleanAverageEnergy.Sum() / 15f);
             if (!dbtPlayer.IsOverloading)
-                _label.SetText("Ki: " + averageKi + " / " + dbtPlayer.MaxKi);
+                label.SetText("Ki: " + averageKi + " / " + dbtPlayer.MaxKi);
             else
-                _label.SetText("Ki: " + GetLetter() + GetLetter()+ GetLetter() + GetLetter() + " / " + GetLetter() + GetLetter() + GetLetter() + GetLetter());
+                label.SetText("Ki: " + GetLetter() + GetLetter()+ GetLetter() + GetLetter() + " / " + GetLetter() + GetLetter() + GetLetter() + GetLetter());
 
 
             base.Update(gameTime);
@@ -149,10 +149,10 @@ namespace DBT.UserInterfaces
     }
     public class OverloadResourceBar : UIElement //Totally not just copying the whole thing and changing a few variables
     {
-        public UIText _label;
-        public Rectangle _dragRectangle;
+        public UIText label;
+        public Rectangle dragRectangle;
 
-        public int _frameTimer;
+        public int frameTimer;
 
         public static readonly List<float> _cleanAverageEnergy = new List<float>();
 
@@ -168,16 +168,16 @@ namespace DBT.UserInterfaces
             Width.Set(CWidth, 0f);
             Height.Set(CHeight, 0f);
 
-            _label = new UIText("0/0");
+            label = new UIText("0/0");
 
-            _label.Width.Set(CWidth, 0f);
-            _label.Height.Set(CHeight, 0f);
+            label.Width.Set(CWidth, 0f);
+            label.Height.Set(CHeight, 0f);
 
-            _label.Left.Set(14f, 0f);
-            _label.Top.Set(20f, 0f);
+            label.Left.Set(14f, 0f);
+            label.Top.Set(20f, 0f);
 
-            Append(_label);
-            _dragRectangle = new Rectangle(6, 6, (int)CWidth - 2, (int)CHeight - 6);
+            Append(label);
+            dragRectangle = new Rectangle(6, 6, (int)CWidth - 2, (int)CHeight - 6);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -188,19 +188,19 @@ namespace DBT.UserInterfaces
             float quotient = Utils.Clamp((float)Math.Floor(_cleanAverageEnergy.Sum() / 15f) / dbtPlayer.MaxOverload, 0, 1);
 
             Rectangle hitBox = GetInnerDimensions().ToRectangle();
-            hitBox.X += _dragRectangle.X;
-            hitBox.Y += _dragRectangle.Y;
+            hitBox.X += dragRectangle.X;
+            hitBox.Y += dragRectangle.Y;
 
-            hitBox.Width = _dragRectangle.Width;
-            hitBox.Height = _dragRectangle.Height;
+            hitBox.Width = dragRectangle.Width;
+            hitBox.Height = dragRectangle.Height;
 
-            _frameTimer++;
+            frameTimer++;
 
-            if (_frameTimer >= 12)
-                _frameTimer = 0;
+            if (frameTimer >= 12)
+                frameTimer = 0;
 
             int frameHeight = 0;
-            int frame = _frameTimer / 5;
+            int frame = frameTimer / 5;
 
             Vector2 textureOffset = Vector2.Zero;
 
@@ -249,7 +249,7 @@ namespace DBT.UserInterfaces
                 _cleanAverageEnergy.RemoveRange(0, _cleanAverageEnergy.Count - 15);
 
             int averageOverload = (int)Math.Floor(_cleanAverageEnergy.Sum() / 15f);
-            _label.SetText("Overload: " + averageOverload + " / " + dbtPlayer.MaxOverload);
+            label.SetText("Overload: " + averageOverload + " / " + dbtPlayer.MaxOverload);
 
             base.Update(gameTime);
         }

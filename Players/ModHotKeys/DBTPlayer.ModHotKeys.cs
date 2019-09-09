@@ -58,6 +58,8 @@ namespace DBT.Players
 
                 if (DBTMod.Instance.characterMenuKey.JustPressed)
                     DBTMod.Instance.characterTransformationsMenu.Visible = !DBTMod.Instance.characterTransformationsMenu.Visible;
+                if (DBTMod.Instance.techniqueMenuKey.JustPressed)
+                    DBTMod.Instance.techniqueMenu.Visible = !DBTMod.Instance.techniqueMenu.Visible;
                 if (DBTMod.Instance.flightToggleKey.JustPressed)
                     Flying = !Flying;
             }

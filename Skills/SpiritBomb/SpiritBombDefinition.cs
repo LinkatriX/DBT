@@ -2,7 +2,7 @@
 {
     public sealed class SpiritBombDefinition : SkillDefinition
     {
-        public SpiritBombDefinition() : base("SpiritBomb", "Spirit Bomb", "The user draws energy from surrounding life to create a powerful blast attack.", new SpiritBombCharacteristics())
+        public SpiritBombDefinition(params SkillDefinition[] parents) : base("SpiritBomb", "Spirit Bomb", "The user draws energy from surrounding life to create a powerful blast attack.", typeof(SpiritBombItem), new SpiritBombCharacteristics(), parents: parents)
         {
         }
     }

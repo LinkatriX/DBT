@@ -4,13 +4,13 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        public void GainMastery(float gain)
+        public void ChangeMastery(float change)
         {
             for (int i = 0; i < ActiveTransformations.Count; i++)
-                GainMastery(ActiveTransformations[i], gain);
+                ChangeMastery(ActiveTransformations[i], change);
         }
 
-        public void GainMastery(TransformationDefinition definition, float gain)
+        public void ChangeMastery(TransformationDefinition definition, float change)
         {
             PlayerTransformation playerTransformation = AcquiredTransformations[definition];
             float maxMastery = playerTransformation.Definition.GetMaxMastery(this);
@@ -18,14 +18,14 @@ namespace DBT.Players
             if (playerTransformation.CurrentMastery >= maxMastery)
                 return;
 
-            if (playerTransformation.CurrentMastery + gain > maxMastery)
-                gain = maxMastery - playerTransformation.CurrentMastery;
+            if (playerTransformation.CurrentMastery + change > maxMastery)
+                change = maxMastery - playerTransformation.CurrentMastery;
 
             if (Trait != null)
-                Trait.OnPlayerMasteryGained(this, ref gain, playerTransformation.CurrentMastery);
+                Trait.OnPlayerMasteryGained(this, ref change, playerTransformation.CurrentMastery);
 
-            playerTransformation.CurrentMastery += gain;
-            definition.OnPlayerMasteryGain(this, gain, playerTransformation.CurrentMastery);
+            playerTransformation.ChangeMastery(this, change);
+            definition.OnPlayerMasteryChanged(this, change, playerTransformation.CurrentMastery);
         }
     }
 }

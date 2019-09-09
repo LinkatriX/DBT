@@ -88,7 +88,7 @@ namespace DBT.NPCs.Saibamen
             }
         }
 
-        int frame = 0;
+        int _frame = 0;
         public override void FindFrame(int frameHeight)
         {
             if (!grabbed)
@@ -101,19 +101,19 @@ namespace DBT.NPCs.Saibamen
             }
             if (npc.frameCounter > 4)
             {
-                frame++;
+                _frame++;
                 npc.frameCounter = 0;
             }
-            if (frame > 2 && !grabbed)
+            if (_frame > 2 && !grabbed)
             {
-                frame = 0;
+                _frame = 0;
             }
             if (grabbed)
             {
-                frame = 3;
+                _frame = 3;
             }
             npc.spriteDirection = -npc.direction;
-            npc.frame.Y = frameHeight * frame;
+            npc.frame.Y = frameHeight * _frame;
         }
         public void Explode()
         {

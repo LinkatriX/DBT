@@ -2,7 +2,7 @@
 {
     public sealed class ScattershotDefinition : SkillDefinition
     {
-        public ScattershotDefinition() : base("Scattershot", "Scattershot", "Fires an array of seeking ki blasts.", new ScattershotCharacteristics())
+        public ScattershotDefinition(params SkillDefinition[] parents) : base("Scattershot", "Scattershot", "Fires an array of seeking ki blasts.", typeof(ScattershotItem), new ScattershotCharacteristics(), parents: parents)
         {
         }
     }

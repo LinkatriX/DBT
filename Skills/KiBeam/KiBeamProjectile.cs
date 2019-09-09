@@ -7,7 +7,7 @@ namespace DBT.Skills.KiBeam
 {
     public sealed class KiBeamProjectile : SkillProjectile
     {
-        bool hasCollided = false;
+        bool _hasCollided = false;
 
         public KiBeamProjectile() : base(SkillDefinitionManager.Instance.KiBeam, 6, 6)
         {
@@ -35,12 +35,12 @@ namespace DBT.Skills.KiBeam
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            return this.hasCollided = true;
+            return this._hasCollided = true;
         }
 
         public override void PostAI()
         {
-            if (this.hasCollided == true)
+            if (this._hasCollided == true)
             {
                 projectile.timeLeft -= 3;
             }

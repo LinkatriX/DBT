@@ -202,11 +202,11 @@ namespace DBT
          *  Completely kills a chest at X, Y and removes all items within it.
          *  (note this does not remove the tile itself)
          */
-        public static bool KillChestAndItems(int X, int Y)
+        public static bool KillChestAndItems(int X, int y)
         {
             for(int i = 0; i < 1000; i++)
             {
-                if(Main.chest[i] != null && Main.chest[i].x == X && Main.chest[i].y == Y)
+                if(Main.chest[i] != null && Main.chest[i].x == X && Main.chest[i].y == y)
                 {
                     Main.chest[i] = null;
                     return true;

@@ -2,7 +2,7 @@
 {
     public sealed class EnergyBlastBarrageDefinition : SkillDefinition
     {
-        public EnergyBlastBarrageDefinition() : base("EnergyBlastBarrage", "Energy Blast Barrage", "Fires off continuous ki blasts. Charge to increase the length of the barrage.", new EnergyBlastBarrageCharacteristics())
+        public EnergyBlastBarrageDefinition(params SkillDefinition[] parents) : base("EnergyBlastBarrage", "Energy Blast Barrage", "Fires off continuous ki blasts. Charge to increase the length of the barrage.", typeof(EnergyBlastBarrageItem), new EnergyBlastBarrageCharacteristics(), parents: parents)
         {
         }
     }

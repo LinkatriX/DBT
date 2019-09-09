@@ -11,7 +11,7 @@ namespace DBT.Projectiles.FriezaForce
     // TODO Redo this garbage
     public class FFHomingBlast : ModProjectile
     {
-        private int moveTimer = 0;
+        private int _moveTimer = 0;
 
         public override void SetDefaults()
         {
@@ -54,12 +54,12 @@ namespace DBT.Projectiles.FriezaForce
         }
 		public override void AI()
 		{
-            moveTimer++;
+            _moveTimer++;
 
-            if(moveTimer > 150)
+            if(_moveTimer > 150)
             {
                 projectile.velocity = new Vector2(0, 0);
-                if(moveTimer > 180)
+                if(_moveTimer > 180)
                 {
                     Player closestTarget = null;
                     float topSpeed = 5.5f;

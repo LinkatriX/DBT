@@ -6,7 +6,7 @@ using System;
 
 namespace DBT.Skills.CelestialRapture
 {
-    /*public sealed class CelestialRaptureProjectile : SkillProjectile
+    public sealed class CelestialRaptureProjectile : SkillProjectile
     {
         public CelestialRaptureProjectile() : base(SkillDefinitionManager.Instance.CelestialRapture, 20, 20)
         {
@@ -220,5 +220,5 @@ namespace DBT.Skills.CelestialRapture
             }
             projectile.active = false;
         }
-    }*/
+    }
 }

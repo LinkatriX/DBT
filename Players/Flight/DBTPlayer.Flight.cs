@@ -170,7 +170,7 @@ namespace DBT.Players
             }
         }*/
 
-        public bool isFlying { get; private set; }
+        public bool IsFlying { get; private set; }
         public bool Flying { get; internal set; }
         public bool FlightUnlocked { get; set; }
         public bool FlightDampenedFall { get; set; }

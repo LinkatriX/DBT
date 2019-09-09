@@ -28,7 +28,7 @@ namespace DBT.Transformations.SSJs.SSJ1s.SSJ1
             return 2f;
         }
 
-        public override void OnPlayerMasteryGain(DBTPlayer dbtPlayer, float gain, float currentMastery)
+        public override void OnPlayerMasteryChanged(DBTPlayer dbtPlayer, float change, float currentMastery)
         {
             if (currentMastery >= 0.5f && !dbtPlayer.HasAcquiredTransformation(TransformationDefinitionManager.Instance.ASSJ1))
                 dbtPlayer.Acquire(TransformationDefinitionManager.Instance.ASSJ1);

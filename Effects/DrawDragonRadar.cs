@@ -54,7 +54,7 @@ namespace DBT.Effects
             float radarAngle = radarAngleVector.ToRotation();
 
             // player is too close to the dragon ball.
-            if (closestDistance < (modPlayer.isHoldingDragonRadarMk1 ? 1280f : (modPlayer.isHoldingDragonRadarMk2 ? 640f : 320f)))
+            if (closestDistance < (modPlayer.IsHoldingDragonRadarMk1 ? 1280f : (modPlayer.IsHoldingDragonRadarMk2 ? 640f : 320f)))
             {
                 radarAngle += (float)(DBTMod.GetTicks() % 59) * 6f;
             }
@@ -68,7 +68,7 @@ namespace DBT.Effects
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = DBTMod.Instance;
             DBTPlayer modPlayer = drawPlayer.GetModPlayer<DBTPlayer>(mod);
-            float radarArrowScale = (modPlayer.isHoldingDragonRadarMk1 ? 1f : (modPlayer.isHoldingDragonRadarMk2 ? 1.25f : 1.5f));
+            float radarArrowScale = (modPlayer.IsHoldingDragonRadarMk1 ? 1f : (modPlayer.IsHoldingDragonRadarMk2 ? 1.25f : 1.5f));
             Texture2D texture = mod.GetTexture(dragonRadarSprite);
             int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
             int drawY = (int)(drawInfo.position.Y + yOffset + drawPlayer.height / 0.6f - Main.screenPosition.Y);
