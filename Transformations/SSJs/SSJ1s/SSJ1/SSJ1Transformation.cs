@@ -10,7 +10,7 @@ namespace DBT.Transformations.SSJs.SSJ1s.SSJ1
     {
         public SSJ1Transformation(params TransformationDefinition[] parents) : base(
             "SSJ1", "Super Saiyan", typeof(SSJ1TransformationBuff),
-            1.5f, 1f, 2, 
+            1.5f, 1.25f, 2, 
             new TransformationDrain(1f, 0.5f),
             new SSJ1Appearance(),
             new TransformationOverload(0, 0),
@@ -28,7 +28,7 @@ namespace DBT.Transformations.SSJs.SSJ1s.SSJ1
             return 2f;
         }
 
-        public override void OnPlayerMasteryGain(DBTPlayer dbtPlayer, float gain, float currentMastery)
+        public override void OnPlayerMasteryChanged(DBTPlayer dbtPlayer, float change, float currentMastery)
         {
             if (currentMastery >= 0.5f && !dbtPlayer.HasAcquiredTransformation(TransformationDefinitionManager.Instance.ASSJ1))
                 dbtPlayer.Acquire(TransformationDefinitionManager.Instance.ASSJ1);

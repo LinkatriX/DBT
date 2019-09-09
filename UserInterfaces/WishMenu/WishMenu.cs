@@ -247,7 +247,7 @@ namespace DBT.UserInterfaces.WishMenu
         {
             DBTPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
             modPlayer.AwakeningWishesLeft -= 1;
-            modPlayer.GainMastery(modPlayer.AcquiredTransformations.Keys.Last(), 100f);
+            modPlayer.ChangeMastery(modPlayer.AcquiredTransformations.Keys.Last(), 1f);
             menuVisible = false;
             modPlayer.WishActive = false;
         }

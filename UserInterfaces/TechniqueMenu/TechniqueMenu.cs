@@ -224,16 +224,16 @@ namespace DBT.UserInterfaces.TechniqueMenu
                 InfoPanel.Width.Set(InfoPanelTexture.Width, 0f);
                 InfoPanel.Height.Set(InfoPanelTexture.Height, 0f);
 
-                SkillName = InitializeText(def.DisplayName, 12, 8, 0.8f, Color.White, InfoPanel);
-                SkillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + "x \nAttack Speed: " + def.Characteristics.BaseShootSpeed + " \nKi Drain:" + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain * 60 + "/s", 12, 28, 0.6f, Color.White, InfoPanel);
-                SkillUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
+                skillName = InitializeText(def.DisplayName, 12, 8, 0.8f, Color.White, InfoPanel);
+                skillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + "x \nAttack Speed: " + def.Characteristics.BaseShootSpeed + " \nKi Drain:" + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain * 60 + "/s", 12, 28, 0.6f, Color.White, InfoPanel);
+                skillUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
             }
             else
             {
                 InfoPanel = null;
-                SkillName = null;
-                SkillStats = null;
-                SkillUnlock = null;
+                skillName = null;
+                skillStats = null;
+                skillUnlock = null;
 
                 InfoPanelOpened = false;
                 DrawInfoPanel(def);
@@ -253,9 +253,9 @@ namespace DBT.UserInterfaces.TechniqueMenu
         public UIImage InfoPanel { get; set; } = null;
 
         public UIText
-            SkillName = null,
-            SkillStats = null,
-            SkillUnlock = null;
+            skillName = null,
+            skillStats = null,
+            skillUnlock = null;
 
         public static TransformationDefinition LastActiveTransformationTab { get; internal set; }
     }

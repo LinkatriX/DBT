@@ -55,24 +55,24 @@ namespace DBT.NPCs.FriezaForce.Minions
 			}
 		}
 
-		int frame = 0;
+		int _frame = 0;
 		public override void FindFrame(int frameHeight)
 		{
 			npc.frameCounter += 1;
 			if (npc.frameCounter > 4)
 			{
-				frame++;
+				_frame++;
 				npc.frameCounter = 0;
 			}
-			if (frame > 2)
+			if (_frame > 2)
 			{
-				frame = 0;
+				_frame = 0;
 			}
 			npc.spriteDirection = npc.direction;
-			npc.frame.Y = frameHeight * frame;
+			npc.frame.Y = frameHeight * _frame;
 		}
 		public int shootTimer = 0;
-		public int YHoverTimer = 0;
+		public int yHoverTimer = 0;
 		public bool assignedTexture = false;
 	}
 }

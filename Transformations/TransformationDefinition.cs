@@ -19,13 +19,14 @@ namespace DBT.Transformations
         private readonly List<RaceDefinition> _limitedToRaces;
 
         protected TransformationDefinition(string unlocalizedName, string displayName, Type buffType,
-            float baseDamageMultiplier, float baseSpeedMultiplier, int baseDefenseAdditive, 
+            float baseDamageMultiplier, float baseSpeedMultiplier, int baseDefenseAdditive,
             TransformationDrain drain, TransformationAppearance appearance, TransformationOverload overload,
             bool mastereable = true, float maxMastery = 1f,
             int duration = TRANSFORMATION_LONG_DURATION, bool displaysInMenu = true, RaceDefinition[] limitedToRaces = null,
-            bool anyParents = false, params TransformationDefinition[] parents)
+            bool anyParents = false, bool isManualLookup = false, string manualHairLookup = null, params TransformationDefinition[] parents)
         {
             UnlocalizedName = unlocalizedName;
+            ManualHairLookup = manualHairLookup;
             DisplayName = displayName;
 
             BuffType = buffType;
@@ -53,9 +54,11 @@ namespace DBT.Transformations
                 _limitedToRaces = new List<RaceDefinition>();
 
             AnyParents = anyParents;
+
+            IsManualLookup = isManualLookup;
+
             Parents = parents;
         }
-
 
         #region Methods
 
@@ -63,7 +66,7 @@ namespace DBT.Transformations
 
         public virtual void OnPlayerTransformed(DBTPlayer dbtPlayer, PlayerTransformation transformation) { }
 
-        public virtual void OnPlayerMasteryGain(DBTPlayer dbtPlayer, float gain, float currentMastery) { }
+        public virtual void OnPlayerMasteryChanged(DBTPlayer dbtPlayer, float change, float currentMastery) { }
 
         public virtual void OnActivePlayerDied(DBTPlayer dbtPlayer, double damage, bool pvp, PlayerDeathReason damageSource) { }
 
@@ -192,6 +195,10 @@ namespace DBT.Transformations
 
         public string UnlocalizedName { get; }
 
+        public string ManualHairPath { get; set; }
+
+        public bool IsManualLookup { get; set; }
+
         public string DisplayName { get; }
 
         public Type BuffType { get; }
@@ -231,7 +238,8 @@ namespace DBT.Transformations
         public int Duration { get; }
 
         public bool DisplayInMenu { get; }
-
+         
+        public string ManualHairLookup { get; set; }
 
         public IReadOnlyList<RaceDefinition> LimitedToRaces => _limitedToRaces.AsReadOnly();
 

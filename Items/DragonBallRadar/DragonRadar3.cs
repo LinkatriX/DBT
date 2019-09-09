@@ -15,7 +15,7 @@ namespace DBT.Items.DragonBallRadar
         public override void HoldItem(Player player)
         {
             DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
-            modPlayer.isHoldingDragonRadarMk3 = true;
+            modPlayer.IsHoldingDragonRadarMk3 = true;
             base.HoldItem(player);
         }
     }

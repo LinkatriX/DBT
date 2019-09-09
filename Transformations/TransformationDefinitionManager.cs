@@ -15,6 +15,7 @@ using DBT.Transformations.SSJs.SSJ1s.USSJ1;
 using DBT.Transformations.SSJs.SSJ2;
 using DBT.Transformations.SSJs.SSJ3;
 using DBT.Transformations.SSJs.SSJ4s.SSJ4;
+using DBT.Transformations.SSJs.SSJ4s.SSJ4FP;
 using DBT.Transformations.Mystics.Mystic;
 using DBT.Transformations.Mystics.AwakenedMystic;
 
@@ -32,7 +33,9 @@ namespace DBT.Transformations
             SSJ3 = Add(new SSJ3Transformation(SSJ2)) as SSJ3Transformation;
 
             SSJ4 = Add(new SSJ4Transformation(SSJ3)) as SSJ4Transformation;
-            SSJ5 = Add(new SSJ5Transformation(SSJ4)) as SSJ5Transformation;
+            SSJ4FP = Add(new SSJ4FPTransformation(SSJ4)) as SSJ4FPTransformation;
+
+            SSJ5 = Add(new SSJ5Transformation(SSJ4FP)) as SSJ5Transformation;
 
             SSJG = Add(new SSJGTransformation(SSJ3)) as SSJGTransformation;
             SSJB = Add(new SSJBTransformation(SSJG)) as SSJBTransformation;
@@ -55,7 +58,7 @@ namespace DBT.Transformations
 
         /*public Tree<TransformationDefinition> GenerateConditionalTree(Predicate<TransformationDefinition> condition)
         {
-            
+
         }*/
 
         public SSJ1Transformation SSJ1 { get; private set; }
@@ -66,6 +69,7 @@ namespace DBT.Transformations
         public SSJ3Transformation SSJ3 { get; private set; }
 
         public SSJ4Transformation SSJ4 { get; private set; }
+        public SSJ4FPTransformation SSJ4FP { get; private set; }
 
         public SSJGTransformation SSJG { get; private set; }
         public SSJBTransformation SSJB { get; private set; }

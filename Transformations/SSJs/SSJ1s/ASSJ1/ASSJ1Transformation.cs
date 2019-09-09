@@ -7,7 +7,7 @@ namespace DBT.Transformations.SSJs.SSJ1s.ASSJ1
     {
         public ASSJ1Transformation(params TransformationDefinition[] parents) : base(
             "ASSJ1", "Ascended Super Saiyan", typeof(ASSJ1TransformationBuff),
-            1.75f, 1.125f, 3, 
+            1.75f, 1.375f, 3, 
             new TransformationDrain(70f / 60, 35f / 60), 
             new SSJ1Appearance(),
             new TransformationOverload(0, 0),
@@ -15,9 +15,9 @@ namespace DBT.Transformations.SSJs.SSJ1s.ASSJ1
         {
         }
 
-        public override void OnPlayerMasteryGain(DBTPlayer dbtPlayer, float gain, float currentMastery)
+        public override void OnPlayerMasteryChanged(DBTPlayer dbtPlayer, float change, float currentMastery)
         {
-            dbtPlayer.GainMastery(TransformationDefinitionManager.Instance.SSJ1, gain);
+            dbtPlayer.ChangeMastery(TransformationDefinitionManager.Instance.SSJ1, change);
         }
     }
 

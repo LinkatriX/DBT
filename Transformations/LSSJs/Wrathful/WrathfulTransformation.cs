@@ -9,7 +9,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
     public partial class WrathfulTransformation : TransformationDefinition
     {
         public WrathfulTransformation(params TransformationDefinition[] parents)
-            : base("Wrathful", "Wrathful", typeof(WrathfulTransformationBuff), 1.5f, 1f, 3,
+            : base("Wrathful", "Wrathful", typeof(WrathfulTransformationBuff), 1.5f, 1.25f, 3,
             new TransformationDrain(60f / Constants.TICKS_PER_SECOND, 0f),
             new WrathfulTransformationAppearance(),
             new TransformationOverload(0, 0), mastereable: false,
@@ -27,9 +27,9 @@ namespace DBT.Transformations.LSSJs.Wrathful
             }
             else
             {
-                if (dbtPlayer.BaseMaxKi >= WrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < 10000)
+                if (dbtPlayer.BaseMaxKi >= _wrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < 10000)
                 {
-                    return BaseDamageMultiplier + 0.75f;
+                    return BaseDamageMultiplier + 0.375f;
                 }
             }
             return BaseDamageMultiplier;
@@ -38,15 +38,15 @@ namespace DBT.Transformations.LSSJs.Wrathful
 
         public override float GetSpeedMultiplier(DBTPlayer dbtPlayer) 
         {
-            if (dbtPlayer.BaseMaxKi >= WrathfulAct3KiRequirement)
+            if (dbtPlayer.BaseMaxKi >= _wrathfulAct3KiRequirement)
             {
-                return BaseSpeedMultiplier + 0.45f;
+                return BaseSpeedMultiplier + 0.7f;
             }
             else
             {
-                if (dbtPlayer.BaseMaxKi >= WrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < WrathfulAct3KiRequirement)
+                if (dbtPlayer.BaseMaxKi >= _wrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < _wrathfulAct3KiRequirement)
                 {
-                    return BaseSpeedMultiplier + 0.125f;
+                    return BaseSpeedMultiplier + 1.375f;
                 }
             }
             return BaseSpeedMultiplier;
@@ -54,13 +54,13 @@ namespace DBT.Transformations.LSSJs.Wrathful
 
         public override int GetDefenseAdditive(DBTPlayer dbtPlayer)
         {
-            if (dbtPlayer.BaseMaxKi >= WrathfulAct3KiRequirement)
+            if (dbtPlayer.BaseMaxKi >= _wrathfulAct3KiRequirement)
             {
                 return BaseDefenseAdditive + 17;
             }
             else
             {
-                if (dbtPlayer.BaseMaxKi >= WrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < WrathfulAct3KiRequirement)
+                if (dbtPlayer.BaseMaxKi >= _wrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < _wrathfulAct3KiRequirement)
                 {
                     return BaseDefenseAdditive + 7;
                 }
@@ -70,13 +70,13 @@ namespace DBT.Transformations.LSSJs.Wrathful
 
         public override float GetUnmasteredKiDrain(DBTPlayer dbtPlayer)
         {
-            if (dbtPlayer.BaseMaxKi >= WrathfulAct3KiRequirement)
+            if (dbtPlayer.BaseMaxKi >= _wrathfulAct3KiRequirement)
             {
-                return base.GetUnmasteredKiDrain(dbtPlayer) * (160f / Constants.TICKS_PER_SECOND); //Ki drain of 120 ki/s
+                return base.GetUnmasteredKiDrain(dbtPlayer) * (160f / Constants.TICKS_PER_SECOND); //Ki drain of 160 ki/s
             }
             else
             {
-                if (dbtPlayer.BaseMaxKi >= WrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < WrathfulAct3KiRequirement)
+                if (dbtPlayer.BaseMaxKi >= _wrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < _wrathfulAct3KiRequirement)
                 {
                     return base.GetUnmasteredKiDrain(dbtPlayer) * 2; //Ki drain of 120 ki/s
                 }
@@ -85,7 +85,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
         }
 #endregion
 
-        private readonly float WrathfulAct2KiRequirement = 5000f, WrathfulAct3KiRequirement = 10000f;
+        private readonly float _wrathfulAct2KiRequirement = 5000f, _wrathfulAct3KiRequirement = 10000f;
     }
 
     public sealed class WrathfulTransformationBuff : TransformationBuff

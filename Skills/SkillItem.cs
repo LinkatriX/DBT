@@ -45,15 +45,15 @@ namespace DBT.Skills
 
             if (castKiDrain > 0f)
             {
-                tooltips.Insert(++tooltipIndex, this.castKiDrain = new TooltipLine(mod, TOOLTIP_KI_CAST_CONSUMPTION_LINE_NAME, "Uses " + castKiDrain + " Ki"));
-                this.castKiDrain.overrideColor = new Color(34, 232, 222);
+                tooltips.Insert(++tooltipIndex, this.CastKiDrain = new TooltipLine(mod, TOOLTIP_KI_CAST_CONSUMPTION_LINE_NAME, "Uses " + castKiDrain + " Ki"));
+                this.CastKiDrain.overrideColor = new Color(34, 232, 222);
             }
 
             float chargeKiDrain = Definition.Characteristics.ChargeCharacteristics.GetChargeTickKiDrain(dbtPlayer);
             if (chargeKiDrain > 0)
             {
-                tooltips.Insert(++tooltipIndex, this.chargeKiDrain = new TooltipLine(mod, TOOLTIP_KI_CHARGE_CONSUMPTION_LINE_NAME, "Consumes " + chargeKiDrain * Constants.TICKS_PER_SECOND + "/s while charging"));
-                this.chargeKiDrain.overrideColor = new Color(17, 138, 132);
+                tooltips.Insert(++tooltipIndex, this.ChargeKiDrain = new TooltipLine(mod, TOOLTIP_KI_CHARGE_CONSUMPTION_LINE_NAME, "Consumes " + chargeKiDrain * Constants.TICKS_PER_SECOND + "/s while charging"));
+                this.ChargeKiDrain.overrideColor = new Color(17, 138, 132);
             }
 
             base.ModifyTooltips(tooltips);
@@ -96,8 +96,8 @@ namespace DBT.Skills
             return base.CanUseItem(player) && hasKi;
         }
 
-        public TooltipLine castKiDrain { get; private set; }
-        public TooltipLine chargeKiDrain { get; private set; }
+        public TooltipLine CastKiDrain { get; private set; }
+        public TooltipLine ChargeKiDrain { get; private set; }
 
         public SkillDefinition Definition { get; }
 

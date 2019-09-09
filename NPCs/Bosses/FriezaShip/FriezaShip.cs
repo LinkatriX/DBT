@@ -22,7 +22,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 	[AutoloadBossHead] //TODO: Work on teleportation dust.
 	public class FriezaShip : ModNPC
 	{
-        private readonly Mod calamity = ModLoader.GetMod("CalamityMod");
+        private readonly Mod _calamity = ModLoader.GetMod("CalamityMod");
         public FriezaShip()
 		{
 			HoverDistance = new Vector2(0, 380);
@@ -41,8 +41,8 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			MinionCount = 2;
 			HyperSlamsDone = 0;
 			ShieldDuration = 200;
-			GalaxyDistance = (float)8.5 * 16f;
-			GalaxyDistance2 = (float)8.5 * 16f;
+			_galaxyDistance = (float)8.5 * 16f;
+			_galaxyDistance2 = (float)8.5 * 16f;
 			HyperSlamSpeed = -40f;
 		}
 
@@ -150,7 +150,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			return new Color(lightColor.R, lightColor.G, lightColor.B, lightColor.A);
 		}
 
-		int ColorCount = 0;
+		int _colorCount = 0;
 
 		int _frame = 0;
 		int _frameTimer = 0;
@@ -364,7 +364,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					npc.velocity.Y = -1f;
 					npc.netUpdate = true;
 
-					if (Vector2.Distance(player.Center, npc.Center) <= ShieldDistance + 2 * 16f)
+					if (Vector2.Distance(player.Center, npc.Center) <= SHIELD_DISTANCE + 2 * 16f)
 					{
 						player.Hurt(
 							PlayerDeathReason.ByCustomReason(
@@ -387,7 +387,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					{
 						Projectile projectile = Main.projectile[i];
 
-						if (Vector2.Distance(projectile.Center, npc.Center) <= ShieldDistance && projectile.active)
+						if (Vector2.Distance(projectile.Center, npc.Center) <= SHIELD_DISTANCE && projectile.active)
 						{
 							projectile.velocity *= -1f;
 
@@ -518,7 +518,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				}
 				else
 				{
-					HorizontalSlamTimer = 0;
+					_horizontalSlamTimer = 0;
 					npc.dontTakeDamage = false;
 					HyperSlamsDone = 0;
 					AITimer = 0;
@@ -548,7 +548,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		#region Gunning Stage
 
-		int count = 0;
+		int _count = 0;
 
 		private void PerformGunningSequence() //Swoop in once on every player in the server.
 		{
@@ -569,16 +569,16 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					npc.velocity.X = 15f;
 				if (AITimer == 220)
 				{
-					count++;
+					_count++;
 					npc.velocity = Vector2.Zero;
 				}
 				if (AITimer > 81 && AITimer < 230 && AITimer % 12 == 0)
 					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 2 * 16f), new Vector2(13f, 13f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 20, 1f);
-				if (count == PlayerCount().Count)
+				if (_count == PlayerCount().Count)
 				{
 					AdvanceStage(true);
 					ResetValues(false);
-					count = 0;
+					_count = 0;
 					npc.noTileCollide = false;
 				}
 			}
@@ -598,8 +598,8 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		#region Warp Mechanics
 
-		int warpCount = 0;
-		int warpCountPlayer = 0;
+		int _warpCount = 0;
+		int _warpCountPlayer = 0;
 
 		private void DoWarpSequence()
 		{
@@ -609,7 +609,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 				if (AITimer < 100)
 				{
-					DecoDust(GalaxyDistance / 100);
+					DecoDust(_galaxyDistance / 100);
 					npc.dontTakeDamage = true;
 					npc.velocity = Vector2.Zero;
 					npc.netUpdate = true;
@@ -625,11 +625,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					npc.netUpdate = true;
 				}
 
-				if (warpCount == PlayerCount().Count)
+				if (_warpCount == PlayerCount().Count)
 				{
 					AdvanceStage(true);
-					warpCount = 0;
-					warpCountPlayer = 0;
+					_warpCount = 0;
+					_warpCountPlayer = 0;
 					ResetValues(false);
 					npc.damage = 50;
 				}
@@ -638,7 +638,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		private void Teleport()
 		{
-			npc.position = GetWarpPositions(warpCountPlayer);
+			npc.position = GetWarpPositions(_warpCountPlayer);
 			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
 			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
 
@@ -651,26 +651,26 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 			float velocity = 25f;
 
-			Player player = PlayerCount()[warpCount];
+			Player player = PlayerCount()[_warpCount];
 
-			if (warpCountPlayer == 0)
+			if (_warpCountPlayer == 0)
 			{
 				npc.velocity.X = velocity;
 				player.velocity = new Vector2(velocity * 3, -velocity / 2);
 			}
-			else if (warpCountPlayer == 1)
+			else if (_warpCountPlayer == 1)
 			{
 				npc.velocity.X = -velocity;
 				player.velocity = new Vector2(velocity * -3, -velocity / 2);
 			}
-			else if (warpCountPlayer == 2)
+			else if (_warpCountPlayer == 2)
 			{
 				npc.velocity.Y = velocity;
 				player.velocity = new Vector2(0f, velocity * 10);
-				warpCountPlayer = 0;
+				_warpCountPlayer = 0;
 				npc.velocity = Vector2.Zero;
 				ExplodeEffect(player.Center);
-				warpCount++;
+				_warpCount++;
 			}
 
 			player.Hurt(
@@ -680,12 +680,12 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			SoundHelper.PlayCustomSound("Sounds/KiExplosion", npc.Center);
 			npc.netUpdate = true;
 
-			warpCountPlayer++;
+			_warpCountPlayer++;
 		}
 
 		private Vector2 GetWarpPositions(int fromWhere)
 		{
-			Player player = PlayerCount()[warpCount]; //Decide what player to Aim for;
+			Player player = PlayerCount()[_warpCount]; //Decide what player to Aim for;
 
 			if (fromWhere == 0)
 				return new Vector2(player.Center.X - 5 * 16f, player.Center.Y);
@@ -741,21 +741,21 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			npc.netUpdate = true;
 		}
 
-		private int HorizontalSlamTimer = 0;
+		private int _horizontalSlamTimer = 0;
 
 		public void HorizontalSlam()
 		{
 			DoChargeDust();
-			HorizontalSlamTimer++;
+			_horizontalSlamTimer++;
 			npc.velocity = new Vector2(HyperSlamSpeed, 0f);
 
-			if (HorizontalSlamTimer == 30)
+			if (_horizontalSlamTimer == 30)
 			{
 				npc.velocity = Vector2.Zero;
 				npc.netUpdate = true;
 				AITimer = 150;
 				CircularDust(30, npc, 133, 10f, 1);
-				HorizontalSlamTimer = 0;
+				_horizontalSlamTimer = 0;
 				HyperPosition = Vector2.Zero;
 			}
 
@@ -897,9 +897,9 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			DustScaleTimer = 0;
 			SlamCounter = 0;
 			AITimer = 0;
-			GalaxyDistance = (float)8.5 * 16f;
-			GalaxyDistance2 = (float)8.5 * 16f;
-			GCounter = 0;
+			_galaxyDistance = (float)8.5 * 16f;
+			_galaxyDistance2 = (float)8.5 * 16f;
+			_gCounter = 0;
 			if (resetiter)
 				IterationCount = 0;
 			npc.netUpdate = true;
@@ -1011,13 +1011,13 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		//MAY BE NEEDED, do NOT remove;
         //public static double AngleBetweenVectors(Vector2 v1, Vector2 v2) => Math.Atan2((v1.X* v2.Y + v1.Y* v2.X), (v1.X* v2.X + v1.Y* v2.Y)) * (180 / MathHelper.Pi);
 
-        public void CircularDust(int quantity, NPC target, short DustID, float radius, float scale)
+        public void CircularDust(int quantity, NPC target, short dustID, float radius, float scale)
         {
             for (int i = 0; i < quantity; i++)
             {
                 Vector2 pos = new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)) + target.Center;
                 float angle = Main.rand.NextFloat(-(float) Math.PI, (float) Math.PI);
-                Dust dust = Dust.NewDustPerfect(pos, DustID,
+                Dust dust = Dust.NewDustPerfect(pos, dustID,
                     new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle)) * radius, 255, default(Color),
                     scale);
                 dust.noGravity = true;
@@ -1078,47 +1078,47 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		private void DecoDust(float inter)
 		{
-			GCounter++;
+			_gCounter++;
 
-			if (Deg <= 360)
+			if (_deg <= 360)
 			{
-				Deg++;
+				_deg++;
 
 				//To find the circumference you use formula: x = cX + r * cos(angle), where the x is the coordinate, cX is the center of the circle by X and r is radius.
 
-				float CPosX = npc.Center.X + GalaxyDistance * (float)Math.Cos(Deg);
-				float CPosY = npc.Center.Y + 16f + GalaxyDistance * (float)Math.Sin(Deg);
+				float cPosX = npc.Center.X + _galaxyDistance * (float)Math.Cos(_deg);
+				float cPosY = npc.Center.Y + 16f + _galaxyDistance * (float)Math.Sin(_deg);
 
-				GalaxyDistance -= inter;//decrease the Radius depending on the amount of ticks the function is called;
+				_galaxyDistance -= inter;//decrease the Radius depending on the amount of ticks the function is called;
 
 				for (int i = 0; i < 2; i++)
 				{
-					Dust dust = Main.dust[Dust.NewDust(new Vector2(CPosX, CPosY), 1, 1, 226)];
+					Dust dust = Main.dust[Dust.NewDust(new Vector2(cPosX, cPosY), 1, 1, 226)];
 					dust.noGravity = true;
 				}
 			}
 
-			if (Deg2 <= 360 && GCounter > 20)
+			if (_deg2 <= 360 && _gCounter > 20)
 			{
-				Deg2++;
+				_deg2++;
 
-				float CPosX = npc.Center.X + GalaxyDistance2 * (float)Math.Cos(Deg);
-				float CPosY = npc.Center.Y + 16f + GalaxyDistance2 * (float)Math.Sin(Deg);
+				float cPosX = npc.Center.X + _galaxyDistance2 * (float)Math.Cos(_deg);
+				float cPosY = npc.Center.Y + 16f + _galaxyDistance2 * (float)Math.Sin(_deg);
 
-				GalaxyDistance2 -= inter;//decrease the Radius depending on the amount of ticks the function is called;
+				_galaxyDistance2 -= inter;//decrease the Radius depending on the amount of ticks the function is called;
 
 				for (int i = 0; i < 2; i++)
 				{
-					Dust dust = Main.dust[Dust.NewDust(new Vector2(CPosX, CPosY), 1, 1, 226)];
+					Dust dust = Main.dust[Dust.NewDust(new Vector2(cPosX, cPosY), 1, 1, 226)];
 					dust.noGravity = true;
 				}
 			}
 
-			if (Deg == 360)
-				Deg = 0;
-			if (Deg2 == 360)
+			if (_deg == 360)
+				_deg = 0;
+			if (_deg2 == 360)
 			{
-				Deg2 = 0;
+				_deg2 = 0;
 			}
 		}
 
@@ -1133,12 +1133,12 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
         private Vector2 HyperPosition { get; set; }
 
-        private const float ShieldDistance = (float)8.5 * 16f;
-		private float GalaxyDistance;
-		private float GalaxyDistance2;
-        private int Deg = 0;
-		private int Deg2 = 0;
-		private int GCounter = 0;
+        private const float SHIELD_DISTANCE = (float)8.5 * 16f;
+		private float _galaxyDistance;
+		private float _galaxyDistance2;
+        private int _deg = 0;
+		private int _deg2 = 0;
+		private int _gCounter = 0;
 
 		public float HyperSlamSpeed { get; private set; }
         public int SelectHoverMP { get; private set; }

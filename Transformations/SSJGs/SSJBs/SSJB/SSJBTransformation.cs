@@ -8,7 +8,7 @@ namespace DBT.Transformations.SSJGs.SSJBs.SSJB
     {
         public SSJBTransformation(params TransformationDefinition[] parents) : base(
             "SSJB", "Super Saiyan Blue", typeof(SSJBTransformationBuff),
-            4.5f, 2.25f, 32,
+            4.5f, 2.75f, 32,
             new TransformationDrain(5f, 2.5f), 
             new SSJBAppearance(),
             new TransformationOverload(0, 0), 

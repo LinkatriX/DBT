@@ -65,7 +65,7 @@ namespace DBT.Auras
 
             // TODO Add code for flight aura animation.
 
-            if (dbtPlayer.isFlying && !playerMostlyStationary && !dbtPlayer.isPlayerUsingKiWeapon)
+            if (dbtPlayer.IsFlying && !playerMostlyStationary && !dbtPlayer.isPlayerUsingKiWeapon)
             {
                 // ever so slightly shift the aura down a tad.
                 var forwardOffset = (int)Math.Floor(dbtPlayer.player.height * 0.75f);

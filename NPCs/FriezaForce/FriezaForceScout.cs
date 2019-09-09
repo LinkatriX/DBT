@@ -94,13 +94,13 @@ namespace DBT.NPCs.FriezaForce
             }
         }
 
-        int frame = 0;
+        int _frame = 0;
 
         public override void FindFrame(int frameHeight)
         {
             if(!Alerted)
             {
-                frame = 0;
+                _frame = 0;
                 npc.spriteDirection = npc.direction * -1;
             }
             else
@@ -108,17 +108,17 @@ namespace DBT.NPCs.FriezaForce
                 npc.frameCounter += 1;
                 if (npc.frameCounter > 4)
                 {
-                    frame++;
+                    _frame++;
                     npc.frameCounter = 0;
                 }
-                if (frame > 3)
+                if (_frame > 3)
                 {
-                    frame = 1;
+                    _frame = 1;
                 }
                 npc.spriteDirection = npc.direction;
             }
             
-            npc.frame.Y = frameHeight * frame;
+            npc.frame.Y = frameHeight * _frame;
         }
 
         public int YHoverTimer { get; private set; }

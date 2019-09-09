@@ -197,12 +197,19 @@ namespace DBT.Transformations
                     builder.AppendFormat("{0} Ki/Second\n", unmasteredKiDrain);
                 else
                 {
-                    if (unmasteredKiDrain != 0)
+                    if (unmasteredKiDrain != 0 && masteredKiDrain != 0)
                     {
                         builder.AppendFormat("{0}{1} Ki/Second {2}", unmasteredKiDrain > 0 ? '-' : '+', unmasteredKiDrain, "While Unmastered");
 
                         if (masteredKiDrain != 0)
                             builder.Append(", ");
+                    }
+                    else
+                    {
+                        if (unmasteredKiDrain != 0 && masteredKiDrain <= 0)
+                        {
+                            builder.AppendFormat("{0}{1} Ki/Second {2}", unmasteredKiDrain > 0 ? '-' : '+', unmasteredKiDrain, "");
+                        }
                     }
 
                     if (masteredKiDrain > 0)

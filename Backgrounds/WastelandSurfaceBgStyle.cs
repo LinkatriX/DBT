@@ -39,16 +39,16 @@ namespace DBT.Backgrounds
 			return mod.GetBackgroundSlot("Backgrounds/WastelandSurfaceFar");
 		}
 
-        static int SurfaceFrameCounter = 0;
-        static int SurfaceFrame = 0;
+        static int _surfaceFrameCounter = 0;
+        static int _surfaceFrame = 0;
         public override int ChooseMiddleTexture()
         {
-            if (++SurfaceFrameCounter > 12)
+            if (++_surfaceFrameCounter > 12)
             {
-                SurfaceFrame = (SurfaceFrame + 1) % 4;
-                SurfaceFrameCounter = 0;
+                _surfaceFrame = (_surfaceFrame + 1) % 4;
+                _surfaceFrameCounter = 0;
             }
-            switch (SurfaceFrame)
+            switch (_surfaceFrame)
             {
                 case 0:
                     return mod.GetBackgroundSlot("Backgrounds/WastelandSurfaceMid0");
