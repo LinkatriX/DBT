@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using DBT.Commons;
-using DBT.Extensions;
-using DBT.Network;
 using Terraria;
-using Terraria.ID;
 
 namespace DBT.Players
 {
@@ -59,8 +54,12 @@ namespace DBT.Players
             {
                 if (GainLimits(Gain))
                 {
-                    int text = CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), "+" + (int)Gain + "Max Ki", true, false);
-                    Main.combatText[text].scale = 0.5f;
+                    if (!Main.dedServ)
+                    {
+                        int text = CombatText.NewText(new Rectangle((int) player.position.X, (int) player.position.Y, player.width, player.height), new Color(51, 204, 255), "+" + (int) Gain + "Max Ki", true, false);
+                        Main.combatText[text].scale = 0.5f;
+                    }
+
                     MaxKiModifierPerm += Gain;
                 }
             }

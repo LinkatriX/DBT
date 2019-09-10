@@ -1,22 +1,20 @@
 ﻿using System.IO;
 using DBT.Players;
 using DBT.Transformations;
-using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using WebmilioCommons.Networking.Packets;
 
 namespace DBT.Network.Transformations
 {
-    public sealed class PlayerTransformedPacket : ModPlayerNetworkPacket<DBTPlayer>
+    public class PlayerUntransformedPacket : ModPlayerNetworkPacket<DBTPlayer>
     {
         private TransformationDefinition _transformation;
 
-        public PlayerTransformedPacket()
+        public PlayerUntransformedPacket()
         {
         }
 
-        public PlayerTransformedPacket(TransformationDefinition transformation)
+        public PlayerUntransformedPacket(TransformationDefinition transformation)
         {
             _transformation = transformation;
         }
@@ -24,7 +22,7 @@ namespace DBT.Network.Transformations
 
         public override bool PostReceive(BinaryReader reader, int fromWho)
         {
-            ModPlayer.AcquireAndTransform(_transformation);
+            ModPlayer.Untransform(_transformation);
 
             return base.PostReceive(reader, fromWho);
         }

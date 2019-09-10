@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace DBT.UserInterfaces.HairMenu.StylePreviews
+namespace DBT.UserInterfaces.HairMenu
 {
     public class HairGFX
     {

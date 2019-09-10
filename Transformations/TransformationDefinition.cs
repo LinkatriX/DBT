@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using DBT.Commons;
 using DBT.Dynamicity;
-using DBT.Extensions;
 using DBT.Players;
 using DBT.Races;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
+using WebmilioCommons.Extensions;
+using WebmilioCommons.Managers;
 
 namespace DBT.Transformations
 {

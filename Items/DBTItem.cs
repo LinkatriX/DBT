@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using DBT.Commons.Items;
-using DBT.Extensions;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -73,7 +72,7 @@ namespace DBT.Items
 
             if (patreonLocked != null)
             {
-                if (patreonLocked.IsDonator())
+                if (patreonLocked.Donator)
                 {
                     tooltips.Add(new TooltipLine(mod, TOOLTIP_PATREON_LINE_NAME, "You donated for this item!")
                     {

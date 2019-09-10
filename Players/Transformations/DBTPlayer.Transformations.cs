@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DBT.Network;
-using DBT.Skills;
+using DBT.Network.Transformations;
 using DBT.Transformations;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -51,8 +51,8 @@ namespace DBT.Players
             ActiveTransformations.Add(definition);
             player.AddBuff(mod.GetBuff(definition.BuffType.Name).Type, definition.Duration);
 
-            if (Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
-                NetworkPacketManager.Instance.PlayerTransformedPacket.SendPacketToServer(player.whoAmI, (byte)player.whoAmI, definition.UnlocalizedName);
+            if (player.whoAmI == Main.myPlayer)
+                new PlayerTransformedPacket(definition).Send();
         }
 
         public void TryTransforming(List<TransformationDefinition> transformations)
@@ -81,6 +81,10 @@ namespace DBT.Players
                 if (transformation == definition)
                 {
                     ActiveTransformations.Remove(transformation);
+
+                    if (player.whoAmI == Main.myPlayer)
+                        new PlayerUntransformedPacket(transformation).Send();
+
                     player.ClearBuff(mod.GetBuff(definition.BuffType.Name).Type);
                 }
             }

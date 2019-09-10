@@ -1,5 +1,5 @@
-﻿using DBT.Commons;
-using DBT.Players;
+﻿using DBT.Players;
+using WebmilioCommons.Managers;
 
 namespace DBT.Traits
 {

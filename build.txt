@@ -4,3 +4,4 @@ displayName = Dragon Ball Terraria
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, .git\*, *.db
 weakReferences = CalamityMod@1.4.2.103
 includePDB = true
+modReferences = WebmilioCommons@0.1.3.2

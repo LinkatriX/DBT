@@ -1,16 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using Microsoft.Xna.Framework;
 
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ObjectData;
-using Terraria.ID;
 using Terraria.Localization;
-using Terraria.Utilities;
-using Terraria.Map;
-using Terraria.ModLoader;
 using Terraria.World.Generation;
 
 namespace DBT

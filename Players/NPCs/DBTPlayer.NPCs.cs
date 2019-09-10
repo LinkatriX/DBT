@@ -4,7 +4,6 @@ using DBT.NPCs.Bosses.FriezaShip;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader.IO;
 
 namespace DBT.Players
 {

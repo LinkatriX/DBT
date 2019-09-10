@@ -1,10 +1,10 @@
-﻿using DBT.Managers;
+﻿using WebmilioCommons.Managers;
 
 namespace DBT.Races
 {
     public sealed class RaceDefinitionManager : SingletonManager<RaceDefinitionManager, RaceDefinition>
     {
-        internal override void DefaultInitialize()
+        public override void DefaultInitialize()
         {
             Terrarian = Add(new TerrarianRace()) as TerrarianRace;
             Saiyan = Add(new SaiyanRace()) as SaiyanRace;

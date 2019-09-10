@@ -1,6 +1,6 @@
-﻿using DBT.Extensions;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Players
 {
