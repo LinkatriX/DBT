@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DBT.Dynamicity;
-using DBT.Extensions;
 using DBT.Players;
 using DBT.Transformations;
 using DBT.UserInterfaces.Buttons;
@@ -13,6 +12,7 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
+using WebmilioCommons.Extensions;
 
 namespace DBT.UserInterfaces.CharacterMenus
 {

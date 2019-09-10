@@ -1,13 +1,11 @@
 ﻿using DBT.Dynamicity;
-using DBT.Managers;
+using WebmilioCommons.Managers;
 
 namespace DBT.Items.KiStones
 {
-    public sealed class KiStoneDefinitionManager : Manager<KiStoneDefinition>
+    public sealed class KiStoneDefinitionManager : SingletonManager<KiStoneDefinitionManager, KiStoneDefinition>
     {
-        private static KiStoneDefinitionManager _instance;
-
-        internal override void DefaultInitialize()
+        public override void DefaultInitialize()
         {
             KiStoneT1 = Add(new KiStoneDefinition(250, typeof(KiStoneT1)));
             KiStoneT2 = Add(new KiStoneDefinition(1000, typeof(KiStoneT2), KiStoneT1));
@@ -66,19 +64,5 @@ namespace DBT.Items.KiStones
         public KiStoneDefinition KiStoneT6 { get; private set; }
 
         public Tree<KiStoneDefinition> Tree { get; private set; }
-
-        public static KiStoneDefinitionManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new KiStoneDefinitionManager();
-
-                if (!_instance.Initialized)
-                    _instance.DefaultInitialize();
-
-                return _instance;
-            }
-        }
     }
 }

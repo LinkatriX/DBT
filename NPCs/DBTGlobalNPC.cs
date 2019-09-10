@@ -2,7 +2,6 @@ using DBT.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using System.Linq;
 
 namespace DBT.NPCs
 {

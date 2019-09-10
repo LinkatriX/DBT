@@ -1,12 +1,3 @@
-using System;
-using System.IO;
-
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-
-using Terraria;
-using Terraria.ModLoader;
-
 namespace DBT
 {
 	public class BaseShaderCompiler

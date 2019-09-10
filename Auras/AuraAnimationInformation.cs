@@ -1,9 +1,9 @@
 ﻿using System;
-using DBT.Extensions;
 using DBT.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Auras
 {
@@ -110,7 +110,7 @@ namespace DBT.Auras
 
         public virtual Texture2D GetTexture(DBTPlayer dbtPlayer) => dbtPlayer.mod.GetTexture(TexturePath);
 
-        protected static string GetAuraTextureFromType(Type type) => type.GetTexturePathFromType() + "Aura";
+        protected static string GetAuraTextureFromType(Type type) => type.GetTexturePath() + "Aura";
 
         #endregion
 

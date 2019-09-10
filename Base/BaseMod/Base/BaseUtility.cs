@@ -4,12 +4,9 @@ using System.Reflection;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 using log4net;
 
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.Utilities;
 using Terraria.ModLoader;

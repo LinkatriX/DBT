@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using DBT.Commons.Players;
 using DBT.Effects;
-using DBT.Extensions;
 using DBT.HairStyles;
 using DBT.Transformations;
 using DBT.Wasteland;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using DBT.Transformations.LSSJs.Wrathful;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Players
 {

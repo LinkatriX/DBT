@@ -3,11 +3,7 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.UI;
-using DBT.Extensions;
-using DBT.Transformations;
 using Microsoft.Xna.Framework.Graphics;
-using DBT.UserInterfaces.Buttons;
-using DBT.UserInterfaces.HairMenu.StylePreviews;
 using DBT.Players;
 using DBT.HairStyles;
 using DBT.Helpers;
@@ -74,9 +70,12 @@ namespace DBT.UserInterfaces.HairMenu
                 panelTexture = HairGFX.hairBackPanelL;
             else
                 panelTexture = HairGFX.hairBackPanel;
+
             int currentSelection = (int)hairSelection;
+
             totalText = currentSelection + "/" + 8;
             CanDrag = false;
+
             #region Cancer
             if (hairSelection == HairSelection.Goku)
             {
@@ -159,6 +158,7 @@ namespace DBT.UserInterfaces.HairMenu
                 nextHairTexture = HairGFX.style1M;
             }
             #endregion
+
             base.Update(gameTime);
         }
 

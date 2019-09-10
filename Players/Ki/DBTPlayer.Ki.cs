@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using DBT.Commons;
-using DBT.Extensions;
 using DBT.Network;
 using Terraria;
 using Terraria.ID;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Players
 {
@@ -139,7 +139,7 @@ namespace DBT.Players
 
         public bool IsCharging
         {
-            get { return _isCharging; }
+            get => _isCharging;
             set
             {
                 if (_isCharging == value)
@@ -147,8 +147,8 @@ namespace DBT.Players
 
                 _isCharging = value;
 
-                if (Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
-                    NetworkPacketManager.Instance.PlayerChargingPacket.SendPacketToServer(Main.myPlayer, (byte)Main.myPlayer, value);
+                if (player.whoAmI == Main.myPlayer)
+                    new PlayerChargingPacket().Send();
             }
         }
 
