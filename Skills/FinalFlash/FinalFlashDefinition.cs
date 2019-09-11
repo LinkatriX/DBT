@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.FinalFlash
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.FinalFlash
 {
     public sealed class FinalFlashDefinition : SkillDefinition
     {
-        public FinalFlashDefinition(params SkillDefinition[] parents) : base("FinalFlash", "Final Flash", "A full powered beam attack.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(FinalFlashItem), new FinalFlashCharacteristics(), parents: parents)
+        public FinalFlashDefinition(params SkillDefinition[] parents) : base("FinalFlash", "Final Flash", "A full powered beam attack.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(FinalFlashItem), new FinalFlashCharacteristics(), new Vector2(586, 122), parents: parents)
         {
         }
     }

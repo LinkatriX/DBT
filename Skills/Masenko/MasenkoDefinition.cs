@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.Masenko
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.Masenko
 {
     public sealed class MasenkoDefinition : SkillDefinition
     {
-        public MasenkoDefinition(params SkillDefinition[] parents) : base("Masenko", "Masenko", "A technique created by the son of the demon king Piccolo.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(MasenkoItem), new MasenkoCharacteristics(), parents: parents)
+        public MasenkoDefinition(params SkillDefinition[] parents) : base("Masenko", "Masenko", "A technique created by the son of the demon king Piccolo.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(MasenkoItem), new MasenkoCharacteristics(), new Vector2(458, 242), parents: parents)
         {
         }
     }

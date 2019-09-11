@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.EnergyShot
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.EnergyShot
 {
     public sealed class EnergyShotDefinition : SkillDefinition
     {
-        public EnergyShotDefinition(params SkillDefinition[] parents) : base("EnergyShot", "Energy Shot", "An enhanced version of a regular ki blast", typeof(EnergyShotItem), new EnergyShotCharacteristics(), parents: parents)
+        public EnergyShotDefinition(params SkillDefinition[] parents) : base("EnergyShot", "Energy Shot", "An enhanced version of a regular ki blast", typeof(EnergyShotItem), new EnergyShotCharacteristics(), new Vector2(286, 162), parents: parents)
         {
         }
     }

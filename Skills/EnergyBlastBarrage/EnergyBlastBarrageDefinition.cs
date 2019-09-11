@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.EnergyBlastBarrage
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.EnergyBlastBarrage
 {
     public sealed class EnergyBlastBarrageDefinition : SkillDefinition
     {
-        public EnergyBlastBarrageDefinition(params SkillDefinition[] parents) : base("EnergyBlastBarrage", "Energy Blast Barrage", "Fires off continuous ki blasts. Charge to increase the length of the barrage.", typeof(EnergyBlastBarrageItem), new EnergyBlastBarrageCharacteristics(), parents: parents)
+        public EnergyBlastBarrageDefinition(params SkillDefinition[] parents) : base("EnergyBlastBarrage", "Energy Blast Barrage", "Fires off continuous ki blasts. Charge to increase the length of the barrage.", typeof(EnergyBlastBarrageItem), new EnergyBlastBarrageCharacteristics(), new Vector2(366, 142), parents: parents)
         {
         }
     }
