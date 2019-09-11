@@ -1,12 +1,10 @@
-﻿using DBT.Managers;
+﻿using WebmilioCommons.Managers;
 
 namespace DBT.Traits
 {
-    public sealed class TraitManager : Manager<TraitDefinition>
+    public sealed class TraitManager : SingletonManager<TraitManager, TraitDefinition>
     {
-        private static TraitManager _instance;
-
-        internal override void DefaultInitialize()
+        public override void DefaultInitialize()
         {
 
 
@@ -18,19 +16,5 @@ namespace DBT.Traits
         public TraitDefinition Peaceful { get; private set; }
 
         public TraitDefinition Legendary { get; private set; }
-
-        public static TraitManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new TraitManager();
-
-                if (!_instance.Initialized)
-                    _instance.DefaultInitialize();
-
-                return _instance;
-            }
-        }
     }
 }

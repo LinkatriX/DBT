@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.KiBeam
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.KiBeam
 {
     public sealed class KiBeamDefinition : SkillDefinition
     {
-        public KiBeamDefinition(params SkillDefinition[] parents) : base("KiBeam", "Ki Beam", "A quick firing beam of Ki that pierces enemies.", typeof(KiBeamItem), new KiBeamCharacteristics(), parents: parents)
+        public KiBeamDefinition(params SkillDefinition[] parents) : base("KiBeam", "Ki Beam", "A quick firing beam of Ki that pierces enemies.", typeof(KiBeamItem), new KiBeamCharacteristics(), new Vector2(306, 252), parents: parents)
         {
         }
 

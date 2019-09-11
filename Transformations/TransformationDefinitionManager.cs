@@ -1,5 +1,4 @@
 ﻿using DBT.Dynamicity;
-using DBT.Managers;
 using DBT.Transformations.Developers.Webmilio;
 using DBT.Transformations.LSSJs.Wrathful;
 using DBT.Transformations.LSSJs.SSJCType;
@@ -18,12 +17,13 @@ using DBT.Transformations.SSJs.SSJ4s.SSJ4;
 using DBT.Transformations.SSJs.SSJ4s.SSJ4FP;
 using DBT.Transformations.Mystics.Mystic;
 using DBT.Transformations.Mystics.AwakenedMystic;
+using WebmilioCommons.Managers;
 
 namespace DBT.Transformations
 {
     public sealed class TransformationDefinitionManager : SingletonManager<TransformationDefinitionManager, TransformationDefinition> 
     {
-        internal override void DefaultInitialize()
+        public override void DefaultInitialize()
         {
             SSJ1 = Add(new SSJ1Transformation()) as SSJ1Transformation;
             ASSJ1 = Add(new ASSJ1Transformation(SSJ1)) as ASSJ1Transformation;

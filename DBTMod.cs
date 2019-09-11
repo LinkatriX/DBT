@@ -16,7 +16,6 @@ using DBT.UserInterfaces.OverloadBar;
 using DBT.UserInterfaces;
 using DBT.Effects;
 using Microsoft.Xna.Framework.Graphics;
-using DBT.UserInterfaces.HairMenu.StylePreviews;
 using DBT.UserInterfaces.WishMenu;
 using DBT.UserInterfaces.HairMenu;
 using DBT.Items.Tiles.MusicBoxes;
@@ -24,6 +23,7 @@ using DBT.Tiles.MusicBoxes;
 using DBT.UserInterfaces.TechniqueMenu;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using WebmilioCommons.Networking;
 
 namespace DBT
 {
@@ -122,8 +122,6 @@ namespace DBT
                 hairMenu.Activate();
                 hairMenuInterface = new UserInterface();
                 hairMenuInterface.SetState(hairMenu);
-
-                Instance = this;
 
                 Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect"));
 
@@ -238,56 +236,13 @@ namespace DBT
             }
         }
 
-        public override void HandlePacket(BinaryReader bb, int whoAmI)
+        public override void HandlePacket(BinaryReader binaryReader, int whoAmI)
         {
-            NetworkPacketManager.Instance.HandlePacket(bb, whoAmI);
-            MsgType msg = (MsgType)bb.ReadByte();
-            if (msg == MsgType.ProjectileHostility) //projectile hostility and ownership
-            {
-                int owner = bb.ReadInt32();
-                int projID = bb.ReadInt32();
-                bool friendly = bb.ReadBoolean();
-                bool hostile = bb.ReadBoolean();
-                if (Main.projectile[projID] != null)
-                {
-                    Main.projectile[projID].owner = owner;
-                    Main.projectile[projID].friendly = friendly;
-                    Main.projectile[projID].hostile = hostile;
-                }
-                if (Main.netMode == 2) MNet.SendBaseNetMessage(0, owner, projID, friendly, hostile);
-            }
-            else
-            if (msg == MsgType.SyncAI) //sync AI array
-            {
-                int classID = bb.ReadByte();
-                int id = bb.ReadInt16();
-                int aitype = bb.ReadByte();
-                int arrayLength = bb.ReadByte();
-                float[] newAI = new float[arrayLength];
-                for (int m = 0; m < arrayLength; m++)
-                {
-                    newAI[m] = bb.ReadSingle();
-                }
-                if (classID == 0 && Main.npc[id] != null && Main.npc[id].active && Main.npc[id].modNPC != null && Main.npc[id].modNPC is ParentNPC)
-                {
-                    ((ParentNPC)Main.npc[id].modNPC).SetAI(newAI, aitype);
-                }
-                else
-                if (classID == 1 && Main.projectile[id] != null && Main.projectile[id].active && Main.projectile[id].modProjectile != null && Main.projectile[id].modProjectile is ParentProjectile)
-                {
-                    ((ParentProjectile)Main.projectile[id].modProjectile).SetAI(newAI, aitype);
-                }
-                if (Main.netMode == 2) BaseNet.SyncAI(classID, id, newAI, aitype);
-            }
+            NetworkPacketLoader.HandlePacket(binaryReader, whoAmI);
         }
     
         public static uint GetTicks() => Main.GameUpdateCount;
         public static bool IsTickRateElapsed(int rateModulo) => GetTicks() > 0 && GetTicks() % rateModulo == 0;
         public static DBTMod Instance { get; set; }
     }
-}
-enum MsgType : byte
-{
-    ProjectileHostility,
-    SyncAI
 }

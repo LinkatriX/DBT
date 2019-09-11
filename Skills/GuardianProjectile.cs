@@ -1,5 +1,4 @@
-﻿using DBT.Projectiles;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace DBT.Skills
 {

@@ -1,9 +1,4 @@
-﻿using DBT.Players;
-using DBT.Transformations;
-using Microsoft.Xna.Framework;
-using Terraria;
-
-namespace DBT.HairStyles.Broly
+﻿namespace DBT.HairStyles.Broly
 {
     public sealed class BrolyHairStyle : HairStyle
     {

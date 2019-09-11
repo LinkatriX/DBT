@@ -1,7 +1,4 @@
-﻿using DBT.Players;
-using Terraria;
-
-namespace DBT.Transformations
+﻿namespace DBT.Transformations
 {
     public struct TransformationOverload
     {

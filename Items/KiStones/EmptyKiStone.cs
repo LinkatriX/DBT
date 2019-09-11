@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using DBT.Buffs;
+﻿using DBT.Buffs;
 using DBT.Players;
 using Terraria;
 using Terraria.ID;

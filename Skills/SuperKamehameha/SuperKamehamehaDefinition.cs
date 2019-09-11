@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.SuperKamehameha
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.SuperKamehameha
 {
     public sealed class SuperKamehamehaDefinition : SkillDefinition
     {
-        public SuperKamehamehaDefinition(params SkillDefinition[] parents) : base("SuperKamehameha", "Super Kamehameha", "A superior version of the Kamehameha wave.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(SuperKamehamehaItem), new SuperkamehamehaCharacteristics(), parents: parents)
+        public SuperKamehamehaDefinition(params SkillDefinition[] parents) : base("SuperKamehameha", "Super Kamehameha", "A superior version of the Kamehameha wave.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(SuperKamehamehaItem), new SuperkamehamehaCharacteristics(), new Vector2(586, 272), parents: parents)
         {
         }
     }

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using DBT.Buffs;
-using DBT.Commons.Items.SenzuBeans;
-using DBT.Extensions;
-using DBT.Players;
+﻿using DBT.Players;
 using Terraria;
 using Terraria.ID;
 

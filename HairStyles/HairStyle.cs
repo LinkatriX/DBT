@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using DBT.Commons;
 using DBT.Players;
 using DBT.Transformations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using WebmilioCommons.Managers;
 
 namespace DBT.HairStyles
 {

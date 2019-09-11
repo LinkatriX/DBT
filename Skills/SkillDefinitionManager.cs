@@ -1,5 +1,4 @@
-﻿using DBT.Managers;
-using DBT.Skills.EnergyWave;
+﻿using DBT.Skills.EnergyWave;
 using DBT.Skills.KiBlast;
 using DBT.Skills.KiBeam;
 using DBT.Skills.DestructoDisk;
@@ -32,12 +31,13 @@ using DBT.Skills.HolyWrath;
 using DBT.Skills.MajinExtinctionAttack;
 using DBT.Skills.SuperSpiritBomb;
 using DBT.Dynamicity;
+using WebmilioCommons.Managers;
 
 namespace DBT.Skills
 {
     public sealed class SkillDefinitionManager : SingletonManager<SkillDefinitionManager, SkillDefinition>
     {
-        internal override void DefaultInitialize()
+        public override void DefaultInitialize()
         {
             #region Tier 1 Skills
             KiBlast = Add(new KiBlastDefinition()) as KiBlastDefinition;

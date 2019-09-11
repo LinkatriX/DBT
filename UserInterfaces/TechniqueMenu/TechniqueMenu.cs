@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DBT.Dynamicity;
-using DBT.Extensions;
-using DBT.Items;
 using DBT.Players;
 using DBT.Skills;
 using DBT.Transformations;
-using DBT.UserInterfaces.Buttons;
-using DBT.UserInterfaces.Tabs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -28,7 +23,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
         private const string
             TECHNIQUE_MENU_PATH = "UserInterfaces/TechniqueMenu",
-            UNKNOWN_TEXTURE = TECHNIQUE_MENU_PATH + "/UnknownImage", UNKNOWN_GRAY_TEXTURE = TECHNIQUE_MENU_PATH + "/UnknownImageGray", LOCKED_TEXTURE = TECHNIQUE_MENU_PATH + "/LockedImage";
+            LOCKED_TEXTURE = TECHNIQUE_MENU_PATH + "/LockedImage";
 
         private int _panelsYOffset = 0;
 
@@ -40,8 +35,6 @@ namespace DBT.UserInterfaces.TechniqueMenu
             BackPanelTexture = authorMod.GetTexture(TECHNIQUE_MENU_PATH + "/BackPanel");
             InfoPanelTexture = authorMod.GetTexture(TECHNIQUE_MENU_PATH + "/InfoPanel");
 
-            UnknownImageTexture = authorMod.GetTexture(UNKNOWN_TEXTURE);
-            UnknownGrayImageTexture = authorMod.GetTexture(UNKNOWN_GRAY_TEXTURE);
             LockedImageTexture = authorMod.GetTexture(LOCKED_TEXTURE);
         }
 
@@ -96,7 +89,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
                 lastXOffset += PADDING_X * 2;// Prior code: (_tabs.Count + 1); changed due to the spacing growing exponentially with each tab.
 
-                int yOffset = 0;
+                int yOffset = (int)rootNode.Value.MenuPosition.Y;
 
                 RecursiveInitializeSkill(BackPanel, rootNode, ref yOffset);
 
@@ -120,9 +113,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
                     kvp.Value.button.SetVisibility(0f, 0f);
                 }
 
-                kvp.Value.unknownImage.ImageScale = visible && unlockable ? 0f : 1f;
-                kvp.Value.unknownImageGray.ImageScale = visible && unlockable && dbtPlayer.HasAcquiredSkill(kvp.Key) ? 0f : 1f;
-                kvp.Value.lockedImage.ImageScale = visible && unlockable ? 0f : 1f;
+                kvp.Value.lockedImage.ImageScale = visible && dbtPlayer.HasAcquiredSkill(kvp.Key) ? 0f : 1f;
 
                 //Main.NewText(kvp.Key.ToString() + "'s unknown image is at" + kvp.Value.unknownImage.ImageScale);
                 //Main.NewText(kvp.Key.ToString() + "'s unknown image gray is at" + kvp.Value.unknownImageGray.ImageScale);
@@ -133,30 +124,17 @@ namespace DBT.UserInterfaces.TechniqueMenu
         private void DrawSkill(UIPanel panel, SkillDefinition skill, Texture2D icon, int left, int top)
         {
             UIImageButton skillButton = null;
-            UIImage
-                unknownImage = null,
-                unknownGrayImage = null,
-                lockedImage = null;
+            UIImage lockedImage = null;
 
             skillButton = InitializeButton(icon, new MouseEvent((evt, element) => TrySelectingSkill(skill, evt, element)), left, top, panel);
 
-            unknownImage = InitializeImage(UnknownImageTexture, 0, 0, skillButton);
-            unknownImage.ImageScale = 0f;
-            unknownImage.Width.Set(1, 0f);
-            unknownImage.Height.Set(1, 0f);
-
-            unknownGrayImage = InitializeImage(UnknownGrayImageTexture, 0, 0, unknownImage);
-            unknownGrayImage.ImageScale = 0f;
-            unknownGrayImage.Width.Set(1, 0f);
-            unknownGrayImage.Height.Set(1, 0f);
-
-            lockedImage = InitializeImage(LockedImageTexture, 0, 0, unknownGrayImage);
+            lockedImage = InitializeImage(LockedImageTexture, 0, 0, skillButton);
             lockedImage.ImageScale = 0f;
             lockedImage.Width.Set(1, 0f);
             lockedImage.Height.Set(1, 0f);
 
             if (!_skillImagePairs.ContainsKey(skill))
-                _skillImagePairs.Add(skill, new UIImagePair(new Point(left, top), skillButton, unknownImage, unknownGrayImage, lockedImage));
+                _skillImagePairs.Add(skill, new UIImagePair(new Point(left, top), skillButton, null, null, lockedImage));
         }
 
         private void RecursiveInitializeSkill(UIPanel panel, Node<SkillDefinition> node, ref int yOffset)
@@ -165,15 +143,8 @@ namespace DBT.UserInterfaces.TechniqueMenu
             Texture2D texture = skill.SkillIcon;
 
             if (!CheckIfDraw(skill)) return;
-            int xOffset = PADDING_X;
-
-            if (node.Parents.Count > 0 && _skillImagePairs.ContainsKey(node.Parents[0].Value))
-            {
-                Node<SkillDefinition> previousNode = node.Parents[0];
-                UIImagePair previousPair = _skillImagePairs[previousNode.Value];
-
-                xOffset = _skillImagePairs[previousNode.Value].position.X + (int)previousPair.button.Width.Pixels + SMALL_SPACE * 2;
-            }
+            int xOffset = (int)skill.MenuPosition.X;
+            yOffset = (int)skill.MenuPosition.Y;
 
             DrawSkill(panel, skill, texture, xOffset, yOffset);
 
@@ -216,47 +187,38 @@ namespace DBT.UserInterfaces.TechniqueMenu
         private void DrawInfoPanel(SkillDefinition def)
         {
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
+            InfoPanel = null;
+            skillName = null;
+            skillStats = null;
+            skillUnlock = null;
 
-            if (!InfoPanelOpened)
-            {
-                InfoPanelOpened = true;
-                InfoPanel = InitializeImage(InfoPanelTexture, -12, 294, BackPanel);
-                InfoPanel.Width.Set(InfoPanelTexture.Width, 0f);
-                InfoPanel.Height.Set(InfoPanelTexture.Height, 0f);
+            InfoPanel = new UIPanel();
 
-                skillName = InitializeText(def.DisplayName, 12, 8, 0.8f, Color.White, InfoPanel);
-                skillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + "x \nAttack Speed: " + def.Characteristics.BaseShootSpeed + " \nKi Drain:" + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain * 60 + "/s", 12, 28, 0.6f, Color.White, InfoPanel);
-                skillUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
-            }
-            else
-            {
-                InfoPanel = null;
-                skillName = null;
-                skillStats = null;
-                skillUnlock = null;
+            InfoPanel.Width.Set(InfoPanelTexture.Width, 0f);
+            InfoPanel.Height.Set(InfoPanelTexture.Height, 0f);
 
-                InfoPanelOpened = false;
-                DrawInfoPanel(def);
-            }
+            InfoPanel.Left.Set(-12, 0f);
+            InfoPanel.Top.Set(460, 0f);
+
+            InfoPanel.BackgroundColor = Color.Transparent;
+            InfoPanel.BorderColor = Color.Transparent;
+
+            BackPanel.Append(InfoPanel);
+
+            skillName = InitializeText(def.DisplayName, 12, 8, 0.8f, Color.White, InfoPanel);
+            skillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + "x \nAttack Speed: " + def.Characteristics.BaseShootSpeed + " \nKi Drain:" + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain * 60 + "/s", 12, 28, 0.6f, Color.White, InfoPanel);
+            skillUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
         }
 
         public Mod AuthorMod { get; }
         public bool Visible { get; set; } = true;
-
-        public Texture2D UnknownImageTexture { get; }
-        public Texture2D UnknownGrayImageTexture { get; }
         public Texture2D LockedImageTexture { get; }
-
         public Texture2D InfoPanelTexture { get; }
-        public bool InfoPanelOpened { get; internal set; }
-
-        public UIImage InfoPanel { get; set; } = null;
+        public UIPanel InfoPanel { get; set; } = null;
 
         public UIText
             skillName = null,
             skillStats = null,
             skillUnlock = null;
-
-        public static TransformationDefinition LastActiveTransformationTab { get; internal set; }
     }
 }

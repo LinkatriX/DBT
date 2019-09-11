@@ -1,11 +1,9 @@
 using DBT.NPCs.Town.Roshi;
 using DBT.Players;
-using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace DBT.NPCs.Town.Namekian
 {
@@ -53,14 +51,20 @@ namespace DBT.NPCs.Town.Namekian
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
 		{
-            NPCSpawnInfo spawnInfo = new NPCSpawnInfo();
-            RoshiQuests modPlayer = spawnInfo.player.GetModPlayer<RoshiQuests>();
-
-            if (modPlayer.QuestsCompleted >= 3)
+            for (int i = 0; i < Main.player.Length; i++)
             {
-                return true;
+                Player player = Main.player[i];
+
+                if (!player.active)
+                    continue;
+
+                RoshiQuests roshiQuests = player.GetModPlayer<RoshiQuests>();
+
+                if (roshiQuests.QuestsCompleted >= 3)
+                    return true;
             }
-			return false;
+
+            return false;
 		}
 
         public override string TownNPCName()

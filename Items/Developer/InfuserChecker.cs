@@ -1,7 +1,7 @@
-﻿using DBT.Extensions;
-using DBT.Items.Accessories.Infusers;
+﻿using DBT.Items.Accessories.Infusers;
 using DBT.Players;
 using Terraria;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Items.Developer
 {

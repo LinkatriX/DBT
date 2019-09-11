@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.KiBlast
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.KiBlast
 {
     public sealed class KiBlastDefinition : SkillDefinition
     {
-        public KiBlastDefinition(params SkillDefinition[] parents) : base("KiBlast", "Ki Blast", "A small Ki blast that damages enemies.", typeof(KiBlastItem), new KiBlastCharacteristics(), parents: parents)
+        public KiBlastDefinition(params SkillDefinition[] parents) : base("KiBlast", "Ki Blast", "A small Ki blast that damages enemies.", typeof(KiBlastItem), new KiBlastCharacteristics(), new Vector2(366, 202), parents: parents) //28 Pixel padding on the X menu offset
         {
         }
     }

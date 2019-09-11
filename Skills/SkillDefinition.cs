@@ -1,16 +1,16 @@
-﻿using DBT.Commons;
-using DBT.Dynamicity;
-using DBT.Extensions;
+﻿using DBT.Dynamicity;
 using DBT.Players;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Terraria.ModLoader;
+using WebmilioCommons.Extensions;
+using WebmilioCommons.Managers;
 
 namespace DBT.Skills
 {
     public class SkillDefinition : IHasUnlocalizedName, IHasParents<SkillDefinition>
     {
-        protected SkillDefinition(string unlocalizedName, string displayName, string description, Type item, SkillCharacteristics characteristics, params SkillDefinition[] parents)
+        protected SkillDefinition(string unlocalizedName, string displayName, string description, Type item, SkillCharacteristics characteristics, Vector2 menuPosition = default, params SkillDefinition[] parents)
         {
             UnlocalizedName = unlocalizedName;
 
@@ -20,7 +20,7 @@ namespace DBT.Skills
             Item = item;
 
             Characteristics = characteristics;
-
+            MenuPosition = menuPosition;
             Parents = parents;
         }
 
@@ -38,7 +38,7 @@ namespace DBT.Skills
         public virtual Texture2D SkillIcon => Item.GetTexture();
 
         public SkillCharacteristics Characteristics { get; }
-
+        public Vector2 MenuPosition { get; }
         public SkillDefinition[] Parents { get; }
     }
 }

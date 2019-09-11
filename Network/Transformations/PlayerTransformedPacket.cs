@@ -4,33 +4,36 @@ using DBT.Transformations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Networking.Packets;
 
 namespace DBT.Network.Transformations
 {
-    public sealed class PlayerTransformedPacket : NetworkPacket
+    public sealed class PlayerTransformedPacket : ModPlayerNetworkPacket<DBTPlayer>
     {
-        public override bool Receive(BinaryReader reader, int fromWho)
+        private TransformationDefinition _transformation;
+
+        public PlayerTransformedPacket()
         {
-            byte whichPlayer = reader.ReadByte();
-            string transformationName = reader.ReadString();
-
-            if (Main.netMode == NetmodeID.Server)
-                SendPacketToAllClients(fromWho, whichPlayer, transformationName);
-
-            DBTPlayer dbtPlayer = Main.player[whichPlayer].GetModPlayer<DBTPlayer>();
-            dbtPlayer.AcquireAndTransform(TransformationDefinitionManager.Instance[transformationName]);
-
-            return true;
         }
 
-        public override void SendPacket(int toWho, int fromWho, params object[] args)
+        public PlayerTransformedPacket(TransformationDefinition transformation)
         {
-            ModPacket packet = MakePacket();
+            _transformation = transformation;
+        }
 
-            packet.Write((byte) args[0]);
-            packet.Write((string) args[1]);
 
-            packet.Send(toWho, fromWho);
+        public override bool PostReceive(BinaryReader reader, int fromWho)
+        {
+            ModPlayer.AcquireAndTransform(_transformation);
+
+            return base.PostReceive(reader, fromWho);
+        }
+
+
+        public string Transformation
+        {
+            get => _transformation.UnlocalizedName;
+            set => _transformation = TransformationDefinitionManager.Instance[value];
         }
     }
 }

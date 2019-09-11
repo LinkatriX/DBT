@@ -1,6 +1,5 @@
 ﻿using DBT.Helpers;
 using DBT.Players;
-using DBT.Traits;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;

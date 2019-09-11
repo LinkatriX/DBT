@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.DoubleSunday
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.DoubleSunday
 {
     public sealed class DoubleSundayDefinition : SkillDefinition
     {
-        public DoubleSundayDefinition(params SkillDefinition[] parents) : base("DoubleSunday", "Double Sunday", "A twin beam attack fired from both hands.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(DoubleSundayItem), new DoubleSundayCharacteristics(), parents: parents)
+        public DoubleSundayDefinition(params SkillDefinition[] parents) : base("DoubleSunday", "Double Sunday", "A twin beam attack fired from both hands.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(DoubleSundayItem), new DoubleSundayCharacteristics(), new Vector2(458, 152), parents: parents)
         {
         }
     }
