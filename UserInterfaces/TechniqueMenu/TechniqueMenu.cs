@@ -165,7 +165,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
             Texture2D texture = skill.SkillIcon;
 
             if (!CheckIfDraw(skill)) return;
-            int xOffset = PADDING_X;
+            int xOffset = (int)skill.MenuPosition.X;
 
             if (node.Parents.Count > 0 && _skillImagePairs.ContainsKey(node.Parents[0].Value))
             {
