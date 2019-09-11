@@ -1,6 +1,5 @@
 ﻿using DBT.Players;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace DBT.Buffs
 {

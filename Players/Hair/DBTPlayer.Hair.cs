@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using DBT.HairStyles;
-using DBT.Transformations;
 using DBT.UserInterfaces.HairMenu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace DBT.Players
@@ -34,7 +34,7 @@ namespace DBT.Players
             else if (FirstTransformation != null && CurrentHair != ChosenHairStyle[FirstTransformation.Definition])
                 CurrentHair = ChosenHairStyle[FirstTransformation.Definition];
 
-            if (!HairChecked)
+            if (!HairChecked && player == Main.LocalPlayer)
                 HairMenu.menuVisible = true;
         }
 

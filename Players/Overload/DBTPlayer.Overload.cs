@@ -2,8 +2,6 @@
 using DBT.Helpers;
 using DBT.Projectiles.Overload;
 using DBT.Transformations;
-using DBT.UserInterfaces.OverloadBar;
-using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace DBT.Players
@@ -62,10 +60,13 @@ namespace DBT.Players
             if (Overload > MaxOverload)
                 Overload = MaxOverload;
 
-            if (Overload > 0)
-                DBTMod.Instance.overloadBar.Visible = true;
-            else
-                DBTMod.Instance.overloadBar.Visible = false;
+            if (DBTMod.Instance.overloadBar != null)
+            {
+                if (Overload > 0)
+                    DBTMod.Instance.overloadBar.Visible = true;
+                else
+                    DBTMod.Instance.overloadBar.Visible = false;
+            }
 
             if (IsOverloading && Overload <= 0)
             {

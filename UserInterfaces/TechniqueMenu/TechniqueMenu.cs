@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DBT.Dynamicity;
-using DBT.Extensions;
-using DBT.Items;
 using DBT.Players;
 using DBT.Skills;
 using DBT.Transformations;
-using DBT.UserInterfaces.Buttons;
-using DBT.UserInterfaces.Tabs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

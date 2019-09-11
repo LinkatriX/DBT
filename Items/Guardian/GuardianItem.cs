@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using DBT.Commons.Items;
+﻿using DBT.Commons.Items;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace DBT.Items.Guardian
 {

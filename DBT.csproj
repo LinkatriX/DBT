@@ -49,6 +49,11 @@
     <Folder Include="Transformations\Terrarians\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="WebmilioCommons">
+      <HintPath>bin\Debug\net472\WebmilioCommons.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DBT.Network;
-using DBT.Transformations;
-using Terraria;
-using Terraria.ID;
+﻿using DBT.Transformations;
 
 namespace DBT.Players
 {

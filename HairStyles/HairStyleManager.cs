@@ -9,13 +9,13 @@ using DBT.HairStyles.Nappa;
 using DBT.HairStyles.NoChoice;
 using DBT.HairStyles.Vegeta;
 using DBT.HairStyles.Webmilio;
-using DBT.Managers;
+using WebmilioCommons.Managers;
 
 namespace DBT.HairStyles
 {
     public sealed class HairStyleManager : SingletonManager<HairStyleManager, HairStyle>
     {
-        internal override void DefaultInitialize()
+        public override void DefaultInitialize()
         {
             NoChoice = Add(new NoChoiceHairStyle()) as NoChoiceHairStyle;
 
@@ -29,6 +29,8 @@ namespace DBT.HairStyles
             FutureGohan = Add(new FutureGohanHairStyle()) as FutureGohanHairStyle;
             Caulifla = Add(new CauliflaHairStyle()) as CauliflaHairStyle;
             Webmilio = Add(new WebmilioHairStyle()) as WebmilioHairStyle;
+
+            base.DefaultInitialize();
         }
 
         public NoChoiceHairStyle NoChoice { get; private set; }

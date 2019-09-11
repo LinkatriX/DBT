@@ -1,10 +1,8 @@
 using DBT.Players;
-using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace DBT.NPCs.Town.Roshi
 {

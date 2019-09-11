@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DBT.Transformations;
-using DBT.UserInterfaces.CharacterMenus;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ModLoader.IO;
 
 namespace DBT.Players

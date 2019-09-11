@@ -1,11 +1,11 @@
-﻿using DBT.Managers;
-using DBT.Skills.EnergyBurst;
+﻿using DBT.Skills.EnergyBurst;
+using WebmilioCommons.Managers;
 
 namespace DBT.Skills
 {
     public sealed class GuardianDefinitionManager : SingletonManager<GuardianDefinitionManager, GuardianDefinition>
     {
-        internal override void DefaultInitialize()
+        public override void DefaultInitialize()
         {
             #region Guardian Skills
 

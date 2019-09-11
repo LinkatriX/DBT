@@ -3,7 +3,6 @@ using DBT.Items.Materials;
 using DBT.Items.Weapons;
 using DBT.NPCs.Bosses.FriezaShip;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace DBT.Items.Bags
 {
