@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.BigBangAttack
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.BigBangAttack
 {
     public sealed class BigBangAttackDefinition : SkillDefinition
     {
-        public BigBangAttackDefinition(params SkillDefinition[] parents) : base("BigBangAttack", "Big Bang Attack", "A blast attack capable of being charged for greater damage.", typeof(BigBangAttackItem) , new BigBangAttackCharacteristics(), parents: parents)
+        public BigBangAttackDefinition(params SkillDefinition[] parents) : base("BigBangAttack", "Big Bang Attack", "A blast attack capable of being charged for greater damage.", typeof(BigBangAttackItem) , new BigBangAttackCharacteristics(), new Vector2(256, 142), parents: parents)
         {
         }
     }

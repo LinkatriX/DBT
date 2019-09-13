@@ -53,13 +53,26 @@ namespace DBT.UserInterfaces.TechniqueMenu
             Append(BackPanel);
 
             BackPanelImage = new UIImage(BackPanelTexture);
-            BackPanelImage.Width.Set(BackPanelTexture.Width, 0f);
-            BackPanelImage.Height.Set(BackPanelTexture.Height, 0f);
+            BackPanelImage.Width.Set(1, 0f);
+            BackPanelImage.Height.Set(1, 0f);
 
             BackPanelImage.Left.Set(-12, 0f);
             BackPanelImage.Top.Set(-12, 0f);
 
             BackPanel.Append(BackPanelImage);
+
+            InfoPanel = new UIPanel();
+
+            InfoPanel.Width.Set(InfoPanelTexture.Width, 0f);
+            InfoPanel.Height.Set(InfoPanelTexture.Height, 0f);
+
+            InfoPanel.Left.Set(-12, 0f);
+            InfoPanel.Top.Set(440, 0f);
+
+            InfoPanel.BackgroundColor = Color.Transparent;
+            InfoPanel.BorderColor = Color.Transparent;
+
+            BackPanel.Append(InfoPanel);
 
             base.OnInitialize();
         }
@@ -69,6 +82,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
         {
             BackPanel.RemoveAllChildren();
             BackPanel.Append(BackPanelImage);
+            BackPanel.Append(InfoPanel);
 
             List<Node<SkillDefinition>> rootNodes = SkillDefinitionManager.Instance.Tree.Nodes
                 .Where(t => t.Value.CheckPrePlayerConditions())
@@ -87,7 +101,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
             foreach (Node<SkillDefinition> rootNode in rootNodes)
             {
 
-                lastXOffset += PADDING_X * 2;// Prior code: (_tabs.Count + 1); changed due to the spacing growing exponentially with each tab.
+                lastXOffset += PADDING_X * 2;
 
                 int yOffset = (int)rootNode.Value.MenuPosition.Y;
 
@@ -128,7 +142,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
             skillButton = InitializeButton(icon, new MouseEvent((evt, element) => TrySelectingSkill(skill, evt, element)), left, top, panel);
 
-            lockedImage = InitializeImage(LockedImageTexture, 0, 0, skillButton);
+            lockedImage = InitializeImage(LockedImageTexture, (skillButton.Width.Pixels / 2) - (LockedImageTexture.Width / 2), 0, skillButton);
             lockedImage.ImageScale = 0f;
             lockedImage.Width.Set(1, 0f);
             lockedImage.Height.Set(1, 0f);
@@ -186,27 +200,10 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
         private void DrawInfoPanel(SkillDefinition def)
         {
-            DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
-            InfoPanel = null;
-            skillName = null;
-            skillStats = null;
-            skillUnlock = null;
-
-            InfoPanel = new UIPanel();
-
-            InfoPanel.Width.Set(InfoPanelTexture.Width, 0f);
-            InfoPanel.Height.Set(InfoPanelTexture.Height, 0f);
-
-            InfoPanel.Left.Set(-12, 0f);
-            InfoPanel.Top.Set(460, 0f);
-
-            InfoPanel.BackgroundColor = Color.Transparent;
-            InfoPanel.BorderColor = Color.Transparent;
-
-            BackPanel.Append(InfoPanel);
+            InfoPanel.RemoveAllChildren();           
 
             skillName = InitializeText(def.DisplayName, 12, 8, 0.8f, Color.White, InfoPanel);
-            skillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + "x \nAttack Speed: " + def.Characteristics.BaseShootSpeed + " \nKi Drain:" + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain * 60 + "/s", 12, 28, 0.6f, Color.White, InfoPanel);
+            skillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + "\nAttack Speed: " + def.Characteristics.BaseShootSpeed + " \nKi Drain: " + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain, 12, 28, 0.6f, Color.White, InfoPanel);
             skillUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
         }
 

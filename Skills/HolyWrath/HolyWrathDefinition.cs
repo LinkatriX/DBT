@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.HolyWrath
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.HolyWrath
 {
     public sealed class HolyWrathDefinition : SkillDefinition
     {
-        public HolyWrathDefinition(params SkillDefinition[] parents) : base("HolyWrath", "Holy Wrath", "A massive blast formed with divine energy.", typeof(HolyWrathItem), new HolyWrathCharacteristics(), parents: parents)
+        public HolyWrathDefinition(params SkillDefinition[] parents) : base("HolyWrath", "Holy Wrath", "A massive blast formed with divine energy.", typeof(HolyWrathItem), new HolyWrathCharacteristics(), new Vector2(256, 22), parents: parents)
         {
         }
     }

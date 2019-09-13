@@ -62,7 +62,7 @@ namespace DBT.Skills
             #endregion
 
             #region Tier 4 Skills
-            BigBangAttack = Add(new BigBangAttackDefinition(KiBlast)) as BigBangAttackDefinition;
+            BigBangAttack = Add(new BigBangAttackDefinition(SpiritBall)) as BigBangAttackDefinition;
             EnergyShot = Add(new EnergyShotDefinition(KiBlast)) as EnergyShotDefinition;
             Scattershot = Add(new ScattershotDefinition(HellzoneGrenade)) as ScattershotDefinition;
             SpecialBeamCannon = Add(new SpecialBeamCannonDefinition(KiBeam)) as SpecialBeamCannonDefinition;

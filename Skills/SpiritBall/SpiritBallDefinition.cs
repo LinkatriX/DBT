@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.SpiritBall
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.SpiritBall
 {
     public sealed class SpiritBallDefinition : SkillDefinition
     {
-        public SpiritBallDefinition(params SkillDefinition[] parents) : base("SpiritBall", "Spirit Ball", "The user creates a controllable, concentrated orb of ki.", typeof(SpiritBallItem), new SpiritBallCharacteristics(), parents: parents)
+        public SpiritBallDefinition(params SkillDefinition[] parents) : base("SpiritBall", "Spirit Ball", "The user creates a controllable, concentrated orb of ki.", typeof(SpiritBallItem), new SpiritBallCharacteristics(), new Vector2(306, 142), parents: parents)
         {
         }
     }

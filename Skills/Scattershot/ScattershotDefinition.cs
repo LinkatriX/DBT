@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.Scattershot
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.Scattershot
 {
     public sealed class ScattershotDefinition : SkillDefinition
     {
-        public ScattershotDefinition(params SkillDefinition[] parents) : base("Scattershot", "Scattershot", "Fires an array of seeking ki blasts.", typeof(ScattershotItem), new ScattershotCharacteristics(), parents: parents)
+        public ScattershotDefinition(params SkillDefinition[] parents) : base("Scattershot", "Scattershot", "Fires an array of seeking ki blasts.", typeof(ScattershotItem), new ScattershotCharacteristics(), new Vector2(456, 62), parents: parents)
         {
         }
     }
