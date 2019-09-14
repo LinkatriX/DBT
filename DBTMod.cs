@@ -238,7 +238,7 @@ namespace DBT
 
         public override void HandlePacket(BinaryReader binaryReader, int whoAmI)
         {
-            NetworkPacketLoader.HandlePacket(binaryReader, whoAmI);
+            NetworkPacketLoader.Instance.HandlePacket(binaryReader, whoAmI);
         }
     
         public static uint GetTicks() => Main.GameUpdateCount;
