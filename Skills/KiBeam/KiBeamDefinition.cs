@@ -4,7 +4,7 @@ namespace DBT.Skills.KiBeam
 {
     public sealed class KiBeamDefinition : SkillDefinition
     {
-        public KiBeamDefinition(params SkillDefinition[] parents) : base("KiBeam", "Ki Beam", "A quick firing beam of Ki that pierces enemies.", typeof(KiBeamItem), new KiBeamCharacteristics(), new Vector2(306, 262), parents: parents)
+        public KiBeamDefinition(params SkillDefinition[] parents) : base("KiBeam", "Ki Beam", "A quick firing beam of Ki that pierces enemies.", typeof(KiBeamItem), new KiBeamCharacteristics(), new Vector2(326, 252), parents: parents)
         {
         }
 

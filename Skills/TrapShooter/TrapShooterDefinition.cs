@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.TrapShooter
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.TrapShooter
 {
     public sealed class TrapShooterDefinition : SkillDefinition
     {
-        public TrapShooterDefinition(params SkillDefinition[] parents) : base("TrapShooter", "Trap Shooter", "A ki blast.", typeof(TrapShooterItem), new TrapShooterCharacteristics(), parents: parents)
+        public TrapShooterDefinition(params SkillDefinition[] parents) : base("TrapShooter", "Trap Shooter", "A ki blast.", typeof(TrapShooterItem), new TrapShooterCharacteristics(), new Vector2(196, 192), parents: parents)
         {
         }
     }

@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.BlackPowerBall
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.BlackPowerBall
 {
     public sealed class BlackPowerBallDefinition : SkillDefinition
     {
-        public BlackPowerBallDefinition(params SkillDefinition[] parents) : base("BlackPowerBall", "Black Power Ball", "A powerful blast attack that can also be rapidly fired as a barrage.", typeof(BlackPowerBallItem), new BlackPowerBallCharacteristics(), parents: parents)
+        public BlackPowerBallDefinition(params SkillDefinition[] parents) : base("BlackPowerBall", "Black Power Ball", "A powerful blast attack that can also be rapidly fired as a barrage.", typeof(BlackPowerBallItem), new BlackPowerBallCharacteristics(), new Vector2(166, 248), parents: parents)
         {
         }
     }

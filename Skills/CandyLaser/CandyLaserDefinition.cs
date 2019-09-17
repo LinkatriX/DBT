@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.CandyLaser
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.CandyLaser
 {
     public sealed class CandyLaserDefinition : SkillDefinition
     {
-        public CandyLaserDefinition(params SkillDefinition[] parents) : base("CandyLaser", "Candy Laser", "Fires a beam of energy that transforms your enemy into candy. Doesn't change bosses.", typeof(CandyLaserItem), new CandyLaserCharacteristics(), parents: parents)
+        public CandyLaserDefinition(params SkillDefinition[] parents) : base("CandyLaser", "Candy Laser", "Fires a beam of energy that transforms your enemy into candy. Doesn't change bosses.", typeof(CandyLaserItem), new CandyLaserCharacteristics(), new Vector2(376, 352), parents: parents)
         {
         }
     }

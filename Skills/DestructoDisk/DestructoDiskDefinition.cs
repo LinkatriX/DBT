@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.DestructoDisk
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.DestructoDisk
 {
     public sealed class DestructoDiskDefinition : SkillDefinition
     {//Add armor piercing.
-        public DestructoDiskDefinition(params SkillDefinition[] parents) : base("DestructoDisk", "Destructo Disk", "Fires a disk that is capable of cutting through enemies. Charge to unleash a more powerful version.", typeof(DestructoDiskItem), new DestructoDiskCharacteristics(), parents: parents)
+        public DestructoDiskDefinition(params SkillDefinition[] parents) : base("DestructoDisk", "Destructo Disk", "Fires a disk that is capable of cutting through enemies. Charge to unleash a more powerful version.", typeof(DestructoDiskItem), new DestructoDiskCharacteristics(), new Vector2(276, 282), parents: parents)
         {
         }
     }

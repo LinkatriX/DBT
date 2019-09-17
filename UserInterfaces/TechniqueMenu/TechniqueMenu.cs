@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DBT.Dynamicity;
 using DBT.Players;
@@ -23,7 +24,8 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
         private const string
             TECHNIQUE_MENU_PATH = "UserInterfaces/TechniqueMenu",
-            LOCKED_TEXTURE = TECHNIQUE_MENU_PATH + "/LockedImage";
+            LOCKED_TEXTURE = TECHNIQUE_MENU_PATH + "/LockedImage",
+            WHITE_PIXEL = TECHNIQUE_MENU_PATH + "/Pixel";
 
         private int _panelsYOffset = 0;
 
@@ -36,6 +38,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
             InfoPanelTexture = authorMod.GetTexture(TECHNIQUE_MENU_PATH + "/InfoPanel");
 
             LockedImageTexture = authorMod.GetTexture(LOCKED_TEXTURE);
+            WhitePixel = authorMod.GetTexture(WHITE_PIXEL);
         }
 
         public override void OnInitialize()
@@ -159,12 +162,13 @@ namespace DBT.UserInterfaces.TechniqueMenu
             if (!CheckIfDraw(skill)) return;
             int xOffset = (int)skill.MenuPosition.X;
             yOffset = (int)skill.MenuPosition.Y;
-
             DrawSkill(panel, skill, texture, xOffset, yOffset);
 
             for (int i = 0; i < node.Children.Count; i++)
             {
                 Node<SkillDefinition> child = node.Children[i];
+                DrawLine(Main.spriteBatch, node.Value.MenuPosition, child.Value.MenuPosition, Color.White, 50f);
+
                 RecursiveInitializeSkill(panel, child, ref yOffset);
 
                 if (node.Children.Count > 1 && CheckIfDraw(child) && node.Children[node.Children.Count - 1] != child)
@@ -172,6 +176,22 @@ namespace DBT.UserInterfaces.TechniqueMenu
                     yOffset += texture.Height + SMALL_SPACE * 2;
                 }
             }
+            
+        }
+        public void DrawLine(SpriteBatch spriteBatch, Vector2 point1, Vector2 point2, Color color, float thickness = 1f)
+        {
+            spriteBatch.Begin();
+            var distance = Vector2.Distance(point1, point2);
+            var angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
+            DrawLine(spriteBatch, point1, distance, angle, color, thickness);
+            spriteBatch.End();
+        }
+
+        public void DrawLine(SpriteBatch spriteBatch, Vector2 point, float length, float angle, Color color, float thickness = 1f)
+        {
+            var origin = new Vector2(0f, 0.5f);
+            var scale = new Vector2(length, thickness);
+            spriteBatch.Draw(WhitePixel, point, null, color, angle, origin, scale, SpriteEffects.None, 0);
         }
 
         private static bool CheckIfDraw(Node<SkillDefinition> node) => node.Value.CheckPrePlayerConditions();
@@ -211,6 +231,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
         public bool Visible { get; set; } = true;
         public Texture2D LockedImageTexture { get; }
         public Texture2D InfoPanelTexture { get; }
+        private Texture2D WhitePixel { get; }
         public UIPanel InfoPanel { get; set; } = null;
 
         public UIText

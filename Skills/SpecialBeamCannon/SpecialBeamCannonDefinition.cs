@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.SpecialBeamCannon
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.SpecialBeamCannon
 {//Needs armor piercing added.
     public sealed class SpecialBeamCannonDefinition : SkillDefinition
     {
-        public SpecialBeamCannonDefinition(params SkillDefinition[] parents) : base("SpecialBeamCannon", "Special Beam Cannon", "A concentrated beam of energy that pierces through foes.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(SpecialBeamCannonItem), new SpecialBeamCannonCharacteristics(), parents: parents)
+        public SpecialBeamCannonDefinition(params SkillDefinition[] parents) : base("SpecialBeamCannon", "Special Beam Cannon", "A concentrated beam of energy that pierces through foes.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(SpecialBeamCannonItem), new SpecialBeamCannonCharacteristics(), new Vector2(306, 322), parents: parents)
         {
         }
     }
