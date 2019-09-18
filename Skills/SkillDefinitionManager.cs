@@ -42,7 +42,7 @@ namespace DBT.Skills
             #region Tier 1 Skills
             KiBlast = Add(new KiBlastDefinition()) as KiBlastDefinition;
             KiBeam = Add(new KiBeamDefinition(KiBlast)) as KiBeamDefinition;
-            EnergyWave = Add(new EnergyWaveDefinition(KiBeam)) as EnergyWaveDefinition;
+            EnergyWave = Add(new EnergyWaveDefinition(KiBlast)) as EnergyWaveDefinition;
             #endregion
 
             #region Tier 2 Skills

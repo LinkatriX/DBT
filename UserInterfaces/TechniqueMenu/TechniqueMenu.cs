@@ -14,7 +14,7 @@ using Terraria.UI;
 
 namespace DBT.UserInterfaces.TechniqueMenu
 {
-    public sealed class TechniqueMenu : DBTMenu
+    public class TechniqueMenu : DBTMenu
     {
         public const int
             PADDING_X = 10,
@@ -55,15 +55,6 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
             Append(BackPanel);
 
-            BackPanelImage = new UIImage(BackPanelTexture);
-            BackPanelImage.Width.Set(1, 0f);
-            BackPanelImage.Height.Set(1, 0f);
-
-            BackPanelImage.Left.Set(-12, 0f);
-            BackPanelImage.Top.Set(-12, 0f);
-
-            BackPanel.Append(BackPanelImage);
-
             InfoPanel = new UIPanel();
 
             InfoPanel.Width.Set(InfoPanelTexture.Width, 0f);
@@ -84,7 +75,6 @@ namespace DBT.UserInterfaces.TechniqueMenu
         internal void OnPlayerEnterWorld(DBTPlayer dbtPlayer)
         {
             BackPanel.RemoveAllChildren();
-            BackPanel.Append(BackPanelImage);
             BackPanel.Append(InfoPanel);
 
             List<Node<SkillDefinition>> rootNodes = SkillDefinitionManager.Instance.Tree.Nodes
@@ -103,7 +93,6 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
             foreach (Node<SkillDefinition> rootNode in rootNodes)
             {
-
                 lastXOffset += PADDING_X * 2;
 
                 int yOffset = (int)rootNode.Value.MenuPosition.Y;
@@ -138,6 +127,23 @@ namespace DBT.UserInterfaces.TechniqueMenu
             }
         }
 
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(BackPanelTexture, new Vector2(BackPanel.Left.Pixels, BackPanel.Top.Pixels), Color.White);
+            base.DrawSelf(spriteBatch);
+            List<Node<SkillDefinition>> rootNodes = SkillDefinitionManager.Instance.Tree.Nodes
+                .Where(t => t.Value.CheckPrePlayerConditions()).ToList();
+
+            foreach (Node<SkillDefinition> rootNode in rootNodes)
+            {
+                for (int i = 0; i < rootNode.Parents.Count; i++)
+                {
+                    Node<SkillDefinition> parent = rootNode.Parents[i];
+                    DrawLine(spriteBatch, new Vector2(BackPanel.Left.Pixels + 30, BackPanel.Top.Pixels + 24) + rootNode.Value.MenuPosition, new Vector2(BackPanel.Left.Pixels + 30, BackPanel.Top.Pixels + 24) + parent.Value.MenuPosition, Color.LightGray, 3f);
+                }
+            }
+        }
+
         private void DrawSkill(UIPanel panel, SkillDefinition skill, Texture2D icon, int left, int top)
         {
             UIImageButton skillButton = null;
@@ -167,7 +173,6 @@ namespace DBT.UserInterfaces.TechniqueMenu
             for (int i = 0; i < node.Children.Count; i++)
             {
                 Node<SkillDefinition> child = node.Children[i];
-                DrawLine(Main.spriteBatch, node.Value.MenuPosition, child.Value.MenuPosition, Color.White, 50f);
 
                 RecursiveInitializeSkill(panel, child, ref yOffset);
 
@@ -178,20 +183,19 @@ namespace DBT.UserInterfaces.TechniqueMenu
             }
             
         }
+
         public void DrawLine(SpriteBatch spriteBatch, Vector2 point1, Vector2 point2, Color color, float thickness = 1f)
         {
-            spriteBatch.Begin();
             var distance = Vector2.Distance(point1, point2);
             var angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
             DrawLine(spriteBatch, point1, distance, angle, color, thickness);
-            spriteBatch.End();
         }
 
         public void DrawLine(SpriteBatch spriteBatch, Vector2 point, float length, float angle, Color color, float thickness = 1f)
         {
             var origin = new Vector2(0f, 0.5f);
             var scale = new Vector2(length, thickness);
-            spriteBatch.Draw(WhitePixel, point, null, color, angle, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(WhitePixel, point, null, color, angle, origin, scale, SpriteEffects.None, 1);
         }
 
         private static bool CheckIfDraw(Node<SkillDefinition> node) => node.Value.CheckPrePlayerConditions();

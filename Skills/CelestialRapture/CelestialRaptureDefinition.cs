@@ -6,6 +6,7 @@
         public CelestialRaptureDefinition(params SkillDefinition[] parents) : base("CelestialRapture", "Celestial Rapture", "Fires seeking ki blasts from all angles.", typeof(CelestialRaptureItem), new CelestialRaptureCharacteristics(), parents: parents)
         {
         }
+        public override bool CheckPrePlayerConditions() => false;
 
         public sealed class CelestialRaptureCharacteristics : SkillCharacteristics
         {
