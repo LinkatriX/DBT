@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.FinalShineAttack
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.FinalShineAttack
 {
     public sealed class FinalShineAttackDefinition : SkillDefinition
     {
-        public FinalShineAttackDefinition(params SkillDefinition[] parents) : base("FinalShineAttack", "Final Shine Attack", "An evolved version of the Final Flash technique.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(FinalShineAttackItem), new FinalShineAttackCharacteristics(), parents: parents)
+        public FinalShineAttackDefinition(params SkillDefinition[] parents) : base("FinalShineAttack", "Final Shine Attack", "An evolved version of the Final Flash technique.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(FinalShineAttackItem), new FinalShineAttackCharacteristics(), new Vector2(616, 52), parents: parents)
         {
         }
     }

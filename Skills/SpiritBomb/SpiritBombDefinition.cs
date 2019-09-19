@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.SpiritBomb
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.SpiritBomb
 {
     public sealed class SpiritBombDefinition : SkillDefinition
     {
-        public SpiritBombDefinition(params SkillDefinition[] parents) : base("SpiritBomb", "Spirit Bomb", "The user draws energy from surrounding life to create a powerful blast attack.", typeof(SpiritBombItem), new SpiritBombCharacteristics(), parents: parents)
+        public SpiritBombDefinition(params SkillDefinition[] parents) : base("SpiritBomb", "Spirit Bomb", "The user draws energy from surrounding life to create a powerful blast attack.", typeof(SpiritBombItem), new SpiritBombCharacteristics(), new Vector2(306, 82), parents: parents)
         {
         }
     }

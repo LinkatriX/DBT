@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.Kamehamehax10
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.Kamehamehax10
 {
     public sealed class Kamehamehax10Definition : SkillDefinition
     {
-        public Kamehamehax10Definition(params SkillDefinition[] parents) : base("Kamehamehax10", "Kamehameha x10", "A kamehameha wave boosted x10 by the power of a great ape.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(Kamehamehax10Item), new Kamehamehax10Characteristics(), parents: parents)
+        public Kamehamehax10Definition(params SkillDefinition[] parents) : base("Kamehamehax10", "Kamehameha x10", "A kamehameha wave boosted x10 by the power of a great ape.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(Kamehamehax10Item), new Kamehamehax10Characteristics(), new Vector2(616, 342), parents: parents)
         {
         }
     }

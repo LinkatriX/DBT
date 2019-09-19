@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.GalickGun
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.GalickGun
 {
     public sealed class GalickGunDefinition : SkillDefinition
     {
-        public GalickGunDefinition(params SkillDefinition[] parents) : base("GalickGun", "Galick Gun", "No it doesn't smell like garlic.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(GalickGunItem), new GalickGunCharacteristics(), parents: parents)
+        public GalickGunDefinition(params SkillDefinition[] parents) : base("GalickGun", "Galick Gun", "No it doesn't smell like garlic.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(GalickGunItem), new GalickGunCharacteristics(), new Vector2(522, 162), "PRODIGY TRAIT REQUIRED\nUnlocked after hitting 2500 max ki\nand after mastering energy wave.", parents: parents)
         {
         }
     }

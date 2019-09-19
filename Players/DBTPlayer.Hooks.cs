@@ -247,7 +247,7 @@ namespace DBT.Players
                 if (originalEyeColor.HasValue && player.eyeColor != originalEyeColor.Value)
                     player.eyeColor = originalEyeColor.Value;
 
-                return;
+                //return;
             }
 
 
@@ -260,9 +260,11 @@ namespace DBT.Players
                 DrawDragonRadar.dragonRadarEffects.visible = true;
                 layers.Add(DrawDragonRadar.dragonRadarEffects);
             }
-
-            if (transformation.Definition.Appearance.EyeColor != null)
-                ChangeEyeColor(transformation.Definition.Appearance.EyeColor.Value);
+            if (transformation != null)
+            {
+                //if (transformation.Definition.Appearance.EyeColor != null)
+                    ChangeEyeColor(transformation.Definition.Appearance.EyeColor.Value);
+            } 
         }
 
         public override void UpdateBiomes()
