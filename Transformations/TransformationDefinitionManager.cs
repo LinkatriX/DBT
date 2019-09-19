@@ -18,7 +18,7 @@ using DBT.Transformations.SSJs.SSJ4s.SSJ4FP;
 using DBT.Transformations.Mystics.Mystic;
 using DBT.Transformations.Mystics.AwakenedMystic;
 using WebmilioCommons.Managers;
-using DBT.Transformations.Kaiokens.Kaioken2x;
+//using DBT.Transformations.Kaiokens.Kaioken;
 
 namespace DBT.Transformations
 {
@@ -26,7 +26,7 @@ namespace DBT.Transformations
     {
         public override void DefaultInitialize()
         {
-            Kaioken2x = Add(new Kaioken2xTransformation()) as Kaioken2xTransformation;
+            //Kaioken = Add(new KaiokenTransformation()) as KaiokenTransformation;
             /*Kaioken3x = Add(new Kaioken3xTransformation()) as Kaioken3xTransformation;
             Kaioken4x = Add(new Kaioken4xTransformation()) as Kaioken4xTransformation;
             Kaioken10x = Add(new Kaioken10xTransformation()) as Kaioken10xTransformation;
@@ -68,7 +68,7 @@ namespace DBT.Transformations
 
         }*/
 
-        public Kaioken2xTransformation Kaioken2x { get; private set; }
+        //public KaiokenTransformation Kaioken { get; private set; }
         /*public Kaioken2xTransformation Kaioken3x { get; private set; }
         public Kaioken2xTransformation Kaioken4x { get; private set; }
         public Kaioken2xTransformation Kaioken10x { get; private set; }

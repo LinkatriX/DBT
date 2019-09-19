@@ -95,11 +95,11 @@ namespace DBT.Auras
                 position = dbtPlayer.player.Center + new Vector2(0f, auraOffsetY);
                 rotation = 0f;
             }
-            //if (playerMostlyStationary)
-            //{
-            //position = dbtPlayer.player.Center + new Vector2(-0.75f, auraOffsetY);
-            //rotation = 0f;
-            //}
+            if (playerMostlyStationary)
+            {
+                position = dbtPlayer.player.Center + new Vector2(-0.75f, auraOffsetY);
+                rotation = 0f;
+            }
             
             return new Tuple<float, Vector2>(rotation, position);
         }
@@ -129,6 +129,8 @@ namespace DBT.Auras
         public float BaseScale { get; }
 
         public bool IsFormAura { get; }
+
+
 
 
         public int Priority { get; }
