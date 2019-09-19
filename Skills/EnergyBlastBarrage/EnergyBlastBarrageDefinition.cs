@@ -4,7 +4,7 @@ namespace DBT.Skills.EnergyBlastBarrage
 {
     public sealed class EnergyBlastBarrageDefinition : SkillDefinition
     {
-        public EnergyBlastBarrageDefinition(params SkillDefinition[] parents) : base("EnergyBlastBarrage", "Energy Blast Barrage", "Fires off continuous ki blasts. Charge to increase the length of the barrage.", typeof(EnergyBlastBarrageItem), new EnergyBlastBarrageCharacteristics(), new Vector2(366, 142), parents: parents)
+        public EnergyBlastBarrageDefinition(params SkillDefinition[] parents) : base("EnergyBlastBarrage", "Energy Blast Barrage", "Fires off continuous ki blasts.\nCharge to increase the length\nof the barrage.", typeof(EnergyBlastBarrageItem), new EnergyBlastBarrageCharacteristics(), new Vector2(366, 142), "Unlocked after hitting 1100 max ki.", parents: parents)
         {
         }
     }

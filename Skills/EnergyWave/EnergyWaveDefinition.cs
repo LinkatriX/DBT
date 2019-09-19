@@ -4,7 +4,7 @@ namespace DBT.Skills.EnergyWave
 {
     public sealed class EnergyWaveDefinition : SkillDefinition
     {
-        public EnergyWaveDefinition(params SkillDefinition[] parents) : base("EnergyWave", "Energy Wave", "Fires a concentrated beam of ki.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(EnergyWaveItem), new EnergyWaveCharacteristics(), new Vector2(430, 202), parents: parents)
+        public EnergyWaveDefinition(params SkillDefinition[] parents) : base("EnergyWave", "Energy Wave", "Fires a concentrated\nbeam of ki.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(EnergyWaveItem), new EnergyWaveCharacteristics(), new Vector2(430, 202), "Unlocked after hitting 800 max ki.", parents: parents)
         {
         }
     }

@@ -4,7 +4,7 @@ namespace DBT.Skills.DirtyFireworks
 {
     public sealed class DirtyFireworksDefinition : SkillDefinition
     {
-        public DirtyFireworksDefinition(params SkillDefinition[] parents) : base("DirtyFireworks", "Dirty Fireworks", "Immobilizes your opponent before blowing them to pieces.", typeof(DirtyFireworksItem) , new DirtyFireworksCharacteristics(), new Vector2(376, 282), parents: parents)
+        public DirtyFireworksDefinition(params SkillDefinition[] parents) : base("DirtyFireworks", "Dirty Fireworks", "Immobilizes your opponent\nbefore blowing them to pieces.", typeof(DirtyFireworksItem) , new DirtyFireworksCharacteristics(), new Vector2(376, 282), "Kill a town npc with a rotten egg.", parents: parents)
         {
         }
     }

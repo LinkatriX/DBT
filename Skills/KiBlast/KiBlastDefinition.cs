@@ -4,7 +4,7 @@ namespace DBT.Skills.KiBlast
 {
     public sealed class KiBlastDefinition : SkillDefinition
     {
-        public KiBlastDefinition(params SkillDefinition[] parents) : base("KiBlast", "Ki Blast", "A small Ki blast that damages enemies.", typeof(KiBlastItem), new KiBlastCharacteristics(), new Vector2(366, 202), parents: parents) //28 Pixel padding on the X menu offset
+        public KiBlastDefinition(params SkillDefinition[] parents) : base("KiBlast", "Ki Blast", "A small Ki blast that\ndamages enemies.", typeof(KiBlastItem), new KiBlastCharacteristics(), new Vector2(366, 202), "Given through Master Roshi's\ntutorial quest.", parents: parents) //28 Pixel padding on the X menu offset
         {
         }
     }

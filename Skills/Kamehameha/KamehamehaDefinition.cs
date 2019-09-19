@@ -4,7 +4,7 @@ namespace DBT.Skills.Kamehameha
 {
     public sealed class KamehamehaDefinition : SkillDefinition
     {
-        public KamehamehaDefinition(params SkillDefinition[] parents) : base("Kamehameha", "Kamehameha", "The user draws the latent energy of their body forwards, and releases it all at once.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(KamehamehaItem), new DefinitionCharacteristics(), new Vector2(522, 232), parents: parents)
+        public KamehamehaDefinition(params SkillDefinition[] parents) : base("Kamehameha", "Kamehameha", "The signature technique.\n" + DEFAULT_BEAM_INSTRUCTIONS, typeof(KamehamehaItem), new DefinitionCharacteristics(), new Vector2(522, 232), "Unlocked after hitting 2500 max ki\nand after mastering energy wave.", parents: parents)
         {
         }
 

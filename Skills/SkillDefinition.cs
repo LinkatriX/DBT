@@ -10,12 +10,13 @@ namespace DBT.Skills
 {
     public class SkillDefinition : IHasUnlocalizedName, IHasParents<SkillDefinition>
     {
-        protected SkillDefinition(string unlocalizedName, string displayName, string description, Type item, SkillCharacteristics characteristics, Vector2 menuPosition = default, params SkillDefinition[] parents)
+        protected SkillDefinition(string unlocalizedName, string displayName, string description, Type item, SkillCharacteristics characteristics, Vector2 menuPosition = default, string unlockDescription = null, params SkillDefinition[] parents)
         {
             UnlocalizedName = unlocalizedName;
 
             DisplayName = displayName;
             Description = description;
+            UnlockDescription = unlockDescription;
 
             Item = item;
 
@@ -34,6 +35,7 @@ namespace DBT.Skills
 
         public string DisplayName { get; }
         public string Description { get; }
+        public string UnlockDescription { get; }
         public Type Item { get; }
         public virtual Texture2D SkillIcon => Item.GetTexture();
 

@@ -25,7 +25,9 @@ namespace DBT.UserInterfaces.TechniqueMenu
         private const string
             TECHNIQUE_MENU_PATH = "UserInterfaces/TechniqueMenu",
             LOCKED_TEXTURE = TECHNIQUE_MENU_PATH + "/LockedImage",
-            WHITE_PIXEL = TECHNIQUE_MENU_PATH + "/Pixel";
+            WHITE_PIXEL = TECHNIQUE_MENU_PATH + "/Pixel",
+            EQUIP_BUTTON = TECHNIQUE_MENU_PATH + "/EquipButton",
+            UNEQUIP_BUTTON = TECHNIQUE_MENU_PATH + "/UnequipButton";
 
         private int _panelsYOffset = 0;
 
@@ -36,6 +38,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
             AuthorMod = authorMod;
             BackPanelTexture = authorMod.GetTexture(TECHNIQUE_MENU_PATH + "/BackPanel");
             InfoPanelTexture = authorMod.GetTexture(TECHNIQUE_MENU_PATH + "/InfoPanel");
+            EquipButtonTexture = authorMod.GetTexture(EQUIP_BUTTON);
 
             LockedImageTexture = authorMod.GetTexture(LOCKED_TEXTURE);
             WhitePixel = authorMod.GetTexture(WHITE_PIXEL);
@@ -125,6 +128,8 @@ namespace DBT.UserInterfaces.TechniqueMenu
                 //Main.NewText(kvp.Key.ToString() + "'s unknown image gray is at" + kvp.Value.unknownImageGray.ImageScale);
                 //Main.NewText(kvp.Key.ToString() + "'s locked image is at" + kvp.Value.lockedImage.ImageScale);
             }
+
+            
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -149,7 +154,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
             UIImageButton skillButton = null;
             UIImage lockedImage = null;
 
-            skillButton = InitializeButton(icon, new MouseEvent((evt, element) => TrySelectingSkill(skill, evt, element)), left, top, panel);
+            skillButton = InitializeButton(icon, new MouseEvent((evt, element) => DrawInfoPanel(skill, evt, element)), left, top, panel);
 
             lockedImage = InitializeImage(LockedImageTexture, (skillButton.Width.Pixels / 2) - (LockedImageTexture.Width / 2), 0, skillButton);
             lockedImage.ImageScale = 0f;
@@ -201,46 +206,57 @@ namespace DBT.UserInterfaces.TechniqueMenu
         private static bool CheckIfDraw(Node<SkillDefinition> node) => node.Value.CheckPrePlayerConditions();
         private static bool CheckIfDraw(SkillDefinition skill) => skill.CheckPrePlayerConditions();
 
-        private void TrySelectingSkill(SkillDefinition def, UIMouseEvent evt, UIElement listeningElement)
+        private void DrawInfoPanel(SkillDefinition def, UIMouseEvent evt, UIElement listeningElement)
         {
+            InfoPanel.RemoveAllChildren();
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
-
-            DrawInfoPanel(def);
-
-            if (def.CheckPrePlayerConditions() && dbtPlayer.HasAcquiredSkill(def))
+            if (dbtPlayer.ActiveSkills.Contains(def))
             {
-                // TODO Add sounds.
-                //SoundHelper.PlayVanillaSound(SoundID.MenuTick);
-
-                if (!dbtPlayer.ActiveSkills.Contains(def))
-                {
-                    //dbtPlayer.SelectTransformation(def);
-                    //Main.NewText($"Selected {def.DisplayName}, Mastery: {Math.Round(def.GetMaxMastery(dbtPlayer) * def.GetCurrentMastery(dbtPlayer), 2)}%");
-                }
-                //else
-                    //Main.NewText($"{def.DisplayName} Mastery: {Math.Round(100f * def.GetCurrentMastery(dbtPlayer), 2)}%");
+                EquipButtonTexture = AuthorMod.GetTexture(UNEQUIP_BUTTON);
             }
-        }
+            else
+                EquipButtonTexture = AuthorMod.GetTexture(EQUIP_BUTTON);
 
-        private void DrawInfoPanel(SkillDefinition def)
-        {
-            InfoPanel.RemoveAllChildren();           
+
+            DrawEquipButton(def);
+            bool hasAttackSpeed = false;
+
+            if (def.Characteristics.BaseShootSpeed > 0)
+                hasAttackSpeed = true;
 
             skillName = InitializeText(def.DisplayName, 12, 8, 0.8f, Color.White, InfoPanel);
-            skillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + "\nAttack Speed: " + def.Characteristics.BaseShootSpeed + " \nKi Drain: " + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain, 12, 28, 0.6f, Color.White, InfoPanel);
-            skillUnlock = InitializeText(def.DisplayName, 30, 16, 0f, Color.White, InfoPanel);
+            skillStats = InitializeText("Stats: \nBase Ki Damage: " + def.Characteristics.BaseDamage + (hasAttackSpeed ? "\nAttack Speed: " + def.Characteristics.BaseShootSpeed : "") + " \nKi Drain: " + def.Characteristics.ChargeCharacteristics.BaseCastKiDrain + " \n", 12, 28, 0.6f, Color.White, InfoPanel);
+            skillUnlock = InitializeText("Unlock: \n" + def.UnlockDescription, 340, 8, 0.7f, Color.White, InfoPanel);
+            skillDescription = InitializeText("Skill Description: \n" + def.Description, 160, 8, 0.7f, Color.White, InfoPanel);
+        }
+
+        private void DrawEquipButton(SkillDefinition def)
+        {
+            if (EquipButton != null)
+                EquipButton.Remove();
+
+            EquipButton = InitializeButton(EquipButtonTexture, new MouseEvent((evt, element) => TrySelectingSkill(def, evt, element)), 550, 510, BackPanel);
+        }
+
+        private void TrySelectingSkill(SkillDefinition def, UIMouseEvent evt, UIElement listeningElement)
+        {
+
         }
 
         public Mod AuthorMod { get; }
         public bool Visible { get; set; } = true;
         public Texture2D LockedImageTexture { get; }
         public Texture2D InfoPanelTexture { get; }
+        public Texture2D EquipButtonTexture { get; set; }
         private Texture2D WhitePixel { get; }
         public UIPanel InfoPanel { get; set; } = null;
+
+        public UIImageButton EquipButton { get; set; } = null;
 
         public UIText
             skillName = null,
             skillStats = null,
-            skillUnlock = null;
+            skillUnlock = null,
+            skillDescription = null;
     }
 }

@@ -4,7 +4,7 @@ namespace DBT.Skills.SpiritBall
 {
     public sealed class SpiritBallDefinition : SkillDefinition
     {
-        public SpiritBallDefinition(params SkillDefinition[] parents) : base("SpiritBall", "Spirit Ball", "The user creates a controllable, concentrated orb of ki.", typeof(SpiritBallItem), new SpiritBallCharacteristics(), new Vector2(286, 142), parents: parents)
+        public SpiritBallDefinition(params SkillDefinition[] parents) : base("SpiritBall", "Spirit Ball", "The user creates a controllable\nand concentrated orb of ki.", typeof(SpiritBallItem), new SpiritBallCharacteristics(), new Vector2(286, 142), "Given through Master Roshi's 10th quest.", parents: parents)
         {
         }
     }
