@@ -30,9 +30,9 @@ namespace DBT.Transformations.SSJs.SSJ4s.SSJ4FP
     public sealed class SSJ4FPAppearance : TransformationAppearance
     {
         public SSJ4FPAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(SSJ4Transformation), 4, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(SSJ4Transformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1.60f, 1.40f, 0f })),
-            new HairAppearance(Color.White), Color.Red, new Color(211, 186, 44))
+            new HairAppearance(new Color(37, 32, 35)), Color.Red, new Color(211, 186, 44))
         {
         }
     }

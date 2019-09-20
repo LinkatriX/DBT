@@ -4,7 +4,7 @@ namespace DBT.Skills.EnergyShot
 {
     public sealed class EnergyShotDefinition : SkillDefinition
     {
-        public EnergyShotDefinition(params SkillDefinition[] parents) : base("EnergyShot", "Energy Shot", "An enhanced version of a regular ki blast", typeof(EnergyShotItem), new EnergyShotCharacteristics(), new Vector2(286, 162), parents: parents)
+        public EnergyShotDefinition(params SkillDefinition[] parents) : base("EnergyShot", "Energy Shot", "An enhanced version of\na regular ki blast", typeof(EnergyShotItem), new EnergyShotCharacteristics(), new Vector2(266, 202), "Unlocked after hitting 2300 max ki\nand after mastering ki blast.", parents: parents)
         {
         }
     }

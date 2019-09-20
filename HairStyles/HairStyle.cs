@@ -17,8 +17,6 @@ namespace DBT.HairStyles
 
         public HairStyle(int xOffsetRight = 0, int yOffsetRight = 0, int xOffsetLeft = 0, int yOffsetLeft = 0, bool autoBobbing = true, string hairStyleSuffix = HAIR_STYLE_SUFFIX)
         {
-            //XOffsetRight = xOffsetRight;
-
             Offset = new Vector4(xOffsetRight, -yOffsetRight, xOffsetLeft, -yOffsetLeft);
             AutoBobbing = autoBobbing;
 
@@ -66,27 +64,12 @@ namespace DBT.HairStyles
             }
         }
 
-        public virtual Vector4 GetHairOffset(DBTPlayer dbtPlayer) => Offset;
-
         public string UnlocalizedName { get; private set; }
 
         public string RootPath { get; protected set; }
 
 
-        public Vector4 Offset { get; protected set; }
-
-        /*#region Offset Hooks
-
-        public virtual int GetXOffsetRight(DBTPlayer dbtPlayer) => XOffsetRight;
-        /*public virtual int GetYOffsetRight(DBTPlayer dbtPlayer) => YOffsetRight;
-        public virtual int GetXOffsetLeft(DBTPlayer dbtPlayer) => XOffsetLeft;
-        public virtual int GetYOffsetLeft(DBTPlayer dbtPlayer) => YOffsetLeft;
-        public virtual int XOffsetRight { get; protected set; }
-        /*public virtual int YOffsetRight { get; protected set; } = 0;
-        public virtual int XOffsetLeft { get; protected set; } = 0;
-        public virtual int YOffsetLeft { get; protected set; } = 0;
-
-        #endregion*/
+        public Vector4 Offset { get; }
 
         public bool AutoBobbing { get; }
 

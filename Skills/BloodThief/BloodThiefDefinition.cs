@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.BloodThief
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.BloodThief
 {
     public sealed class BloodThiefDefinition : SkillDefinition
     {
-        public BloodThiefDefinition(params SkillDefinition[] parents) : base("BloodThief", "Blood Thief", "Fires life stealing ki blasts.", typeof(BloodThiefItem) , new BloodThiefCharacteristics(), parents: parents)
+        public BloodThiefDefinition(params SkillDefinition[] parents) : base("BloodThief", "Blood Thief", "Fires life stealing ki blasts.", typeof(BloodThiefItem) , new BloodThiefCharacteristics(), new Vector2(416, 282), "Kill 50 enemies using ki blast\nduring a blood moon.", parents: parents)
         {
         }
     }

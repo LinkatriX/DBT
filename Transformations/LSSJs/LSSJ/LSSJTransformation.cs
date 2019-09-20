@@ -27,9 +27,9 @@ namespace DBT.Transformations.LSSJs.LSSJ
     public sealed class LSSJTransformationAppearance : TransformationAppearance
     {
         public LSSJTransformationAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(LSSJTransformation), 4, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(LSSJTransformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 0f, 1.25f, 0f })),
-            new HairAppearance(Color.White), Color.Lime, new Color(103, 219, 50))
+            new HairAppearance(new Color(161, 253, 70)), Color.Lime, new Color(103, 219, 50))
         {
         }
     }

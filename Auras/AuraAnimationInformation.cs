@@ -14,7 +14,7 @@ namespace DBT.Auras
         // TODO Add multi-transformation support.
         public static readonly PlayerLayer auraLayer = new AuraPlayerLayer(0);
 
-        public AuraAnimationInformation(string texture, int framesCount, int framesTimer, BlendState blendState, float baseScale, bool isFormAura, int priority = 0, int ticksPerFrameTimerTick = 1)
+        public AuraAnimationInformation(string texture, int framesCount, int framesTimer, BlendState blendState, bool isFormAura, float baseScale = 1f, int priority = 0, int ticksPerFrameTimerTick = 1)
         {
             TexturePath = texture;
 
@@ -31,8 +31,8 @@ namespace DBT.Auras
             TicksPerFrameTimerTick = ticksPerFrameTimerTick;
         }
 
-        public AuraAnimationInformation(Type type, int framesCount, int framesTimer, BlendState blendState, float baseScale, bool isFormAura, int priority = 0, int ticksPerFrameTimerTick = 1) : 
-            this(GetAuraTextureFromType(type), framesCount, framesTimer, blendState, baseScale, isFormAura, priority, ticksPerFrameTimerTick)
+        public AuraAnimationInformation(Type type, int framesCount, int framesTimer, BlendState blendState, bool isFormAura, float baseScale = 1f, int priority = 0, int ticksPerFrameTimerTick = 1) : 
+            this(GetAuraTextureFromType(type), framesCount, framesTimer, blendState, isFormAura, baseScale, priority, ticksPerFrameTimerTick)
         {
         }
 
@@ -95,11 +95,11 @@ namespace DBT.Auras
                 position = dbtPlayer.player.Center + new Vector2(0f, auraOffsetY);
                 rotation = 0f;
             }
-            //if (playerMostlyStationary)
-            //{
-            //position = dbtPlayer.player.Center + new Vector2(-0.75f, auraOffsetY);
-            //rotation = 0f;
-            //}
+            if (playerMostlyStationary)
+            {
+                position = dbtPlayer.player.Center + new Vector2(-0.75f, auraOffsetY);
+                rotation = 0f;
+            }
             
             return new Tuple<float, Vector2>(rotation, position);
         }
@@ -139,7 +139,7 @@ namespace DBT.Auras
 
     public sealed class ChargeAura : AuraAppearance
     {
-        public ChargeAura() : base(new AuraAnimationInformation("Auras/BaseAura", 4, 3, BlendState.Additive, 1f, false), new LightingAppearance(new float[] { 1f, 1f, 1f }))
+        public ChargeAura() : base(new AuraAnimationInformation("Auras/BaseAura", 4, 3, BlendState.Additive, false), new LightingAppearance(new float[] { 1f, 1f, 1f }))
         {
 			//draws all the aura
         }

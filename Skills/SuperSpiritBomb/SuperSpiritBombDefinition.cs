@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.SuperSpiritBomb
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.SuperSpiritBomb
 {
     public sealed class SuperSpiritBombDefinition : SkillDefinition
     {
-        public SuperSpiritBombDefinition(params SkillDefinition[] parents) : base("SuperSpiritBomb", "Super Spirit Bomb", "A stronger version of the Spirit Bomb.", typeof(SuperSpiritBombItem), new SuperSpiritBombCharacteristics(), parents: parents)
+        public SuperSpiritBombDefinition(params SkillDefinition[] parents) : base("SuperSpiritBomb", "Super Spirit Bomb", "A stronger version of the Spirit Bomb.", typeof(SuperSpiritBombItem), new SuperSpiritBombCharacteristics(), new Vector2(306, 22), parents: parents)
         {
         }
     }

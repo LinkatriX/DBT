@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.Supernova
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.Supernova
 {
     public sealed class SupernovaDefinition : SkillDefinition
     {
-        public SupernovaDefinition(params SkillDefinition[] parents) : base("Supernova", "Supernova", "A massive blast attack powerful enough to destroy a planet.", typeof(SupernovaItem), new SupernovaCharacteristics(), parents: parents)
+        public SupernovaDefinition(params SkillDefinition[] parents) : base("Supernova", "Supernova", "A massive blast attack powerful enough to destroy a planet.", typeof(SupernovaItem), new SupernovaCharacteristics(), new Vector2(256, 82), parents: parents)
         {
         }
     }

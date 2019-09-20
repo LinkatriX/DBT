@@ -1,8 +1,10 @@
-﻿namespace DBT.Skills.SuperEnergyBarrage
+﻿using Microsoft.Xna.Framework;
+
+namespace DBT.Skills.SuperEnergyBarrage
 {
     public sealed class SuperEnergyBarrageDefinition : SkillDefinition
     {
-        public SuperEnergyBarrageDefinition(params SkillDefinition[] parents) : base("SuperEnergyBarrage", "Super Energy Barrage", "Fires a powerful barrage of energy blasts.", typeof(SuperEnergyBarrageItem), new SuperEnergyBarrageCharacteristics(), parents: parents)
+        public SuperEnergyBarrageDefinition(params SkillDefinition[] parents) : base("SuperEnergyBarrage", "Super Energy Barrage", "Fires a powerful barrage of energy blasts.", typeof(SuperEnergyBarrageItem), new SuperEnergyBarrageCharacteristics(), new Vector2(366, 82), parents: parents)
         {
         }
     }
