@@ -108,6 +108,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
 
             foreach (KeyValuePair<SkillDefinition, UIImagePair> kvp in _skillImagePairs)

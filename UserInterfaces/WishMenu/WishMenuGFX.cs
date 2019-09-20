@@ -15,7 +15,8 @@ namespace DBT.UserInterfaces.WishMenu
             WISH_IMMORTAL_BUTTON = WISH_MENU_DIRECTORY + "WishforImmortality",
             WISH_GENETIC_BUTTON = WISH_MENU_DIRECTORY + "WishforGenetics",
             WISH_SKILL_BUTTON = WISH_MENU_DIRECTORY + "WishforSkill",
-            WISH_WEALTH_BUTTON = WISH_MENU_DIRECTORY + "WishforWealth";
+            WISH_WEALTH_BUTTON = WISH_MENU_DIRECTORY + "WishforWealth",
+            WISH_RITUAL_BUTTON = WISH_MENU_DIRECTORY + "WishforRitual";
 
         public static Texture2D
             wishBackPanel,
@@ -25,6 +26,7 @@ namespace DBT.UserInterfaces.WishMenu
             wishforGenetics,
             wishforSkill,
             wishforAwakening,
+            wishforRitual,
             grantButton;
 
         public static void LoadWishGFX(Mod mod)
@@ -36,6 +38,7 @@ namespace DBT.UserInterfaces.WishMenu
             wishforGenetics = mod.GetTexture(WISH_GENETIC_BUTTON);
             wishforSkill = mod.GetTexture(WISH_SKILL_BUTTON);
             wishforAwakening = mod.GetTexture(WISH_AWAKEN_BUTTON);
+            wishforRitual = mod.GetTexture(WISH_RITUAL_BUTTON);
             grantButton = mod.GetTexture(GRANT_BUTTON);
         }
 
@@ -48,6 +51,7 @@ namespace DBT.UserInterfaces.WishMenu
             wishforGenetics = null;
             wishforSkill = null;
             wishforAwakening = null;
+            wishforRitual = null;
             grantButton = null;
         }
     }

@@ -1,11 +1,26 @@
-﻿using DBT.Items.DragonBalls;
+﻿using DBT.Helpers;
+using DBT.Items.DragonBalls;
+using System;
 using System.Collections.Generic;
 using Terraria;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Players
 {
     public partial class DBTPlayer
     {
+        int soundTimer = 0;
+        public void PostUpdateDragonBalls()
+        {
+            soundTimer++;
+            if (CarryingAllDragonBalls(player) && !WishActive)
+                if (soundTimer > 300)
+                {
+                    SoundHelper.PlayCustomSound("Sounds/DBReady", player, 0.5f);
+                    soundTimer = 0;
+                }
+                    
+        }
 
         public void DestroyOneOfEachDragonBall(Player player)
         {
@@ -25,6 +40,23 @@ namespace DBT.Players
                     item.TurnToAir();
                 }
             }
+        }
+
+        public void DoRitual()
+        {
+
+        }
+
+        public bool CarryingAllDragonBalls(Player player)
+        {
+            List<DragonBall> dragonBalls = player.GetItemsByType<DragonBall>(inventory: true);
+            List<DragonBallStarCount> dragonBallStars = new List<DragonBallStarCount>(7);
+
+            for (int i = 0; i < dragonBalls.Count; i++)
+                if (!dragonBallStars.Contains(dragonBalls[i].StarCount))
+                    dragonBallStars.Add(dragonBalls[i].StarCount);
+
+            return dragonBallStars.Count == Enum.GetNames(typeof(DragonBallStarCount)).Length;
         }
 
         public const int POWER_WISH_MAXIMUM = 5;
