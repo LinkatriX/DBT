@@ -122,7 +122,7 @@ namespace DBT.Transformations.Developers.Webmilio
     public sealed class SoulStealerAppearance : TransformationAppearance
     {
         public SoulStealerAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(SoulStealerTransformation), 8, 3, BlendState.Additive, 1f, true), 
+            new AuraAppearance(new AuraAnimationInformation(typeof(SoulStealerTransformation), 8, 3, BlendState.Additive, true), 
                 new LightingAppearance(new float[] { 0.85f, 0f, 1.30f })),
             new HairAppearance(Color.Fuchsia), Color.Fuchsia, Color.Fuchsia)
         {

@@ -98,7 +98,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
     public sealed class WrathfulTransformationAppearance : TransformationAppearance
     {
         public WrathfulTransformationAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(WrathfulTransformation), 4, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(WrathfulTransformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 0f, 1.25f, 0f })),
             new HairAppearance(Main.LocalPlayer.hairColor), Color.Lime, new Color(211, 186, 44))
         {

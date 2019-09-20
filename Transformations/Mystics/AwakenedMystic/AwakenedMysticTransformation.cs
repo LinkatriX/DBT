@@ -24,7 +24,7 @@ namespace DBT.Transformations.Mystics.AwakenedMystic
 
     public sealed class AwakenedMysticTransformationAppearance : TransformationAppearance
     {
-        public AwakenedMysticTransformationAppearance() : base(new AuraAppearance(new AuraAnimationInformation(typeof(AwakenedMysticTransformation), 8, 3, BlendState.Additive, 1f, true),
+        public AwakenedMysticTransformationAppearance() : base(new AuraAppearance(new AuraAnimationInformation(typeof(AwakenedMysticTransformation), 8, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1f, 1f, 1f })),
             new HairAppearance(Main.LocalPlayer.hairColor), Color.LightBlue, Main.LocalPlayer.eyeColor)
         {

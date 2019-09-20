@@ -97,7 +97,7 @@ namespace DBT.Transformations.Mystics.Mystic
     public sealed class MysticTransformationAppearance : TransformationAppearance
     {
         public MysticTransformationAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation("Auras/BaseAura", 4, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation("Auras/BaseAura", 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1f, 1f, 1f })),
             new HairAppearance(Main.LocalPlayer.hairColor), Color.LightBlue, Main.LocalPlayer.eyeColor)
         {
