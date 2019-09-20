@@ -26,7 +26,7 @@ namespace DBT.Transformations.LSSJs.SSJCType
         public sealed class SSJCTypeTransformationAppearance : TransformationAppearance
         {
             public SSJCTypeTransformationAppearance() : base(
-                new AuraAppearance(new AuraAnimationInformation(typeof(SSJCTypeTransformation), 4, 3, BlendState.Additive, 1f, true),
+                new AuraAppearance(new AuraAnimationInformation(typeof(SSJCTypeTransformation), 4, 3, BlendState.Additive, true),
                     new LightingAppearance(new float[] { 0f, 1.25f, 0f })),
                 new HairAppearance(new Color(228, 255, 28)), Color.Lime, Color.Turquoise)
             {

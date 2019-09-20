@@ -18,7 +18,7 @@ using DBT.Transformations.SSJs.SSJ4s.SSJ4FP;
 using DBT.Transformations.Mystics.Mystic;
 using DBT.Transformations.Mystics.AwakenedMystic;
 using WebmilioCommons.Managers;
-//using DBT.Transformations.Kaiokens.Kaioken;
+using DBT.Transformations.Kaiokens.Kaioken;
 
 namespace DBT.Transformations
 {
@@ -26,11 +26,11 @@ namespace DBT.Transformations
     {
         public override void DefaultInitialize()
         {
-            //Kaioken = Add(new KaiokenTransformation()) as KaiokenTransformation;
-            /*Kaioken3x = Add(new Kaioken3xTransformation()) as Kaioken3xTransformation;
-            Kaioken4x = Add(new Kaioken4xTransformation()) as Kaioken4xTransformation;
-            Kaioken10x = Add(new Kaioken10xTransformation()) as Kaioken10xTransformation;
-            Kaioken20x = Add(new Kaioken20xTransformation()) as Kaioken20xTransformation;*/
+            Kaioken2x = Add(new Kaioken2xTransformation()) as Kaioken2xTransformation;
+            Kaioken3x = Add(new Kaioken3xTransformation(Kaioken2x)) as Kaioken3xTransformation;
+            Kaioken4x = Add(new Kaioken4xTransformation(Kaioken3x)) as Kaioken4xTransformation;
+            Kaioken10x = Add(new Kaioken10xTransformation(Kaioken4x)) as Kaioken10xTransformation;
+            Kaioken20x = Add(new Kaioken20xTransformation(Kaioken10x)) as Kaioken20xTransformation;
 
             SSJ1 = Add(new SSJ1Transformation()) as SSJ1Transformation;
             ASSJ1 = Add(new ASSJ1Transformation(SSJ1)) as ASSJ1Transformation;
@@ -68,11 +68,11 @@ namespace DBT.Transformations
 
         }*/
 
-        //public KaiokenTransformation Kaioken { get; private set; }
-        /*public Kaioken2xTransformation Kaioken3x { get; private set; }
-        public Kaioken2xTransformation Kaioken4x { get; private set; }
-        public Kaioken2xTransformation Kaioken10x { get; private set; }
-        public Kaioken2xTransformation Kaioken20x { get; private set; }*/
+        public Kaioken2xTransformation Kaioken2x { get; private set; }
+        public Kaioken3xTransformation Kaioken3x { get; private set; }
+        public Kaioken4xTransformation Kaioken4x { get; private set; }
+        public Kaioken10xTransformation Kaioken10x { get; private set; }
+        public Kaioken20xTransformation Kaioken20x { get; private set; }
 
         public SSJ1Transformation SSJ1 { get; private set; }
         public ASSJ1Transformation ASSJ1 { get; private set; }

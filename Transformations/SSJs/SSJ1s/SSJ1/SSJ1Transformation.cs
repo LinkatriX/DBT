@@ -47,7 +47,7 @@ namespace DBT.Transformations.SSJs.SSJ1s.SSJ1
     public sealed class SSJ1Appearance : TransformationAppearance
     {
         public SSJ1Appearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(SSJ1Transformation), 4, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(SSJ1Transformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1.25f, 1.25f, 0f })), 
             new HairAppearance(new Color(255, 206, 20)), Color.Yellow, Color.Turquoise)
         {

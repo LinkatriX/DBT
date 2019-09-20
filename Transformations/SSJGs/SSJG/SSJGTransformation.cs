@@ -26,7 +26,7 @@ namespace DBT.Transformations.SSJGs.SSJG
     public sealed class SSJGAppearance : TransformationAppearance
     {
         public SSJGAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(SSJGTransformation), 8, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(SSJGTransformation), 8, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1.25f, 0.45f, 0.28f })), 
             new HairAppearance(new Color(228, 41, 120)), Color.Red, new Color(228, 41, 120))//Old color: 255, 57, 74
         {
