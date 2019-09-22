@@ -48,7 +48,6 @@
     <Folder Include="Skills\SuperExplosiveWave\" />
     <Folder Include="Transformations\Kaiokens\SSGKKs\SSBKK\" />
     <Folder Include="Transformations\Kaiokens\SSGKKs\SSRKK\" />
-    <Folder Include="Transformations\Kaiokens\SuperKaioken\" />
     <Folder Include="Transformations\Terrarians\" />
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
     {
         public WrathfulTransformation(params TransformationDefinition[] parents)
             : base("Wrathful", "Wrathful", typeof(WrathfulTransformationBuff), 1.5f, 1.25f, 3,
-            new TransformationDrain(60f / Constants.TICKS_PER_SECOND, 0f),
+            new TransformationDrain(60f / Constants.TICKS_PER_SECOND),
             new WrathfulTransformationAppearance(),
             new TransformationOverload(0, 0), mastereable: false,
             parents: parents)
