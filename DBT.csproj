@@ -26,6 +26,9 @@
     <None Remove="Sets.rar" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\DebugServer\" />
+    <Folder Include="bin\LaptopDebug\" />
+    <Folder Include="bin\Release\" />
     <Folder Include="Items\Guardian\Support\" />
     <Folder Include="Items\Guardian\Weapons\" />
     <Folder Include="Skills\ExplosiveWave\" />
@@ -47,6 +50,37 @@
     <Folder Include="Skills\TelekineticEnhancement\" />
     <Folder Include="Skills\SuperExplosiveWave\" />
     <Folder Include="Transformations\Terrarians\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\DBT.dll" />
+    <None Include="bin\Debug\DBT.pdb" />
+    <None Include="bin\Debug\Microsoft.Xna.Framework.dll" />
+    <None Include="bin\Debug\Microsoft.Xna.Framework.Game.dll" />
+    <None Include="bin\Debug\Microsoft.Xna.Framework.Graphics.dll" />
+    <None Include="bin\Debug\Microsoft.Xna.Framework.Xact.dll" />
+    <None Include="bin\Debug\net45\DBT.dll" />
+    <None Include="bin\Debug\net45\DBT.pdb" />
+    <None Include="bin\Debug\net45\Ionic.Zip.Reduced.dll" />
+    <None Include="bin\Debug\net45\log4net.dll" />
+    <None Include="bin\Debug\net45\Microsoft.Xna.Framework.dll" />
+    <None Include="bin\Debug\net45\Microsoft.Xna.Framework.Game.dll" />
+    <None Include="bin\Debug\net45\Microsoft.Xna.Framework.Graphics.dll" />
+    <None Include="bin\Debug\net45\Microsoft.Xna.Framework.Xact.dll" />
+    <None Include="bin\Debug\net45\Mono.Cecil.dll" />
+    <None Include="bin\Debug\net45\Mono.Cecil.Mdb.dll" />
+    <None Include="bin\Debug\net45\Mono.Cecil.Pdb.dll" />
+    <None Include="bin\Debug\net45\MonoMod.RuntimeDetour.dll" />
+    <None Include="bin\Debug\net45\MonoMod.Utils.dll" />
+    <None Include="bin\Debug\net45\MP3Sharp.dll" />
+    <None Include="bin\Debug\net45\Newtonsoft.Json.dll" />
+    <None Include="bin\Debug\net45\NVorbis.dll" />
+    <None Include="bin\Debug\net45\ReLogic.dll" />
+    <None Include="bin\Debug\net45\Steamworks.NET.dll" />
+    <None Include="bin\Debug\net45\System.ValueTuple.dll" />
+    <None Include="bin\Debug\net45\Terraria.exe" />
+    <None Include="bin\Debug\net45\TerrariaHooks.dll" />
+    <None Include="bin\Debug\net472\WebmilioCommons.dll" />
+    <None Include="bin\Debug\Terraria.exe" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="WebmilioCommons">

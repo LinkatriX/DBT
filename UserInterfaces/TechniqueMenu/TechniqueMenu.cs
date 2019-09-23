@@ -245,7 +245,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
         }
 
         public Mod AuthorMod { get; }
-        public bool Visible { get; set; } = true;
+        public bool Visible { get; set; } = false;
         public Texture2D LockedImageTexture { get; }
         public Texture2D InfoPanelTexture { get; }
         public Texture2D EquipButtonTexture { get; set; }
