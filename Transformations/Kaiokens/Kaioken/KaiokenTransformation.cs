@@ -96,7 +96,7 @@ namespace DBT.Transformations.Kaiokens.Kaioken
         public KaiokenTransformationAppearance(float auraScale) : base(
             new AuraAppearance(new AuraAnimationInformation("Auras/KaiokenAura", 4, 3, BlendState.Additive, true, baseScale: auraScale),
                 new LightingAppearance(new float[] { 0.35f, 0, 0 })),
-            new HairAppearance(Main.LocalPlayer.hairColor), Color.Red, Main.LocalPlayer.eyeColor)
+            new HairAppearance(Main.LocalPlayer.hairColor), Color.Red, new Color(32, 17, 11))
         {
         }
     }
@@ -136,20 +136,3 @@ namespace DBT.Transformations.Kaiokens.Kaioken
         }
     }
 }
-
-/*public float GetAuraScale(MyPlayer modPlayer)
-{
-    // universal scale handling
-    // scale is based on kaioken level, which gets set to 0
-    var baseScale = 1.0f;
-
-    // special scaling for Kaioken auras only
-    if (isKaiokenAura)
-    {
-        return baseScale * (0.9f + 0.1f * modPlayer.kaiokenLevel);
-    }
-    else
-    {
-        return baseScale;
-    }
-}*/
