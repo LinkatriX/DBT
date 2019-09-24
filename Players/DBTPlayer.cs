@@ -26,5 +26,8 @@ namespace DBT.Players
         public bool IsHoldingDragonRadarMk1 { get; set; }
         public bool IsHoldingDragonRadarMk2 { get; set; }
         public bool IsHoldingDragonRadarMk3 { get; set; }
+        public int ChargeLimitAdd { get; private set; }
+        public float CurrentKiAttackChargeLevel { get; set; } = 0f;
+        public float CurrentKiAttackMaxChargeLevel { get; set; } = 0f;
     }
 }

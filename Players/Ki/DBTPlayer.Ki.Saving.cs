@@ -20,7 +20,7 @@ namespace DBT.Players
             BossesKilled = tag.GetList<int>(nameof(BossesKilled));
         }
 
-        private bool HasKi(float kiAmount)
+        public bool HasKi(float kiAmount)
         {
             return Ki >= kiAmount;
         }

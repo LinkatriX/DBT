@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DBT.Commons;
 using DBT.Network;
 using Terraria;
-using Terraria.ID;
 using WebmilioCommons.Extensions;
 
 namespace DBT.Players
@@ -106,6 +105,7 @@ namespace DBT.Players
 
         public float GetKiDrain(float kiDrain) => (kiDrain + KiDrainMultiplier) + KiDrainModifier;
 
+        public bool IsKiDepleted(float projectedKiDrain = 0f) => Ki - projectedKiDrain <= 0;
 
         public float KiDamageMultiplier { get; set; } = 1f;
 
