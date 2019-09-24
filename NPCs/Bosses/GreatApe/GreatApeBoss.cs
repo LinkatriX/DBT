@@ -77,6 +77,11 @@ namespace DBT.NPCs.Bosses.GreatApe
             {
                 ChangeStage();
             }
+            
+            if (AIStage == STAGE_WALK)
+            {
+                
+            }
 
             if (AIStage == STAGE_LEAP)
             {
@@ -114,7 +119,7 @@ namespace DBT.NPCs.Bosses.GreatApe
                 
                 if (IsRoaringAnimation)
                 {
-
+                    //Do Beam Blast here, using old style
                 }
                     
 
