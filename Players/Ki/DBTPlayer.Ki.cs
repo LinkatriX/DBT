@@ -9,7 +9,7 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        private bool _isCharging;
+        private bool _charging;
 
 
         public float ModifyKi(float kiAmount)
@@ -74,7 +74,7 @@ namespace DBT.Players
 
         internal void PostUpdateKi()
         {
-            if (IsCharging)
+            if (Charging)
             {
                 ModifyKi(KiChargeRate);
 
@@ -137,15 +137,15 @@ namespace DBT.Players
 
         public int KiOrbDropChance { get; set; }
 
-        public bool IsCharging
+        public bool Charging
         {
-            get => _isCharging;
+            get => _charging;
             set
             {
-                if (_isCharging == value)
+                if (_charging == value)
                     return;
 
-                _isCharging = value;
+                _charging = value;
 
                 if (player.whoAmI == Main.myPlayer)
                     new PlayerChargingPacket().Send();

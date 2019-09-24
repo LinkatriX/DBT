@@ -2,6 +2,7 @@
 using DBT.Commons.Players;
 using DBT.Effects;
 using DBT.HairStyles;
+using DBT.NPCs.Bosses.FriezaShip;
 using DBT.Transformations;
 using DBT.Wasteland;
 using Terraria;
@@ -155,6 +156,7 @@ namespace DBT.Players
             ResetGuardianEffects();
             ResetSkillEffects();
             ResetOverloadEffects();
+            ResetFlightEffects();
 
             IsHoldingDragonRadarMk1 = false;
             IsHoldingDragonRadarMk2 = false;
@@ -195,9 +197,9 @@ namespace DBT.Players
             PostUpdateTiles();
 
             // neuters flight if the player gets immobilized. Note the lack of Katchin Feet buff.
-            if (IsPlayerImmobilized() && IsFlying)
+            if (IsPlayerImmobilized() && Flying)
             {
-                IsFlying = false;
+                Flying = false;
             }
 
             List<IHandleOnPlayerPostUpdate> items = player.GetItemsByType<IHandleOnPlayerPostUpdate>();
@@ -205,19 +207,19 @@ namespace DBT.Players
             for (int i = 0; i < items.Count; i++)
                 items[i].OnPlayerPostUpdate(this);
 
-            if (Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType("FriezaShip")))
+            if (Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType<FriezaShip>()))
                 CheckFriezaShipSpawn();
 
             HandleMouseOctantAndSyncTracking();
             //HandleChargeEffects();
 
-            // flight system moved to PostUpdate so that it can benefit from not being client sided!
-            FlightSystem.Update(player);
+            // Flight system moved to PostUpdate so that it can benefit from not being client sided!
+            Flight.Update(this);
         }
 
         public override void PostUpdateRunSpeeds()
         {
-            if (IsCharging)
+            if (Charging)
             {
                 player.moveSpeed *= CHARGING_MOVE_SPEED_MULTIPLIER;
                 player.maxRunSpeed *= CHARGING_MOVE_SPEED_MULTIPLIER;
@@ -235,7 +237,7 @@ namespace DBT.Players
             ForAllActiveTransformations(p => p.OnActivePlayerDied(this, damage, pvp, damageSource));
             ClearTransformations();
 
-            IsCharging = false;
+            Charging = false;
         }
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)

@@ -376,7 +376,7 @@ namespace DBT.Projectiles
             var modPlayer = player.GetModPlayer<DBTPlayer>();
             modPlayer.CurrentKiAttackChargeLevel = 0f;
             modPlayer.CurrentKiAttackMaxChargeLevel = 0f;
-            modPlayer.isPlayerUsingKiWeapon = false;
+            modPlayer.IsPlayerUsingKiWeapon = false;
         }
 
         public void UpdateChargeBallLocationAndDirection(Player player, Vector2 mouseVector)
@@ -390,7 +390,7 @@ namespace DBT.Projectiles
             {
                 modPlayer.CurrentKiAttackChargeLevel = ChargeLevel;
                 modPlayer.CurrentKiAttackMaxChargeLevel = finalChargeLimit;
-                modPlayer.isPlayerUsingKiWeapon = true;
+                modPlayer.IsPlayerUsingKiWeapon = true;
                 Vector2 diff = mouseVector - player.Center;
                 diff.Normalize();
                 projectile.velocity = diff;
@@ -417,7 +417,7 @@ namespace DBT.Projectiles
             float itemRotation = (float)Math.Atan2(rotationVector.Y, rotationVector.X);
             player.itemRotation = itemRotation;
             // don't do this if the player is flying, we let the flight code handle it "manually" because it looks weird as shit
-            if (!modPlayer.IsFlying)
+            if (!modPlayer.Flying)
             {
                 player.ChangeDir(dir);
             }

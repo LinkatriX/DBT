@@ -27,7 +27,7 @@ namespace DBT.Items.KiStones
             base.HoldItem(player);
             DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
 
-            if (dbtPlayer.IsCharging)
+            if (dbtPlayer.Charging)
             {
                 if (dbtPlayer.Ki == 0)
                 {

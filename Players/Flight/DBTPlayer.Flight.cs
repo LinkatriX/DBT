@@ -2,11 +2,15 @@
 using System;
 using Terraria;
 using Terraria.ID;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
+        private bool _flying;
+
+
         internal void PostUpdateFlight()
         {
             if (!Flying) return;
@@ -62,7 +66,7 @@ namespace DBT.Players
                 return;
 
             // this is why :p
-            mouseWorldOctant = GetMouseWorldOctantFromRadians(GetMouseRadiansOrDefault());
+            MouseWorldOctant = GetMouseWorldOctantFromRadians(GetMouseRadiansOrDefault());
         }
 
         public float GetMouseRadiansOrDefault()
@@ -97,10 +101,20 @@ namespace DBT.Players
             return 0;
         }
 
-        public bool IsPlayerImmobilized()
+        public bool IsPlayerImmobilized() => player.frozen || player.stoned || player.HasBuff(BuffID.Cursed);
+
+        internal void OnPlayerFlightStateChanged(bool state)
         {
-            return player.frozen || player.stoned || player.HasBuff(BuffID.Cursed);
+            if (!state)
+                player.fullRotation = MathHelper.Lerp(player.fullRotation, 0, 0.1f);
         }
+
+
+        private void ResetFlightEffects()
+        {
+            StopFlightOnNoKi = true;
+        }
+
 
         /*public void HandleChargeEffects()
         {
@@ -170,15 +184,30 @@ namespace DBT.Players
             }
         }*/
 
-        public bool IsFlying { get; private set; }
-        public bool Flying { get; internal set; }
+        public bool Flying
+        {
+            get => _flying;
+            set
+            {
+                if (value == _flying)
+                    return;
+
+                _flying = value;
+                OnPlayerFlightStateChanged(value);
+
+                this.SendIfLocal<PlayerFlightStateChangedPacket>();
+            }
+        }
+
         public bool FlightUnlocked { get; set; }
         public bool FlightDampenedFall { get; set; }
         public bool FlightT3 { get; set; }
 
-        public bool isPlayerUsingKiWeapon = false;
+        public bool StopFlightOnNoKi { get; set; }
+
+        public bool IsPlayerUsingKiWeapon { get; set; }
         public float FlightSpeedModifier { get; set; }
         public float FlightKiUsageModifier { get; set; }
-        public int mouseWorldOctant = -1;
+        internal int MouseWorldOctant { get; set; }
     }
 }

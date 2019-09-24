@@ -17,12 +17,15 @@ namespace DBT.Auras
 
         private static void DrawLayer(PlayerDrawInfo drawInfo)
         {
-            if (Main.netMode == NetmodeID.Server) return;
+            if (Main.netMode == NetmodeID.Server)
+                return;
 
             DBTPlayer dbtPlayer = drawInfo.drawPlayer.GetModPlayer<DBTPlayer>();
 
             AuraAppearance aura = dbtPlayer.GetAura();
-            if (aura == null) return;
+
+            if (aura == null)
+                return;
 
             int auraHeight = aura.Information.GetHeight(dbtPlayer);
 

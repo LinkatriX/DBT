@@ -19,7 +19,7 @@ namespace DBT.Extensions
         public static void ApplyChannelingSlowdown(this Player player)
         {
             DBTPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
-            if (modPlayer.IsFlying)
+            if (modPlayer.Flying)
             {
                 float chargeMoveSpeedBonus = modPlayer.SkillChargeMoveSpeedModifier / 10f;
                 float yVelocity = -(player.gravity + 0.001f);
