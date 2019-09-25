@@ -23,10 +23,11 @@ namespace DBT
 
             Player player = dbtPlayer.player;
 
-            if (player.dead || player.mount.Type != -1 || player.ropeCount != 0 || dbtPlayer.StopFlightOnNoKi && dbtPlayer.Ki <= FLIGHT_KI_DRAIN)
+            if (player.dead || player.mount.Type != -1 || player.ropeCount != 0 || (dbtPlayer.StopFlightOnNoKi && dbtPlayer.Ki <= FLIGHT_KI_DRAIN))
             {
                 dbtPlayer.Flying = false;
                 AddKatchinFeetBuff(dbtPlayer);
+                dbtPlayer.player.fallStart = (int)(dbtPlayer.player.position.Y / 16f);
 
                 return;
             }
@@ -52,13 +53,13 @@ namespace DBT
 
             if (dbtPlayer.UpHeld)
             {
-                player.velocity.Y -= totalVerticalFlightSpeed / 3.8f;
+                player.velocity.Y -= totalVerticalFlightSpeed / 3.8f; //3.8 original
                 rotationDirection = Vector2.UnitY;
             }
             else if (dbtPlayer.DownHeld)
             {
                 player.maxFallSpeed = 20f;
-                player.velocity.Y += totalVerticalFlightSpeed / 3.6f;
+                player.velocity.Y += totalVerticalFlightSpeed / 3.8f; //3.6 original
                 rotationDirection = -Vector2.UnitY;
             }
 
@@ -77,7 +78,7 @@ namespace DBT
             player.velocity.X = MathHelper.Lerp(player.velocity.X, 0, 0.1f);
             player.velocity.Y = MathHelper.Lerp(player.velocity.Y, 0, 0.1f);
 
-            player.velocity = player.velocity - player.gravity * Vector2.UnitY;
+            player.velocity -= player.gravity * Vector2.UnitY;
 
             if (player.velocity.X > 0)
                 player.legFrameCounter = -player.velocity.X;
@@ -176,7 +177,7 @@ namespace DBT
             {
                 player.fullRotation = MathHelper.Lerp(player.fullRotation, 0, 0.1f);
             }
-        }*/
+        }*///Obsolete flight code, remove before final commit
 
         public static Tuple<int, float> GetFlightFacingDirectionAndPitchDirection(DBTPlayer modPlayer)
         {

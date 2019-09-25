@@ -34,5 +34,9 @@ namespace DBT.Players
         public int SkillWishesLeft { get; set; } = 3;
         public int AwakeningWishesLeft { get; set; } = 5;
         public int ImmortalityRevivesLeft { get; set; }
+        public bool IsHoldingDragonRadarMk1 { get; set; }
+        public bool IsHoldingDragonRadarMk2 { get; set; }
+        public bool IsHoldingDragonRadarMk3 { get; set; }
+        public bool FirstDragonBallPickup { get; set; }
     }
 }

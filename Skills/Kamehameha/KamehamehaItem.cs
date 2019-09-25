@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace DBT.Skills.Kamehameha
 {
     //Old way we structured the item for reference.
-    /*public class KamehamehaItem : ModItem
+    public class KamehamehaItem : ModItem
     {
         public override void SetDefaults()
         {
@@ -66,7 +67,7 @@ namespace DBT.Skills.Kamehameha
                 }
             }
         }
-    }*/
+    }
 
     /*public sealed class KamehamehaItem : SkillItem<KamehamehaProjectile>
     {
