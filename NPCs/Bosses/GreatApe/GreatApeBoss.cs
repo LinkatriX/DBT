@@ -12,6 +12,7 @@ using DBT.Items.Materials;
 using DBT.Items.Weapons;
 using DBT.Projectiles;
 using System.Linq;
+using DBT.Projectiles.GreatApe;
 
 namespace DBT.NPCs.Bosses.GreatApe
 {
@@ -105,7 +106,7 @@ namespace DBT.NPCs.Bosses.GreatApe
             if (AIStage == STAGE_BEAM)
             {
                 AITimer1++;
-                if (_frame != 0)
+                if (AITimer1 == 1 && _frame != 0)
                 {
                     _frame = 0;
                 }
@@ -117,15 +118,29 @@ namespace DBT.NPCs.Bosses.GreatApe
                     IsBeaming = true;
                 }
                 
-                if (IsRoaringAnimation)
+                if (IsRoaringAnimation && !HasFinishedFiringBeam)
                 {
-                    //Do Beam Blast here, using old style
+                    AITimer2++;
+                    if (AITimer2 <= 90)
+                        DoLineDust(npc.getRect().TopLeft() - new Vector2(12, -85), -60f);
+
+                    if (AITimer2 == 140)
+                    {
+                        Projectile.NewProjectile(npc.getRect().TopLeft() - new Vector2(12, -80), new Vector2(-30f, 0f), mod.ProjectileType<ApeBeamBlast>(), npc.damage / 3, 2f, npc.whoAmI);
+                        npc.netUpdate = true;
+                    }
+
+
+                    if (AITimer2 == 280)
+                        HasFinishedFiringBeam = true;
+
                 }
                     
 
             }
-            //Main.NewText("Has done starting position? " + HasDoneStartingPosition);
-            //Main.NewText("Has done starting stuff? " + HasDoneStartingStuff);
+            //Main.NewText("AIStage is: " + AIStage);
+            //Main.NewText("Is Roaring? " + IsRoaring);
+            //Main.NewText("Is Beaming? " + IsBeaming);
             //Main.NewText("Y velocity is: " + npc.velocity.Y);
         }
 
@@ -136,6 +151,16 @@ namespace DBT.NPCs.Bosses.GreatApe
 
             if (AIStage == STAGE_LEAP && HasDoneStartingStuff)
                 AIStage = STAGE_BEAM;
+        }
+
+
+
+        public void DoLineDust(Vector2 position, float speed)
+        {
+            Dust.NewDustPerfect(position, 71, new Vector2(speed, 0), 0, new Color(255, 255, 255),
+                1.5f);
+
+            npc.netUpdate = true;
         }
 
         public void DoRoar()
@@ -156,7 +181,11 @@ namespace DBT.NPCs.Bosses.GreatApe
                 if (npc.velocity.Y > 0)
                     _frame = 16;
                 if (npc.velocity.Y == 0 && (_frame == 16))
+                {
                     _frame = 17;
+                    SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeLanding", null, 0.6f);
+                }
+                    
                 if (_frame == 17)
                 {
                     _frameTimer++;
@@ -189,7 +218,7 @@ namespace DBT.NPCs.Bosses.GreatApe
                     {
                         IsRoaringAnimation = true;
                         if (_frameTimer == 1)
-                            SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeRoar");
+                            SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeRoar", null, 1f, 0.1f);
                         if (_frameTimer > 60)
                         {
                             _frame = 18;
@@ -198,6 +227,7 @@ namespace DBT.NPCs.Bosses.GreatApe
                                 _frame = 0;
                                 IsRoaring = false;
                                 _frameTimer = 0;
+                                IsRoaringAnimation = false;
                                 if (!HasDoneStartingStuff)
                                 {
                                     HasDoneStartingStuff = true;
@@ -212,7 +242,7 @@ namespace DBT.NPCs.Bosses.GreatApe
 
             if (AIStage == STAGE_BEAM)
             {
-                if (IsBeaming)
+                if (IsRoaring)
                 {
                     _frameTimer++;
 
@@ -231,17 +261,23 @@ namespace DBT.NPCs.Bosses.GreatApe
                     if (_frame == 22 || IsRoaringAnimation)
                     {
                         IsRoaringAnimation = true;
-                        if (_frameTimer == 1)
+                        if (_frameTimer == 140)
                             SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeBeam");
 
                         if (HasFinishedFiringBeam)
                         {
+                            IsBeaming = false;
+                            IsRoaring = false;
+                            IsRoaringAnimation = false;
                             _frame = 18;
                             AITimer2++;
                             if (AITimer2 > 10)
                             {
+                                _frameTimer = 0;
                                 _frame = 0;
                                 AITimer2 = 0;
+                                AITimer1 = 0;
+                                //ChangeStage();
                             }
                         }
 
@@ -269,6 +305,35 @@ namespace DBT.NPCs.Bosses.GreatApe
                 effects = SpriteEffects.FlipHorizontally;
             else
                 effects = SpriteEffects.None;
+
+            switch (_frame)
+            {
+                case 0:
+                    drawCenter.Y = 42f;
+                    break;
+                case 16:
+                    drawCenter.Y = 58f;
+                    break;
+                case 17:
+                    drawCenter.Y = 60f;
+                    break;
+                case 18:
+                    drawCenter.Y = 60f;
+                    break;
+                case 19:
+                    drawCenter.Y = 60f;
+                    break;
+                case 20:
+                    drawCenter.Y = 60f;
+                    break;
+                case 21:
+                    drawCenter.Y = 60f;
+                    break;
+                case 22:
+                    drawCenter.Y = 60f;
+                    break;
+
+            }
 
             Rectangle sourceRectangle = new Rectangle(0, frameHeight * _frame, texture.Width, frameHeight);
             spriteBatch.Draw(texture, drawPos, sourceRectangle, Color.White, 0f, drawCenter, 1f, effects, 0f);

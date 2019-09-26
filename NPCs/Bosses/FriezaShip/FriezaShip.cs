@@ -721,18 +721,13 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			npc.netUpdate = true;
 		}
 
-		public void DoLineDust()
-		{
-			if (Main.rand.NextFloat() < 1.2f)
-			{
-				Dust dust;
-				dust = Dust.NewDustPerfect(HyperPosition, 133, new Vector2(HyperSlamSpeed * 2f, 0), 0, new Color(255, 255, 255),
-					1.052632f);
-				dust.noGravity = true;
-			}
+        public void DoLineDust()
+        {
+            Dust.NewDustPerfect(HyperPosition, 133, new Vector2(HyperSlamSpeed, 0), 0, new Color(255, 255, 255),
+                1.052632f);
 
-			npc.netUpdate = true;
-		}
+            npc.netUpdate = true;
+        }
 
 		public void TeleportRight()
 		{

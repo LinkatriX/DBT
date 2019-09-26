@@ -47,6 +47,8 @@ namespace DBT
         internal UserInterface wishMenuInterface;
         internal HairMenu hairMenu;
         internal UserInterface hairMenuInterface;
+        internal NamekianBookUI namekBookUI;
+        internal UserInterface namekBookInterface;
 
         internal bool calamityEnabled;
 
@@ -123,6 +125,11 @@ namespace DBT
                 hairMenuInterface = new UserInterface();
                 hairMenuInterface.SetState(hairMenu);
 
+                namekBookUI = new NamekianBookUI();
+                namekBookUI.Activate();
+                namekBookInterface = new UserInterface();
+                namekBookInterface.SetState(namekBookUI);
+
                 Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect"));
 
                 Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
@@ -163,6 +170,8 @@ namespace DBT
                 WishMenu.menuVisible = false;
 
                 HairMenu.menuVisible = false;
+
+                namekBookUI.MenuVisible = false;
             }
             Instance = null;
         }
@@ -228,6 +237,7 @@ namespace DBT
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
                 layers.Insert(resourcesLayerIndex, new WishMenuLayer());
                 layers.Insert(resourcesLayerIndex, new HairMenuLayer());
+                layers.Insert(resourcesLayerIndex, new NamekianBookUILayer());
             }
             if (characterMenuIndex != -1)
             {
