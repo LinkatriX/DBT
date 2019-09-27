@@ -27,7 +27,7 @@ namespace DBT.Projectiles
         }
 
         // this is the beam the charge beam fires when told to.
-        public string beamProjectileName = "BaseBeamProj";
+        public int beamProjectileName = 0;
 
         // the type of dust that should spawn when charging or decaying
         public int dustType = 169;
@@ -158,7 +158,7 @@ namespace DBT.Projectiles
             projectile.tileCollide = false;
         }
 
-        public bool IsFired = false;
+        public bool IsFired { get; set; } = false;
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -207,10 +207,10 @@ namespace DBT.Projectiles
             finalChargeLimit = chargeLimit + modPlayer.ChargeLimitAdd;
 
             // stop channeling if the player is out of ki
-            if (modPlayer.IsKiDepleted())
+            /*if (modPlayer.IsKiDepleted())
             {
                 player.channel = false;
-            }
+            }*/
 
             // keep alive routine.
             if (projectile.timeLeft < 4)
@@ -220,7 +220,7 @@ namespace DBT.Projectiles
 
             // charge the ball if the proper keys are held.
             // increment the charge timer if channeling and apply slowdown effect
-            if (modPlayer.MouseLeftHeld && !IsFired)
+            if (modPlayer.MouseLeftHeld /*&& !IsFired*/)
             {
                 // the player can hold the charge all they like once it's fully charged up. Currently this doesn't incur a movespeed debuff either.
                 if (ChargeLevel < finalChargeLimit && modPlayer.HasKi(ChargeKiDrainRate()))
@@ -228,10 +228,10 @@ namespace DBT.Projectiles
                     isCharging = true;
 
                     // drain ki from the player when charging
-                    if (DBTMod.IsTickRateElapsed(CHARGE_KI_DRAIN_WINDOW))
+                    /*if (DBTMod.IsTickRateElapsed(CHARGE_KI_DRAIN_WINDOW))
                     {
                         modPlayer.ModifyKi(Definition.Characteristics.ChargeCharacteristics.GetChargeKiDrainForChargeLevel(modPlayer));
-                    }
+                    }*/
 
                     // increase the charge
                     ChargeLevel = Math.Min(finalChargeLimit, ChargeRate() + ChargeLevel);
@@ -239,13 +239,13 @@ namespace DBT.Projectiles
                     // slow down the player while charging.
                     player.ApplyChannelingSlowdown();
                 }
-                else
+                /*else
                 {
                     if (ChargeLevel == 0f)
                     {
                         projectile.Kill();
                     }
-                }
+                }*/
             }
 
             // play the sound if the player just started charging and the audio is "off cooldown"
@@ -374,8 +374,6 @@ namespace DBT.Projectiles
                 return;
             var player = Main.player[projectile.owner];
             var modPlayer = player.GetModPlayer<DBTPlayer>();
-            modPlayer.CurrentKiAttackChargeLevel = 0f;
-            modPlayer.CurrentKiAttackMaxChargeLevel = 0f;
             modPlayer.IsPlayerUsingKiWeapon = false;
         }
 

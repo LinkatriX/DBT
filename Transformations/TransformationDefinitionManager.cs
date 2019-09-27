@@ -20,6 +20,9 @@ using DBT.Transformations.Mystics.AwakenedMystic;
 using WebmilioCommons.Managers;
 using DBT.Transformations.Kaiokens.Kaioken;
 using DBT.Transformations.Kaiokens.SSJKK;
+using DBT.Transformations.Patreon.DemonSSJ;
+using DBT.Transformations.Patreon.DivineSSJ;
+using DBT.Transformations.Patreon.LSSJG;
 
 namespace DBT.Transformations
 {
@@ -59,6 +62,12 @@ namespace DBT.Transformations
             AwakenedMystic = Add(new AwakenedMysticTransformation(Mystic)) as AwakenedMysticTransformation;
 
             SoulStealer = Add(new SoulStealerTransformation()) as SoulStealerTransformation;
+
+            DemonSSJ = Add(new DemonSSJTransformation()) as DemonSSJTransformation;
+
+            DivineSSJ = Add(new DivineSSJTransformation()) as DivineSSJTransformation;
+
+            LSSG = Add(new LSSGTransformation()) as LSSGTransformation;
 
             Tree = new Tree<TransformationDefinition>(byIndex);
 
@@ -102,6 +111,12 @@ namespace DBT.Transformations
         public SoulStealerTransformation SoulStealer { get; private set; }
 
         public SSJ5Transformation SSJ5 { get; private set; }
+
+        public DemonSSJTransformation DemonSSJ { get; private set; }
+
+        public DivineSSJTransformation DivineSSJ { get; private set; }
+
+        public LSSGTransformation LSSG { get; private set; }
 
         public Tree<TransformationDefinition> Tree { get; private set; }
     }

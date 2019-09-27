@@ -15,10 +15,10 @@ namespace DBT.Projectiles
         // used to offset the beam so that its origin is different from the charge ball, used for special instances like the Makankosappo
         public Vector2 beamCreationOffset = Vector2.Zero;
 
-        private bool ShouldFireBeam(DBTPlayer modPlayer)
+        /*private bool ShouldFireBeam(DBTPlayer modPlayer)
         {
             return ChargeLevel > 0f && (!modPlayer.MouseLeftHeld || IsFired);
-        }
+        }*/
 
         private float GetBeamPowerMultiplier()
         {
@@ -39,9 +39,10 @@ namespace DBT.Projectiles
         public void HandleFiring(Player player, Vector2 mouseVector)
         {
             DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
+            bool temp = true;
 
             // minimum charge level is required to fire in the first place, but once you fire, you can keep firing.
-            if (ShouldFireBeam(modPlayer))
+            if (temp)//ShouldFireBeam(modPlayer)
             {
                 // once fired, there's no going back.
                 IsFired = true;
@@ -54,7 +55,7 @@ namespace DBT.Projectiles
                     if (Main.netMode != NetmodeID.MultiplayerClient || Main.myPlayer == player.whoAmI)
                     {
                         // fire the laser!
-                        myProjectile = Projectile.NewProjectileDirect(projectile.position + beamCreationOffset, projectile.velocity, mod.ProjectileType(beamProjectileName), GetBeamDamage(), projectile.knockBack, projectile.owner);
+                        myProjectile = Projectile.NewProjectileDirect(projectile.position + beamCreationOffset, projectile.velocity, beamProjectileName, GetBeamDamage(), projectile.knockBack, projectile.owner);
                     }
                 }
 
