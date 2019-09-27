@@ -11,9 +11,18 @@ namespace DBT.Items.Consumables
 {
     public sealed class NamekianBook : DBTConsumable
     {
-        public NamekianBook() : base("Ancient Namekian Book of Rites", "A weathered and torn book, containing the oldest knowledge of the namekian race.", 36, 42, Item.buyPrice(0), ItemRarityID.Cyan, 
-            ItemUseStyleID.EatingUsing, true, DBTMod.Instance.GetLegacySoundSlot(SoundType.Custom, "Sounds/Bookread"), 17, 17)
+        public NamekianBook() : base("Ancient Namekian Book of Legends", "A weathered and torn book, containing the oldest knowledge of the namekian race.", 36, 42, Item.buyPrice(0), ItemRarityID.Cyan, 
+            ItemUseStyleID.HoldingOut, true, DBTMod.Instance.GetLegacySoundSlot(SoundType.Custom, "Sounds/Bookread"), 1, 17)
         {
+        }
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            item.consumable = false;
+            item.autoReuse = false;
+            item.reuseDelay = 17;
         }
 
         public override bool UseItem(Player player)
@@ -22,7 +31,5 @@ namespace DBT.Items.Consumables
 
             return base.UseItem(player);
         }
-
-        public Donator Donator => SteamHelper.CanadianMRE;
     }
 }
