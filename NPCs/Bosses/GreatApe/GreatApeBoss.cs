@@ -65,7 +65,7 @@ namespace DBT.NPCs.Bosses.GreatApe
                 player = Main.player[npc.target];
                 if (!player.active || player.dead)
                 {
-                    npc.velocity = new Vector2(0f, -10f);
+                    //npc.velocity = new Vector2(0f, -10f);
 
                     if (npc.timeLeft > 10)
                         npc.timeLeft = 10;
@@ -126,7 +126,7 @@ namespace DBT.NPCs.Bosses.GreatApe
 
                     if (AITimer2 == 140)
                     {
-                        Projectile.NewProjectile(npc.getRect().TopLeft() - new Vector2(12, -80), new Vector2(-30f, 0f), mod.ProjectileType<ApeBeamBlast>(), npc.damage / 3, 2f, npc.whoAmI);
+                        Projectile.NewProjectile(npc.getRect().TopLeft() - new Vector2(20, -80), new Vector2(-30f, 0f), mod.ProjectileType<ApeBeamBlast>(), npc.damage / 3, 2f, npc.whoAmI);
                         npc.netUpdate = true;
                     }
 
@@ -141,7 +141,7 @@ namespace DBT.NPCs.Bosses.GreatApe
             //Main.NewText("AIStage is: " + AIStage);
             //Main.NewText("Is Roaring? " + IsRoaring);
             //Main.NewText("Is Beaming? " + IsBeaming);
-            //Main.NewText("Y velocity is: " + npc.velocity.Y);
+            //Main.NewText("AITimer2 is: " + AITimer2);
         }
 
         public void ChangeStage()
@@ -265,10 +265,7 @@ namespace DBT.NPCs.Bosses.GreatApe
                             SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeBeam");
 
                         if (HasFinishedFiringBeam)
-                        {
-                            IsBeaming = false;
-                            IsRoaring = false;
-                            IsRoaringAnimation = false;
+                        {                           
                             _frame = 18;
                             AITimer2++;
                             if (AITimer2 > 10)
@@ -277,7 +274,10 @@ namespace DBT.NPCs.Bosses.GreatApe
                                 _frame = 0;
                                 AITimer2 = 0;
                                 AITimer1 = 0;
-                                //ChangeStage();
+                                IsBeaming = false;
+                                IsRoaring = false;
+                                IsRoaringAnimation = false;
+                                AIStage = STAGE_WALK;
                             }
                         }
 

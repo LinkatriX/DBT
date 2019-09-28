@@ -63,7 +63,7 @@ namespace DBT.UserInterfaces.WishMenu
 
             InitializeButton(WishMenuGFX.wishforAwakening, new MouseEvent(SelectButtonAwakening), 235, 22, BackPanelImage);
 
-            RitualButton = InitializeButton(WishMenuGFX.wishforRitual, new MouseEvent(SelectButtonRitual), 280, 22, BackPanelImage);
+            InitializeButton(WishMenuGFX.wishforRitual, new MouseEvent(SelectButtonRitual), 280, 22, BackPanelImage);
 
             InitializeButton(WishMenuGFX.grantButton, new MouseEvent(GrantWish), WishMenuGFX.wishBackPanel.Width - WishMenuGFX.grantButton.Width - 12, WishMenuGFX.wishBackPanel.Height - WishMenuGFX.grantButton.Height - 12, BackPanelImage);
 
@@ -80,10 +80,10 @@ namespace DBT.UserInterfaces.WishMenu
 
             if (!NPC.LunarApocalypseIsUp)
             {
-                RitualButton.Width = StyleDimension.Empty;
-                RitualButton.Height = StyleDimension.Empty;
-                RitualButton.SetVisibility(0f, 0f);
-            } 
+                RitualWishText = "I'm unaware of this wish, perhaps one of those cultists could tell you?";
+            }
+            else
+                RitualWishText = "Wish to recall ancient spirits of the past.\nBegins the ritual.";
 
         }
 
@@ -157,7 +157,7 @@ namespace DBT.UserInterfaces.WishMenu
             Initialize();
             DBTPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
             _wishTextValue = "Summon Recollection";
-            _descTextValue = "Wish to recall ancient spirits of the past.\nBegins the ritual.";
+            _descTextValue = RitualWishText;
             wishSelection = WishSelectionID.Ritual;
             Main.PlaySound(SoundID.MenuTick);
         }
@@ -292,6 +292,6 @@ namespace DBT.UserInterfaces.WishMenu
             modPlayer.WishActive = false;
         }
 
-        public UIImageButton RitualButton { get; set; }
+        public string RitualWishText { get; set; }
     }
 }
