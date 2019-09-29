@@ -18,6 +18,11 @@ using DBT.Transformations.SSJs.SSJ4s.SSJ4FP;
 using DBT.Transformations.Mystics.Mystic;
 using DBT.Transformations.Mystics.AwakenedMystic;
 using WebmilioCommons.Managers;
+using DBT.Transformations.Kaiokens.Kaioken;
+using DBT.Transformations.Kaiokens.SSJKK;
+using DBT.Transformations.Patreon.DemonSSJ;
+using DBT.Transformations.Patreon.DivineSSJ;
+using DBT.Transformations.Patreon.LSSJG;
 
 namespace DBT.Transformations
 {
@@ -25,11 +30,18 @@ namespace DBT.Transformations
     {
         public override void DefaultInitialize()
         {
+            Kaioken2x = Add(new Kaioken2XTransformation()) as Kaioken2XTransformation;
+            Kaioken3x = Add(new Kaioken3XTransformation(Kaioken2x)) as Kaioken3XTransformation;
+            Kaioken4x = Add(new Kaioken4XTransformation(Kaioken3x)) as Kaioken4XTransformation;
+            Kaioken10x = Add(new Kaioken10XTransformation(Kaioken4x)) as Kaioken10XTransformation;
+            Kaioken20x = Add(new Kaioken20XTransformation(Kaioken10x)) as Kaioken20XTransformation;
+
             SSJ1 = Add(new SSJ1Transformation()) as SSJ1Transformation;
             ASSJ1 = Add(new ASSJ1Transformation(SSJ1)) as ASSJ1Transformation;
             USSJ1 = Add(new USSJ1Transformation(ASSJ1)) as USSJ1Transformation;
-
+            
             SSJ2 = Add(new SSJ2Transformation(SSJ1)) as SSJ2Transformation;
+            SSJKK = Add(new SSJKKTransformation(SSJ1)) as SSJKKTransformation;
             SSJ3 = Add(new SSJ3Transformation(SSJ2)) as SSJ3Transformation;
 
             SSJ4 = Add(new SSJ4Transformation(SSJ3)) as SSJ4Transformation;
@@ -51,6 +63,12 @@ namespace DBT.Transformations
 
             SoulStealer = Add(new SoulStealerTransformation()) as SoulStealerTransformation;
 
+            DemonSSJ = Add(new DemonSSJTransformation()) as DemonSSJTransformation;
+
+            DivineSSJ = Add(new DivineSSJTransformation()) as DivineSSJTransformation;
+
+            LSSG = Add(new LSSGTransformation()) as LSSGTransformation;
+
             Tree = new Tree<TransformationDefinition>(byIndex);
 
             base.DefaultInitialize(); 
@@ -61,9 +79,16 @@ namespace DBT.Transformations
 
         }*/
 
+        public Kaioken2XTransformation Kaioken2x { get; private set; }
+        public Kaioken3XTransformation Kaioken3x { get; private set; }
+        public Kaioken4XTransformation Kaioken4x { get; private set; }
+        public Kaioken10XTransformation Kaioken10x { get; private set; }
+        public Kaioken20XTransformation Kaioken20x { get; private set; }
+
         public SSJ1Transformation SSJ1 { get; private set; }
         public ASSJ1Transformation ASSJ1 { get; private set; }
         public USSJ1Transformation USSJ1 { get; private set; }
+        public SSJKKTransformation SSJKK { get; private set; }
 
         public SSJ2Transformation SSJ2 { get; private set; }
         public SSJ3Transformation SSJ3 { get; private set; }
@@ -86,6 +111,12 @@ namespace DBT.Transformations
         public SoulStealerTransformation SoulStealer { get; private set; }
 
         public SSJ5Transformation SSJ5 { get; private set; }
+
+        public DemonSSJTransformation DemonSSJ { get; private set; }
+
+        public DivineSSJTransformation DivineSSJ { get; private set; }
+
+        public LSSGTransformation LSSG { get; private set; }
 
         public Tree<TransformationDefinition> Tree { get; private set; }
     }

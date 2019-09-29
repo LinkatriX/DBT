@@ -72,7 +72,7 @@ namespace DBT.Projectiles.Overload
 
                 else
                 {
-                    if (modPlayer.IsCharging && _sizeTimer > 500)
+                    if (modPlayer.Charging && _sizeTimer > 500)
                     {
 
                         if (projectile.scale > 2.5f)

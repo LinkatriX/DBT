@@ -10,7 +10,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
     {
         public WrathfulTransformation(params TransformationDefinition[] parents)
             : base("Wrathful", "Wrathful", typeof(WrathfulTransformationBuff), 1.5f, 1.25f, 3,
-            new TransformationDrain(60f / Constants.TICKS_PER_SECOND, 0f),
+            new TransformationDrain(60f / Constants.TICKS_PER_SECOND),
             new WrathfulTransformationAppearance(),
             new TransformationOverload(0, 0), mastereable: false,
             parents: parents)
@@ -98,7 +98,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
     public sealed class WrathfulTransformationAppearance : TransformationAppearance
     {
         public WrathfulTransformationAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(WrathfulTransformation), 4, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(WrathfulTransformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 0f, 1.25f, 0f })),
             new HairAppearance(Main.LocalPlayer.hairColor), Color.Lime, new Color(211, 186, 44))
         {

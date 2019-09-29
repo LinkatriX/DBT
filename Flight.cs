@@ -4,17 +4,93 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using DBT.Players;
+using WebmilioCommons.Extensions;
 
 namespace DBT
 {
-    public class FlightSystem
+    public class Flight
     {
         public const int FLIGHT_KI_DRAIN = 4;
         public const float BURST_SPEED = 0.5f, FLIGHT_SPEED = 0.3f;
 
-        public static void Update(Player player)
+        public static void Update(DBTPlayer dbtPlayer)
         {
-            // this might seem weird but the server isn't allowed to control the flight system.
+            if (Main.netMode == NetmodeID.Server) // Servers can't fly.
+                return;
+
+            if (!dbtPlayer.Flying) // Imagine wanting to run code without flying.
+                return;
+
+            Player player = dbtPlayer.player;
+
+            if (player.dead || player.mount.Type != -1 || player.ropeCount != 0 || (dbtPlayer.StopFlightOnNoKi && dbtPlayer.Ki <= FLIGHT_KI_DRAIN))
+            {
+                dbtPlayer.Flying = false;
+                AddKatchinFeetBuff(dbtPlayer);
+                dbtPlayer.player.fallStart = (int)(dbtPlayer.player.position.Y / 16f);
+
+                return;
+            }
+
+            player.DryCollision(true, true);
+            player.fullRotationOrigin = new Vector2(11, 22);
+
+            Vector2 rotationDirection = Vector2.Zero;
+
+            float
+                boostSpeed = BURST_SPEED * (dbtPlayer.Charging ? 1 : 0),
+
+                flightCostMultiplier = (dbtPlayer.FlightT3 ? 0.25f : dbtPlayer.FlightDampenedFall ? 0.5f : 1f),
+                totalFlightUsage = Math.Max(1f, FLIGHT_KI_DRAIN * dbtPlayer.FlightKiUsageModifier) * flightCostMultiplier,
+
+                flightSpeedMultiplier = (1f + boostSpeed) * (dbtPlayer.FlightT3 ? 1.25f : dbtPlayer.FlightDampenedFall ? 1f : 0.75f),
+                flightSpeed = FLIGHT_SPEED * flightSpeedMultiplier,
+
+                totalHorizontalFlightSpeed = flightSpeed + player.moveSpeed + dbtPlayer.FlightSpeedModifier,
+                totalVerticalFlightSpeed = flightSpeed + Player.jumpHeight / 5 + dbtPlayer.FlightSpeedModifier;
+
+            dbtPlayer.ModifyKi(-totalFlightUsage * (1f + boostSpeed));
+
+            if (dbtPlayer.UpHeld)
+            {
+                player.velocity.Y -= totalVerticalFlightSpeed / 3.8f; //3.8 original
+                rotationDirection = Vector2.UnitY;
+            }
+            else if (dbtPlayer.DownHeld)
+            {
+                player.maxFallSpeed = 20f;
+                player.velocity.Y += totalVerticalFlightSpeed / 3.8f; //3.6 original
+                rotationDirection = -Vector2.UnitY;
+            }
+
+            if (dbtPlayer.RightHeld)
+            {
+                player.velocity.X += totalHorizontalFlightSpeed;
+                rotationDirection += Vector2.UnitX;
+            }
+            else if (dbtPlayer.LeftHeld)
+
+            {
+                player.velocity.X -= totalHorizontalFlightSpeed;
+                rotationDirection -= Vector2.UnitX;
+            }
+
+            player.velocity.X = MathHelper.Lerp(player.velocity.X, 0, 0.1f);
+            player.velocity.Y = MathHelper.Lerp(player.velocity.Y, 0, 0.1f);
+
+            player.velocity -= player.gravity * Vector2.UnitY;
+
+            if (player.velocity.X > 0)
+                player.legFrameCounter = -player.velocity.X;
+            else
+                player.legFrameCounter = player.velocity.X;
+
+            player.fullRotation = MathHelper.Lerp(player.fullRotation, GetPlayerFlightRotation(rotationDirection, player), 0.1f);
+        }
+
+        /*public static void Update2(Player player)
+        {
+            // this might seem weird but the server isn't allowed to control the flight system. yes no fucking shit
             if (Main.netMode == NetmodeID.Server)
                 return;
 
@@ -37,7 +113,7 @@ namespace DBT
                 Vector2 mRotationDir = Vector2.Zero;
 
                 //Input checks
-                float boostSpeed = (BURST_SPEED) * (modPlayer.IsCharging ? 1 : 0);
+                float boostSpeed = (BURST_SPEED) * (modPlayer.Charging ? 1 : 0);
                 
                 // handle ki drain
                 float totalFlightUsage = Math.Max(1f, FLIGHT_KI_DRAIN * modPlayer.FlightKiUsageModifier);
@@ -101,7 +177,7 @@ namespace DBT
             {
                 player.fullRotation = MathHelper.Lerp(player.fullRotation, 0, 0.1f);
             }
-        }
+        }*///Obsolete flight code, remove before final commit
 
         public static Tuple<int, float> GetFlightFacingDirectionAndPitchDirection(DBTPlayer modPlayer)
         {
@@ -110,7 +186,7 @@ namespace DBT
             // since the player is mirrored, there's really only 3 ordinal positions we care about
             // up angle, no angle and down angle
             // we don't go straight up or down cos it looks weird as shit
-            switch (modPlayer.mouseWorldOctant)
+            switch (modPlayer.MouseWorldOctant)
             {
                 case -3:
                 case -2:
@@ -150,7 +226,7 @@ namespace DBT
             DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
             float leanThrottle = 180;
             // make sure if the player is using a ki weapon during flight, we're facing a way that doesn't make it look extremely goofy
-            if (modPlayer.isPlayerUsingKiWeapon)
+            if (modPlayer.IsPlayerUsingKiWeapon)
             {
                 var directionInfo = GetFlightFacingDirectionAndPitchDirection(modPlayer);
                 // get flight rotation from octant
@@ -164,7 +240,7 @@ namespace DBT
                 }                
             }
 
-            if (modPlayer.isPlayerUsingKiWeapon)
+            if (modPlayer.IsPlayerUsingKiWeapon)
             {
                 // we already got the lean throttle from above, and set the direction we needed to not look stupid
                 if (player.direction == 1)
@@ -195,16 +271,14 @@ namespace DBT
             return radRot;
         }
 
-        public static void AddKatchinFeetBuff(Player player)
+        public static void AddKatchinFeetBuff(DBTPlayer dbtPlayer)
         {
-            DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
             // reset the player fall position here, even if they don't have flight dampening.
-            player.fallStart = (int)(player.position.Y / 16f);
-            if (modPlayer.FlightDampenedFall)
-            {
-                Mod mod = ModLoader.GetMod("DBT");
-                player.AddBuff(mod.BuffType("KatchinFeet"), 600);
-            }
+            dbtPlayer.player.fallStart = (int)(dbtPlayer.player.position.Y / 16f);
+
+            // TODO Enable this when the buff is added.
+            /*if (dbtPlayer.FlightDampenedFall)
+                dbtPlayer.player.AddBuff<KatchinFeet>(600);*/
         }
     }
 }

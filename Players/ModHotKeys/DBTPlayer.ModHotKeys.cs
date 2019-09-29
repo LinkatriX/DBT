@@ -28,10 +28,10 @@ namespace DBT.Players
                     }
                 }
 
-                IsCharging = canCharge;
+                Charging = canCharge;
             }
             else
-                IsCharging = false;
+                Charging = false;
 
             //Test code
             //UpdateSynchronizedControls(triggersSet);

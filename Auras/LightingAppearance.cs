@@ -11,7 +11,7 @@ namespace DBT.Auras
 
         public virtual float[] GetRGBLightingRadiuses(DBTPlayer dbtPlayer)
         {
-            if (!dbtPlayer.IsCharging)
+            if (!dbtPlayer.Charging)
                 return BaseRGBLightingRadiuses;
 
             return new float[]

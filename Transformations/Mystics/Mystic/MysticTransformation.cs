@@ -9,7 +9,7 @@ namespace DBT.Transformations.Mystics.Mystic
     public sealed class MysticTransformation : TransformationDefinition
     {
         public MysticTransformation(params TransformationDefinition[] parents) : base("Mystic", "Mystic", typeof(MysticTransformationBuff),
-            1.6f, 1.30f, 3, new TransformationDrain(25f / Constants.TICKS_PER_SECOND, 0f), new MysticTransformationAppearance(), 
+            1.6f, 1.30f, 3, new TransformationDrain(25f / Constants.TICKS_PER_SECOND), new MysticTransformationAppearance(), 
             new TransformationOverload(0, 0), mastereable: false, isManualLookup: true, manualHairLookup: "Base", parents: parents)
         {
         }
@@ -97,7 +97,7 @@ namespace DBT.Transformations.Mystics.Mystic
     public sealed class MysticTransformationAppearance : TransformationAppearance
     {
         public MysticTransformationAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation("Auras/BaseAura", 4, 3, BlendState.Additive, 1f, true),
+            new AuraAppearance(new AuraAnimationInformation("Auras/BaseAura", 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1f, 1f, 1f })),
             new HairAppearance(Main.LocalPlayer.hairColor), Color.LightBlue, Main.LocalPlayer.eyeColor)
         {
