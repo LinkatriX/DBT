@@ -7,7 +7,7 @@ namespace DBT.Transformations.Patreon.DemonSSJ
     public sealed class DemonSSJTransformation : TransformationDefinition
     {
         public DemonSSJTransformation(params TransformationDefinition[] parents) : base(
-                "DSSJ", "Demon Super Saiyan", typeof(DemonSSJTransformationBuff),
+                "DemonSSJ", "Demon Super Saiyan", typeof(DemonSSJTransformationBuff),
                 5.2f, 3.1f, 45,
                 new TransformationDrain(260f / Constants.TICKS_PER_SECOND, 100f / Constants.TICKS_PER_SECOND),
                 new DemonSSJAppearance(),
