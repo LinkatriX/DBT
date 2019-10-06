@@ -58,6 +58,7 @@ namespace DBT.NPCs.Bosses.GreatApe
         {
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
+            float distanceX = Vector2.Distance(new Vector2(0, npc.Center.X), new Vector2(0, player.Center.X));
 
             if (!player.active || player.dead)
             {
@@ -81,7 +82,16 @@ namespace DBT.NPCs.Bosses.GreatApe
             
             if (AIStage == STAGE_WALK)
             {
-                
+                npc.velocity.X = 1.5f * npc.direction;
+
+                if (distanceX <= 50)
+                {
+                    npc.velocity.X = 0;
+                    AITimer1++;
+                }
+                if (AITimer1 >= 120)
+                    ChangeStage();
+                    
             }
 
             if (AIStage == STAGE_LEAP)
@@ -100,6 +110,10 @@ namespace DBT.NPCs.Bosses.GreatApe
                         if (DBTMod.IsTickRateElapsed(30))
                             DoRoar();
 
+                }
+                else
+                {
+                    DoLeap();
                 }
                 
             }
@@ -150,10 +164,32 @@ namespace DBT.NPCs.Bosses.GreatApe
                 AIStage = STAGE_LEAP;
 
             if (AIStage == STAGE_LEAP && HasDoneStartingStuff)
+                AIStage = STAGE_WALK;
+
+            if (AIStage == STAGE_WALK)
+                AIStage = STAGE_LEAP;
+
+            if (AIStage == STAGE_LEAP && HasJumped)
                 AIStage = STAGE_BEAM;
         }
 
+        public void DoLeap()
+        {
+            if (npc.velocity.Y == 0 && !HasJumped)
+            {
+                npc.velocity.X = 3.5f * npc.direction;
+                npc.velocity.Y = -20f;
+                HasJumped = true;
+            }
+            if (HasJumped)
+            {
+                AITimer1++;
+                if (AITimer1 == 180)
+                    ChangeStage();
+            }
+                
 
+        }
 
         public void DoLineDust(Vector2 position, float speed)
         {
@@ -174,6 +210,24 @@ namespace DBT.NPCs.Bosses.GreatApe
 
         public override void FindFrame(int frameHeight)
         {
+            if (AIStage == STAGE_WALK)
+            {
+                _frameTimer++;
+                if (_frameTimer > 10 && _frame >= 4 && _frame < 10)
+                {
+                    _frame++;
+                    _frameTimer = 0;
+                }
+                if (_frame == 10)
+                    _frame = 4;
+                AITimer2++;
+                if (AITimer2 == 30)
+                {
+                    SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeWalk", null, 0.6f);
+                    AITimer2 = 0;
+                }
+                    
+            }
             if (AIStage == STAGE_LEAP)
             {
                 if (npc.velocity.Y < 0)
@@ -346,6 +400,7 @@ namespace DBT.NPCs.Bosses.GreatApe
         public bool HasDoneStartingStuff { get; set; } = false;
         public bool HasFinishedFiringBeam { get; set; } = false;
         public bool IsBeaming { get; set; } = false;
+        public bool HasJumped { get; set; } = false;
         public bool IsRoaring { get; set; } = false;
         public bool IsRoaringAnimation { get; set; } = false;
         public int AITimer1 { get; set; }
