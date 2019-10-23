@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using DBT.Commons;
 using DBT.Network;
 using Terraria;
-using Terraria.ID;
 using WebmilioCommons.Extensions;
 
 namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
-        private bool _isCharging;
+        private bool _charging;
 
 
         public float ModifyKi(float kiAmount)
@@ -75,7 +74,7 @@ namespace DBT.Players
 
         internal void PostUpdateKi()
         {
-            if (IsCharging)
+            if (Charging)
             {
                 ModifyKi(KiChargeRate);
 
@@ -106,6 +105,7 @@ namespace DBT.Players
 
         public float GetKiDrain(float kiDrain) => (kiDrain + KiDrainMultiplier) + KiDrainModifier;
 
+        public bool IsKiDepleted(float projectedKiDrain = 0f) => Ki - projectedKiDrain <= 0;
 
         public float KiDamageMultiplier { get; set; } = 1f;
 
@@ -137,15 +137,15 @@ namespace DBT.Players
 
         public int KiOrbDropChance { get; set; }
 
-        public bool IsCharging
+        public bool Charging
         {
-            get => _isCharging;
+            get => _charging;
             set
             {
-                if (_isCharging == value)
+                if (_charging == value)
                     return;
 
-                _isCharging = value;
+                _charging = value;
 
                 if (player.whoAmI == Main.myPlayer)
                     new PlayerChargingPacket().Send();

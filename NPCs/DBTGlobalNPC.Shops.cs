@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using DBT.Items.Consumables;
+using Terraria.ModLoader;
 
 namespace DBT.NPCs
 {
@@ -10,7 +11,7 @@ namespace DBT.NPCs
         {
             if (type == NPCID.Stylist)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<HairStylingKit>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<HairStylingKit>());
                 nextSlot++;
             }
         }

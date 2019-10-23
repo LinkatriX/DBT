@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace DBT.Items.Consumables.DisgustingGoops
 {
@@ -13,7 +14,7 @@ namespace DBT.Items.Consumables.DisgustingGoops
         {
             base.SetDefaults();
 
-            item.buffType = mod.BuffType<DisgustingGoopBuff>();
+            item.buffType = ModContent.BuffType<DisgustingGoopBuff>();
             item.buffTime = 5400;
         }
 

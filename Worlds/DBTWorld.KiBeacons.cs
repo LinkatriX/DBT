@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace DBT.Worlds
 {
@@ -13,7 +14,7 @@ namespace DBT.Worlds
 
         public override void ResetNearbyTileEffects()
         {
-            var modPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>(mod);
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
             modPlayer.KiDiffuser = false;
         }
 
@@ -23,7 +24,7 @@ namespace DBT.Worlds
             foreach (var location in kiBeacons)
             {
                 var tile = Framing.GetTileSafely((int)location.X / 16, (int)location.Y / 16);
-                if (tile.type == mod.TileType<KiBeaconTile>())
+                if (tile.type == ModContent.TileType<KiBeaconTile>())
                     continue;
                 listToRemove.Add(location);
             }

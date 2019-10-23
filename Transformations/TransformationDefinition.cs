@@ -20,7 +20,7 @@ namespace DBT.Transformations
 
         protected TransformationDefinition(string unlocalizedName, string displayName, Type buffType,
             float baseDamageMultiplier, float baseSpeedMultiplier, int baseDefenseAdditive,
-            TransformationDrain drain, TransformationAppearance appearance, TransformationOverload overload,
+            TransformationDrain drain, TransformationAppearance appearance, TransformationOverload? overload = null,
             bool mastereable = true, float maxMastery = 1f,
             int duration = TRANSFORMATION_LONG_DURATION, bool displaysInMenu = true, RaceDefinition[] limitedToRaces = null,
             bool anyParents = false, bool isManualLookup = false, string manualHairLookup = null, params TransformationDefinition[] parents)
@@ -42,7 +42,10 @@ namespace DBT.Transformations
 
             Drain = drain;
 
-            Overload = overload;
+            if (!overload.HasValue)
+                overload = TransformationOverload.Zero;
+
+            Overload = overload.Value;
 
             Duration = duration;
 

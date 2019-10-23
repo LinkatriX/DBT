@@ -88,7 +88,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			npc.lavaImmune = true;
 			npc.noGravity = true;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/TheUnexpectedArrival");
-			bossBag = mod.ItemType<FFShipBag>();
+			bossBag = ModContent.ItemType<FFShipBag>();
 		}
 
 		#endregion
@@ -149,8 +149,6 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 			return new Color(lightColor.R, lightColor.G, lightColor.B, lightColor.A);
 		}
-
-		int _colorCount = 0;
 
 		int _frame = 0;
 		int _frameTimer = 0;
@@ -573,7 +571,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 					npc.velocity = Vector2.Zero;
 				}
 				if (AITimer > 81 && AITimer < 230 && AITimer % 12 == 0)
-					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 2 * 16f), new Vector2(13f, 13f).RotatedBy(50), mod.ProjectileType<FFShipGunningBlast>(), 20, 1f);
+					Projectile.NewProjectile(new Vector2(npc.BottomRight.X + 4f, npc.BottomRight.Y + 2 * 16f), new Vector2(13f, 13f).RotatedBy(50), ModContent.ProjectileType<FFShipGunningBlast>(), 20, 1f);
 				if (_count == PlayerCount().Count)
 				{
 					AdvanceStage(true);
@@ -590,7 +588,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 			npc.position = new Vector2(player.Center.X - 80 * 16f, player.Center.Y - 30 * 16f);
 
-			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
+			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, ModContent.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
 			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
 		}
 
@@ -639,7 +637,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 		private void Teleport()
 		{
 			npc.position = GetWarpPositions(_warpCountPlayer);
-			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
+			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, ModContent.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
 			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
 
 			npc.netUpdate = true;
@@ -721,18 +719,13 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			npc.netUpdate = true;
 		}
 
-		public void DoLineDust()
-		{
-			if (Main.rand.NextFloat() < 1.2f)
-			{
-				Dust dust;
-				dust = Dust.NewDustPerfect(HyperPosition, 133, new Vector2(HyperSlamSpeed * 2f, 0), 0, new Color(255, 255, 255),
-					1.052632f);
-				dust.noGravity = true;
-			}
+        public void DoLineDust()
+        {
+            Dust.NewDustPerfect(HyperPosition, 133, new Vector2(HyperSlamSpeed, 0), 0, new Color(255, 255, 255),
+                1.052632f);
 
-			npc.netUpdate = true;
-		}
+            npc.netUpdate = true;
+        }
 
 		public void TeleportRight()
 		{
@@ -817,7 +810,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 			Player player = PlayerCount()[IterationCount];
 			Vector2 pos = player.Center + new Vector2(-100f + (player.velocity.X * 10), -HoverDistance.Y);
 			npc.position = pos;
-			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, mod.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
+			Projectile.NewProjectile(npc.oldPosition, Vector2.Zero, ModContent.ProjectileType<ShipTeleportLinesProjectile>(), 0, 0);
 			SoundHelper.PlayCustomSound("Sounds/ShipTeleport");
 			npc.netUpdate = true;
 		}
@@ -840,19 +833,19 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				switch (Main.rand.Next(0, 3))
 				{
 					case 0:
-						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman1>());
+						return NPC.NewNPC(TileX, TileY, ModContent.NPCType<Saibaman1>());
 					case 1:
-						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman2>());
+						return NPC.NewNPC(TileX, TileY, ModContent.NPCType<Saibaman2>());
 					case 2:
-						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman3>());
+						return NPC.NewNPC(TileX, TileY, ModContent.NPCType<Saibaman3>());
 					case 3:
-						return NPC.NewNPC(TileX, TileY, mod.NPCType<Saibaman4>());
+						return NPC.NewNPC(TileX, TileY, ModContent.NPCType<Saibaman4>());
 					default:
 						return 0;
 				}
 			}
 
-			return NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<Saibaman1>());
+			return NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, ModContent.NPCType<Saibaman1>());
 		}
 
 		public int SummonFFMinions()
@@ -868,17 +861,17 @@ namespace DBT.NPCs.Bosses.FriezaShip
 				switch (Main.rand.Next(0, 2))
 				{
 					case 0:
-						return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion1>());
+						return NPC.NewNPC(TileX, TileY, ModContent.NPCType<FriezaForceMinion1>());
 					case 1:
-						return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion2>());
+						return NPC.NewNPC(TileX, TileY, ModContent.NPCType<FriezaForceMinion2>());
 					case 2:
-						return NPC.NewNPC(TileX, TileY, mod.NPCType<FriezaForceMinion3>());
+						return NPC.NewNPC(TileX, TileY, ModContent.NPCType<FriezaForceMinion3>());
 					default:
 						return 0;
 				}
 			}
 
-			return NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<FriezaForceMinion1>());
+			return NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, ModContent.NPCType<FriezaForceMinion1>());
 		}
 
 		private void RandomShieldLines()
@@ -1054,16 +1047,16 @@ namespace DBT.NPCs.Bosses.FriezaShip
                 int choice = Main.rand.Next(0, 1);
 
                 if (choice == 0)
-                    Item.NewItem(npc.getRect(), mod.ItemType<BeamRifle>());
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<BeamRifle>());
 
                 /*if (choice == 1)
-                    Item.NewItem(npc.getRect(), mod.ItemType<HenchBlast>());*/
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<HenchBlast>());*/
 
-                Item.NewItem(npc.getRect(), mod.ItemType<CyberneticParts>(), Main.rand.Next(7, 18));
-                Item.NewItem(npc.getRect(), mod.ItemType<ArmCannonMK2>());
+                Item.NewItem(npc.getRect(), ModContent.ItemType<CyberneticParts>(), Main.rand.Next(7, 18));
+                Item.NewItem(npc.getRect(), ModContent.ItemType<ArmCannonMK2>());
 
                 //if (Main.rand.Next(10) == 0)
-                //Item.NewItem(npc.getRect(), mod.ItemType<FFTrophy>());
+                //Item.NewItem(npc.getRect(), ModContent.ItemType<FFTrophy>());
 
             }
 

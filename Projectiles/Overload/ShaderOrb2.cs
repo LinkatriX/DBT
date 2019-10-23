@@ -11,7 +11,6 @@ namespace DBT.Projectiles.Overload
     public class ShaderOrb2 : ModProjectile
     {
         private int _shockwaveSpeed = 18;
-        private float _scaletime;
         public override void SetDefaults()
         {
             projectile.width = 1214;
@@ -58,7 +57,7 @@ namespace DBT.Projectiles.Overload
         public override void Kill(int timeLeft)
         {
             Filters.Scene["Shockwave"].Deactivate();
-            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, mod.ProjectileType<ShaderOrb3>(), 0, 0, projectile.owner);
+            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<ShaderOrb3>(), 0, 0, projectile.owner);
             SoundHelper.PlayCustomSound("Sounds/Overload/Overloadcircle", Main.player[projectile.owner], 0.3f);
         }
 

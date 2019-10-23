@@ -16,7 +16,7 @@ namespace DBT.Items.Consumables.Potionlike.KiStimulants
             base.SetStaticDefaults();
 
             item.maxStack = 99;
-            item.buffType = mod.BuffType<KiStimulantBuff>();
+            item.buffType = ModContent.BuffType<KiStimulantBuff>();
             item.buffTime = 120 * Constants.TICKS_PER_SECOND;
         }
 

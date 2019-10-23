@@ -33,7 +33,7 @@ namespace DBT.Worlds
             }
             catch (Exception exception)
             {
-                Main.NewText("Oh no, an error happened [AddGohanHouse]! Report this to NuovaPrime or Skipping and send them the file Terraria/ModLoader/Logs/Logs.txt");
+                Main.NewText("Oh no, an error happened [AddGravGenerator]! Report this to NuovaPrime or Skipping and send them the file Terraria/ModLoader/Logs/Logs.txt");
                 ErrorLogger.Log(exception);
             }
         }
@@ -95,37 +95,37 @@ namespace DBT.Worlds
             Point origin = new Point((int)gravGeneratorStartPositionX, gravGeneratorStartPositionY - 14);
             GravGenerator grav = new GravGenerator();
             grav.Place(origin, WorldGen.structures);
-            WorldGen.PlaceObject(gravGeneratorStartPositionX + 16, gravGeneratorStartPositionY + 1, mod.TileType<GravityGenerator>());
+            WorldGen.PlaceObject(gravGeneratorStartPositionX + 16, gravGeneratorStartPositionY + 1, ModContent.TileType<GravityGenerator>());
 
         }
     }
-}
 
-public class GravGenerator : MicroBiome
-{
-    public override bool Place(Point origin, StructureMap structures)
+    public class GravGenerator : MicroBiome
     {
-        Mod mod = DBTMod.Instance;
-
-        Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+        public override bool Place(Point origin, StructureMap structures)
         {
-            [new Color(54, 50, 255)] = TileID.Titanstone,
-            [Color.Black] = -1
-        };
+            Mod mod = DBTMod.Instance;
 
-        Dictionary<Color, int> colorToWall = new Dictionary<Color, int>
-        {
-            [new Color(255, 229, 0)] = WallID.DiamondGemspark,
-            [new Color(255, 97, 0)] = WallID.DiamondGemsparkOff,
-            [new Color(242, 0, 255)] = WallID.SapphireGemsparkOff,
-            [new Color(148, 255, 48)] = WallID.Cloud,
-            [Color.Black] = -1
-        };
+            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+            {
+                [new Color(54, 50, 255)] = TileID.Titanstone,
+                [Color.Black] = -1
+            };
 
-        TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Generation/GravChamberTiles"), colorToTile, mod.GetTexture("Generation/GravChamberWalls"), colorToWall, null, mod.GetTexture("Generation/GravChamberSlopes"));
+            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>
+            {
+                [new Color(255, 229, 0)] = WallID.DiamondGemspark,
+                [new Color(255, 97, 0)] = WallID.DiamondGemsparkOff,
+                [new Color(242, 0, 255)] = WallID.SapphireGemsparkOff,
+                [new Color(148, 255, 48)] = WallID.Cloud,
+                [Color.Black] = -1
+            };
 
-        gen.Generate(origin.X, origin.Y, true, true);
+            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Generation/GravChamberTiles"), colorToTile, mod.GetTexture("Generation/GravChamberWalls"), colorToWall, null, mod.GetTexture("Generation/GravChamberSlopes"));
 
-        return true;
+            gen.Generate(origin.X, origin.Y, true, true);
+
+            return true;
+        }
     }
 }

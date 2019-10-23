@@ -32,7 +32,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
         {
 			for (int i = 0; i < Main.maxNPCs; i++)
 			{
-				if (i == mod.NPCType<FriezaShip>())
+				if (i == ModContent.NPCType<FriezaShip>())
 				{
 					NPC friezaShip = Main.npc[i];
 					break;
@@ -43,7 +43,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
                 npc.position = FriezaNPC.position;
 
 
-            if (!NPC.AnyNPCs(mod.NPCType<FriezaShip>()))
+            if (!NPC.AnyNPCs(ModContent.NPCType<FriezaShip>()))
                 npc.life = 0; 
         }
 

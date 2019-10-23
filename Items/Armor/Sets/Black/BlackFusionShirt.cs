@@ -24,7 +24,7 @@ namespace DBT.Items.Armor.Sets.Black
         {
         }
 
-        public override bool IsArmorSet(Item head, Item body, Item legs) => base.IsArmorSet(head, body, legs) && legs.type == mod.ItemType<BlackFusionPants>();
+        public override bool IsArmorSet(Item head, Item body, Item legs) => base.IsArmorSet(head, body, legs) && legs.type == ModContent.ItemType<BlackFusionPants>();
 
         public override void UpdateArmorSet(Player player)
         {

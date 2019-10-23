@@ -13,7 +13,7 @@ namespace DBT.Auras
 
         public virtual int GetTicksPerFrameTimerTick(DBTPlayer dbtPlayer)
         {
-            if (dbtPlayer.IsCharging)
+            if (dbtPlayer.Charging)
                 return Information.TicksPerFrameTimerTick * 2;
 
             return Information.TicksPerFrameTimerTick;

@@ -48,7 +48,7 @@ namespace DBT.NPCs
                         Main.NewText("You are now practically family with " + npc.GivenName + ".", new Color(235, 189, 52));
 
                     dbtPlayer.AliveTownNPCs[npc.type] += 1;
-                    dbtPlayer.FriendshipCooldown = mod.GetConfig<DBTConfigServer>().FriendshipCooldownConfig * 60;
+                    dbtPlayer.FriendshipCooldown = ModContent.GetInstance<DBTConfigServer>().FriendshipCooldownConfig * 60;
                 }
             }
                 

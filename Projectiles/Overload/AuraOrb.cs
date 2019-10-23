@@ -72,7 +72,7 @@ namespace DBT.Projectiles.Overload
 
                 else
                 {
-                    if (modPlayer.IsCharging && _sizeTimer > 500)
+                    if (modPlayer.Charging && _sizeTimer > 500)
                     {
 
                         if (projectile.scale > 2.5f)
@@ -87,7 +87,7 @@ namespace DBT.Projectiles.Overload
                                 {
                                     int blastDamage = (int)modPlayer.KiDamageMultiplier * modPlayer.MaxKi / 60;
                                     Vector2 velocity = Vector2.UnitY.RotateRandom(MathHelper.TwoPi) * 30;
-                                    Projectile.NewProjectile(player.Center.X, player.Center.Y, velocity.X, velocity.Y, mod.ProjectileType<OverloadBlast>(), blastDamage, 2f, projectile.owner);
+                                    Projectile.NewProjectile(player.Center.X, player.Center.Y, velocity.X, velocity.Y, ModContent.ProjectileType<OverloadBlast>(), blastDamage, 2f, projectile.owner);
                                     _blastTimer = 0;
                                 }
                             }
@@ -128,19 +128,19 @@ namespace DBT.Projectiles.Overload
             switch (Main.rand.Next(0, 3))
             {
                 case 0:
-                    return mod.ProjectileType<GreenRing1>();
+                    return ModContent.ProjectileType<GreenRing1>();
 
                 case 1:
-                    return mod.ProjectileType<GreenRing2>();
+                    return ModContent.ProjectileType<GreenRing2>();
 
                 case 2:
-                    return mod.ProjectileType<GreenRing3>();
+                    return ModContent.ProjectileType<GreenRing3>();
 
                 case 3:
-                    return mod.ProjectileType<GreenRing4>();
+                    return ModContent.ProjectileType<GreenRing4>();
 
                 default:
-                    return mod.ProjectileType<GreenRing1>();
+                    return ModContent.ProjectileType<GreenRing1>();
             }
         }
     }

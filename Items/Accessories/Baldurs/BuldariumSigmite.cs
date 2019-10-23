@@ -4,6 +4,7 @@ using DBT.Tiles.Stations;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Items.Accessories.Baldurs//TODO: Still needs to increase ki charging rate. -Skipping
 {
@@ -24,7 +25,7 @@ namespace DBT.Items.Accessories.Baldurs//TODO: Still needs to increase ki chargi
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
-            if (player.GetModPlayer<DBTPlayer>().IsCharging)
+            if (player.GetModPlayer<DBTPlayer>().Charging)
             {
                 dbtPlayer.KiChargeRateMultiplierLimit += 1;
                 player.shinyStone = true;
@@ -38,8 +39,8 @@ namespace DBT.Items.Accessories.Baldurs//TODO: Still needs to increase ki chargi
 
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddIngredient(mod, nameof(BaldurEssentia));
-            recipe.AddIngredient(mod, nameof(KiStoneT3));
+            recipe.AddIngredient<BaldurEssentia>();
+            recipe.AddIngredient<KiStoneT3>();
             recipe.AddIngredient(ItemID.ShinyStone);
 
             recipe.AddTile(mod, nameof(ZTableTile));

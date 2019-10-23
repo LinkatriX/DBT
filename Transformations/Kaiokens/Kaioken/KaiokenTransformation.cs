@@ -7,11 +7,11 @@ namespace DBT.Transformations.Kaiokens.Kaioken
 {
     public abstract class KaiokenTransformation : TransformationDefinition
     {
-        public KaiokenTransformation(float damageMultiplier, float speedMultiplier, int defenseAdditive, float kaiokenLevel, System.Type kaiokenBuffType,
+        protected KaiokenTransformation(float damageMultiplier, float speedMultiplier, int defenseAdditive, float kaiokenLevel, System.Type kaiokenBuffType,
             float baseScale = 1f, params TransformationDefinition[] parents) : base(
             "Kaioken" + GetKaiokenLevelString(kaiokenLevel), "Kaioken " + GetKaiokenLevelString(kaiokenLevel),
-            kaiokenBuffType, damageMultiplier, speedMultiplier, defenseAdditive, new TransformationDrain(0f, 0f), 
-            new KaiokenTransformationAppearance(baseScale *= (0.9f + 0.1f * kaiokenLevel)), new TransformationOverload(0, 0), parents:parents)
+            kaiokenBuffType, damageMultiplier, speedMultiplier, defenseAdditive, new TransformationDrain(0f, 0f),
+            new KaiokenTransformationAppearance(baseScale *= (0.9f + 0.1f * kaiokenLevel)), parents: parents)
         {
             DamageMultiplier = damageMultiplier;
 
@@ -43,14 +43,15 @@ namespace DBT.Transformations.Kaiokens.Kaioken
             }
         }
 
-        public float DamageMultiplier { get; private set; }
+        public float DamageMultiplier { get; }
 
-        public float SpeedMultiplier { get; private set; }
+        public float SpeedMultiplier { get; }
 
-        public int DefenseAdditive { get; private set; }
+        public int DefenseAdditive { get; }
 
-        public float KaiokenLevel { get; private set; }
+        public float KaiokenLevel { get; }
     }
+
 
     #region Kaioken Buff Classes
 
@@ -89,7 +90,9 @@ namespace DBT.Transformations.Kaiokens.Kaioken
         }
     }
 
-#endregion
+    #endregion
+
+    #region Transformation Definitions
 
     public sealed class KaiokenTransformationAppearance : TransformationAppearance
     {
@@ -101,38 +104,40 @@ namespace DBT.Transformations.Kaiokens.Kaioken
         }
     }
 
-    public sealed class Kaioken2xTransformation : KaiokenTransformation
+    public sealed class Kaioken2XTransformation : KaiokenTransformation
     {
-        public Kaioken2xTransformation(params TransformationDefinition[] parents) : base(1.05f, 1.025f, 1, 1,typeof(Kaioken2xTransformationBuff), parents: parents)
+        public Kaioken2XTransformation(params TransformationDefinition[] parents) : base(1.05f, 1.025f, 1, 1, typeof(Kaioken2xTransformationBuff), parents: parents)
         {
         }
     }
 
-    public sealed class Kaioken3xTransformation : KaiokenTransformation
+    public sealed class Kaioken3XTransformation : KaiokenTransformation
     {
-        public Kaioken3xTransformation(params TransformationDefinition[] parents) : base(1.10f, 1.05f, 2, 2, typeof(Kaioken3xTransformationBuff), parents: parents)
+        public Kaioken3XTransformation(params TransformationDefinition[] parents) : base(1.10f, 1.05f, 2, 2, typeof(Kaioken3xTransformationBuff), parents: parents)
         {
         }
     }
 
-    public sealed class Kaioken4xTransformation : KaiokenTransformation
+    public sealed class Kaioken4XTransformation : KaiokenTransformation
     {
-        public Kaioken4xTransformation(params TransformationDefinition[] parents) : base(1.15f, 1.075f, 3, 3, typeof(Kaioken4xTransformationBuff), parents: parents)
+        public Kaioken4XTransformation(params TransformationDefinition[] parents) : base(1.15f, 1.075f, 3, 3, typeof(Kaioken4xTransformationBuff), parents: parents)
         {
         }
     }
 
-    public sealed class Kaioken10xTransformation : KaiokenTransformation
+    public sealed class Kaioken10XTransformation : KaiokenTransformation
     {
-        public Kaioken10xTransformation(params TransformationDefinition[] parents) : base(1.20f, 1.10f, 4, 4, typeof(Kaioken10xTransformationBuff), parents: parents)
+        public Kaioken10XTransformation(params TransformationDefinition[] parents) : base(1.20f, 1.10f, 4, 4, typeof(Kaioken10xTransformationBuff), parents: parents)
         {
         }
     }
 
-    public sealed class Kaioken20xTransformation : KaiokenTransformation
+    public sealed class Kaioken20XTransformation : KaiokenTransformation
     {
-        public Kaioken20xTransformation(params TransformationDefinition[] parents) : base(1.30f, 1.15f, 5, 5, typeof(Kaioken20xTransformationBuff), parents: parents)
+        public Kaioken20XTransformation(params TransformationDefinition[] parents) : base(1.30f, 1.15f, 5, 5, typeof(Kaioken20xTransformationBuff), parents: parents)
         {
         }
     }
+
+    #endregion
 }

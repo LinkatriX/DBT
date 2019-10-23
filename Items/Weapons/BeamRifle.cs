@@ -17,7 +17,7 @@ namespace DBT.Items.Weapons
 
             item.ranged = true;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType<FFBeamProjectile>();
+            item.shoot = ModContent.ProjectileType<FFBeamProjectile>();
             item.shootSpeed = 20f;
             item.useTime = 9;
             item.damage = 15;

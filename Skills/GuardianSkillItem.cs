@@ -26,7 +26,7 @@ namespace DBT.Skills
 
             item.noUseGraphic = true;
 
-            item.shoot = mod.ProjectileType<TProjectile>();
+            item.shoot = ModContent.ProjectileType<TProjectile>();
             item.shootSpeed = Definition.Characteristics.BaseShootSpeed;
 
             item.damage = 0;

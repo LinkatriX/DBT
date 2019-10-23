@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace DBT.Items.Consumables.Potionlike.KiPotions
 {
@@ -26,7 +27,7 @@ namespace DBT.Items.Consumables.Potionlike.KiPotions
             float overallPercentRestored = player.GetModPlayer<DBTPlayer>().MaxKi * (PercentKi / 100);
             player.GetModPlayer<DBTPlayer>().ModifyKi(overallPercentRestored);
 
-            player.AddBuff(mod.BuffType<KiPotionSicknessDebuff>(), 60 * Constants.TICKS_PER_SECOND);
+            player.AddBuff(ModContent.BuffType<KiPotionSicknessDebuff>(), 60 * Constants.TICKS_PER_SECOND);
             CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(51, 204, 255), (int)overallPercentRestored, false, false);
             return true;
         }

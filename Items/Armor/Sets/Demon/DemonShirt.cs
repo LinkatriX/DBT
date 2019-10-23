@@ -18,7 +18,7 @@ namespace DBT.Items.Armor.Sets.Demon
         {
         }
 
-        public override bool IsArmorSet(Item head, Item body, Item legs) => base.IsArmorSet(head, body, legs) && legs.type == mod.ItemType<DemonLeggings>();
+        public override bool IsArmorSet(Item head, Item body, Item legs) => base.IsArmorSet(head, body, legs) && legs.type == ModContent.ItemType<DemonLeggings>();
 
         public override void UpdateEquip(Player player)
         {

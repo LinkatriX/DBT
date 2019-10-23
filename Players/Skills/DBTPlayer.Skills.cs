@@ -1,4 +1,5 @@
-﻿using DBT.Skills;
+﻿using DBT.Helpers;
+using DBT.Skills;
 using System.Collections.Generic;
 using Terraria;
 
@@ -6,6 +7,8 @@ namespace DBT.Players
 {
     public sealed partial class DBTPlayer
     {
+        private readonly HitStunHelper HitStunHelper = new HitStunHelper();
+
         private void InitializeSkills()
         {
             AcquiredSkills = new List<SkillDefinition>();
@@ -31,6 +34,11 @@ namespace DBT.Players
         private void HandleSkillsOnEnterWorld(Player player)
         {
             DBTMod.Instance.techniqueMenu.OnPlayerEnterWorld(player.GetModPlayer<DBTPlayer>());
+        }
+
+        public void ApplyHitStun(NPC target, int duration, float slowedTo, float recoversDuringFramePercent)
+        {
+            HitStunHelper.DoHitStun(target, duration, slowedTo, recoversDuringFramePercent);
         }
 
         public int SkillChargeLevelLimitModifier { get; set; }

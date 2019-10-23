@@ -4,6 +4,7 @@ using DBT.NPCs.Bosses.FriezaShip;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace DBT.Players
 {
@@ -40,7 +41,7 @@ namespace DBT.Players
             spawnTimer++;
             if (spawnTimer == 5400)
             {
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<FriezaShip>());
+                NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<FriezaShip>());
                 Main.PlaySound(SoundID.Roar, player.position, 0);
                 Main.NewText("The Frieza Force has arrived!", Color.OrangeRed);
                 if (Main.netMode != 2)

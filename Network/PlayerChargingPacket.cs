@@ -11,8 +11,8 @@ namespace DBT.Network
     {
         public bool IsCharging
         {
-            get => ModPlayer.IsCharging;
-            set => ModPlayer.IsCharging = value;
+            get => ModPlayer.Charging;
+            set => ModPlayer.Charging = value;
         }
     }
 }

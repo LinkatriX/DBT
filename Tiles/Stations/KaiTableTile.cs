@@ -33,7 +33,7 @@ namespace DBT.Tiles.Stations
             AddMapEntry(new Color(223, 245, 255), name);
             dustType = mod.DustType("MetalDust");
             disableSmartCursor = true;
-            adjTiles = new int[] { mod.TileType<ZTableTile>() };
+            adjTiles = new int[] { ModContent.TileType<ZTableTile>() };
 
             TileObjectData.addTile(Type);
         }
@@ -45,7 +45,7 @@ namespace DBT.Tiles.Stations
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType<KaiTableItem>());
+            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<KaiTableItem>());
         }
     }
 }

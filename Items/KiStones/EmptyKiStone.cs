@@ -27,12 +27,12 @@ namespace DBT.Items.KiStones
             base.HoldItem(player);
             DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
 
-            if (dbtPlayer.IsCharging)
+            if (dbtPlayer.Charging)
             {
                 if (dbtPlayer.Ki == 0)
                 {
                     ChargingInTry = false;
-                    player.AddBuff(mod.BuffType<KiDegenerationBuff>(), 10 * 60);
+                    player.AddBuff(ModContent.BuffType<KiDegenerationBuff>(), 10 * 60);
                     return;
                 }
 

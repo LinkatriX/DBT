@@ -1,11 +1,26 @@
-﻿using DBT.Items.DragonBalls;
+﻿using DBT.Helpers;
+using DBT.Items.DragonBalls;
+using System;
 using System.Collections.Generic;
 using Terraria;
+using WebmilioCommons.Extensions;
 
 namespace DBT.Players
 {
     public partial class DBTPlayer
     {
+        int soundTimer = 0;
+        public void PostUpdateDragonBalls()
+        {
+            soundTimer++;
+            if (CarryingAllDragonBalls(player) && !WishActive)
+                if (soundTimer > 300)
+                {
+                    SoundHelper.PlayCustomSound("Sounds/DBReady", player, 0.5f);
+                    soundTimer = 0;
+                }
+                    
+        }
 
         public void DestroyOneOfEachDragonBall(Player player)
         {
@@ -27,6 +42,23 @@ namespace DBT.Players
             }
         }
 
+        public void DoRitual()
+        {
+
+        }
+
+        public bool CarryingAllDragonBalls(Player player)
+        {
+            List<DragonBall> dragonBalls = player.GetItemsByType<DragonBall>(inventory: true);
+            List<DragonBallStarCount> dragonBallStars = new List<DragonBallStarCount>(7);
+
+            for (int i = 0; i < dragonBalls.Count; i++)
+                if (!dragonBallStars.Contains(dragonBalls[i].StarCount))
+                    dragonBallStars.Add(dragonBalls[i].StarCount);
+
+            return dragonBallStars.Count == Enum.GetNames(typeof(DragonBallStarCount)).Length;
+        }
+
         public const int POWER_WISH_MAXIMUM = 5;
         public bool WishActive { get; set; }        
         public int PowerWishesLeft { get; set; } = 5;
@@ -34,5 +66,9 @@ namespace DBT.Players
         public int SkillWishesLeft { get; set; } = 3;
         public int AwakeningWishesLeft { get; set; } = 5;
         public int ImmortalityRevivesLeft { get; set; }
+        public bool IsHoldingDragonRadarMk1 { get; set; }
+        public bool IsHoldingDragonRadarMk2 { get; set; }
+        public bool IsHoldingDragonRadarMk3 { get; set; }
+        public bool FirstDragonBallPickup { get; set; }
     }
 }
