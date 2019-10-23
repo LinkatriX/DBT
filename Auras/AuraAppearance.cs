@@ -10,7 +10,6 @@ namespace DBT.Auras
             Lighting = lighting;
         }
 
-
         public virtual int GetTicksPerFrameTimerTick(DBTPlayer dbtPlayer)
         {
             if (dbtPlayer.Charging)

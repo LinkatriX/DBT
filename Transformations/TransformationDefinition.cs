@@ -6,6 +6,7 @@ using DBT.Races;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WebmilioCommons.Extensions;
 using WebmilioCommons.Managers;
