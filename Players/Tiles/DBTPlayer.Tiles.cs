@@ -1,4 +1,5 @@
 ﻿using DBT.Buffs;
+using Terraria.ModLoader;
 
 namespace DBT.Players
 {
@@ -7,7 +8,7 @@ namespace DBT.Players
         public void PostUpdateTiles()
         {
             if (KiDiffuser)
-                player.AddBuff(mod.BuffType<KiDiffuserBuff>(), 1);
+                player.AddBuff(ModContent.BuffType<KiDiffuserBuff>(), 1);
         }
 
         public bool KiDiffuser { get; set; }

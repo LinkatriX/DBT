@@ -1,5 +1,7 @@
 ﻿using DBT.Players;
+using DBT.Transformations;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -34,6 +36,15 @@ namespace DBT.HairStyles
             Vector2 overallOffset = Vector2.Zero;
             Vector2 overallOffsetLeft = dbtPlayer.ChosenHairStyle.Offset.ZW();
             Vector2 overallOffsetRight = dbtPlayer.ChosenHairStyle.Offset.XY();
+            Vector2 manualFormHairOffset = Vector2.Zero;
+
+            if (dbtPlayer.ActiveTransformations.Count > 0)
+            {
+                if (dbtPlayer.ActiveTransformations.First().Appearance.Hair.ManualForm != null)
+                {
+                    manualFormHairOffset = dbtPlayer.ActiveTransformations.First().Appearance.Hair.ManualFormOffset;
+                }
+            }
 
             if (drawInfo.drawPlayer.direction == -1)
                 overallOffset = overallOffsetLeft;
@@ -52,7 +63,7 @@ namespace DBT.HairStyles
                 new Vector2(
                     (int)(drawInfo.position.X - Main.screenPosition.X - player.bodyFrame.Width / 2 + player.width / 2),
                     (int)(drawInfo.position.Y - Main.screenPosition.Y + player.height - player.bodyFrame.Height)) 
-                    + player.headPosition + drawInfo.headOrigin + overallOffset + bobbingOffset,
+                    + player.headPosition + drawInfo.headOrigin + overallOffset + manualFormHairOffset + bobbingOffset,
 
                 // TODO Add hair animation.
                 new Rectangle(0, 0, dbtPlayer.CurrentHair.Width, height),

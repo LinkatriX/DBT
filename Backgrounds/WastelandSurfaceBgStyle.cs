@@ -8,7 +8,7 @@ namespace DBT.Backgrounds
 	{
 		public override bool ChooseBgStyle()
 		{
-            return !Main.gameMenu && Main.LocalPlayer.GetModPlayer<DBTPlayer>(mod).zoneWasteland;
+            return !Main.gameMenu && Main.LocalPlayer.GetModPlayer<DBTPlayer>().zoneWasteland;
 		}
 
 		public override void ModifyFarFades(float[] fades, float transitionSpeed)
@@ -38,9 +38,6 @@ namespace DBT.Backgrounds
 		{
 			return mod.GetBackgroundSlot("Backgrounds/WastelandSurfaceFar");
 		}
-
-        static int _surfaceFrameCounter = 0;
-        static int _surfaceFrame = 0;
         public override int ChooseMiddleTexture()
         {
             return mod.GetBackgroundSlot("Backgrounds/WastelandSurfaceMid0");

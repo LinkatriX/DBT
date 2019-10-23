@@ -1,5 +1,6 @@
 ﻿using DBT.Players;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace DBT.Buffs
 {
@@ -25,7 +26,7 @@ namespace DBT.Buffs
             dbtPlayer.KiDamageMultiplier += 2;
 
             if (player.buffTime[buffIndex] <= 0)
-                player.AddBuff(mod.BuffType<ZenkaiCooldownBuff>(), 7200);
+                player.AddBuff(ModContent.BuffType<ZenkaiCooldownBuff>(), 7200);
         }
     }
 }

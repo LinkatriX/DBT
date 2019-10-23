@@ -31,7 +31,7 @@ namespace DBT.Effects
             float closestDistance = float.MaxValue;
             for (int i = 1; i <= 7; i++)
             {
-                var location = DBTMod.Instance.GetModWorld<DBTWorld>().GetCachedDragonBallLocation(i);
+                var location = ModContent.GetInstance<DBTWorld>().GetCachedDragonBallLocation(i);
                 if (location.Equals(Point.Zero))
                     continue;
 
@@ -74,7 +74,7 @@ namespace DBT.Effects
         {
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = DBTMod.Instance;
-            DBTPlayer modPlayer = drawPlayer.GetModPlayer<DBTPlayer>(mod);
+            DBTPlayer modPlayer = drawPlayer.GetModPlayer<DBTPlayer>();
 
             float radarArrowScale = (modPlayer.IsHoldingDragonRadarMk1 ? 1f : (modPlayer.IsHoldingDragonRadarMk2 ? 1.25f : 1.5f));
             Texture2D texture = mod.GetTexture(dragonRadarSprite);

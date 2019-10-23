@@ -66,7 +66,7 @@ namespace DBT.Tiles.DragonBalls
             Player player = Main.player[Player.FindClosest(new Vector2(i * 16f, j * 16f), 1, 1)];
             if (player == null)
                 return true;
-            DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>(mod);
+            DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
             if (modPlayer.FirstDragonBallPickup)
                 return true;
             Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType("FourStarDragonBall"));

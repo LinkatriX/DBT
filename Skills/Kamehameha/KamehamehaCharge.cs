@@ -1,6 +1,7 @@
 ﻿using DBT.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace DBT.Skills.Kamehameha
 {
@@ -12,7 +13,7 @@ namespace DBT.Skills.Kamehameha
             chargeLimit = 6;
 
             // this is the beam the charge beam fires when told to.
-            beamProjectileName = mod.ProjectileType<KamehamehaBeam>();
+            beamProjectileName = ModContent.ProjectileType<KamehamehaBeam>();
 
             // the type of dust that should spawn when charging or decaying
             dustType = 15;

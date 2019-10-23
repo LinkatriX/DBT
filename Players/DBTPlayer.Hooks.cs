@@ -208,7 +208,7 @@ namespace DBT.Players
             for (int i = 0; i < items.Count; i++)
                 items[i].OnPlayerPostUpdate(this);
 
-            if (Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType<FriezaShip>()))
+            if (Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(ModContent.NPCType<FriezaShip>()))
                 CheckFriezaShipSpawn();
 
             HandleMouseOctantAndSyncTracking();

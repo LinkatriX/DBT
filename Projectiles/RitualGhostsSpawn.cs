@@ -34,7 +34,7 @@ namespace DBT.Projectiles
         public override void AI()
         {
             Player player = Main.LocalPlayer;
-            NPC.NewNPC((int)player.position.X - 40, (int)player.position.X - 50, mod.NPCType<BardockGhostBase>());
+            NPC.NewNPC((int)player.position.X - 40, (int)player.position.X - 50, ModContent.NPCType<BardockGhostBase>());
         }
     }
 }

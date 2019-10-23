@@ -17,7 +17,7 @@ namespace DBT.Items.Weapons
 
             item.thrown = true;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType<MonkeyPooProjectile>();
+            item.shoot = ModContent.ProjectileType<MonkeyPooProjectile>();
             item.shootSpeed = 20f;
             item.useTime = 12;
             item.damage = 9;

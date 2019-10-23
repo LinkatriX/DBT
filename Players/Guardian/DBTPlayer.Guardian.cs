@@ -11,7 +11,7 @@ namespace DBT.Players
             BaseHealingBonus = 0;
         }
 
-        public void BuffTeam<T>(int duration) where T : ModBuff => BuffTeam(typeof(T).GetModFromType().BuffType<T>(), duration);
+        public void BuffTeam<T>(int duration) where T : ModBuff => BuffTeam(ModContent.BuffType<T>(), duration);
 
         public void BuffTeam(int buffId, int duration)
         {

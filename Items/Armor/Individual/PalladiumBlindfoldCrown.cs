@@ -42,7 +42,7 @@ namespace DBT.Items.Armor.Individual
                 int kiOrb = 0;
 
                 if (Main.rand.Next(10) == 0)
-                    kiOrb = Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, mod.ItemType<KiOrb>());
+                    kiOrb = Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, ModContent.ItemType<KiOrb>());
 
                 if (Main.netMode == 1 && kiOrb >= 0)
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, kiOrb, 1f, 0f, 0f, 0, 0, 0);

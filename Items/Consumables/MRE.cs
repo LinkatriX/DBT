@@ -4,6 +4,7 @@ using DBT.Commons.Users;
 using DBT.Helpers;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace DBT.Items.Consumables
 {
@@ -18,7 +19,7 @@ namespace DBT.Items.Consumables
         {
             int durationMultiplier = this.Donator ? 2 : 1;
 
-            player.AddBuff(mod.BuffType<MREBuff>(), 360 * Constants.TICKS_PER_SECOND * durationMultiplier);
+            player.AddBuff(ModContent.BuffType<MREBuff>(), 360 * Constants.TICKS_PER_SECOND * durationMultiplier);
             player.AddBuff(BuffID.WellFed, 3600 * Constants.TICKS_PER_SECOND * durationMultiplier);
 
             return base.UseItem(player);

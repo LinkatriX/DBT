@@ -56,7 +56,7 @@ namespace DBT.Projectiles.Overload
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 0, 0, 0, mod.ProjectileType<OverloadBlastExplosion>(), projectile.damage / 2, 4f, projectile.owner, 0, projectile.rotation);
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 0, 0, 0, ModContent.ProjectileType<OverloadBlastExplosion>(), projectile.damage / 2, 4f, projectile.owner, 0, projectile.rotation);
             return true;
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

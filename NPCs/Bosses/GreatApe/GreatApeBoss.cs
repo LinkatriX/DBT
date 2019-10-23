@@ -42,7 +42,7 @@ namespace DBT.NPCs.Bosses.GreatApe
             npc.lavaImmune = false;
             npc.noGravity = false;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/TheUnexpectedArrival");
-            bossBag = mod.ItemType<FFShipBag>();
+            bossBag = ModContent.ItemType<FFShipBag>();
         }
 
         public const int
@@ -140,7 +140,7 @@ namespace DBT.NPCs.Bosses.GreatApe
 
                     if (AITimer2 == 140)
                     {
-                        Projectile.NewProjectile(npc.getRect().TopLeft() - new Vector2(20, -80), new Vector2(-30f, 0f), mod.ProjectileType<ApeBeamBlast>(), npc.damage / 3, 2f, npc.whoAmI);
+                        Projectile.NewProjectile(npc.getRect().TopLeft() - new Vector2(20, -80), new Vector2(-30f, 0f), ModContent.ProjectileType<ApeBeamBlast>(), npc.damage / 3, 2f, npc.whoAmI);
                         npc.netUpdate = true;
                     }
 
@@ -206,7 +206,6 @@ namespace DBT.NPCs.Bosses.GreatApe
 
         int _frame = 0;
         int _frameTimer = 0;
-        int _frameRate = 1;
 
         public override void FindFrame(int frameHeight)
         {
