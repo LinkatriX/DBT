@@ -95,7 +95,7 @@ namespace DBT.Worlds
             Point origin = new Point((int)gravGeneratorStartPositionX, gravGeneratorStartPositionY - 14);
             GravGenerator grav = new GravGenerator();
             grav.Place(origin, WorldGen.structures);
-            WorldGen.PlaceObject(gravGeneratorStartPositionX + 16, gravGeneratorStartPositionY + 1, mod.TileType<GravityGenerator>());
+            WorldGen.PlaceObject(gravGeneratorStartPositionX + 16, gravGeneratorStartPositionY + 1, ModContent.TileType<GravityGenerator>());
 
         }
     }

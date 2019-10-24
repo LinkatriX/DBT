@@ -13,11 +13,11 @@ namespace DBT.Items.Consumables.Spawners
         public HenchmanScouter() : base("Henchman's Scouter", "A common scouter used by the lower echelons of the frieza force, it appears to have a communicator built into it.", 48, 26, 0, ItemRarityID.Orange, 4, true, null, 20, 20) 
         {
         }
-        public override bool CanUseItem(Player player) => NPC.downedBoss2 && !NPC.AnyNPCs(mod.NPCType<FriezaShip>()) && !Worlds.DBTWorld.friezaShipTriggered;
+        public override bool CanUseItem(Player player) => NPC.downedBoss2 && !NPC.AnyNPCs(ModContent.NPCType<FriezaShip>()) && !Worlds.DBTWorld.friezaShipTriggered;
 
         public override bool UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<FriezaShip>());
+            NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<FriezaShip>());
             Main.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;
@@ -27,9 +27,9 @@ namespace DBT.Items.Consumables.Spawners
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 
-			recipe.AddIngredient(mod.ItemType<CyberneticParts>(), 8);
-            recipe.AddIngredient(mod.ItemType<ScrapMetal>(), 5);
-            recipe.AddIngredient(mod.ItemType<KiStoneT1>(), 3);
+			recipe.AddIngredient(ModContent.ItemType<CyberneticParts>(), 8);
+            recipe.AddIngredient(ModContent.ItemType<ScrapMetal>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<KiStoneT1>(), 3);
 
             recipe.SetResult(this);
             recipe.AddRecipe();

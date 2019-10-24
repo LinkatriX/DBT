@@ -41,7 +41,7 @@ namespace DBT.Tiles
         {
             Tile tile = Main.tile[i, j];
             Texture2D texture;
-            DBTWorld world = DBTMod.Instance.GetModWorld<DBTWorld>();
+            DBTWorld world = ModContent.GetInstance<DBTWorld>();
             if (world.repairedGravModule)
             {
                 if (_activated)
@@ -66,10 +66,10 @@ namespace DBT.Tiles
         public override void RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
-            DBTWorld world = DBTMod.Instance.GetModWorld<DBTWorld>();
+            DBTWorld world = ModContent.GetInstance<DBTWorld>();
             if (!world.repairedGravModule)
             {
-                if (player.HasItem(mod.ItemType<RefinedMetal>()))
+                if (player.HasItem(ModContent.ItemType<RefinedMetal>()))
                 {
                     world.repairedGravModule = true;
                     Main.NewText("Gravity Generator Repaired!");

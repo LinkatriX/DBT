@@ -3,6 +3,7 @@ using DBT.Items.Materials;
 using DBT.Items.Weapons;
 using DBT.NPCs.Bosses.FriezaShip;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace DBT.Items.Bags
 {
@@ -30,18 +31,18 @@ namespace DBT.Items.Bags
 
             if (choice == 0)
             {
-                player.QuickSpawnItem(mod.ItemType<BeamRifle>());
+                player.QuickSpawnItem(ModContent.ItemType<BeamRifle>());
             }
             if (choice == 1)
             {
-                //player.QuickSpawnItem(mod.ItemType<HenchBlast>());
+                //player.QuickSpawnItem(ModContent.ItemType<HenchBlast>());
             }
-            player.QuickSpawnItem(mod.ItemType<CyberneticParts>(), Main.rand.Next(7, 18));
-            player.QuickSpawnItem(mod.ItemType<ArmCannonMK2>());
+            player.QuickSpawnItem(ModContent.ItemType<CyberneticParts>(), Main.rand.Next(7, 18));
+            player.QuickSpawnItem(ModContent.ItemType<ArmCannonMK2>());
             //if (Main.rand.Next(10) == 0)
-                //player.QuickSpawnItem(mod.ItemType<FFTrophy>());
+                //player.QuickSpawnItem(ModContent.ItemType<FFTrophy>());
         }
 
-        public override int BossBagNPC => mod.NPCType<FriezaShip>();
+        public override int BossBagNPC => ModContent.NPCType<FriezaShip>();
     }
 }

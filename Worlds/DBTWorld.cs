@@ -18,6 +18,7 @@ namespace DBT.Worlds
         {
             IList<string> downed = tag.GetList<string>("downed");
             downedFriezaShip = downed.Contains("friezaShip");
+            downedGreatApe = downed.Contains("greatApe");
 
             kiBeacons = tag.ContainsKey("KiBeacons") ? (List<Vector2>)tag.GetList<Vector2>("KiBeacons") : new List<Vector2>();
 
@@ -80,6 +81,7 @@ namespace DBT.Worlds
         {
             BitsByte flags = new BitsByte();
             flags[0] = downedFriezaShip;
+            flags[1] = downedGreatApe;
 
             writer.Write(flags);
         }
@@ -88,6 +90,7 @@ namespace DBT.Worlds
         {
             BitsByte flags = reader.ReadByte();
             downedFriezaShip = flags[0];
+            downedGreatApe = flags[1];
         }
 
         public void PlaceDragonBalls(GenerationProgress progress = null)

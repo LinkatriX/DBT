@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DBT.Helpers;
+using DBT.Players;
+using DBT.UserInterfaces.WishMenu;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -31,17 +34,15 @@ namespace DBT.Items.DragonBalls
 
         public override bool CanRightClick() => true;
 
-        public bool CarryingAllDragonBalls(Player player)
+        public override void RightClick(Player player)
         {
-            List<DragonBall> dragonBalls = player.GetItemsByType<DragonBall>(inventory: true);
-            List<DragonBallStarCount> dragonBallStars = new List<DragonBallStarCount>(7);
-
-            for (int i = 0; i < dragonBalls.Count; i++)
-                if (!dragonBallStars.Contains(dragonBalls[i].StarCount))
-                    dragonBallStars.Add(dragonBalls[i].StarCount);
-
-            return dragonBallStars.Count == Enum.GetNames(typeof(DragonBallStarCount)).Length;
+            DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
+            dbtPlayer.WishActive = true;
+            WishMenu.menuVisible = true;
+            SoundHelper.PlayCustomSound("Sounds/DBSummon", player, 0.5f);
         }
+
+        
 
         public static string GetDragonBallItemTypeFromNumber(int whichDragonBall)
         {

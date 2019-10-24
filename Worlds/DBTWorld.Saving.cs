@@ -8,11 +8,13 @@ namespace DBT.Worlds
     public partial class DBTWorld
     {
         public static bool downedFriezaShip = false;
+        public static bool downedGreatApe = false;
         public static bool friezaShipTriggered = false;
 
         public override void Initialize()
         {
             downedFriezaShip = false;
+            downedGreatApe = false;
         }
 
         public override TagCompound Save()
@@ -40,6 +42,7 @@ namespace DBT.Worlds
             List<string> downed = new List<string>();
 
             if (downedFriezaShip) downed.Add("friezaShip");
+            if (downedGreatApe) downed.Add("greatApe");
 
             return new TagCompound { { "downed", downed } };
         }
@@ -61,6 +64,7 @@ namespace DBT.Worlds
             {
                 BitsByte flags = reader.ReadByte();
                 downedFriezaShip = flags[0];
+                downedGreatApe = flags[1];
             }
         }
     }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 using Terraria.UI;
 using System;
 using DBT.Helpers;
@@ -47,6 +48,8 @@ namespace DBT
         internal UserInterface wishMenuInterface;
         internal HairMenu hairMenu;
         internal UserInterface hairMenuInterface;
+        internal NamekianBookUI namekBookUI;
+        internal UserInterface namekBookInterface;
 
         internal bool calamityEnabled;
 
@@ -123,6 +126,11 @@ namespace DBT
                 hairMenuInterface = new UserInterface();
                 hairMenuInterface.SetState(hairMenu);
 
+                namekBookUI = new NamekianBookUI();
+                namekBookUI.Activate();
+                namekBookInterface = new UserInterface();
+                namekBookInterface.SetState(namekBookUI);
+
                 Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect"));
 
                 Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
@@ -130,18 +138,18 @@ namespace DBT
 
                 circle = new CircleShader(new Ref<Effect>(GetEffect("Effects/CircleShader")), "Pass1");
 
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/BirthOfAGod"), ItemType<AngelStaffBoxItem>(), TileType<AngelStaffBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/HeadChala"), ItemType<OneStarBoxItem>(), TileType<OneStarBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Budokai2"), ItemType<TwoStarBoxItem>(), TileType<TwoStarBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Budokai3"), ItemType<ThreeStarBoxItem>(), TileType<ThreeStarBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/SSJ3Song"), ItemType<FourStarBoxItem>(), TileType<FourStarBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Challenge"), ItemType<FiveStarBoxItem>(), TileType<FiveStarBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/LostCourage"), ItemType<SixStarBoxItem>(), TileType<SixStarBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/VegetaSSJ"), ItemType<SevenStarBoxItem>(), TileType<SevenStarBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/XV2Villain"), ItemType<DragonBallsBoxItem>(), TileType<DragonBallsBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/BurstLimit"), ItemType<BabidisMagicBoxItem>(), TileType<BabidisMagicBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Wastelands"), ItemType<WastelandsBoxItem>(), TileType<WastelandsBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TheUnexpectedArrival"), ItemType<FFBoxItem>(), TileType<FFBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/BirthOfAGod"), ModContent.ItemType<AngelStaffBoxItem>(), ModContent.TileType<AngelStaffBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/HeadChala"), ModContent.ItemType<OneStarBoxItem>(), ModContent.TileType<OneStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Budokai2"), ModContent.ItemType<TwoStarBoxItem>(), ModContent.TileType<TwoStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Budokai3"), ModContent.ItemType<ThreeStarBoxItem>(), ModContent.TileType<ThreeStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/SSJ3Song"), ModContent.ItemType<FourStarBoxItem>(), ModContent.TileType<FourStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/Challenge"), ModContent.ItemType<FiveStarBoxItem>(), ModContent.TileType<FiveStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/LostCourage"), ModContent.ItemType<SixStarBoxItem>(), ModContent.TileType<SixStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/VegetaSSJ"), ModContent.ItemType<SevenStarBoxItem>(), ModContent.TileType<SevenStarBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/XV2Villain"), ModContent.ItemType<DragonBallsBoxItem>(), ModContent.TileType<DragonBallsBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/BurstLimit"), ModContent.ItemType<BabidisMagicBoxItem>(), ModContent.TileType<BabidisMagicBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Wastelands"), ModContent.ItemType<WastelandsBoxItem>(), ModContent.TileType<WastelandsBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TheUnexpectedArrival"), ModContent.ItemType<FFBoxItem>(), ModContent.TileType<FFBoxTile>());
             }
         }
 
@@ -163,6 +171,8 @@ namespace DBT
                 WishMenu.menuVisible = false;
 
                 HairMenu.menuVisible = false;
+
+                namekBookUI.MenuVisible = false;
             }
             Instance = null;
         }
@@ -228,6 +238,7 @@ namespace DBT
                 layers.Insert(resourcesLayerIndex, new KiBarLayer());
                 layers.Insert(resourcesLayerIndex, new WishMenuLayer());
                 layers.Insert(resourcesLayerIndex, new HairMenuLayer());
+                layers.Insert(resourcesLayerIndex, new NamekianBookUILayer());
             }
             if (characterMenuIndex != -1)
             {

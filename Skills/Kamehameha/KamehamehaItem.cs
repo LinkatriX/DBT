@@ -10,7 +10,7 @@ namespace DBT.Skills.Kamehameha
     {
         public override void SetDefaults()
         {
-            item.shoot = mod.ProjectileType<KamehamehaCharge>();
+            item.shoot = ModContent.ProjectileType<KamehamehaCharge>();
             item.shootSpeed = 0f;
             item.damage = 88;
             item.knockBack = 2f;

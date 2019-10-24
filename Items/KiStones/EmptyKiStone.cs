@@ -32,7 +32,7 @@ namespace DBT.Items.KiStones
                 if (dbtPlayer.Ki == 0)
                 {
                     ChargingInTry = false;
-                    player.AddBuff(mod.BuffType<KiDegenerationBuff>(), 10 * 60);
+                    player.AddBuff(ModContent.BuffType<KiDegenerationBuff>(), 10 * 60);
                     return;
                 }
 

@@ -85,6 +85,7 @@ namespace DBT.Players
             PostUpdateHandleTransformations();
             UpdateNPCs();
             PostUpdateTiles();
+            PostUpdateDragonBalls();
 
             // neuters flight if the player gets immobilized. Note the lack of Katchin Feet buff.
             if (IsPlayerImmobilized() && Flying)
@@ -97,7 +98,7 @@ namespace DBT.Players
             for (int i = 0; i < items.Count; i++)
                 items[i].OnPlayerPostUpdate(this);
 
-            if (Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(mod.NPCType<FriezaShip>()))
+            if (Worlds.DBTWorld.friezaShipTriggered && !NPC.AnyNPCs(ModContent.NPCType<FriezaShip>()))
                 CheckFriezaShipSpawn();
 
             HandleMouseOctantAndSyncTracking();

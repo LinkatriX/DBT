@@ -11,7 +11,6 @@ namespace DBT.Projectiles.Overload
     public class ShaderOrb3 : ModProjectile
     {
         private int _shockwaveSpeed = 18;
-        private float _scaletime;
         public override void SetDefaults()
         {
             projectile.width = 1214;

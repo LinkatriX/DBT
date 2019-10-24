@@ -24,7 +24,7 @@ namespace DBT.Items.Armor.Sets.Metamoran
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs) =>
-            base.IsArmorSet(head, body, legs) && legs.type == mod.ItemType<MetamoranPants>();
+            base.IsArmorSet(head, body, legs) && legs.type == ModContent.ItemType<MetamoranPants>();
 
         public override void UpdateArmorSet(Player player)
         {

@@ -97,7 +97,7 @@ namespace DBT.NPCs.Town.Roshi
             {
                 if (player.active && player.talkNPC == npc.whoAmI)
                 {
-                    var questSystem = player.GetModPlayer<RoshiQuests>(mod);
+                    var questSystem = player.GetModPlayer<RoshiQuests>();
 
                     if (questSystem.QuestsCompletedToday >= questSystem.QuestLimitPerDay)
                     {

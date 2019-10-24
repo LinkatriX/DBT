@@ -18,7 +18,7 @@ namespace DBT.Items.Armor.Sets.EliteSaiyan
         {
         }
 
-        public override bool IsArmorSet(Item head, Item body, Item legs) => base.IsArmorSet(head, body, legs) && legs.type == mod.ItemType<EliteSaiyanLeggings>();
+        public override bool IsArmorSet(Item head, Item body, Item legs) => base.IsArmorSet(head, body, legs) && legs.type == ModContent.ItemType<EliteSaiyanLeggings>();
 
         public override void UpdateArmorSet(Player player)
         {

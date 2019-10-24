@@ -50,7 +50,7 @@ namespace DBT.NPCs.FriezaForce.Minions
 			if (shootTimer > 180)
 			{
 				Vector2 newVelocity = Vector2.Normalize(Main.player[npc.target].Center + Main.player[npc.target].velocity - npc.Center) * 18;
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, newVelocity.X, newVelocity.Y, mod.ProjectileType<FFMinionBlast>(), npc.damage / 3, 3f, Main.myPlayer);
+				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, newVelocity.X, newVelocity.Y, ModContent.ProjectileType<FFMinionBlast>(), npc.damage / 3, 3f, Main.myPlayer);
 				shootTimer = 0;
 			}
 		}

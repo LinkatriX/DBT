@@ -108,6 +108,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
 
             foreach (KeyValuePair<SkillDefinition, UIImagePair> kvp in _skillImagePairs)
@@ -244,7 +245,7 @@ namespace DBT.UserInterfaces.TechniqueMenu
         }
 
         public Mod AuthorMod { get; }
-        public bool Visible { get; set; } = true;
+        public bool Visible { get; set; } = false;
         public Texture2D LockedImageTexture { get; }
         public Texture2D InfoPanelTexture { get; }
         public Texture2D EquipButtonTexture { get; set; }

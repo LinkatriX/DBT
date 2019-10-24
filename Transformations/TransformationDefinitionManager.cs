@@ -49,7 +49,7 @@ namespace DBT.Transformations
 
             SSJ5 = Add(new SSJ5Transformation(SSJ4FP)) as SSJ5Transformation;
 
-            SSJG = Add(new SSJGTransformation(SSJ3)) as SSJGTransformation;
+            SSJG = Add(new SSJGTransformation()) as SSJGTransformation;
             SSJB = Add(new SSJBTransformation(SSJG)) as SSJBTransformation;
             SSJR = Add(new SSJRTransformation(SSJG)) as SSJRTransformation;
             SSJBE = Add(new SSJBETransformation(SSJB)) as SSJBETransformation;
@@ -63,11 +63,11 @@ namespace DBT.Transformations
 
             SoulStealer = Add(new SoulStealerTransformation()) as SoulStealerTransformation;
 
-            DemonSSJ = Add(new DemonSSJTransformation()) as DemonSSJTransformation;
+            DemonSSJ = Add(new DemonSSJTransformation(SoulStealer)) as DemonSSJTransformation;
 
-            DivineSSJ = Add(new DivineSSJTransformation()) as DivineSSJTransformation;
+            DivineSSJ = Add(new DivineSSJTransformation(DemonSSJ)) as DivineSSJTransformation;
 
-            LSSG = Add(new LSSGTransformation()) as LSSGTransformation;
+            LSSG = Add(new LSSGTransformation(DivineSSJ)) as LSSGTransformation;
 
             Tree = new Tree<TransformationDefinition>(byIndex);
 

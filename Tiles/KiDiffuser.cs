@@ -25,14 +25,14 @@ namespace DBT.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 48, mod.ItemType<KiDiffuserItem>());
+            Item.NewItem(i * 16, j * 16, 32, 48, ModContent.ItemType<KiDiffuserItem>());
         }
 
         public override void NearbyEffects(int i, int j, bool closer)
         {
             if (closer)
             {
-                DBTPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>(mod);
+                DBTPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
                 modPlayer.KiDiffuser = true;
             }
         }        
