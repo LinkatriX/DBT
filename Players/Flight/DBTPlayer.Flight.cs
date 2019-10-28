@@ -106,7 +106,9 @@ namespace DBT.Players
         internal void OnPlayerFlightStateChanged(bool state)
         {
             if (!state)
-                player.fullRotation = MathHelper.Lerp(player.fullRotation, 0, 0.1f);
+            {
+                player.fullRotation = 0;
+            }
         }
 
 
