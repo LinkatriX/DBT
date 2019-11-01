@@ -52,7 +52,8 @@ namespace DBT.Players
         internal void HandleAuraDrawLayers(List<PlayerLayer> layers)
         {
             AuraAnimationInformation.auraLayer.visible = true;
-            layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsBack"), AuraAnimationInformation.auraLayer);
+            //layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsBack"), AuraAnimationInformation.auraLayer);
+            layers.Add(AuraAnimationInformation.auraLayer);
         }
 
         public AuraAppearance Aura { get; private set; }

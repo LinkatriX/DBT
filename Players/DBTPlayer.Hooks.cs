@@ -21,7 +21,7 @@ namespace DBT.Players
         public bool zoneWasteland = false;
 
         public static readonly PlayerLayer tailLayer = new DrawTailEffects(0);
-        public static readonly PlayerLayer furLayer = new DrawFurEffects(0);
+        public static readonly PlayerLayer furLayer = new DrawFurEffects();
 
         public override void Initialize()
         {
@@ -261,7 +261,6 @@ namespace DBT.Players
                 //return;
             }
             
-            HandleAuraDrawLayers(layers);
             HandleHairDrawLayers(layers);
 
             /*if (Trait == TraitManager.Instance.Primal)
@@ -272,7 +271,11 @@ namespace DBT.Players
             layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsBack"), tailLayer);
 
             furLayer.visible = true;
-            layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsFront"), furLayer);
+
+            PlayerLayer skinLayer = layers.Find(l => l.Name.Equals(nameof(PlayerLayer.Skin)));
+            int furIndex = layers.IndexOf(skinLayer);
+
+            layers.Insert(furIndex + 1, furLayer);
 
             // handle dragon radar drawing
             if (IsHoldingDragonRadarMk1 || IsHoldingDragonRadarMk2 || IsHoldingDragonRadarMk3)
@@ -284,7 +287,9 @@ namespace DBT.Players
             {
                 //if (transformation.Definition.Appearance.EyeColor != null)
                     ChangeEyeColor(transformation.Definition.Appearance.EyeColor.Value);
-            } 
+            }
+
+            HandleAuraDrawLayers(layers);
         }
 
         public override void UpdateBiomes()

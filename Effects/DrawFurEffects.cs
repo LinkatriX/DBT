@@ -16,7 +16,7 @@ namespace DBT.Effects
 {
     public sealed class DrawFurEffects : PlayerLayer
     {
-        public DrawFurEffects(int index) : base(DBTMod.Instance.Name, "FurLayer" + index, null, DrawLayer)
+        public DrawFurEffects() : base(DBTMod.Instance.Name, "FurLayer", null, DrawLayer)
         {
         }
 
@@ -26,13 +26,15 @@ namespace DBT.Effects
             if (Main.netMode == NetmodeID.Server)
                 return;
 
-            DBTPlayer modPlayer = drawInfo.drawPlayer.GetModPlayer<DBTPlayer>();
-            TransformationDefinition transformation = modPlayer.ActiveTransformations.FirstOrDefault();
+            DBTPlayer dbtPlayer = drawInfo.drawPlayer.GetModPlayer<DBTPlayer>();
+            TransformationDefinition transformation = dbtPlayer.FirstTransformation?.Definition;
 
             Texture2D bodyTexture = DBTMod.Instance.GetTexture("Transformations/SSJs/SSJ4s/SSJ4/SSJ4_Body");
             Texture2D armsTexture = DBTMod.Instance.GetTexture("Transformations/SSJs/SSJ4s/SSJ4/SSJ4_Arms");
             Texture2D eyesTexture = DBTMod.Instance.GetTexture("Transformations/SSJs/SSJ4s/SSJ4/SSJ4_Eyes");
+
             float XOffset;
+
             SpriteEffects spriteEffects;
 
             if (drawInfo.drawPlayer.direction == 1)
@@ -45,11 +47,13 @@ namespace DBT.Effects
                 spriteEffects = SpriteEffects.FlipHorizontally;
                 XOffset = 1.8f;
             }
+
             if (transformation != null)
             {
                 Body.visible = false;
                 Arms.visible = false;
-                if (modPlayer.IsTransformed(TransformationDefinitionManager.Instance.SSJ4) || modPlayer.IsTransformed(TransformationDefinitionManager.Instance.SSJ4FP))
+
+                if (dbtPlayer.IsTransformed(TransformationDefinitionManager.Instance.SSJ4) || dbtPlayer.IsTransformed(TransformationDefinitionManager.Instance.SSJ4FP))
                 {
                     if (!drawInfo.drawPlayer.Male)
                         bodyTexture = DBTMod.Instance.GetTexture("Transformations/SSJs/SSJ4s/SSJ4/SSJ4_FemaleBody");
@@ -59,7 +63,7 @@ namespace DBT.Effects
                     armsTexture = DBTMod.Instance.GetTexture("Transformations/SSJs/SSJ4s/SSJ4/SSJ4_Arms");
                     eyesTexture = DBTMod.Instance.GetTexture("Transformations/SSJs/SSJ4s/SSJ4/SSJ4_Eyes");
                 }
-                if (modPlayer.IsTransformed(TransformationDefinitionManager.Instance.SSJ5))
+                if (dbtPlayer.IsTransformed(TransformationDefinitionManager.Instance.SSJ5))
                 {
                     if (!drawInfo.drawPlayer.Male)
                         bodyTexture = DBTMod.Instance.GetTexture("Transformations/Patreon/SSJ5/SSJ5_FemaleBody");
@@ -70,11 +74,13 @@ namespace DBT.Effects
                     eyesTexture = DBTMod.Instance.GetTexture("Transformations/Patreon/SSJ5/SSJ5_Eyes");
                 }
 
-                float drawX = (drawInfo.position.X + drawInfo.drawPlayer.width / XOffset - Main.screenPosition.X);
+                float drawX = (drawInfo.position.X + drawInfo.drawPlayer.width / XOffset - Main.screenPosition.X); // when looking right, add 3
                 float drawY = (drawInfo.position.Y + drawInfo.drawPlayer.height / 0.08f - Main.screenPosition.Y);
-                Main.spriteBatch.Draw(bodyTexture, new Vector2(drawX, drawY), drawInfo.drawPlayer.bodyFrame, Color.White, 0f, new Vector2(bodyTexture.Width / 2f, bodyTexture.Height / 2f), 1f, spriteEffects, 0);
-                Main.spriteBatch.Draw(armsTexture, new Vector2(drawX, drawY), drawInfo.drawPlayer.bodyFrame, Color.White, 0f, new Vector2(armsTexture.Width / 2f, armsTexture.Height / 2f), 1f, spriteEffects, 0);
-                Main.spriteBatch.Draw(eyesTexture, new Vector2(drawX, drawY), drawInfo.drawPlayer.bodyFrame, Color.White, 0f, new Vector2(eyesTexture.Width / 2f, eyesTexture.Height / 2f), 1f, spriteEffects, 0);
+
+                // TODO Verify and move Y Offset.
+                Main.spriteBatch.Draw(bodyTexture, new Vector2(drawX, drawY + 25), drawInfo.drawPlayer.bodyFrame, Color.White, 0f, new Vector2(bodyTexture.Width / 2f, bodyTexture.Height / 2f), 1f, spriteEffects, 0);
+                Main.spriteBatch.Draw(armsTexture, new Vector2(drawX, drawY + 25), drawInfo.drawPlayer.bodyFrame, Color.White, 0f, new Vector2(armsTexture.Width / 2f, armsTexture.Height / 2f), 1f, spriteEffects, 0);
+                Main.spriteBatch.Draw(eyesTexture, new Vector2(drawX, drawY + 25), drawInfo.drawPlayer.bodyFrame, Color.White, 0f, new Vector2(eyesTexture.Width / 2f, eyesTexture.Height / 2f), 1f, spriteEffects, 0);
             }
         }
     }
