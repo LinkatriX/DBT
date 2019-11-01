@@ -3,6 +3,7 @@ using DBT.Commons.Players;
 using DBT.Effects;
 using DBT.HairStyles;
 using DBT.NPCs.Bosses.FriezaShip;
+using DBT.Traits;
 using DBT.Transformations;
 using DBT.Wasteland;
 using Terraria;
@@ -18,6 +19,9 @@ namespace DBT.Players
         private const float CHARGING_MOVE_SPEED_MULTIPLIER = 0.5f;
 
         public bool zoneWasteland = false;
+
+        public static readonly PlayerLayer tailLayer = new DrawTailEffects(0);
+        public static readonly PlayerLayer furLayer = new DrawFurEffects(0);
 
         public override void Initialize()
         {
@@ -216,6 +220,10 @@ namespace DBT.Players
 
             // Flight system moved to PostUpdate so that it can benefit from not being client sided!
             Flight.Update(this);
+
+            TailFrameTimer++;
+            if (TailFrameTimer > 112)
+                TailFrameTimer = 0;
         }
 
         public override void PostUpdateRunSpeeds()
@@ -252,10 +260,19 @@ namespace DBT.Players
 
                 //return;
             }
-
-
+            
             HandleAuraDrawLayers(layers);
             HandleHairDrawLayers(layers);
+
+            /*if (Trait == TraitManager.Instance.Primal)
+            {
+                
+            }*/
+            tailLayer.visible = true;
+            layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsBack"), tailLayer);
+
+            furLayer.visible = true;
+            layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsFront"), furLayer);
 
             // handle dragon radar drawing
             if (IsHoldingDragonRadarMk1 || IsHoldingDragonRadarMk2 || IsHoldingDragonRadarMk3)
@@ -307,5 +324,7 @@ namespace DBT.Players
 
             return true;
         }
+
+        public int TailFrameTimer { get; set; }
     }
 }
