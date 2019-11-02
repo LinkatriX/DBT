@@ -9,9 +9,9 @@ namespace DBT.Transformations.SSJGs.SSJG
         public SSJGTransformation(params TransformationDefinition[] parents) : base(
             "SSJG", "Super Saiyan God", typeof(SSJGTransformationBuff),
             3.5f, 2.25f, 24, 
-            new TransformationDrain(200f / 60, 100f / 60), 
+            new TransformationDrain(200f / Constants.TICKS_PER_SECOND, 100f / Constants.TICKS_PER_SECOND), 
             new SSJGAppearance(),
-            new TransformationOverload(0, 0))
+            parents: parents)
         {
         }
     }

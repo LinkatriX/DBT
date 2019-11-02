@@ -8,8 +8,8 @@ namespace DBT.Transformations.LSSJs.LSSJ
     {
         public LSSJTransformation(params TransformationDefinition[] parents) : base(
             "LSSJ", "Legendary Super Saiyan", typeof(LSSJTransformationBuff),
-            4.9f, 2.80f, 36, 
-            new TransformationDrain(340f / 60, 170f / 60),
+            4.75f, 2.875f, 45, 
+            new TransformationDrain(320f / Constants.TICKS_PER_SECOND, 160f / Constants.TICKS_PER_SECOND),
             new LSSJTransformationAppearance(),
             new TransformationOverload(0.1f, 0.05f), // 0.2f, 0.1f
             parents: parents)

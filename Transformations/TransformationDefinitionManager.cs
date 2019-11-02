@@ -23,6 +23,9 @@ using DBT.Transformations.Kaiokens.SSJKK;
 using DBT.Transformations.Patreon.DemonSSJ;
 using DBT.Transformations.Patreon.DivineSSJ;
 using DBT.Transformations.Patreon.LSSJG;
+using DBT.Transformations.LSSJs.SSJAType;
+using DBT.Transformations.Kaiokens.SSGKKs.SSJBKK;
+using DBT.Transformations.Kaiokens.SSGKKs.SSJRKK;
 
 namespace DBT.Transformations
 {
@@ -51,11 +54,14 @@ namespace DBT.Transformations
 
             SSJG = Add(new SSJGTransformation()) as SSJGTransformation;
             SSJB = Add(new SSJBTransformation(SSJG)) as SSJBTransformation;
+            SSJBKK = Add(new SSJBKKTransformation(SSJB)) as SSJBKKTransformation;
             SSJR = Add(new SSJRTransformation(SSJG)) as SSJRTransformation;
+            SSJRKK = Add(new SSJRKKTransformation(SSJR)) as SSJRKKTransformation;
             SSJBE = Add(new SSJBETransformation(SSJB)) as SSJBETransformation;
 
             Wrathful = Add(new WrathfulTransformation()) as WrathfulTransformation;
-            SSJC = Add(new SSJCTypeTransformation(Wrathful)) as SSJCTypeTransformation;
+            SSJA = Add(new SSJATypeTransformation(Wrathful)) as SSJATypeTransformation;
+            SSJC = Add(new SSJCTypeTransformation(SSJA)) as SSJCTypeTransformation;
             LSSJ = Add(new LSSJTransformation(SSJC)) as LSSJTransformation;
 
             Mystic = Add(new MysticTransformation()) as MysticTransformation;
@@ -98,10 +104,13 @@ namespace DBT.Transformations
 
         public SSJGTransformation SSJG { get; private set; }
         public SSJBTransformation SSJB { get; private set; }
+        public SSJBKKTransformation SSJBKK { get; private set; }
         public SSJRTransformation SSJR { get; private set; }
+        public SSJRKKTransformation SSJRKK { get; private set; }
         public SSJBETransformation SSJBE { get; private set; }
 
         public WrathfulTransformation Wrathful { get; private set; }
+        public SSJATypeTransformation SSJA { get; private set; }
         public SSJCTypeTransformation SSJC { get; private set; }
         public LSSJTransformation LSSJ { get; private set; }
 

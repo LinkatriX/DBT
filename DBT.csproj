@@ -19,6 +19,11 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
+    <Compile Remove="Transformations\Kaiokens\SSGKKs\SSRKK\**" />
+    <EmbeddedResource Remove="Transformations\Kaiokens\SSGKKs\SSRKK\**" />
+    <None Remove="Transformations\Kaiokens\SSGKKs\SSRKK\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="DBT.csproj.DotSettings" />
     <None Remove="DBTR.csproj.DotSettings" />
     <None Remove="LICENSE" />
@@ -49,8 +54,6 @@
     <Folder Include="Skills\SolarFlare\" />
     <Folder Include="Skills\TelekineticEnhancement\" />
     <Folder Include="Skills\SuperExplosiveWave\" />
-    <Folder Include="Transformations\Kaiokens\SSGKKs\SSBKK\" />
-    <Folder Include="Transformations\Kaiokens\SSGKKs\SSRKK\" />
     <Folder Include="Transformations\Terrarians\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,6 @@
 ﻿using DBT.Auras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace DBT.Transformations.LSSJs.SSJCType
 {
@@ -10,8 +8,8 @@ namespace DBT.Transformations.LSSJs.SSJCType
     {
         public SSJCTypeTransformation(params TransformationDefinition[] parents) : base(
             "SSJCType", "Super Saiyan C-Type", typeof(SSJCTypeTransformationBuff),
-            3.9f, 2.45f, 26, 
-            new TransformationDrain(4, 2),
+            4f, 2.5f, 35, 
+            new TransformationDrain(250f / Constants.TICKS_PER_SECOND, 125f / Constants.TICKS_PER_SECOND),
             new SSJCTypeTransformationAppearance(),
             new TransformationOverload(0.06f, 0.03f), 
             parents: parents)

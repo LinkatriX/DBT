@@ -24,8 +24,8 @@ namespace DBT.Transformations.Kaiokens.SSJKK
     {
         public SSJKKAppearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJKKTransformation), 4, 3, BlendState.AlphaBlend, true),
-            new LightingAppearance(new float[] { 0.2f, 0f, 0f })),
-            new HairAppearance(new Color(255, 245, 197)), Color.Red, new Color(254, 167, 202))
+            new LightingAppearance(new float[] { 2f, 0.08f, 0.21f })),
+            new HairAppearance(new Color(232, 42, 49)), new Color(232, 42, 49), new Color(254, 167, 202))
         {
         }
     }

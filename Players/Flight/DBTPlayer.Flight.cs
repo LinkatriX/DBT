@@ -111,7 +111,6 @@ namespace DBT.Players
             }
         }
 
-
         private void ResetFlightEffects()
         {
             StopFlightOnNoKi = true;
