@@ -10,7 +10,8 @@ namespace DBT.Transformations.SSJs.SSJ1s.USSJ1
             1.90f, 1.05f, 5, 
             new TransformationDrain(1.5f, 0.75f), 
             new SSJ1Appearance(),
-            new TransformationOverload(0, 0),
+            isManualLookup: true,
+            manualHairLookup: "SSJ1",
             displaysInMenu: false, parents: parents)
         {
         }

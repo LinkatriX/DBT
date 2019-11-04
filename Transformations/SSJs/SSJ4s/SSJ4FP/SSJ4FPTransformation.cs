@@ -10,9 +10,8 @@ namespace DBT.Transformations.SSJs.SSJ4s.SSJ4FP
         public SSJ4FPTransformation(params TransformationDefinition[] parents) : base(
                 "SSJ4FP", "Super Saiyan 4 Full Power", typeof(SSJ4FPTransformationBuff),
                 4.20f, 2.60f, 30,
-                new TransformationDrain(250f / 60, 125f / 60),
+                new TransformationDrain(250f / Constants.TICKS_PER_SECOND, 125f / Constants.TICKS_PER_SECOND),
                 new SSJ4FPAppearance(),
-                new TransformationOverload(0, 0),
                 isManualLookup: true,
                 manualHairLookup: "SSJ4",
                 parents: parents)
@@ -32,7 +31,7 @@ namespace DBT.Transformations.SSJs.SSJ4s.SSJ4FP
         public SSJ4FPAppearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJ4Transformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1.60f, 1.40f, 0f })),
-            new HairAppearance(new Color(37, 32, 35)), Color.Red, new Color(211, 186, 44))
+            new HairAppearance(new Color(255, 255, 255)), Color.Red, new Color(211, 186, 44))
         {
         }
     }

@@ -199,8 +199,6 @@ namespace DBT.Transformations
 
         public string UnlocalizedName { get; }
 
-        public string ManualHairPath { get; set; }
-
         public bool IsManualLookup { get; set; }
 
         public string DisplayName { get; }

@@ -8,9 +8,10 @@ namespace DBT.Transformations.SSJs.SSJ1s.ASSJ1
         public ASSJ1Transformation(params TransformationDefinition[] parents) : base(
             "ASSJ1", "Ascended Super Saiyan", typeof(ASSJ1TransformationBuff),
             1.75f, 1.375f, 3, 
-            new TransformationDrain(70f / 60, 35f / 60), 
+            new TransformationDrain(70f / Constants.TICKS_PER_SECOND, 35f / Constants.TICKS_PER_SECOND), 
             new SSJ1Appearance(),
-            new TransformationOverload(0, 0),
+            isManualLookup: true,
+            manualHairLookup: "SSJ1",
             displaysInMenu: false, parents: parents)
         {
         }
