@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Transformations.Appearance;
 using DBT.Transformations.SSJs.SSJ4s.SSJ4;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,7 +33,7 @@ namespace DBT.Transformations.SSJs.SSJ4s.SSJ4FP
         public SSJ4FPAppearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJ4Transformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1.60f, 1.40f, 0f })),
-            new HairAppearance(new Color(37, 32, 35)), Color.Red, new Color(211, 186, 44))
+            new HairAppearance(new Color(37, 32, 35)), Color.Red, new Color(211, 186, 44), manualFur: new SSJ4Appearance())
         {
         }
     }

@@ -21,7 +21,8 @@ namespace DBT.Players
         public bool zoneWasteland = false;
 
         public static readonly PlayerLayer tailLayer = new DrawTailEffects(0);
-        public static readonly PlayerLayer furLayer = new DrawFurEffects();
+        public static readonly PlayerLayer furLayer = new DrawBodyEffects();
+        public static readonly PlayerLayer customBodySkin = new CustomBodySkinLayer();
 
         public override void Initialize()
         {
@@ -241,7 +242,7 @@ namespace DBT.Players
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            TransformationDefinitionManager.Instance.ForAllItems(t => t.OnPreAcquirePlayerDied(this, damage, pvp, damageSource));
+            TransformationDefinitionManager.Instance.ForAll(t => t.OnPreAcquirePlayerDied(this, damage, pvp, damageSource));
 
             ForAllActiveTransformations(p => p.OnActivePlayerDied(this, damage, pvp, damageSource));
             ClearTransformations();
@@ -253,6 +254,8 @@ namespace DBT.Players
         {
             PlayerTransformation transformation = GetTransformation();
 
+            HandleAuraDrawLayers(layers);
+
             if (transformation == null)
             {
                 if (originalEyeColor.HasValue && player.eyeColor != originalEyeColor.Value)
@@ -261,7 +264,7 @@ namespace DBT.Players
                 //return;
             }
             
-            HandleHairDrawLayers(layers);
+            //HandleHairDrawLayers(layers);
 
             /*if (Trait == TraitManager.Instance.Primal)
             {
@@ -273,9 +276,20 @@ namespace DBT.Players
             furLayer.visible = true;
 
             PlayerLayer skinLayer = layers.Find(l => l.Name.Equals(nameof(PlayerLayer.Skin)));
-            int furIndex = layers.IndexOf(skinLayer);
+            int skinIndex = layers.IndexOf(skinLayer);
 
-            layers.Insert(furIndex + 1, furLayer);
+
+            for (int i = 0; i < ActiveTransformations.Count; i++)
+                if (ActiveTransformations[i].Appearance.ShouldHideNormalSkin)
+                {
+                    layers.RemoveAt(skinIndex);
+                    layers.Insert(skinIndex, customBodySkin);
+
+                    break;
+                }
+
+
+            layers.Insert(skinIndex + 1, furLayer);
 
             // handle dragon radar drawing
             if (IsHoldingDragonRadarMk1 || IsHoldingDragonRadarMk2 || IsHoldingDragonRadarMk3)
@@ -283,13 +297,12 @@ namespace DBT.Players
                 DrawDragonRadar.dragonRadarEffects.visible = true;
                 layers.Add(DrawDragonRadar.dragonRadarEffects);
             }
+
             if (transformation != null)
             {
-                //if (transformation.Definition.Appearance.EyeColor != null)
+                if (transformation.Definition.Appearance.EyeColor.HasValue)
                     ChangeEyeColor(transformation.Definition.Appearance.EyeColor.Value);
             }
-
-            HandleAuraDrawLayers(layers);
         }
 
         public override void UpdateBiomes()

@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
