@@ -7,8 +7,8 @@ namespace DBT.Transformations.Kaiokens.SSGKKs.SSJRKK
     public sealed class SSJRKKTransformation : TransformationDefinition
     {
         public SSJRKKTransformation(params TransformationDefinition[] parents) : base("SSJRKK", "Super Saiyan Rosé Kaioken", typeof(SSJRKKTransformationBuff),
-            5.35f, 3.175f, 44, new TransformationDrain(210f / Constants.TICKS_PER_SECOND),
-            new SSJRKKTransformationAppearance(), mastereable: false, parents: parents)
+            5.35f, 3.175f, 44, new TransformationDrain(210f / Constants.TICKS_PER_SECOND, 160f / Constants.TICKS_PER_SECOND),
+            new SSJRKKTransformationAppearance(), parents: parents)
         {
         }
     }

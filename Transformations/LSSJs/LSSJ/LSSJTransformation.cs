@@ -11,7 +11,7 @@ namespace DBT.Transformations.LSSJs.LSSJ
             4.75f, 2.875f, 45, 
             new TransformationDrain(320f / Constants.TICKS_PER_SECOND, 160f / Constants.TICKS_PER_SECOND),
             new LSSJTransformationAppearance(),
-            new TransformationOverload(0.1f, 0.05f), // 0.2f, 0.1f
+            new TransformationOverload(0.1f, 0.05f),
             parents: parents)
         {
         }
