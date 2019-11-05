@@ -60,13 +60,13 @@ namespace DBT.Effects
                 tailColor = drawInfo.drawPlayer.hairColor;
             }
 
-            //Color alpha = drawPlayer.GetImmuneAlpha(Lighting.GetColor((int)(drawInfo.bodyOrigin.X + drawPlayer.width * 0.5) / 16, (int)((drawInfo.bodyOrigin.Y + drawPlayer.height * 0.25) / 16.0), tailColor), drawPlayer.shadow);
+            Color color = Lighting.GetColor((int)drawInfo.drawPlayer.position.X / 16, (int)drawInfo.drawPlayer.position.Y / 16, tailColor);
             //Color trueTailColor = new Color(tailColor.R, tailColor.G, tailColor.B, alpha.A);
             Texture2D texture = DBTMod.Instance.GetTexture("Effects/PrimalTail");
             int frameSize = texture.Height / 14;
             float drawX = (drawInfo.position.X + drawInfo.drawPlayer.width / XOffset - Main.screenPosition.X);
             float drawY = (drawInfo.position.Y + drawInfo.drawPlayer.height / 0.11f - Main.screenPosition.Y);
-            Main.spriteBatch.Draw(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * frame, texture.Width, frameSize), tailColor, 0f, new Vector2(texture.Width / 2f, texture.Height / 2f), 1f, spriteEffects, 0);
+            Main.spriteBatch.Draw(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * frame, texture.Width, frameSize), color, 0f, new Vector2(texture.Width / 2f, texture.Height / 2f), 1f, spriteEffects, 0);
         }
     }
 }

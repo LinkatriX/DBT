@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -41,8 +40,10 @@ namespace DBT.Effects
             float drawX = (drawInfo.position.X + drawInfo.drawPlayer.width / XOffset - Main.screenPosition.X); // when looking right, add 3
             float drawY = (drawInfo.position.Y + drawInfo.drawPlayer.height / 0.08f - Main.screenPosition.Y) + 25;
 
+            Color color = Lighting.GetColor((int)drawInfo.drawPlayer.position.X / 16, (int)drawInfo.drawPlayer.position.Y / 16, drawInfo.drawPlayer.skinColor);
+
             Main.spriteBatch.Draw(_customBodySkin, new Vector2(drawX, drawY), drawInfo.drawPlayer.bodyFrame, 
-                drawInfo.drawPlayer.skinColor, 0, new Vector2(_customBodySkin.Width / 2f, _customBodySkin.Height / 2f), 1f, spriteEffects, 0);
+                color, 0, new Vector2(_customBodySkin.Width / 2f, _customBodySkin.Height / 2f), 1f, spriteEffects, 0);
         }
     }
 }

@@ -164,7 +164,7 @@ namespace DBT.Players
                 //return;
             }
             
-            //HandleHairDrawLayers(layers);
+            HandleHairDrawLayers(layers);
 
             /*if (Trait == TraitManager.Instance.Primal)
             {
