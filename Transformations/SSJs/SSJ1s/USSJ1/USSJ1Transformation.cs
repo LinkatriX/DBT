@@ -7,10 +7,11 @@ namespace DBT.Transformations.SSJs.SSJ1s.USSJ1
     {
         public USSJ1Transformation(params TransformationDefinition[] parents) : base(
             "USSJ1", "Ultra Super Saiyan", typeof(USSJ1TransformationBuff),
-            1.90f, 1.05f, 5, 
-            new TransformationDrain(1.5f, 0.75f), 
+            1.8f, 1.075f, 5, 
+            new TransformationDrain(90f / Constants.TICKS_PER_SECOND, 45f / Constants.TICKS_PER_SECOND), 
             new SSJ1Appearance(),
-            new TransformationOverload(0, 0),
+            isManualLookup: true,
+            manualHairLookup: "SSJ1",
             displaysInMenu: false, parents: parents)
         {
         }

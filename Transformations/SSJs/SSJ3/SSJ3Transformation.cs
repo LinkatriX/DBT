@@ -9,10 +9,9 @@ namespace DBT.Transformations.SSJs.SSJ3
     {
         public SSJ3Transformation(params TransformationDefinition[] parents) : base(
             "SSJ3", "Super Saiyan 3", typeof(SSJ3TransformationBuff),
-            2.90f, 1.95f, 16, 
-            new TransformationDrain(160f / 60, 80f / 60), 
+            2.7f, 1.85f, 16, 
+            new TransformationDrain(160f / Constants.TICKS_PER_SECOND, 80f / Constants.TICKS_PER_SECOND), 
             new SSJ3Appearance(),
-            new TransformationOverload(0, 0), 
             parents: parents)
         {
         }

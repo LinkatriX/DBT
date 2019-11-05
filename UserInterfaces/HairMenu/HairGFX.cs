@@ -21,6 +21,8 @@ namespace DBT.UserInterfaces.HairMenu
             STYLE_SIX_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style6/",
             STYLE_SEVEN_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style7/",
             STYLE_EIGHT_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style8/",
+            STYLE_NINE_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style9/",
+            STYLE_TEN_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style10/",
             STYLE_ONE = STYLE_ONE_DIRECTORY + "Style1",
             STYLE_ONE_L = STYLE_ONE_DIRECTORY + "Style1L",
             STYLE_ONE_M = STYLE_ONE_DIRECTORY + "Style1M",
@@ -45,6 +47,12 @@ namespace DBT.UserInterfaces.HairMenu
             STYLE_EIGHT = STYLE_EIGHT_DIRECTORY + "Style8",
             STYLE_EIGHT_L = STYLE_EIGHT_DIRECTORY + "Style8L",
             STYLE_EIGHT_M = STYLE_EIGHT_DIRECTORY + "Style8M",
+            STYLE_NINE = STYLE_NINE_DIRECTORY + "Style9",
+            STYLE_NINE_L = STYLE_NINE_DIRECTORY + "Style9L",
+            STYLE_NINE_M = STYLE_NINE_DIRECTORY + "Style9M",
+            STYLE_TEN = STYLE_TEN_DIRECTORY + "Style10",
+            STYLE_TEN_L = STYLE_TEN_DIRECTORY + "Style10L",
+            STYLE_TEN_M = STYLE_TEN_DIRECTORY + "Style10M",
             ARROW_LEFT = BUTTON_DIRECTORY + "ArrowLeft",
             ARROW_RIGHT = BUTTON_DIRECTORY + "ArrowRight",
             BASE_SELECT = BUTTON_DIRECTORY + "BaseSelect",
@@ -80,6 +88,12 @@ namespace DBT.UserInterfaces.HairMenu
             style8,
             style8L,
             style8M,
+            style9,
+            style9L,
+            style9M,
+            style10,
+            style10L,
+            style10M,
             arrowLeft,
             arrowRight,
             baseSelect,
@@ -116,6 +130,12 @@ namespace DBT.UserInterfaces.HairMenu
             style8 = mod.GetTexture(STYLE_EIGHT);
             style8L = mod.GetTexture(STYLE_EIGHT_L);
             style8M = mod.GetTexture(STYLE_EIGHT_M);
+            style9 = mod.GetTexture(STYLE_NINE);
+            style9L = mod.GetTexture(STYLE_NINE_L);
+            style9M = mod.GetTexture(STYLE_NINE_M);
+            style10 = mod.GetTexture(STYLE_TEN);
+            style10L = mod.GetTexture(STYLE_TEN_L);
+            style10M = mod.GetTexture(STYLE_TEN_M);
             arrowLeft = mod.GetTexture(ARROW_LEFT);
             arrowRight = mod.GetTexture(ARROW_RIGHT);
             baseSelect = mod.GetTexture(BASE_SELECT);
@@ -152,12 +172,16 @@ namespace DBT.UserInterfaces.HairMenu
             style8 = null;
             style8L = null;
             style8M = null;
+            style9 = null;
+            style9L = null;
+            style9M = null;
+            style10 = null;
+            style10L = null;
+            style10M = null;
             arrowLeft = null;
             arrowRight = null;
             baseSelect = null;
             legendarySelect = null;
         }
-        
     }
-
 }

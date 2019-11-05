@@ -11,9 +11,8 @@ namespace DBT.Transformations.SSJs.SSJ1s.SSJ1
         public SSJ1Transformation(params TransformationDefinition[] parents) : base(
             "SSJ1", "Super Saiyan", typeof(SSJ1TransformationBuff),
             1.5f, 1.25f, 2, 
-            new TransformationDrain(1f, 0.5f),
+            new TransformationDrain(60f / Constants.TICKS_PER_SECOND, 30f / Constants.TICKS_PER_SECOND),
             new SSJ1Appearance(),
-            new TransformationOverload(0, 0),
             /* limitedToRaces: new RaceDefinition[] { RaceDefinitionManager.Instance.Saiyan }, */ parents: parents)
         {
             TabHoverText = "Normal Super Saiyan Transformations";
