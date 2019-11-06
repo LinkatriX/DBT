@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DBT.Dynamicity;
 using DBT.Players;
 using DBT.Races;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;

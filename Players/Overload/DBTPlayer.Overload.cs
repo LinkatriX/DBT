@@ -26,7 +26,7 @@ namespace DBT.Players
         int overloadDecreaseTimer = 0;
         private void PostUpdateOverload()
         {
-            if (!IsTransformed(TransformationDefinitionManager.Instance.SSJC) && !IsTransformed(TransformationDefinitionManager.Instance.LSSJ))
+            if (!IsTransformed(TransformationDefinitionManager.Instance.SSJA) && !IsTransformed(TransformationDefinitionManager.Instance.SSJC) && !IsTransformed(TransformationDefinitionManager.Instance.LSSJ))
             {
                 overloadDecreaseTimer++;
                 if (overloadDecreaseTimer >= 180)

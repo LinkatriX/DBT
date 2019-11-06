@@ -2,6 +2,7 @@
 using DBT.Auras;
 using DBT.Helpers;
 using DBT.Players;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

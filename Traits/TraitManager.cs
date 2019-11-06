@@ -16,5 +16,7 @@ namespace DBT.Traits
         public TraitDefinition Peaceful { get; private set; }
 
         public TraitDefinition Legendary { get; private set; }
+
+        public TraitDefinition Primal { get; private set; }
     }
 }

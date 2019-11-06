@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using DBT.Tiles;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace DBT.Projectiles.Overload
@@ -19,7 +20,7 @@ namespace DBT.Projectiles.Overload
             item.shootSpeed = 0f;
             item.useAnimation = 15;
             item.useStyle = 4;
-            item.shoot = ModContent.ProjectileType<RitualGhostsSpawn>();
+            item.createTile = ModContent.TileType<GravityGenerator>();
             item.knockBack = 6;
             item.value = 10000;
             item.rare = 2;

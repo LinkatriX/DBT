@@ -3,6 +3,7 @@ using DBT.Commons.Players;
 using DBT.Effects;
 using DBT.HairStyles;
 using DBT.NPCs.Bosses.FriezaShip;
+using DBT.Traits;
 using DBT.Transformations;
 using DBT.Wasteland;
 using Microsoft.Xna.Framework;
@@ -19,6 +20,10 @@ namespace DBT.Players
         private const float CHARGING_MOVE_SPEED_MULTIPLIER = 0.5f;
 
         public bool zoneWasteland = false;
+
+        public static readonly PlayerLayer tailLayer = new DrawTailEffects(0);
+        public static readonly PlayerLayer furLayer = new DrawBodyEffects();
+        public static readonly PlayerLayer customBodySkin = new CustomBodySkinLayer();
 
         public override void Initialize()
         {
@@ -107,6 +112,9 @@ namespace DBT.Players
             // Flight system moved to PostUpdate so that it can benefit from not being client sided!
             Flight.Update(this);
 
+            TailFrameTimer++;
+            if (TailFrameTimer > 112)
+                TailFrameTimer = 0;
             /*if (IsTransformationAnimationPlaying)
             {
                 player.velocity = new Vector2(0, player.velocity.Y);
@@ -146,6 +154,8 @@ namespace DBT.Players
         {
             PlayerTransformation transformation = GetTransformation();
 
+            HandleAuraDrawLayers(layers);
+
             if (transformation == null)
             {
                 if (originalEyeColor.HasValue && player.eyeColor != originalEyeColor.Value)
@@ -153,10 +163,33 @@ namespace DBT.Players
 
                 //return;
             }
-
-
-            HandleAuraDrawLayers(layers);
+            
             HandleHairDrawLayers(layers);
+
+            /*if (Trait == TraitManager.Instance.Primal)
+            {
+                
+            }*/
+            tailLayer.visible = true;
+            layers.Insert(layers.FindIndex(l => l.Name == "MiscEffectsBack"), tailLayer);
+
+            furLayer.visible = true;
+
+            PlayerLayer skinLayer = layers.Find(l => l.Name.Equals(nameof(PlayerLayer.Skin)));
+            int skinIndex = layers.IndexOf(skinLayer);
+
+
+            for (int i = 0; i < ActiveTransformations.Count; i++)
+                if (ActiveTransformations[i].Appearance.ShouldHideNormalSkin)
+                {
+                    layers.RemoveAt(skinIndex);
+                    layers.Insert(skinIndex, customBodySkin);
+
+                    break;
+                }
+
+
+            layers.Insert(skinIndex + 1, furLayer);
 
             // handle dragon radar drawing
             if (IsHoldingDragonRadarMk1 || IsHoldingDragonRadarMk2 || IsHoldingDragonRadarMk3)
@@ -164,12 +197,12 @@ namespace DBT.Players
                 DrawDragonRadar.dragonRadarEffects.visible = true;
                 layers.Add(DrawDragonRadar.dragonRadarEffects);
             }
+
             if (transformation != null)
             {
-                //if (transformation.Definition.Appearance.EyeColor != null)
+                if (transformation.Definition.Appearance.EyeColor.HasValue)
                     ChangeEyeColor(transformation.Definition.Appearance.EyeColor.Value);
             }
-
             // handle transformation animations
             /*transformationEffects.visible = true;
             layers.Add(transformationEffects);*/
@@ -212,5 +245,7 @@ namespace DBT.Players
 
             return true;
         }
+
+        public int TailFrameTimer { get; set; }
     }
 }

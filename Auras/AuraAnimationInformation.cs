@@ -110,7 +110,7 @@ namespace DBT.Auras
 
         public virtual Texture2D GetTexture(DBTPlayer dbtPlayer) => dbtPlayer.mod.GetTexture(TexturePath);
 
-        protected static string GetAuraTextureFromType(Type type) => type.GetTexturePath() + "Aura";
+        protected static string GetAuraTextureFromType(Type type) => type.GetPath() + "Aura";
 
         #endregion
 

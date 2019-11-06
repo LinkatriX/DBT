@@ -1,5 +1,6 @@
 ﻿using DBT.Auras;
 using DBT.Players;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

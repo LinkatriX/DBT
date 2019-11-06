@@ -22,7 +22,7 @@ namespace DBT.Players
 
         public bool CheckKiRequirement(int amount)
         {
-            if (BaseMaxKi >= amount)
+            if (ProgressionMaxKi >= amount)
                 return true;
 
             return false;
