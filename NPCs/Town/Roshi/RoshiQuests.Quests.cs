@@ -1,5 +1,7 @@
 ﻿using Terraria.ModLoader;
 using Terraria.ID;
+using DBT.Players;
+using DBT.Skills;
 
 namespace DBT.NPCs.Town.Roshi
 {
@@ -13,11 +15,7 @@ namespace DBT.NPCs.Town.Roshi
             Quest quest = new ItemQuest(
                 "Oh, its you. I can sense some latent power from you so let me assist. Head to your controls in the options menu and bind hotkeys to every entry there. The most important ones are Energy Charge, Transform, Power down and Transformation Menu.",
                 ItemID.Wood, 1, 1,
-                "Energy charge lets you charge your energy bar at the top of the screen. Transform lets you ascend into unlocked forms with power down being the opposite, there is also some more unique interactions with these keys, such as pressing charge and transform together to ascend to an alternative form, like ASSJ. Transformation menu lets you open a menu which lets you select which form to transform into alongside the masteries of those forms. The other hotkeys require unlocks to be used however, so look out for those.")
-            {
-                ModdedQuestReward = "KiBlastItem",
-                QuestRewardAmount = 1
-            };
+                "Energy charge lets you charge your energy bar at the top of the screen. Transform lets you ascend into unlocked forms with power down being the opposite, there is also some more unique interactions with these keys, such as pressing charge and transform together to ascend to an alternative form, like ASSJ. Transformation menu lets you open a menu which lets you select which form to transform into alongside the masteries of those forms. The other hotkeys require unlocks to be used however, so look out for those.");
             quests.Add(quest);
 
             quest = new ItemQuest(
@@ -53,6 +51,15 @@ namespace DBT.NPCs.Town.Roshi
                 QuestRewardAmount = 1
             };
             Quests.Add(quest);*/
+        }
+
+        public void OnCompleteQuest()
+        {
+            if (QuestsCompleted == 0)
+            {
+                DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
+                modPlayer.AcquireSkill(SkillDefinitionManager.Instance.KiBlast);
+            }
         }
     }
 }

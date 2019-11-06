@@ -82,20 +82,13 @@ namespace DBT.Worlds
             return true;
         }
 
-        public bool isGravGeneratorOffsetSet = false;
-
         public void GenerateGravGenerator()
         {
-            if (!isGravGeneratorOffsetSet)
-            {
-                gravGeneratorStartPositionY -= _gohanHouseTiles.GetLength(0);
-                isGravGeneratorOffsetSet = true;
-            }
 
             Point origin = new Point((int)gravGeneratorStartPositionX, gravGeneratorStartPositionY - 14);
             GravGenerator grav = new GravGenerator();
             grav.Place(origin, WorldGen.structures);
-            WorldGen.PlaceObject(gravGeneratorStartPositionX + 16, gravGeneratorStartPositionY + 1, ModContent.TileType<GravityGenerator>());
+            WorldGen.PlaceObject(gravGeneratorStartPositionX + 16, gravGeneratorStartPositionY + 12, ModContent.TileType<GravityGenerator>());
 
         }
     }

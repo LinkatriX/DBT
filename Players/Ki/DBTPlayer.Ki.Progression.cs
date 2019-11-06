@@ -12,6 +12,8 @@ namespace DBT.Players
                 UpdateBossKill(npcKilled);
             else
                 UpdateKill(npcKilled);
+
+            UpdateKiSkillUnlocks();
         }
 
         public void UpdateBossKill(NPC npcKilled)

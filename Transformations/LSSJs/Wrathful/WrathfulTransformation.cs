@@ -1,5 +1,6 @@
 ﻿using DBT.Auras;
 using DBT.Players;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -11,9 +12,7 @@ namespace DBT.Transformations.LSSJs.Wrathful
         public WrathfulTransformation(params TransformationDefinition[] parents)
             : base("Wrathful", "Wrathful", typeof(WrathfulTransformationBuff), 1.5f, 1.25f, 3,
             new TransformationDrain(60f / Constants.TICKS_PER_SECOND),
-            new WrathfulTransformationAppearance(),
-            new TransformationOverload(0, 0), mastereable: false,
-            parents: parents)
+            new WrathfulTransformationAppearance(), mastereable: false, parents: parents)
         {
         }
 
@@ -23,13 +22,13 @@ namespace DBT.Transformations.LSSJs.Wrathful
         {
             if (dbtPlayer.BaseMaxKi >= 10000)
             {
-                return BaseDamageMultiplier + 1.4f;
+                return BaseDamageMultiplier + 1.2f;
             }
             else
             {
                 if (dbtPlayer.BaseMaxKi >= _wrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < 10000)
                 {
-                    return BaseDamageMultiplier + 0.375f;
+                    return BaseDamageMultiplier + 0.7f;
                 }
             }
             return BaseDamageMultiplier;
@@ -40,13 +39,13 @@ namespace DBT.Transformations.LSSJs.Wrathful
         {
             if (dbtPlayer.BaseMaxKi >= _wrathfulAct3KiRequirement)
             {
-                return BaseSpeedMultiplier + 0.7f;
+                return BaseSpeedMultiplier + 0.6f;
             }
             else
             {
                 if (dbtPlayer.BaseMaxKi >= _wrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < _wrathfulAct3KiRequirement)
                 {
-                    return BaseSpeedMultiplier + 1.375f;
+                    return BaseSpeedMultiplier + 0.35f;
                 }
             }
             return BaseSpeedMultiplier;
@@ -72,13 +71,13 @@ namespace DBT.Transformations.LSSJs.Wrathful
         {
             if (dbtPlayer.BaseMaxKi >= _wrathfulAct3KiRequirement)
             {
-                return base.GetUnmasteredKiDrain(dbtPlayer) * (160f / Constants.TICKS_PER_SECOND); //Ki drain of 160 ki/s
+                return base.GetUnmasteredKiDrain(dbtPlayer) * (160f / Constants.TICKS_PER_SECOND);
             }
             else
             {
                 if (dbtPlayer.BaseMaxKi >= _wrathfulAct2KiRequirement && dbtPlayer.BaseMaxKi < _wrathfulAct3KiRequirement)
                 {
-                    return base.GetUnmasteredKiDrain(dbtPlayer) * 2; //Ki drain of 120 ki/s
+                    return base.GetUnmasteredKiDrain(dbtPlayer) * (120f / Constants.TICKS_PER_SECOND);
                 }
             }
             return base.GetUnmasteredKiDrain(dbtPlayer);

@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,9 +10,8 @@ namespace DBT.Transformations.SSJs.SSJ4s.SSJ4
         public SSJ4Transformation(params TransformationDefinition[] parents) : base(
             "SSJ4", "Super Saiyan 4", typeof(SSJ4TransformationBuff),
             3.30f, 2.15f, 22,
-            new TransformationDrain(170f / 60, 80f / 60), 
-            new SSJ4Appearance(),
-            new TransformationOverload(0, 0), 
+            new TransformationDrain(170f / Constants.TICKS_PER_SECOND, 80f / Constants.TICKS_PER_SECOND), 
+            new SSJ4Appearance(), 
             parents: parents)
         {
         }
@@ -29,7 +29,7 @@ namespace DBT.Transformations.SSJs.SSJ4s.SSJ4
         public SSJ4Appearance() : base(
             new AuraAppearance(new AuraAnimationInformation(typeof(SSJ4Transformation), 4, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1.60f, 1.40f, 0f })),
-            new HairAppearance(new Color(37, 32, 35)), Color.Red, new Color(211, 186, 44))
+            new HairAppearance(new Color(255, 255, 255)), Color.Red, new Color(211, 186, 44))
         {
         }
     }

@@ -36,6 +36,7 @@ namespace DBT.NPCs.Town.Roshi
             QuestsCompleted++;
             CurrentQuest = -1;
             QuestKills = 0;
+            OnCompleteQuest();
         }
         public void SpawnReward(NPC npc)
         {

@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -10,7 +11,7 @@ namespace DBT.Transformations.Mystics.AwakenedMystic
         public AwakenedMysticTransformation(params TransformationDefinition[] parents) : base(
             "AwakenedMystic", "Awakened Mystic", typeof(AwakenedMysticTransformationBuff),
             4.2f, 2.6f, 28, new TransformationDrain(80f / Constants.TICKS_PER_SECOND), new AwakenedMysticTransformationAppearance(),
-            new TransformationOverload(0f, 0f), mastereable: false, isManualLookup: true, manualHairLookup: "Wrathful", parents: parents)
+            mastereable: false, isManualLookup: true, manualHairLookup: "Wrathful", parents: parents)
         {
         }
     }
@@ -26,7 +27,7 @@ namespace DBT.Transformations.Mystics.AwakenedMystic
     {
         public AwakenedMysticTransformationAppearance() : base(new AuraAppearance(new AuraAnimationInformation(typeof(AwakenedMysticTransformation), 8, 3, BlendState.Additive, true),
                 new LightingAppearance(new float[] { 1f, 1f, 1f })),
-            new HairAppearance(Main.LocalPlayer.hairColor), Color.LightBlue, Main.LocalPlayer.eyeColor)
+            new HairAppearance(Main.LocalPlayer.hairColor), Color.LightBlue, null)
         {
         }
     }

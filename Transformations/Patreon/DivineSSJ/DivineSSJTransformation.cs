@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -28,7 +29,7 @@ namespace DBT.Transformations.Patreon.DivineSSJ
     public sealed class DivineSSJAppearance : TransformationAppearance
     {
         public DivineSSJAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(DivineSSJTransformation), 8, 3, BlendState.Additive, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(DivineSSJTransformation), 8, 3, BlendState.AlphaBlend, true),
                 new LightingAppearance(new float[] { 1.41f, 0f, 0.49f })),
             new HairAppearance(Color.White), new Color(141, 0, 49), Color.White)
         {

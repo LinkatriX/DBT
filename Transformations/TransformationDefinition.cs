@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using DBT.Dynamicity;
 using DBT.Players;
 using DBT.Races;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WebmilioCommons.Extensions;
 using WebmilioCommons.Managers;
@@ -197,8 +199,6 @@ namespace DBT.Transformations
         #region Properties
 
         public string UnlocalizedName { get; }
-
-        public string ManualHairPath { get; set; }
 
         public bool IsManualLookup { get; set; }
 

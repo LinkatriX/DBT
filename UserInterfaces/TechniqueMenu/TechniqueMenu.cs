@@ -233,15 +233,21 @@ namespace DBT.UserInterfaces.TechniqueMenu
 
         private void DrawEquipButton(SkillDefinition def)
         {
+            DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
             if (EquipButton != null)
                 EquipButton.Remove();
 
             EquipButton = InitializeButton(EquipButtonTexture, new MouseEvent((evt, element) => TrySelectingSkill(def, evt, element)), 550, 510, BackPanel);
+            if (dbtPlayer.HasAcquiredSkill(def))
+                EquipButton.SetVisibility(1f, 0.8f); 
+            else
+                EquipButton.SetVisibility(0.3f, 0.1f);
         }
 
         private void TrySelectingSkill(SkillDefinition def, UIMouseEvent evt, UIElement listeningElement)
         {
-
+            DBTPlayer dbtPlayer = Main.LocalPlayer.GetModPlayer<DBTPlayer>();
+            dbtPlayer.EquipSkill(def);
         }
 
         public Mod AuthorMod { get; }

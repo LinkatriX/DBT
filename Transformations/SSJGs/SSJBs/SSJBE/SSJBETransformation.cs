@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,8 +11,7 @@ namespace DBT.Transformations.SSJGs.SSJBs.SSJBE
             "SSJBE", "Super Saiyan Blue Evolved", typeof(SSJBETransformationBuff),
             5.25f, 3.125f, 42,
             new TransformationDrain(280f / Constants.TICKS_PER_SECOND, 140f / Constants.TICKS_PER_SECOND),
-            new SSJBEAppearance(),
-            new TransformationOverload(0, 0), 
+            new SSJBEAppearance(), 
             parents: parents)          
         {
         }
@@ -27,7 +27,7 @@ namespace DBT.Transformations.SSJGs.SSJBs.SSJBE
     public sealed class SSJBEAppearance : TransformationAppearance
     {
         public SSJBEAppearance() : base(
-            new AuraAppearance(new AuraAnimationInformation(typeof(SSJBETransformation), 8, 3, BlendState.Additive, true),
+            new AuraAppearance(new AuraAnimationInformation(typeof(SSJBETransformation), 8, 3, BlendState.AlphaBlend, true),
                 new LightingAppearance(new float[] { 0f, 0.33f, 1.32f })),
             new HairAppearance(new Color(61, 174, 255)), Color.Blue, new Color(27, 56, 170))
         {

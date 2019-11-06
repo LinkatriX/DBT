@@ -39,12 +39,8 @@ namespace DBT.HairStyles
             Vector2 manualFormHairOffset = Vector2.Zero;
 
             if (dbtPlayer.ActiveTransformations.Count > 0)
-            {
-                if (dbtPlayer.ActiveTransformations.First().Appearance.Hair.ManualForm != null)
-                {
-                    manualFormHairOffset = dbtPlayer.ActiveTransformations.First().Appearance.Hair.ManualFormOffset;
-                }
-            }
+                if (dbtPlayer.FirstTransformation.Definition.Appearance.Hair.ManualForm != null)
+                    manualFormHairOffset = dbtPlayer.FirstTransformation.Definition.Appearance.Hair.ManualFormOffset;
 
             if (drawInfo.drawPlayer.direction == -1)
                 overallOffset = overallOffsetLeft;

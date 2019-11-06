@@ -58,7 +58,7 @@ namespace DBT.Skills
             DirtyFireworks = Add(new DirtyFireworksDefinition(KiBlast)) as DirtyFireworksDefinition;
             GalickGun = Add(new GalickGunDefinition(EnergyWave)) as GalickGunDefinition;
             HellzoneGrenade = Add(new HellzoneGrenadeDefinition(EnergyBlastBarrage)) as HellzoneGrenadeDefinition;
-            //Kamehameha = Add(new KamehamehaDefinition(EnergyWave)) as KamehamehaDefinition;
+            Kamehameha = Add(new KamehamehaDefinition(EnergyWave)) as KamehamehaDefinition;
             #endregion
 
             #region Tier 4 Skills
@@ -107,7 +107,7 @@ namespace DBT.Skills
         public DirtyFireworksDefinition DirtyFireworks { get; private set; }
         public GalickGunDefinition GalickGun { get; private set; }
         public HellzoneGrenadeDefinition HellzoneGrenade { get; private set; }
-        //public KamehamehaDefinition Kamehameha { get; private set; }
+        public KamehamehaDefinition Kamehameha { get; private set; }
         public BigBangAttackDefinition BigBangAttack { get; private set; }
         public EnergyShotDefinition EnergyShot { get; private set; }
         public ScattershotDefinition Scattershot { get; private set; }

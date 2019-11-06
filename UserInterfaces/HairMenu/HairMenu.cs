@@ -16,9 +16,9 @@ namespace DBT.UserInterfaces.HairMenu
         public static bool menuVisible;
         public int hairSelected = 0;
         public string hairText = "Goku";
-        public string totalText = "1/7";
+        public string totalText = "1/10";
         public Texture2D hairTexture = HairGFX.style1;
-        public Texture2D prevHairTexture = HairGFX.style7M;
+        public Texture2D prevHairTexture = HairGFX.style10M;
         public Texture2D nextHairTexture = HairGFX.style2M;
         public bool legendaryTab = false;
         public Texture2D panelTexture = HairGFX.hairBackPanel;
@@ -31,7 +31,9 @@ namespace DBT.UserInterfaces.HairMenu
             Caulifla = 5,
             Gine = 6,
             Nappa = 7,
-            FutureGohan = 8
+            FutureGohan = 8,
+            Bra = 9,
+            Dev1 = 10
         }
         public static HairSelection hairSelection = HairSelection.Goku;
 
@@ -72,10 +74,11 @@ namespace DBT.UserInterfaces.HairMenu
 
             int currentSelection = (int)hairSelection;
 
-            totalText = currentSelection + "/" + 8;
+            totalText = currentSelection + "/" + 10;
             CanDrag = false;
 
-            #region Cancer
+            #region HairAddition
+
             if (hairSelection == HairSelection.Goku)
             {
                 if (legendaryTab)
@@ -83,7 +86,7 @@ namespace DBT.UserInterfaces.HairMenu
                 else
                     hairTexture = HairGFX.style1;
                 hairText = "Goku";
-                prevHairTexture = HairGFX.style8M;
+                prevHairTexture = HairGFX.style10M;
                 nextHairTexture = HairGFX.style2M;
             }
             if (hairSelection == HairSelection.Vegeta)
@@ -154,6 +157,26 @@ namespace DBT.UserInterfaces.HairMenu
                     hairTexture = HairGFX.style8;
                 hairText = "F.Gohan";
                 prevHairTexture = HairGFX.style7M;
+                nextHairTexture = HairGFX.style9M;
+            }
+            if (hairSelection == HairSelection.Bra)
+            {
+                if (legendaryTab)
+                    hairTexture = HairGFX.style9L;
+                else
+                    hairTexture = HairGFX.style9;
+                hairText = "Bra";
+                prevHairTexture = HairGFX.style8M;
+                nextHairTexture = HairGFX.style10M;
+            }
+            if (hairSelection == HairSelection.Dev1)
+            {
+                if (legendaryTab)
+                    hairTexture = HairGFX.style10L;
+                else
+                    hairTexture = HairGFX.style10;
+                hairText = "Dev 1";
+                prevHairTexture = HairGFX.style9M;
                 nextHairTexture = HairGFX.style1M;
             }
             #endregion
@@ -229,6 +252,12 @@ namespace DBT.UserInterfaces.HairMenu
                 case HairSelection.FutureGohan:
                     player.ChosenHairStyle = HairStyleManager.Instance.FutureGohan;
                     break;
+                case HairSelection.Bra:
+                    player.ChosenHairStyle = HairStyleManager.Instance.Bra;
+                    break;
+                case HairSelection.Dev1:
+                    player.ChosenHairStyle = HairStyleManager.Instance.Dev1;
+                    break;
             }
         }
 
@@ -244,14 +273,14 @@ namespace DBT.UserInterfaces.HairMenu
         {
             SoundHelper.PlayVanillaSound(SoundID.MenuTick, Main.LocalPlayer.position);
             if (hairSelection == HairSelection.Goku)
-                hairSelection = HairSelection.FutureGohan;
+                hairSelection = HairSelection.Dev1;
             else
                 hairSelection -= 1;
         }
         private void NextHairStyle(UIMouseEvent evt, UIElement listeningElement)
         {
             SoundHelper.PlayVanillaSound(SoundID.MenuTick, Main.LocalPlayer.position);
-            if (hairSelection == HairSelection.FutureGohan)
+            if (hairSelection == HairSelection.Dev1)
                 hairSelection = HairSelection.Goku;
             else
                 hairSelection += 1;

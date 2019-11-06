@@ -18,20 +18,20 @@ namespace DBT.Tiles
         {
             Main.tileSolid[Type] = false;
             Main.tileFrameImportant[Type] = true;
-            Main.tileNoAttach[Type] = true;
             Main.tileTable[Type] = false;
             Main.tileLavaDeath[Type] = false;
-            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
+            Main.tileNoFail[Type] = true;
+            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.CoordinateWidth = 16;
-            TileObjectData.newTile.Width = 10;
-            TileObjectData.newTile.Height = 13;
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16 };
-            TileObjectData.newTile.Origin = new Point16(1, 0);
+            TileObjectData.newTile.Width = 11;
+            TileObjectData.newTile.Height = 12;
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 18 };
+            TileObjectData.newTile.Origin = new Point16(0, 0);
             TileObjectData.newTile.CoordinatePadding = 2;
+            TileObjectData.newTile.DrawYOffset = 8;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Gravity Generator");
             AddMapEntry(new Color(223, 245, 255), name);
-            animationFrameHeight = 18;
             disableSmartCursor = true;
             minPick = 10000;
             TileObjectData.addTile(Type);
@@ -83,18 +83,13 @@ namespace DBT.Tiles
             else
             {
                 if (!_activated)
+                {
                     _activated = true;
+                    CircularDust(i, j, 2, 20, 100, 1);
+                }
+                    
                 else if (_activated)
                     _activated = false;
-            }
-        }
-
-        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
-        {
-            if (!Main.gamePaused && Main.instance.IsActive && (!Lighting.UpdateEveryFrame))
-            {
-                if (_activated)
-                    CircularDust(i, j, 2, 20, 100, 1);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using DBT.Auras;
+using DBT.Transformations.Appearance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -97,8 +98,9 @@ namespace DBT.Transformations.Kaiokens.Kaioken
     public sealed class KaiokenTransformationAppearance : TransformationAppearance
     {
         public KaiokenTransformationAppearance(float auraScale) : base(
-            new AuraAppearance(new AuraAnimationInformation("Auras/KaiokenAura", 4, 3, BlendState.Additive, true, baseScale: auraScale),
-                new LightingAppearance(new float[] { 0.35f, 0, 0 })),
+            new AuraAppearance(new AuraAnimationInformation("Transformations/Kaiokens/Kaioken/KaiokenAura", 4, 3, 
+                BlendState.Additive, true, baseScale: auraScale),
+                new LightingAppearance(new float[] { 2f, 0.08f, 0.21f })),
             new HairAppearance(Main.LocalPlayer.hairColor), Color.Red, new Color(32, 17, 11))
         {
         }
