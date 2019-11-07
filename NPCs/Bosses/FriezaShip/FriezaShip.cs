@@ -16,6 +16,7 @@ using DBT.NPCs.FriezaForce.Minions;
 using DBT.Projectiles;
 using DBT.Projectiles.FriezaForce;
 using System.Linq;
+using WebmilioCommons.Tinq;
 
 namespace DBT.NPCs.Bosses.FriezaShip
 {
@@ -381,11 +382,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 							player.velocity = new Vector2(16f, -16f);
 					}
 
-					for (int i = 0; i <= Main.maxProjectiles; i++)
-					{
-						Projectile projectile = Main.projectile[i];
+                    
 
-						if (Vector2.Distance(projectile.Center, npc.Center) <= SHIELD_DISTANCE && projectile.active)
+					foreach (Projectile projectile in Main.projectile.Active())
+					{
+                        if (Vector2.Distance(projectile.Center, npc.Center) <= SHIELD_DISTANCE)
 						{
 							projectile.velocity *= -1f;
 
@@ -995,11 +996,11 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
 		#region Misc Methods
 
-		/// <summary>
-		/// Returns a list of players. Use .count to find the Count of players present on the server.
-		/// </summary>
-		/// <returns></returns>
-		public List<Player> PlayerCount() => Main.player.Where(player => player.active).ToList();
+        /// <summary>
+        /// Returns a list of players. Use .count to find the Count of players present on the server.
+        /// </summary>
+        /// <returns></returns>
+        public List<Player> PlayerCount() => Main.player.Active();
 
 		//MAY BE NEEDED, do NOT remove;
         //public static double AngleBetweenVectors(Vector2 v1, Vector2 v2) => Math.Atan2((v1.X* v2.Y + v1.Y* v2.X), (v1.X* v2.X + v1.Y* v2.Y)) * (180 / MathHelper.Pi);

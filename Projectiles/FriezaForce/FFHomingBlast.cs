@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Extensions;
+using WebmilioCommons.Tinq;
 
 namespace DBT.Projectiles.FriezaForce
 {
@@ -61,29 +63,8 @@ namespace DBT.Projectiles.FriezaForce
                 projectile.velocity = new Vector2(0, 0);
                 if(_moveTimer > 180)
                 {
-                    Player closestTarget = null;
+                    Player closestTarget = projectile.NearestActive(Main.player.WhereActive(p => !p.dead));
                     float topSpeed = 5.5f;
-                    float closestTargetDistance = Single.MaxValue;
-
-                    foreach (Player target in Main.player)
-                    {
-
-                        //Get the shoot trajectory from the projectile and target
-                        // pass over if they're not in radius, dead or inactive.
-                        float distance = Vector2.Distance(projectile.Center, target.Center);
-                        if (distance > 999 || target.dead || !target.active)
-                            continue;
-
-                        if (distance < closestTargetDistance)
-                        {
-                            closestTargetDistance = distance;
-                            closestTarget = target;
-                        }
-                        /*if (closestTarget.GetModPlayer<DBTPlayer>().isFlying)
-                        {
-                            topSpeed = 14f;
-                        }*/
-                    }
 
                     if (closestTarget != null)
                     {

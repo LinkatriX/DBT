@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using WebmilioCommons.Extensions;
+using WebmilioCommons.Tinq;
 
 namespace DBT.Players
 {
@@ -13,16 +14,8 @@ namespace DBT.Players
 
         public void BuffTeam<T>(int duration) where T : ModBuff => BuffTeam(ModContent.BuffType<T>(), duration);
 
-        public void BuffTeam(int buffId, int duration)
-        {
-            for (int i = 0; i < Main.player.Length; i++)
-            {
-                Player ply = Main.player[i];
-
-                if (ply != null && ply.team != 0 && !ply.dead && ply.active && Main.player[Main.myPlayer].team == ply.team)
-                    ply.AddBuff(buffId, duration);
-            }
-        }
+        public void BuffTeam(int buffId, int duration) =>
+            Main.player.WhereActive(p => !p.dead && p.team != 0 && Main.LocalPlayer.team == p.team).Do(p => p.AddBuff(buffId, duration));
 
         public int BaseHealingBonus { get; set; } = 0;
     }

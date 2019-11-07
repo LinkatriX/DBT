@@ -100,10 +100,10 @@ namespace DBT.NPCs.Town.Roshi
                 return false;
 
             if (GetCurrentQuest() is ItemQuest)
-                return (GetCurrentQuest() as ItemQuest).CheckCompletion(Main.player[Main.myPlayer]);
+                return (GetCurrentQuest() as ItemQuest).CheckCompletion(Main.LocalPlayer);
 
             else if (GetCurrentQuest() is KillQuest)
-                return (GetCurrentQuest() as KillQuest).CheckCompletion(Main.player[Main.myPlayer]);
+                return (GetCurrentQuest() as KillQuest).CheckCompletion(Main.LocalPlayer);
 
             return false;
         }

@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WebmilioCommons.Tinq;
 
 namespace DBT.NPCs.Town.Namekian
 {
@@ -49,23 +50,8 @@ namespace DBT.NPCs.Town.Namekian
 			animationType = NPCID.Guide;
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
-		{
-            for (int i = 0; i < Main.player.Length; i++)
-            {
-                Player player = Main.player[i];
-
-                if (!player.active)
-                    continue;
-
-                RoshiQuests roshiQuests = player.GetModPlayer<RoshiQuests>();
-
-                if (roshiQuests.QuestsCompleted >= 3)
-                    return true;
-            }
-
-            return false;
-		}
+		public override bool CanTownNPCSpawn(int numTownNPCs, int money) =>
+            Main.player.AnyActive(p => p.GetModPlayer<RoshiQuests>().QuestsCompleted >= 3);
 
         public override string TownNPCName()
         {

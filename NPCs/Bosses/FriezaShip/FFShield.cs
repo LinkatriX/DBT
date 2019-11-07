@@ -30,6 +30,7 @@ namespace DBT.NPCs.Bosses.FriezaShip
 
         public override void AI()
         {
+
 			for (int i = 0; i < Main.maxNPCs; i++)
 			{
 				if (i == ModContent.NPCType<FriezaShip>())

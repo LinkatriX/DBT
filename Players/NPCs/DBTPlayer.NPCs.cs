@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WebmilioCommons.Tinq;
 
 namespace DBT.Players
 {
@@ -18,20 +19,9 @@ namespace DBT.Players
                 FriendshipCooldown--;
         }
 
-        public List<NPC> AliveBosses
-        {
-            get
-            {
-                if (_aliveBosses == null)
-                {
-                    for (int i = 0; i < Main.npc.Length; i++)
-                        if (Main.npc[i].boss && Main.npc[i].active)
-                            _aliveBosses.Add(Main.npc[i]);
-                }
+        // The ?? operator returns the first value if its not null, otherwise the second. The '=' following assigns the right hand value to the left if the left is null.
+        public List<NPC> AliveBosses => _aliveBosses ??= Main.npc.WhereActive(n => n.boss);
 
-                return _aliveBosses;
-            }
-        }
         public Dictionary<int, int> AliveTownNPCs { get; set; } = new Dictionary<int, int>();
         public int FriendshipCooldown { get; set; } = 0;
 
