@@ -32,6 +32,7 @@ using DBT.Skills.MajinExtinctionAttack;
 using DBT.Skills.SuperSpiritBomb;
 using DBT.Dynamicity;
 using WebmilioCommons.Managers;
+using DBT.Skills.DeathSaucer;
 
 namespace DBT.Skills
 {
@@ -59,6 +60,7 @@ namespace DBT.Skills
             GalickGun = Add(new GalickGunDefinition(EnergyWave)) as GalickGunDefinition;
             HellzoneGrenade = Add(new HellzoneGrenadeDefinition(EnergyBlastBarrage)) as HellzoneGrenadeDefinition;
             Kamehameha = Add(new KamehamehaDefinition(EnergyWave)) as KamehamehaDefinition;
+            DeathSaucer = Add(new DeathSaucerDefinition()) as DeathSaucerDefinition;
             #endregion
 
             #region Tier 4 Skills
@@ -108,6 +110,7 @@ namespace DBT.Skills
         public GalickGunDefinition GalickGun { get; private set; }
         public HellzoneGrenadeDefinition HellzoneGrenade { get; private set; }
         public KamehamehaDefinition Kamehameha { get; private set; }
+        public DeathSaucerDefinition DeathSaucer { get; private set; }
         public BigBangAttackDefinition BigBangAttack { get; private set; }
         public EnergyShotDefinition EnergyShot { get; private set; }
         public ScattershotDefinition Scattershot { get; private set; }
