@@ -14,7 +14,7 @@ namespace DBT.Worlds
     {
         public bool generateGravStructure = false;
         public bool placedGravModule = false;
-        public bool repairedGravModule = false;
+        public static bool repairedGravModule = false;
         public int gravGeneratorStartPositionX = 0;
         public int gravGeneratorStartPositionY = 0;
 
