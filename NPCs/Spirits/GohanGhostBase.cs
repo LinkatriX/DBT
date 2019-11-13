@@ -21,8 +21,8 @@ namespace DBT.NPCs.Spirits
 			npc.damage = 0;
 			npc.defense = 0;
 			npc.lifeMax = 1;
-			npc.knockBackResist = 1f;
-			npc.aiStyle = -1;
+            npc.knockBackResist = 0f;
+            npc.aiStyle = -1;
             npc.immortal = true;
             npc.noGravity = true;
 		}

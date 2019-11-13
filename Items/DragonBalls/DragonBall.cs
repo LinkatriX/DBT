@@ -1,10 +1,12 @@
 ﻿using DBT.Helpers;
+using DBT.NPCs.Misc;
 using DBT.Players;
 using DBT.UserInterfaces.WishMenu;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using WebmilioCommons.Extensions;
 
 namespace DBT.Items.DragonBalls
@@ -39,7 +41,10 @@ namespace DBT.Items.DragonBalls
             DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
             dbtPlayer.WishActive = true;
             WishMenu.menuVisible = true;
+            NPC.NewNPC((int)player.position.X, (int)player.position.Y, ModContent.NPCType<ShenronNPC>());
+            NetMessage.SendData(MessageID.SyncNPC);
             SoundHelper.PlayCustomSound("Sounds/DBSummon", player, 0.5f);
+            Main.time = 72000;
         }
 
         
