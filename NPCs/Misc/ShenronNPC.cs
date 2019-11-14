@@ -1,6 +1,8 @@
-﻿using DBT.Players;
+﻿using DBT.Helpers;
+using DBT.Players;
 using DBT.Projectiles.FriezaForce;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +11,9 @@ namespace DBT.NPCs.Misc
 {
 	public class ShenronNPC : ModNPC
 	{
+        internal bool questionAsked = false;
+        internal bool fadingAway = false;
+        internal int aiTimer = 0;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shenron");
@@ -32,28 +37,51 @@ namespace DBT.NPCs.Misc
 
 		public override void AI()
 		{
-            Main.NewText("Alpha is: " + npc.alpha);
+            //Main.NewText("Alpha is: " + npc.alpha);
 			Player player = Main.player[npc.target];
             DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
             npc.ai[0]++;
             npc.ai[1]++;
-            if (!dbtPlayer.WishActive)
+            if (!dbtPlayer.WishActive && fadingAway)
             {
                 if (npc.alpha < 255)
                 {
-                    npc.alpha++;
+                    npc.alpha += 3;
                     if (npc.alpha == 254)
                         npc.active = false;
                 }
                     
             }
             if (dbtPlayer.WishActive && npc.alpha > 0)
+                npc.alpha -= 2;
+
+            if (dbtPlayer.WishActive && npc.alpha <= 0)
             {
-                if (npc.ai[1] > 2)
+                if (npc.ai[1] > 20 && !questionAsked)
                 {
-                    npc.alpha -= 2;
+                    SoundHelper.PlayCustomSound("Sounds/Shenron/Wishquestion" + Main.rand.Next(1, 3), npc.Center, 0.8f);
+                    questionAsked = true;
                     npc.ai[1] = 0;
                 }
+                if (npc.ai[1] > 600 + Main.rand.Next(200) && questionAsked)
+                {
+                    SoundHelper.PlayCustomSound("Sounds/Shenron/Wishwaiting" + Main.rand.Next(1, 3), npc.Center, 0.8f);
+                    npc.ai[1] = 0;
+                }
+            }
+            if (!dbtPlayer.WishActive && !fadingAway)
+            {
+                aiTimer++;
+                if (aiTimer == 30)
+                    SoundHelper.PlayCustomSound("Sounds/WishGranted", npc.Center, 0.5f);
+
+                if (aiTimer == 180)
+                {
+                    SoundHelper.PlayCustomSound("Sounds/Shenron/Wishgranted" + Main.rand.Next(1, 3), npc.Center, 0.8f);
+                }
+                if (aiTimer == 420)
+                    fadingAway = true;
+
             }
             npc.TargetClosest(true);
             if (npc.velocity.Y == 0 || (npc.velocity.Y == 0.2f && npc.ai[0] == 100))

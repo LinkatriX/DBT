@@ -1,8 +1,14 @@
 ﻿using DBT.Helpers;
 using DBT.Items.DragonBalls;
+using DBT.NPCs.Misc;
+using DBT.Projectiles.Animations;
+using DBT.UserInterfaces.WishMenu;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using WebmilioCommons.Extensions;
 
 namespace DBT.Players
@@ -12,6 +18,8 @@ namespace DBT.Players
         int soundTimer = 0;
         public void PostUpdateDragonBalls()
         {
+            if (WishActive)
+                DBSummonEffects();
             soundTimer++;
             if (CarryingAllDragonBalls(player) && !WishActive)
                 if (soundTimer > 300)
@@ -38,6 +46,45 @@ namespace DBT.Players
                         continue;
                     dragonBallTypeAlreadyRemoved.Add(item.type);
                     item.TurnToAir();
+                }
+            }
+        }
+
+        public void DBSummonEffects()
+        {
+            if (NPC.CountNPCS(ModContent.NPCType<ShenronNPC>()) == 0)
+            {
+                int dust = Dust.NewDust(player.Center, player.width, player.height / 3, 133, 0, -25f);
+                dust = Dust.NewDust(player.Center, player.width, player.height / 3, 133, 0, -25f);
+                Main.dust[dust].noGravity = true;
+                if (DBTMod.IsTickRateElapsed(80))
+                {
+                    Main.dust[dust].velocity.Y = -25f;
+                    Main.dust[dust].scale = 1f;
+                }
+                if (DBTMod.IsTickRateElapsed(160))
+                {
+                    Main.dust[dust].velocity.X = Main.rand.Next(-30, 30);
+                    Main.dust[dust].velocity.Y = 0;
+                    Main.dust[dust].scale = 1f;
+                }
+                if (DBTMod.IsTickRateElapsed(80))
+                {
+                    Projectile.NewProjectile(player.Center + new Vector2(Main.rand.Next(-700, 700), -50), Vector2.Zero, ModContent.ProjectileType<YellowLightning>(), 0, 0);
+                    SoundHelper.PlayCustomSound("Sounds/Lightning", player, 0.5f);
+                }
+                if (DBTMod.IsTickRateElapsed(500))
+                {
+                    Main.time = 72000;
+                    NPC.NewNPC((int)player.position.X, (int)player.position.Y, ModContent.NPCType<ShenronNPC>());
+                    NetMessage.SendData(MessageID.SyncNPC);
+                }
+            }
+            else
+            {
+                if (DBTMod.IsTickRateElapsed(500))
+                {
+                    WishMenu.menuVisible = true;
                 }
             }
         }
