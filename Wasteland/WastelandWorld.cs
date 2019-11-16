@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
+using Terraria.ID;
 
 namespace DBT.Wasteland
 {
@@ -18,7 +19,7 @@ namespace DBT.Wasteland
         }
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
-            int genIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Grass Wall"));
+            int genIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Granite"));
             if (genIndex == -1)
             {
                 return;
@@ -30,20 +31,20 @@ namespace DBT.Wasteland
         {
             progress.Message = "Creating a barren wasteland.";
             progress.Set(0.20f);
-            int startPositionX = WorldGen.genRand.Next(Main.maxTilesX / 2 - 1200, Main.maxTilesX / 2 - 400);
-            int startPositionY = (int)Main.worldSurface - 200;
+            int startPositionX = Main.maxTilesX / 2 - 1000;
+            int startPositionY = (int)Main.worldSurface - 180;
             Vector2 generationSize = new Vector2(0, 0);
             if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200)
             {
-                generationSize = new Vector2(262, 18);
+                generationSize = new Vector2(262, 210);
             }
             if (Main.maxTilesX == 6300 && Main.maxTilesY == 1800)
             {
-                generationSize = new Vector2(380, 22);
+                generationSize = new Vector2(390, 320);
             }
             if (Main.maxTilesX == 8400 && Main.maxTilesY == 2400)
             {
-                generationSize = new Vector2(608, 26);
+                generationSize = new Vector2(508, 510);
             }
 
             var generationStartX = startPositionX;
@@ -54,24 +55,28 @@ namespace DBT.Wasteland
             {
                 for (int y = 0; y <= generationSize.Y; y++)
                 {
-                    int generationPositionX = generationStartX + x;
+                    int generationPositionX = generationStartX + x + Main.rand.Next(1, 3);
                     int generationPositionY = generationStartY + y;
                     if (Main.tile[generationPositionX, generationPositionY].active())
                     {
-                        WorldGen.TileRunner(generationPositionX, generationPositionY, 5, WorldGen.genRand.Next(10, 20), (ushort)mod.TileType(nameof(CoarseRock)), false, 0f, 0f, true, true);
+                        if (Main.tile[generationPositionX, generationPositionY].type == TileID.SnowBlock)
+                            generationPositionX += 100;
 
-                        if (Main.tile[generationPositionX, generationPositionY].type == mod.TileType(nameof(CoarseRock)))
+                        if (Main.tile[generationPositionX, generationPositionY - 1].type != (ushort)mod.TileType(nameof(CoarseRock)) && Main.tile[generationPositionX, generationPositionY - 1].active())
+                            generationPositionY--;
+
+                        else
                         {
-                            Main.tile[generationPositionX, generationPositionY].wall = (ushort)mod.WallType(nameof(CoarseRockWall));
+                            WorldGen.TileRunner(generationPositionX, generationPositionY, 5, WorldGen.genRand.Next(20, 30), (ushort)mod.TileType(nameof(CoarseRock)), false, 0f, 0f, true, true);
+                            progress.Set(0.70f);
                         }
-                        progress.Set(0.70f);
                     }
                 }
             }
         }
         public int RaycastDown(int x, int y)
         {
-            while (!Main.tile[x, y].active())
+            while (!Framing.GetTileSafely(x, y).active())
             {
                 y++;
             }

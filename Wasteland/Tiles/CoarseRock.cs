@@ -17,7 +17,7 @@ namespace DBT.Wasteland.Tiles
             name.SetDefault("Coarse Rock");
             //AddMapEntry(new Color(242, 179, 70), name);
             AddMapEntry(new Color(252, 163, 108), name);
-            dustType = 75;
+            dustType = 102;
         }
     }
 }
