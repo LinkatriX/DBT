@@ -140,7 +140,7 @@ namespace DBT.Transformations
         {
             if (damage != 0)
             {
-                builder.AppendFormat("{0}{1:F2}x {2}", damage > 0 ? '+' : '-', damage - 1, "Damage");
+                builder.AppendFormat("{0}{1:F2}% {2}", damage > 0 ? '+' : '-', (damage - 1f) * 100f, "Damage");
 
                 if (speed != 0)
                     builder.Append(", ");
@@ -148,7 +148,7 @@ namespace DBT.Transformations
 
             if (speed != 0)
             {
-                builder.AppendFormat("{0}{1:F2}x {2}", speed > 0 ? '+' : '-', speed - 1, "Speed");
+                builder.AppendFormat("{0}{1:F2}% {2}", speed > 0 ? '+' : '-', (speed - 1f) * 100f, "Speed");
 
                 if (defense != 0)
                     builder.Append(", ");
