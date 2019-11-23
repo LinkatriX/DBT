@@ -12,18 +12,7 @@ namespace DBT.Skills
 {
     public abstract class SkillProjectile : KiProjectile
     {
-        protected SkillProjectile(SkillDefinition definition, int width = 0, int height = 0) : 
-            base(definition.Characteristics.BaseDamage, definition.Characteristics.BaseKnockback, width, height)
-        {
-            Definition = definition;
-        }
-
-        public SkillDefinition Definition { get; }
-    }
-
-    public abstract class SkillChargeProjectile : ModProjectile 
-    {
-        protected SkillChargeProjectile(SkillDefinition definition, ref int width, ref int height) : base() 
+        protected SkillProjectile(SkillDefinition definition, int width, int height) : base(definition.Characteristics.BaseDamage, definition.Characteristics.BaseKnockback, width, height) 
         {
             Definition = definition;
             Width = width;
@@ -32,7 +21,7 @@ namespace DBT.Skills
 
         private bool ShouldFireSkill(DBTPlayer modPlayer)
         {
-            if (!modPlayer.MouseLeftHeld || IsFired) 
+            if (!modPlayer.MouseLeftHeld) 
             {
                 return true;
             }
@@ -45,18 +34,29 @@ namespace DBT.Skills
             projectile.height = Height;
             projectile.friendly = true;
             projectile.hostile = false;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
+            projectile.velocity = Vector2.Zero;
+            base.SetDefaults();
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            //Don't draw the charge when firing.
-            if (IsFired)
+            DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
+            if (IsFired && UsesChargeBall)
                 return false;
-            float originalRotation = -1.57f;
-            DrawSkillCharge(spriteBatch, Main.projectileTexture[projectile.type], originalRotation, projectile.scale, Color.White);
-            return false;
+            if (dbtPlayer.MouseLeftHeld)
+                HandleCharging();
+
+            if (!UsesChargeBall)
+            {
+                if (dbtPlayer.MouseLeftHeld)
+                {
+                    if (ChargeOverrideTexture != null)
+                        DrawSkillCharge(spriteBatch, Main.projectileTexture[projectile.type], 0f, projectile.scale, Color.White);
+                    else
+                        DrawSkillCharge(spriteBatch, ChargeOverrideTexture, 0f, projectile.scale, Color.White);
+                }
+            }
+            return true;
         }
 
         //The core function for drawing a skill's charge.
@@ -66,45 +66,63 @@ namespace DBT.Skills
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
             //int radius = (int)Math.Ceiling(projectile.width / 2f * projectile.scale);
             //DBTMod.circle.ApplyShader(radius);
-            float projRotation = projectile.velocity.ToRotation() + rotation;
             spriteBatch.Draw(texture, GetChargeBallPosition() - Main.screenPosition,
-                new Rectangle(0, 0, Width, Height), color, projRotation, new Vector2(Width * .5f, Height * .5f), scale, 0, 0.99f);
+                new Rectangle(0, 0, Width, Height), color, rotation, new Vector2(Width * .5f, Height / Main.projFrames[projectile.type] * .5f), scale, 0, 0.99f);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
         }
 
         public Vector2 GetChargeBallPosition()
         {
-            Vector2 positionOffset = channelingOffset + projectile.velocity * ChargeBallHeldDistance;
-            return Main.player[projectile.owner].Center + positionOffset;
+            return Main.player[projectile.owner].Center + channelingOffset;
         }
-
-        public float ChargeBallHeldDistance
-        {
-            get
-            {
-                return (Height / 2f) + 10f;
-            }
-        }
-
         // vector to reposition the charge ball if it feels too low or too high on the character sprite
         public Vector2 channelingOffset = new Vector2(0, 4f);
 
-        public void HandleFiring(Player player, Vector2 mouseVector)
+        public void HandleCharging()
+        {
+            DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
+            projectile.timeLeft = 999;
+            if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge < Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
+            {
+                projectile.ai[1]++;
+                if (projectile.ai[1] >= Definition.Characteristics.ChargeCharacteristics.BaseChargeTimer)
+                {
+                    Definition.Characteristics.ChargeCharacteristics.CurrentCharge++;
+                    PerChargeLevel();
+                    projectile.ai[1] = 0;
+                }
+                OnChargeAttack();
+            }
+            if (!dbtPlayer.MouseLeftHeld)
+            {
+                if (RequiresFullCharge)
+                {
+                    if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge >= Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
+                        HandleFiring(Main.player[projectile.owner]);
+                }
+                else
+                {
+                    if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge > 0)
+                        HandleFiring(Main.player[projectile.owner]);
+                }
+            }
+        }
+
+        public void HandleFiring(Player player)
         {
             DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
-            bool temp = true;
             
-            // minimum charge level is required to fire in the first place, but once you fire, you can keep firing.
             if (ShouldFireSkill(modPlayer))
             {
-                // once fired, there's no going back.
+                OnFireAttack();
+                
                 IsFired = true;
 
                 // kill the charge sound if we're firing
                 //chargeSoundSlotId = SoundHelper.KillTrackedSound(chargeSoundSlotId);
 
-                if (MyProjectile == null)
+                if (UsesChargeBall)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient || Main.myPlayer == player.whoAmI)
                     {
@@ -120,6 +138,22 @@ namespace DBT.Skills
                     KillCharge();
                 }*/
             }
+        }
+
+        /// <summary>A hook that is called per tick the skill is being charged.</summary>
+        /// <returns></returns>
+        public virtual void OnChargeAttack()
+        {
+        }
+        /// <summary>A hook that is called whenever the skill is released.</summary>
+        /// <returns></returns>
+        public virtual void OnFireAttack()
+        {
+        }
+        /// <summary>A hook that is called for every time the attack hits the next charge level.</summary>
+        /// <returns></returns>
+        public virtual void PerChargeLevel()
+        {
         }
 
         public override bool PreAI()
@@ -145,5 +179,9 @@ namespace DBT.Skills
         public SkillDefinition Definition { get; }
         public int Width { get; }
         public int Height { get; }
+        public bool UsesChargeBall { get; set; } = false;
+        public bool RequiresFullCharge { get; set; } = false;
+        public Texture2D ChargeOverrideTexture { get; set; } = null;
+        
     }
 }

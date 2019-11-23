@@ -20,8 +20,6 @@ namespace DBT.Skills
             BaseKiRegenerationHaltedForDuration = 2 * Constants.TICKS_PER_SECOND;
             BaseKiRegenerationHaltedForDurationChargeMultiplier = 0f;
         }
-
-
         public virtual int GetChargeTimer(DBTPlayer dbtPlayer) => BaseChargeTimer;
 
         public virtual int GetMaxChargeLevel(DBTPlayer dbtPlayer) => BaseMaxChargeLevel;
@@ -50,6 +48,7 @@ namespace DBT.Skills
             return (int) (BaseKiRegenerationHaltedForDurationChargeMultiplier * BaseKiRegenerationHaltedForDuration);
         }
 
+        public int CurrentCharge { get; set; }
         public int BaseChargeTimer { get; set; } = 60;
         public int BaseMaxChargeLevel { get; set; } = 3;
 
