@@ -22,7 +22,7 @@ namespace DBT.Network.Transformations
         }
 
 
-        public override bool PostReceive(BinaryReader reader, int fromWho)
+        protected override bool PostReceive(BinaryReader reader, int fromWho)
         {
             ModPlayer.AcquireAndTransform(_transformation);
 

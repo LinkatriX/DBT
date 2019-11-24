@@ -7,11 +7,11 @@ using Terraria.ModLoader;
 
 namespace DBT.NPCs.Saibamen
 {
-    public class Saibaman1 : ModNPC
+    public class Saibaman5 : ModNPC
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Green Saibaman");
+            DisplayName.SetDefault("Black Saibaman");
             Main.npcFrameCount[npc.type] = 3;
         }
 
@@ -19,20 +19,23 @@ namespace DBT.NPCs.Saibamen
         {
             npc.width = 26;
             npc.height = 36;
-            npc.damage = 34;
-            npc.defense = 4;
-            npc.lifeMax = 50;
+            npc.damage = 68;
+            npc.defense = 12;
+            npc.lifeMax = 130;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.value = 60f;
-            npc.knockBackResist = 0.3f;
+            npc.knockBackResist = 0.5f;
             npc.aiStyle = 3;
             aiType = NPCID.VortexSoldier;
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return spawnInfo.player.GetModPlayer<DBTPlayer>().zoneWasteland ? 1f : 0f;
+            if (Main.hardMode)
+                return spawnInfo.player.GetModPlayer<DBTPlayer>().zoneWasteland ? 1.5f : 0f;
+
+            return 0f;
         }
 
         public override void AI()
@@ -55,7 +58,7 @@ namespace DBT.NPCs.Saibamen
                 jumpTimer++;
                 if (jumpTimer == 1 && npc.velocity.Y == 0)
                 {
-                    npc.velocity = new Vector2(3f * npc.direction, -8f);
+                    npc.velocity = new Vector2(6f * npc.direction, -8f);
                 }
                 if (jumpTimer > 10)
                 {
@@ -124,7 +127,7 @@ namespace DBT.NPCs.Saibamen
                 }
                 npc.width = 60;
                 npc.height = 60;
-                npc.damage = 140;
+                npc.damage = 200;
                 int num620 = Gore.NewGore(new Vector2(npc.position.X, npc.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
                 Main.gore[num620].velocity *= scaleFactor9;
                 Gore gore97 = Main.gore[num620];

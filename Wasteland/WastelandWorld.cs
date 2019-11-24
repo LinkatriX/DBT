@@ -124,6 +124,7 @@ namespace DBT.Wasteland
             Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
             {
                 [new Color(152, 74, 0)] = ModContent.TileType<HardenedRock>(),
+                [new Color(255, 181, 81)] = ModContent.TileType<CoarseRock>(),
                 [new Color(255, 212, 171)] = -2,
                 [Color.Black] = -1
             };

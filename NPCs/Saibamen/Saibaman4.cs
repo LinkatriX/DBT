@@ -12,7 +12,7 @@ namespace DBT.NPCs.Saibamen
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Purple Saibaman");
-            Main.npcFrameCount[npc.type] = 4;
+            Main.npcFrameCount[npc.type] = 3;
         }
 
         public override void SetDefaults()
@@ -88,7 +88,7 @@ namespace DBT.NPCs.Saibamen
             if (target.statLife == 0)
             {
                 Player player = Main.player[npc.target];
-                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + "has been yamcha'd."), 54, npc.spriteDirection);
+                player.KillMe(PlayerDeathReason.ByCustomReason(player.name + "has been yamcha'd."), 54, npc.spriteDirection);
             }
         }
 
@@ -111,10 +111,6 @@ namespace DBT.NPCs.Saibamen
             if (_frame > 2 && !grabbed)
             {
                 _frame = 0;
-            }
-            if (grabbed)
-            {
-                _frame = 3;
             }
             npc.spriteDirection = -npc.direction;
             npc.frame.Y = frameHeight * _frame;
