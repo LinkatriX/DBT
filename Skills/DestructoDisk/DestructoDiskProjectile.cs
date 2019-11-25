@@ -7,14 +7,15 @@ namespace DBT.Skills.DestructoDisk
 {
     public sealed class DestructoDiskProjectile : SkillProjectile
     {
-        public DestructoDiskProjectile() : base(SkillDefinitionManager.Instance.DestructoDisk, 74, 74)
+        public DestructoDiskProjectile() : base(SkillDefinitionManager.Instance.DestructoDisk, 124, 60)
         {
         }
-
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[projectile.type] = 3;
+        }
         public override void SetDefaults()
         {
-            base.SetDefaults();
-
             projectile.aiStyle = 56; //Perfect ai for gravless and rotation, useful for disks
             projectile.light = 1f;
             projectile.friendly = true;
@@ -23,9 +24,8 @@ namespace DBT.Skills.DestructoDisk
             projectile.tileCollide = false;
             projectile.stepSpeed = 13;
             projectile.penetrate = 200;
-
             aiType = 14;
-            projectile.timeLeft = 80;
+            projectile.timeLeft = 140;
 
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[projectile.type] = 0;
@@ -35,27 +35,51 @@ namespace DBT.Skills.DestructoDisk
         {
             return new Color(255, 255, 255, 100);
         }
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override void OnChargeAttack()
         {
-            Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-            for (int k = 0; k < projectile.oldPos.Length; k++)
+            Main.projFrames[projectile.type] = 12;
+            ChargeOverrideTexture = mod.GetTexture("Skills/DestructoDisk/DestructoDiskCharge");
+            projectile.ai[0]++;
+            if (projectile.ai[0] >= Definition.Characteristics.ChargeCharacteristics.BaseChargeTimer / 12)
             {
-                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-                Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+                if (projectile.frame < 12)
+                {
+                    projectile.frame++;
+                }
+                projectile.ai[0] = 0;
             }
-            return true;
+                
+        }
+        public override void OnFireAttack()
+        {
+            Main.projFrames[projectile.type] = 3;
+            ChargeOverrideTexture = mod.GetTexture("Skills/DestructoDisk/DestructoDiskProjectile");
+            projectile.velocity = Vector2.Normalize(Main.MouseWorld - projectile.position) * 13;
         }
         public override void PostAI()
         {
-            for (int d = 0; d < 1; d++)
+            channelingOffset = new Vector2(0f, -40f);
+            if (IsFired)
             {
-                if (Main.rand.NextFloat() < 1f)
+                for (int d = 0; d < 1; d++)
                 {
-                    Dust dust = Dust.NewDustDirect(projectile.position, 72, 72, 169, 0f, 0f, 0, new Color(255, 255, 255), 1.5f);
-                    dust.noGravity = true;
+                    if (Main.rand.NextFloat() < 1f)
+                    {
+                        Dust dust = Dust.NewDustDirect(projectile.position, 72, 72, 169, 0f, 0f, 0, new Color(255, 255, 255), 1.5f);
+                        dust.noGravity = true;
+                    }
+
                 }
 
+                projectile.frameCounter++;
+                if (projectile.frameCounter > 3)
+                {
+                    projectile.frame++;
+                }
+                if (projectile.frame >= 3)
+                {
+                    projectile.frame = 0;
+                }
             }
         }
     }

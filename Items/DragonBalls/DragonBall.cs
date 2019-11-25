@@ -1,10 +1,12 @@
 ﻿using DBT.Helpers;
+using DBT.NPCs.Misc;
 using DBT.Players;
 using DBT.UserInterfaces.WishMenu;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using WebmilioCommons.Extensions;
 
 namespace DBT.Items.DragonBalls
@@ -38,11 +40,9 @@ namespace DBT.Items.DragonBalls
         {
             DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
             dbtPlayer.WishActive = true;
-            WishMenu.menuVisible = true;
             SoundHelper.PlayCustomSound("Sounds/DBSummon", player, 0.5f);
+            dbtPlayer.DestroyOneOfEachDragonBall(dbtPlayer.player);
         }
-
-        
 
         public static string GetDragonBallItemTypeFromNumber(int whichDragonBall)
         {

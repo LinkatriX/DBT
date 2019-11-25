@@ -20,6 +20,7 @@ namespace DBT.Players
         private const float CHARGING_MOVE_SPEED_MULTIPLIER = 0.5f;
 
         public bool zoneWasteland = false;
+        public bool zoneUGWasteland = false;
 
         public static readonly PlayerLayer tailLayer = new DrawTailEffects(0);
         public static readonly PlayerLayer furLayer = new DrawBodyEffects();
@@ -210,7 +211,8 @@ namespace DBT.Players
 
         public override void UpdateBiomes()
         {
-            zoneWasteland = (WastelandWorld.wastelandTiles > 100);
+            zoneWasteland = (WastelandWorld.wastelandTiles > 70);
+            zoneUGWasteland = WastelandWorld.undergroundWastelandTiles > 30;
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)

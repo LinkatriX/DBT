@@ -28,9 +28,9 @@ namespace DBT.Wasteland.Water
 
 		public override void LightColorMultiplier(ref float r, ref float g, ref float b)
 		{
-			r = 0.91f;
-			g = 0.40f;
-			b = 0.95f;
+			r = 0.40f;
+			g = 0.20f;
+			b = 0.43f;
 		}
 
 		public override Color BiomeHairColor()

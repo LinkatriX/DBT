@@ -32,6 +32,7 @@ using DBT.Skills.MajinExtinctionAttack;
 using DBT.Skills.SuperSpiritBomb;
 using DBT.Dynamicity;
 using WebmilioCommons.Managers;
+using DBT.Skills.DemonBarrage;
 using DBT.Skills.DeathSaucer;
 
 namespace DBT.Skills
@@ -56,6 +57,7 @@ namespace DBT.Skills
 
             #region Tier 3 Skills
             BloodThief = Add(new BloodThiefDefinition(KiBlast)) as BloodThiefDefinition;
+            DemonBarrage = Add(new DemonBarrageDefinition(BloodThief)) as DemonBarrageDefinition;
             DirtyFireworks = Add(new DirtyFireworksDefinition(KiBlast)) as DirtyFireworksDefinition;
             GalickGun = Add(new GalickGunDefinition(EnergyWave)) as GalickGunDefinition;
             HellzoneGrenade = Add(new HellzoneGrenadeDefinition(EnergyBlastBarrage)) as HellzoneGrenadeDefinition;
@@ -106,6 +108,7 @@ namespace DBT.Skills
         public MasenkoDefinition Masenko { get; private set; }
         public SpiritBallDefinition SpiritBall { get; private set; }
         public BloodThiefDefinition BloodThief { get; private set; }
+        public DemonBarrageDefinition DemonBarrage { get; private set; }
         public DirtyFireworksDefinition DirtyFireworks { get; private set; }
         public GalickGunDefinition GalickGun { get; private set; }
         public HellzoneGrenadeDefinition HellzoneGrenade { get; private set; }
