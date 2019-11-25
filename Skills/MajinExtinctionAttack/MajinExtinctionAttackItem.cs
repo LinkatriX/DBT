@@ -1,11 +1,13 @@
-﻿using DBT.Skills.KiBlast;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Terraria;
 using Terraria.ID;
 
 namespace DBT.Skills.MajinExtinctionAttack
 {
-    public sealed class MajinExtinctionAttackItem : SkillItem<KiBlastProjectile>
+    public sealed class MajinExtinctionAttackItem : SkillItem<MajinExtinctionAttackProjectile>
     {
-        public MajinExtinctionAttackItem() : base(SkillDefinitionManager.Instance.MajinExtinctionAttack, 20, 20, ItemRarityID.Lime, false)
+        public MajinExtinctionAttackItem() : base(SkillDefinitionManager.Instance.MajinExtinctionAttack, 28, 30, ItemRarityID.Lime, true)
         {
         }
 
@@ -15,43 +17,20 @@ namespace DBT.Skills.MajinExtinctionAttack
 
             item.useAnimation = 16;
             item.useTime = 16;
-            item.useStyle = ItemUseStyleID.Stabbing;
+            item.useStyle = ItemUseStyleID.HoldingUp;
         }
 
-        /*public override void UseStyle(Player player)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            player.itemLocation.X = player.position.X + (float)player.width * 0.5f;// - (float)Main.itemTexture[item.type].Width * 0.5f;// - (float)(player.direction * 2);
-            player.itemLocation.Y = player.MountedCenter.Y + player.gravDir * (float)Main.itemTexture[item.type].Height * 0.5f;
-            float relativeX = (float)Main.mouseX + Main.screenPosition.X - player.Center.X;
-            float relativeY = (float)Main.mouseY + Main.screenPosition.Y - player.Center.Y;
-            if (player.gravDir == -1f)
-                relativeY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY - player.Center.Y;
-            if (relativeX - relativeY > 0)
-            {
-                if (relativeX + relativeY > 0)
-                {
-                    player.itemRotation = 0;
-                }
-                else
-                {
-                    player.itemRotation = player.direction * -MathHelper.Pi / 2;
-                    player.itemLocation.X += player.direction * 2;
-                    player.itemLocation.Y -= 10;
-                }
-            }
-            else
-            {
-                if (relativeX + relativeY > 0)
-                {
-                    player.itemRotation = player.direction * MathHelper.Pi / 2;
-                    player.itemLocation.X += player.direction * 2;
-                    Main.rand.Next(0, 100);
-                }
-                else
-                {
-                    player.itemRotation = 0;
-                }
-            }
-        }*/
+            /*Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY - 48f)) * 50f;
+            position += muzzleOffset;*/
+            //position.Y -= 100f;
+
+            Random randVelocityX = new Random();
+
+            Projectile.NewProjectile(position.X - 4, position.Y - 12, (float)(randVelocityX.NextDouble() * 8f - 4.2f), 0f, type, damage, knockBack, Owner: Main.myPlayer); //6f - 3.2f
+
+            return false;
+        }
     }
 }

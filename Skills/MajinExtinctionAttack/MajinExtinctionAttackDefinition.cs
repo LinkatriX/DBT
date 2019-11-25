@@ -1,24 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 
 namespace DBT.Skills.MajinExtinctionAttack
-{//This move will need to be completely redone, so I'm treating it as a new attack and leaving it for later.
+{
     public sealed class MajinExtinctionAttackDefinition : SkillDefinition
     {
-        public MajinExtinctionAttackDefinition(params SkillDefinition[] parents) : base("MajinExtinctionAttack", "Majin Extinction Attack", "'Human Extinction...'", typeof(MajinExtinctionAttackItem), new MajinExtinctionAttackCharacteristics(), new Vector2(366, 22), parents: parents)
+        public MajinExtinctionAttackDefinition(params SkillDefinition[] parents) : base(
+            "MajinExtinctionAttack", "Majin Extinction Attack", "'Human Extinction...'", typeof(MajinExtinctionAttackItem),
+            new MajinExtinctionAttackCharacteristics(), new Vector2(366, 22), parents: parents)
         {
         }
     }
 
     public sealed class MajinExtinctionAttackCharacteristics : SkillCharacteristics
     {
-        public MajinExtinctionAttackCharacteristics() : base(new MajinExtinctionAttackChargeCharacteristics(), 70, 1f, 16f, 5f, 1f, 0.05f, 1f, 2f, 1f)
+        public MajinExtinctionAttackCharacteristics() : base(new MajinExtinctionAttackChargeCharacteristics(), 1, 1f, 20f, 2f, 1f, 0.05f, 1f, 2f, 1f)
         {
         }
     }
 
     public sealed class MajinExtinctionAttackChargeCharacteristics : SkillChargeCharacteristics
     {
-        public MajinExtinctionAttackChargeCharacteristics() : base(0, 0, 500, 0)
+        public MajinExtinctionAttackChargeCharacteristics() : base(0, 0, 5, 0)
         {
         }
     }
