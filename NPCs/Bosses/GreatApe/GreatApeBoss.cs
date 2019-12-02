@@ -51,7 +51,8 @@ namespace DBT.NPCs.Bosses.GreatApe
             STAGE_BLAST = 2,
             STAGE_BEAM = 3,
             STAGE_PUNCH = 4,
-            STAGE_MEGAROAR = 5;
+            STAGE_MEGAROAR = 5,
+            STAGE_ENTRY = 6;
         #endregion
 
         public override void AI()
@@ -79,7 +80,24 @@ namespace DBT.NPCs.Bosses.GreatApe
             {
                 ChangeStage();
             }
-            
+            if (AIStage == STAGE_ENTRY)
+            {
+                if (!HasDoneStartingStuff)
+                {
+                    if (!HasDoneStartingPosition)
+                    {
+                        npc.position = player.position + new Vector2(600, -800);
+                        //npc.velocity.X -= 0.2f;
+                        HasDoneStartingPosition = true;
+                    }
+                    if (npc.velocity.Y == 0 && npc.velocity.X != 0)
+                        npc.velocity.X = 0;
+                    if (_frame == 0)
+                        if (DBTMod.IsTickRateElapsed(30))
+                            DoRoar();
+
+                }
+            }
             if (AIStage == STAGE_WALK)
             {
                 npc.velocity.X = 1.5f * npc.direction;
@@ -96,26 +114,7 @@ namespace DBT.NPCs.Bosses.GreatApe
 
             if (AIStage == STAGE_LEAP)
             {
-                if (!HasDoneStartingStuff && !IsRoaring)
-                {
-                    if (!HasDoneStartingPosition)
-                    {
-                        npc.position = player.position + new Vector2(600, -800);
-                        npc.velocity.X -= 0.2f;
-                        HasDoneStartingPosition = true;
-                    }
-                    if (npc.velocity.Y == 0 && npc.velocity.X != 0)
-                        npc.velocity.X = 0;
-                    if (_frame == 0)
-                        if (DBTMod.IsTickRateElapsed(30))
-                            DoRoar();
-
-                }
-                else
-                {
-                    DoLeap();
-                }
-                
+                DoLeap();
             }
             if (AIStage == STAGE_BEAM)
             {
@@ -156,14 +155,15 @@ namespace DBT.NPCs.Bosses.GreatApe
             //Main.NewText("Is Roaring? " + IsRoaring);
             //Main.NewText("Is Beaming? " + IsBeaming);
             //Main.NewText("AITimer2 is: " + AITimer2);
+            //Main.NewText("Has done starting stuff?" + HasDoneStartingStuff);
         }
 
         public void ChangeStage()
         {
             if (!HasDoneStartingStuff)
-                AIStage = STAGE_LEAP;
+                AIStage = STAGE_ENTRY;
 
-            if (AIStage == STAGE_LEAP && HasDoneStartingStuff)
+            if (AIStage == STAGE_ENTRY && HasDoneStartingStuff)
                 AIStage = STAGE_WALK;
 
             if (AIStage == STAGE_WALK)
@@ -227,7 +227,7 @@ namespace DBT.NPCs.Bosses.GreatApe
                 }
                     
             }
-            if (AIStage == STAGE_LEAP)
+            if(AIStage == STAGE_ENTRY)
             {
                 if (npc.velocity.Y < 0)
                     _frame = 12;
@@ -238,7 +238,7 @@ namespace DBT.NPCs.Bosses.GreatApe
                     _frame = 17;
                     SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeLanding", null, 0.6f);
                 }
-                    
+
                 if (_frame == 17)
                 {
                     _frameTimer++;
@@ -247,11 +247,8 @@ namespace DBT.NPCs.Bosses.GreatApe
                         _frameTimer = 0;
                         _frame = 0;
                     }
-                        
-
                     npc.spriteDirection = -1;
                 }
-
                 if (IsRoaring)
                 {
                     _frameTimer++;
@@ -290,6 +287,31 @@ namespace DBT.NPCs.Bosses.GreatApe
                         }
                     }
 
+                }
+            }
+            if (AIStage == STAGE_LEAP)
+            {
+                if (npc.velocity.Y < 0)
+                    _frame = 12;
+                if (npc.velocity.Y > 0)
+                    _frame = 16;
+                if (npc.velocity.Y == 0 && (_frame == 16))
+                {
+                    _frame = 17;
+                    SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeLanding", null, 0.6f);
+                }
+                    
+                if (_frame == 17)
+                {
+                    _frameTimer++;
+                    if (_frameTimer == 8)
+                    {
+                        _frameTimer = 0;
+                        _frame = 0;
+                    }
+                        
+
+                    npc.spriteDirection = -1;
                 }
             }
 

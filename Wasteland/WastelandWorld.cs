@@ -47,14 +47,17 @@ namespace DBT.Wasteland
             if (Main.maxTilesX == 4200 && Main.maxTilesY == 1200)
             {
                 generationSize = new Vector2(262, 240);
+                startPositionX = Main.maxTilesX / 2 - 1300;
             }
             else if (Main.maxTilesX == 6300 && Main.maxTilesY == 1800)
             {
                 generationSize = new Vector2(390, 350);
+                startPositionX = Main.maxTilesX / 2 - 1900;
             }
             else if (Main.maxTilesX == 8400 && Main.maxTilesY == 2400)
             {
                 generationSize = new Vector2(508, 540);
+                startPositionX = Main.maxTilesX / 2 - 2500;
             }
             else
                 generationSize = new Vector2(262, 210);
@@ -73,7 +76,7 @@ namespace DBT.Wasteland
                     if (Main.tile[generationPositionX, generationPositionY].active())
                     {
                         if (Main.tile[generationPositionX, generationPositionY].type == TileID.SnowBlock || Main.tile[generationPositionX, generationPositionY].type == TileID.Mud)
-                            generationPositionX += 100;
+                            generationPositionX += 200;
 
                         if (Main.tile[generationPositionX, generationPositionY - 1].type != (ushort)mod.TileType(nameof(CoarseRock)) && Main.tile[generationPositionX, generationPositionY - 1].active())
                             generationPositionY--;
