@@ -83,6 +83,7 @@ namespace DBT.Skills
         {
             DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
             projectile.timeLeft = 999;
+            projectile.velocity = Vector2.Zero;
             if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge < Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
             {
                 projectile.ai[1]++;

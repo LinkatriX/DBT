@@ -15,6 +15,7 @@ namespace DBT.Players
         {
             PostUpdateHandleTransformationsVisuals();
             UpdateConditions();
+            ListenForTransformations();
         }
 
         private void HandleTransformationsOnEnterWorld(Player player)
@@ -25,6 +26,10 @@ namespace DBT.Players
         public void ListenForTransformations()
         {
             // TODO Add transformation management code.
+            if (Ki <= 1)
+            {
+                Untransform(GetTransformation());
+            }
         }
 
 

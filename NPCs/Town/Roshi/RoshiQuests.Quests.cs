@@ -55,7 +55,7 @@ namespace DBT.NPCs.Town.Roshi
 
         public void OnCompleteQuest()
         {
-            if (QuestsCompleted == 0)
+            if (QuestsCompleted == 1)
             {
                 DBTPlayer modPlayer = player.GetModPlayer<DBTPlayer>();
                 modPlayer.AcquireSkill(SkillDefinitionManager.Instance.KiBlast);

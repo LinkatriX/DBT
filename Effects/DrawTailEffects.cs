@@ -66,7 +66,7 @@ namespace DBT.Effects
             int frameSize = texture.Height / 14;
             float drawX = (drawInfo.position.X + drawInfo.drawPlayer.width / XOffset - Main.screenPosition.X);
             float drawY = (drawInfo.position.Y + drawInfo.drawPlayer.height / 0.11f - Main.screenPosition.Y);
-            Main.spriteBatch.Draw(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * frame, texture.Width, frameSize), color, 0f, new Vector2(texture.Width / 2f, texture.Height / 2f), 1f, spriteEffects, 0);
+            Main.spriteBatch.Draw(texture, new Vector2(drawX, drawY), new Rectangle(0, frameSize * frame, texture.Width, frameSize), color, drawInfo.drawPlayer.bodyRotation, new Vector2(texture.Width / 2f, texture.Height / 2f), 1f, spriteEffects, 0);
         }
     }
 }
