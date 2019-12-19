@@ -24,7 +24,7 @@ namespace DBT.Tiles
             TileObjectData.newTile.Height = 3;
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
             TileObjectData.newTile.Origin = new Point16(1, 0);
-            TileObjectData.newTile.CoordinatePadding = 2;            
+            TileObjectData.newTile.CoordinatePadding = 2;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Ki Beacon");            
             AddMapEntry(new Color(223, 245, 255), name);

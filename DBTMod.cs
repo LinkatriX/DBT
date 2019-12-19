@@ -148,7 +148,7 @@ namespace DBT
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/VegetaSSJ"), ModContent.ItemType<SevenStarBoxItem>(), ModContent.TileType<SevenStarBoxTile>());
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/XV2Villain"), ModContent.ItemType<DragonBallsBoxItem>(), ModContent.TileType<DragonBallsBoxTile>());
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicBoxes/BurstLimit"), ModContent.ItemType<BabidisMagicBoxItem>(), ModContent.TileType<BabidisMagicBoxTile>());
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Wastelands"), ModContent.ItemType<WastelandsBoxItem>(), ModContent.TileType<WastelandsBoxTile>());
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TheBarrenWastelands"), ModContent.ItemType<WastelandsBoxItem>(), ModContent.TileType<WastelandsBoxTile>());
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TheUnexpectedArrival"), ModContent.ItemType<FFBoxItem>(), ModContent.TileType<FFBoxTile>());
             }
         }
@@ -211,7 +211,11 @@ namespace DBT
 
             if (player.active && player.GetModPlayer<DBTPlayer>(this).zoneWasteland && !Main.gameMenu && playMusic)
             {
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Wastelands");
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/TheBarrenWastelands");
+            }
+            if (player.active && player.GetModPlayer<DBTPlayer>(this).zoneUGWasteland && !Main.gameMenu && playMusic)
+            {
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/TheInfestedNest");
             }
         }
         public override void PostSetupContent()

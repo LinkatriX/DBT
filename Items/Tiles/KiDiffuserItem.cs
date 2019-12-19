@@ -20,7 +20,7 @@ namespace DBT.Items.Tiles
             item.useTime = 10;
             item.useStyle = 1;
             item.consumable = true;
-            item.createTile = ModContent.TileType<KiDiffuser>();
+            item.createTile = ModContent.TileType<GravityGenerator>();
         }
         public override void AddRecipes()
         {

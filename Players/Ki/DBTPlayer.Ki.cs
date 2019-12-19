@@ -46,7 +46,7 @@ namespace DBT.Players
             KiKnockbackAddition = 0;
             KiCritAddition = 0;
 
-            BaseNaturalKiRegenerationPercentage = 0.01f / Constants.TICKS_PER_SECOND;
+            BaseNaturalKiRegenerationPercentage = 0.015f / Constants.TICKS_PER_SECOND;
             BaseNaturalKiRegenerationModifier = 0f;
             NaturalKiRegenerationMultiplier = 1;
 

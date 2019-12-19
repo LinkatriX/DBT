@@ -6,6 +6,7 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -32,60 +33,52 @@ namespace DBT.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Gravity Generator");
             AddMapEntry(new Color(223, 245, 255), name);
-            disableSmartCursor = true;
+            animationFrameHeight = 216;
             minPick = 10000;
             TileObjectData.addTile(Type);
         }
 
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        public override void AnimateTile(ref int frame, ref int frameCounter)
         {
-            Tile tile = Main.tile[i, j];
-            Texture2D texture;
-            DBTWorld world = ModContent.GetInstance<DBTWorld>();
-            if (world.repairedGravModule)
-            {
-                if (_activated)
-                    texture = mod.GetTexture("Tiles/ActiveRepairedGravityGenerator");
-                else
-                    texture = mod.GetTexture("Tiles/RepairedGravityGenerator");
-
-            }
+            if (_activated)
+                frame = 2;
+            else if (DBTWorld.repairedGravModule)
+                frame = 1;
             else
-                texture = Main.tileTexture[Type];
-
-            Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
-            if (Main.drawToScreen)
-            {
-                zero = Vector2.Zero;
-            }
-
-            Main.spriteBatch.Draw(texture, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y + 2) + zero, new Rectangle(tile.frameX, tile.frameY, 162, 200), Lighting.GetColor(i, j), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-            return false;
+                frame = 0;
         }
 
         public override void RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
-            DBTWorld world = ModContent.GetInstance<DBTWorld>();
-            if (!world.repairedGravModule)
+            if (!DBTWorld.repairedGravModule)
             {
                 if (player.HasItem(ModContent.ItemType<RefinedMetal>()))
                 {
-                    world.repairedGravModule = true;
+                    DBTWorld.repairedGravModule = true;
+                    if (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData);
                     Main.NewText("Gravity Generator Repaired!");
-                    CircularDust(i, j, 20, 31, 10, 1);
+                    for (int h = 0; h < 6; h++)
+                    {
+                        CircularDust(i, j, 20, 31, 10, 1);
+                    }
+                    
                 }
                 else
                 {
                     Main.NewText("You do not have enough refined metal to fix this machine!");
                 }
             }
-            else
+            else if (DBTWorld.repairedGravModule)
             {
                 if (!_activated)
                 {
                     _activated = true;
-                    CircularDust(i, j, 2, 20, 100, 1);
+                    for (int h = 0; h < 6; h++)
+                    {
+                        CircularDust(i, j, 2, 20, 100, 1);
+                    }
                 }
                     
                 else if (_activated)

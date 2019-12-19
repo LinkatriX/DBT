@@ -303,25 +303,24 @@ namespace DBT.UserInterfaces.CharacterMenus
 
                 if (def.GetMasteredKiDrain(dbtPlayer) <= 0 && def.GetUnmasteredKiDrain(dbtPlayer) != 0)
                 {
-                    formStats = InitializeText("Stats: \nDamage: " + def.GetDamageMultiplier(dbtPlayer) + "x \nSpeed: "
-                    + def.GetSpeedMultiplier(dbtPlayer) + "x \nKi Drain: " + def.GetUnmasteredKiDrain(dbtPlayer) * 60 + "/s"
-                    + (hasOverload ? "\nOverload: While Unmastered = " + def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60 +
-                    "/s + While Mastered = " + def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s" : null),
-                    12, 28, 0.6f, Color.White, InfoPanel);
+                    formStats = InitializeText("Stats: \nDamage: " + (def.GetDamageMultiplier(dbtPlayer) - 1f) * 100 + "% \nSpeed: "
+                    + (def.GetSpeedMultiplier(dbtPlayer) - 1f) * 100 + "% \nKi Drain: " + def.GetUnmasteredKiDrain(dbtPlayer) * 60 + "/s"
+                    + (hasOverload ? "\nOverload: While Unmastered = " + def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60
+                    + "/s + While Mastered = " + def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s" : null), 12, 28, 0.6f, Color.White, InfoPanel);
                 }
                 else
                 {
                     if (def.GetUnmasteredKiDrain(dbtPlayer) <= 0)
                     {
-                        formStats = InitializeText("Stats: \nDamage: " + def.GetDamageMultiplier(dbtPlayer) + "x \nSpeed: " +
-                        def.GetSpeedMultiplier(dbtPlayer) + "x" + (hasOverload ? "\nOverload: While Unmastered = " +
+                        formStats = InitializeText("Stats: \nDamage: " + (def.GetDamageMultiplier(dbtPlayer) - 1f) * 100 + "% \nSpeed: " +
+                        (def.GetSpeedMultiplier(dbtPlayer) - 1f) * 100 + "%" + (hasOverload ? "\nOverload: While Unmastered = " +
                         def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s + While Mastered = " +
                         def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s" : null), 12, 28, 0.6f, Color.White, InfoPanel);
                     }
                     else
                     {
-                        formStats = InitializeText("Stats: \nDamage: " + def.GetDamageMultiplier(dbtPlayer) + "x \nSpeed: "
-                        + def.GetSpeedMultiplier(dbtPlayer) + "x \nKi Drain: While Unmastered = " + def.GetUnmasteredKiDrain(dbtPlayer) * 60
+                        formStats = InitializeText("Stats: \nDamage: " + (def.GetDamageMultiplier(dbtPlayer) - 1f) * 100 + "% \nSpeed: "
+                        + (def.GetSpeedMultiplier(dbtPlayer) - 1f) * 100 + "% \nKi Drain: While Unmastered = " + def.GetUnmasteredKiDrain(dbtPlayer) * 60
                         + "/s + While Mastered = " + def.GetMasteredKiDrain(dbtPlayer) * 60 + "/s" + (hasOverload ? "\nOverload: While Unmastered = "
                         + def.GetUnmasteredOverloadGrowthRate(dbtPlayer) * 60 + "/s + While Mastered = " + def.GetMasteredOverloadGrowthRate(dbtPlayer) * 60
                         + "/s" : null), 12, 28, 0.6f, Color.White, InfoPanel);

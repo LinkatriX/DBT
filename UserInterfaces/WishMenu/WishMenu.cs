@@ -220,9 +220,7 @@ namespace DBT.UserInterfaces.WishMenu
 
             if (usedWish)
             {
-                SoundHelper.PlayCustomSound("Sounds/WishGranted", player, 0.5f);
                 wishSelection = WishSelectionID.None;
-                modPlayer.DestroyOneOfEachDragonBall(modPlayer.player);
                 modPlayer.WishActive = false;
                 Main.PlaySound(SoundID.MenuClose);
             }
