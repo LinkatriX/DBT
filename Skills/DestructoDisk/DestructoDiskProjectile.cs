@@ -38,7 +38,7 @@ namespace DBT.Skills.DestructoDisk
         public override void OnChargeAttack()
         {
             Main.projFrames[projectile.type] = 12;
-            ChargeOverrideTexture = mod.GetTexture("Skills/DestructoDisk/DestructoDiskCharge");
+            Main.projectileTexture[projectile.type] = mod.GetTexture("Skills/DestructoDisk/DestructoDiskCharge");
             projectile.ai[0]++;
             if (projectile.ai[0] >= Definition.Characteristics.ChargeCharacteristics.BaseChargeTimer / 12)
             {
@@ -46,19 +46,61 @@ namespace DBT.Skills.DestructoDisk
                 {
                     projectile.frame++;
                 }
+                if (projectile.frame == 12)
+                {
+                    IsCharged = true;
+                    projectile.frame = 0;
+                    projectile.ai[0] = 0;
+                }
                 projectile.ai[0] = 0;
+            }
+            if (IsCharged)
+            {
+                Main.projFrames[projectile.type] = 3;
+                Main.projectileTexture[projectile.type] = mod.GetTexture("Skills/DestructoDisk/DestructoDiskProjectile");
             }
                 
         }
         public override void OnFireAttack()
         {
-            Main.projFrames[projectile.type] = 3;
-            ChargeOverrideTexture = mod.GetTexture("Skills/DestructoDisk/DestructoDiskProjectile");
             projectile.velocity = Vector2.Normalize(Main.MouseWorld - projectile.position) * 13;
+            projectile.timeLeft = 120;
+            projectile.ai[1] = 1;
+            IsFired = true;
+        }
+
+        public override void ChargeAnimation(SpriteBatch spriteBatch)
+        {
+            /*spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
+            //int radius = (int)Math.Ceiling(projectile.width / 2f * projectile.scale);
+            //DBTMod.circle.ApplyShader(radius);
+            spriteBatch.Draw(ChargeOverrideTexture, GetChargeBallPosition() - Main.screenPosition,
+                new Rectangle(0, 0, Width, Height), Color.White, 0f, new Vector2(Width, Height / Main.projFrames[projectile.type]), 1f, 0, 0.99f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);*/
         }
         public override void PostAI()
         {
-            channelingOffset = new Vector2(0f, -40f);
+            RequiresFullCharge = true;
+            projectile.rotation = 0;
+            channelingOffset = new Vector2(-40f, -90f);
+            if (IsCharged || IsFired)
+            {
+                projectile.ai[0]++;
+                if (projectile.ai[0] >= 4)
+                {
+                    if (projectile.frame < 2)
+                    {
+                        projectile.frame++;
+                    }
+                    if (projectile.frame == 2)
+                        projectile.frame = 0;
+
+                    projectile.ai[0] = 0;
+                }
+            }
+            
             if (IsFired)
             {
                 for (int d = 0; d < 1; d++)

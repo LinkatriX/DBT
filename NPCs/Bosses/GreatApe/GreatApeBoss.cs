@@ -13,6 +13,7 @@ using DBT.Items.Weapons;
 using DBT.Projectiles;
 using System.Linq;
 using DBT.Projectiles.GreatApe;
+using WebmilioCommons.Effects.ScreenShaking;
 
 namespace DBT.NPCs.Bosses.GreatApe
 {
@@ -268,7 +269,11 @@ namespace DBT.NPCs.Bosses.GreatApe
                     {
                         IsRoaringAnimation = true;
                         if (_frameTimer == 1)
+                        {
                             SoundHelper.PlayCustomSound("Sounds/GreatApe/ApeRoar", null, 1f, 0.1f);
+                            ScreenShake.ShakeScreen(20, 60);
+                        }
+                            
                         if (_frameTimer > 60)
                         {
                             _frame = 18;

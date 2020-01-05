@@ -46,7 +46,7 @@ namespace DBT.Players
             if (hairLayer < 0) return;
 
             if (hasCustomHair)
-                layers.Add(HairPlayerLayer.hairLayer);
+                layers.Insert(hairLayer, HairPlayerLayer.hairLayer);
 
             PlayerLayer.Head.visible = !hasCustomHair;
             PlayerLayer.Hair.visible = !hasCustomHair;

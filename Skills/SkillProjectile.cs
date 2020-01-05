@@ -41,35 +41,15 @@ namespace DBT.Skills
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
-            if (IsFired && UsesChargeBall)
-                return false;
-            if (dbtPlayer.MouseLeftHeld)
-                HandleCharging();
-
             if (!UsesChargeBall)
             {
-                if (dbtPlayer.MouseLeftHeld)
+                if (dbtPlayer.MouseLeftHeld && !IsFired)
                 {
-                    if (ChargeOverrideTexture != null)
-                        DrawSkillCharge(spriteBatch, Main.projectileTexture[projectile.type], 0f, projectile.scale, Color.White);
-                    else
-                        DrawSkillCharge(spriteBatch, ChargeOverrideTexture, 0f, projectile.scale, Color.White);
+                    ChargeAnimation(spriteBatch);
+                    HandleCharging();
                 }
             }
             return true;
-        }
-
-        //The core function for drawing a skill's charge.
-        public void DrawSkillCharge(SpriteBatch spriteBatch, Texture2D texture, float rotation = 0f, float scale = 1f, Color color = default(Color))
-        {
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
-            //int radius = (int)Math.Ceiling(projectile.width / 2f * projectile.scale);
-            //DBTMod.circle.ApplyShader(radius);
-            spriteBatch.Draw(texture, GetChargeBallPosition() - Main.screenPosition,
-                new Rectangle(0, 0, Width, Height), color, rotation, new Vector2(Width * .5f, Height / Main.projFrames[projectile.type] * .5f), scale, 0, 0.99f);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
         }
 
         public Vector2 GetChargeBallPosition()
@@ -82,30 +62,37 @@ namespace DBT.Skills
         public void HandleCharging()
         {
             DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
-            projectile.timeLeft = 999;
-            projectile.velocity = Vector2.Zero;
-            if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge < Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
+
+            if (projectile.ai[1] == 0)
             {
-                projectile.ai[1]++;
-                if (projectile.ai[1] >= Definition.Characteristics.ChargeCharacteristics.BaseChargeTimer)
+                projectile.timeLeft = 999;
+                projectile.position = GetChargeBallPosition();
+
+                if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge < Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
                 {
-                    Definition.Characteristics.ChargeCharacteristics.CurrentCharge++;
-                    PerChargeLevel();
-                    projectile.ai[1] = 0;
+                    ChargeTimer++;
+                    if (ChargeTimer >= Definition.Characteristics.ChargeCharacteristics.BaseChargeTimer)
+                    {
+                        Definition.Characteristics.ChargeCharacteristics.CurrentCharge++;
+                        PerChargeLevel();
+                        ChargeTimer = 0;
+                    }
                 }
-                OnChargeAttack();
-            }
-            if (!dbtPlayer.MouseLeftHeld)
-            {
-                if (RequiresFullCharge)
+                if (dbtPlayer.MouseLeftHeld && !IsFired && Definition.Characteristics.ChargeCharacteristics.CurrentCharge <= Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
+                    OnChargeAttack();
+
+                if (!dbtPlayer.MouseLeftHeld)
                 {
-                    if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge >= Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
-                        HandleFiring(Main.player[projectile.owner]);
-                }
-                else
-                {
-                    if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge > 0)
-                        HandleFiring(Main.player[projectile.owner]);
+                    if (RequiresFullCharge)
+                    {
+                        if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge >= Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
+                            HandleFiring(Main.player[projectile.owner]);
+                    }
+                    else
+                    {
+                        if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge > 0)
+                            HandleFiring(Main.player[projectile.owner]);
+                    }
                 }
             }
         }
@@ -118,7 +105,6 @@ namespace DBT.Skills
             {
                 OnFireAttack();
                 
-                IsFired = true;
 
                 // kill the charge sound if we're firing
                 //chargeSoundSlotId = SoundHelper.KillTrackedSound(chargeSoundSlotId);
@@ -157,8 +143,14 @@ namespace DBT.Skills
         {
         }
 
+        public virtual void ChargeAnimation(SpriteBatch spriteBatch)
+        {
+        }
+
         public override bool PreAI()
         {
+            Main.NewText("Projectile ai 1 is: " + projectile.ai[1]);
+            Main.NewText("Projectile has fired? " + IsFired);
             // pre AI of the charge ball is responsible for telling us if the weapon has changed or the projectile should otherwise die
 
             bool isPassingPreAi = base.PreAI();
@@ -177,9 +169,11 @@ namespace DBT.Skills
 
         public Projectile MyProjectile { get; set; } = null;
         public bool IsFired { get; set; } = false;
+        public bool IsCharged { get; set; } = false;
         public SkillDefinition Definition { get; }
         public int Width { get; }
         public int Height { get; }
+        public int ChargeTimer { get; set; }
         public bool UsesChargeBall { get; set; } = false;
         public bool RequiresFullCharge { get; set; } = false;
         public Texture2D ChargeOverrideTexture { get; set; } = null;

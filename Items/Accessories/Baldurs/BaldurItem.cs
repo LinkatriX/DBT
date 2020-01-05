@@ -20,7 +20,7 @@ namespace DBT.Items.Accessories.Baldurs
 
         public override bool CanEquipAccessory(Player player, int slot)
         {
-            if (slot > ItemCheckExtensions.SOCIAL_ARMOR_START_INDEX) return true; // The player can always equip the item if its in social.
+            if (slot > ItemExtensions.SOCIAL_ARMOR_START_INDEX) return true; // The player can always equip the item if its in social.
             List<int> baldurIndexes = new List<int>();
 
             for (int i = 0; i < player.armor.Length; i++)

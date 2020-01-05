@@ -18,7 +18,7 @@ namespace DBT.Skills.DestructoDisk
 
     public sealed class DestructoDiskChargeCharacteristics : SkillChargeCharacteristics
     {
-        public DestructoDiskChargeCharacteristics() : base(180, 1, 40, 40 / Constants.TICKS_PER_SECOND)
+        public DestructoDiskChargeCharacteristics() : base(130, 1, 40, 40 / Constants.TICKS_PER_SECOND)
         {
         }
     }
