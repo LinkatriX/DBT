@@ -23,6 +23,7 @@ namespace DBT.UserInterfaces.HairMenu
             STYLE_EIGHT_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style8/",
             STYLE_NINE_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style9/",
             STYLE_TEN_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style10/",
+            STYLE_ELEVEN_DIRECTORY = STYLE_PREVIEWS_DIRECTORY + "Style11/",
             STYLE_ONE = STYLE_ONE_DIRECTORY + "Style1",
             STYLE_ONE_L = STYLE_ONE_DIRECTORY + "Style1L",
             STYLE_ONE_M = STYLE_ONE_DIRECTORY + "Style1M",
@@ -53,6 +54,9 @@ namespace DBT.UserInterfaces.HairMenu
             STYLE_TEN = STYLE_TEN_DIRECTORY + "Style10",
             STYLE_TEN_L = STYLE_TEN_DIRECTORY + "Style10L",
             STYLE_TEN_M = STYLE_TEN_DIRECTORY + "Style10M",
+            STYLE_ELEVEN = STYLE_ELEVEN_DIRECTORY + "Style11",
+            STYLE_ELEVEN_L = STYLE_ELEVEN_DIRECTORY + "Style11L",
+            STYLE_ELEVEN_M = STYLE_ELEVEN_DIRECTORY + "Style11M",
             ARROW_LEFT = BUTTON_DIRECTORY + "ArrowLeft",
             ARROW_RIGHT = BUTTON_DIRECTORY + "ArrowRight",
             BASE_SELECT = BUTTON_DIRECTORY + "BaseSelect",
@@ -94,6 +98,9 @@ namespace DBT.UserInterfaces.HairMenu
             style10,
             style10L,
             style10M,
+            style11,
+            style11L,
+            style11M,
             arrowLeft,
             arrowRight,
             baseSelect,
@@ -136,6 +143,9 @@ namespace DBT.UserInterfaces.HairMenu
             style10 = mod.GetTexture(STYLE_TEN);
             style10L = mod.GetTexture(STYLE_TEN_L);
             style10M = mod.GetTexture(STYLE_TEN_M);
+            style11 = mod.GetTexture(STYLE_ELEVEN);
+            style11L = mod.GetTexture(STYLE_ELEVEN_L);
+            style11M = mod.GetTexture(STYLE_ELEVEN_M);
             arrowLeft = mod.GetTexture(ARROW_LEFT);
             arrowRight = mod.GetTexture(ARROW_RIGHT);
             baseSelect = mod.GetTexture(BASE_SELECT);
@@ -178,6 +188,9 @@ namespace DBT.UserInterfaces.HairMenu
             style10 = null;
             style10L = null;
             style10M = null;
+            style11 = null;
+            style11L = null;
+            style11M = null;
             arrowLeft = null;
             arrowRight = null;
             baseSelect = null;

@@ -9,6 +9,7 @@ using DBT.HairStyles.Goku;
 using DBT.HairStyles.Kale;
 using DBT.HairStyles.Nappa;
 using DBT.HairStyles.NoChoice;
+using DBT.HairStyles.TeenGohan;
 using DBT.HairStyles.Vegeta;
 //using DBT.HairStyles.Webmilio;
 using WebmilioCommons.Managers;
@@ -32,6 +33,7 @@ namespace DBT.HairStyles
             Caulifla = Add(new CauliflaHairStyle()) as CauliflaHairStyle;
             Bra = Add(new BraHairStyle()) as BraHairStyle;
             Dev1 = Add(new Dev1HairStyle()) as Dev1HairStyle;
+            TeenGohan = Add(new TeenGohanHairStyle()) as TeenGohanHairStyle;
             //Webmilio = Add(new WebmilioHairStyle()) as WebmilioHairStyle;
 
             base.DefaultInitialize();
@@ -50,6 +52,7 @@ namespace DBT.HairStyles
         public CauliflaHairStyle Caulifla { get; private set; }
         public BraHairStyle Bra { get; private set; }
         public Dev1HairStyle Dev1 { get; private set; }
+        public TeenGohanHairStyle TeenGohan { get; private set; }
         //public WebmilioHairStyle Webmilio { get; private set; }
     }
 }

@@ -209,14 +209,14 @@ namespace DBT
 
             Player player = Main.LocalPlayer;
 
-            if (player.active && player.GetModPlayer<DBTPlayer>(this).zoneWasteland && !Main.gameMenu && playMusic)
+            /*if (player.active && player.GetModPlayer<DBTPlayer>(this).zoneWasteland && !Main.gameMenu && playMusic)
             {
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/TheBarrenWastelands");
             }
             if (player.active && player.GetModPlayer<DBTPlayer>(this).zoneUGWasteland && !Main.gameMenu && playMusic)
             {
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/TheInfestedNest");
-            }
+            }*/
         }
         public override void PostSetupContent()
         {

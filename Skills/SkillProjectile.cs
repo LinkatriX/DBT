@@ -38,7 +38,7 @@ namespace DBT.Skills
             base.SetDefaults();
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        /*public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
             if (IsFired && UsesChargeBall)
@@ -57,7 +57,7 @@ namespace DBT.Skills
                 }
             }
             return true;
-        }
+        }*/
 
         //The core function for drawing a skill's charge.
         public void DrawSkillCharge(SpriteBatch spriteBatch, Texture2D texture, float rotation = 0f, float scale = 1f, Color color = default(Color))

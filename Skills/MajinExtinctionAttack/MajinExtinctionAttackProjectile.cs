@@ -23,7 +23,7 @@ namespace DBT.Skills.MajinExtinctionAttack
             projectile.width = 24;
             projectile.height = 24;
             projectile.friendly = true;
-            projectile.tileCollide = true;
+            projectile.tileCollide = false;
             projectile.aiStyle = 0;
             projectile.light = 1f;
             projectile.timeLeft = 175;
@@ -104,7 +104,7 @@ namespace DBT.Skills.MajinExtinctionAttack
             //Random randVelocityX = new Random();
             projectile.velocity.Y = -22;//-15
 
-            if (projectile.velocity.X != 0)
+            if (projectile.velocity.X != 0 && !hasCollided)
             {
                 if (projectile.timeLeft >= 140f)//120
                 {
@@ -126,6 +126,7 @@ namespace DBT.Skills.MajinExtinctionAttack
                     else 
                     {
                         projectile.velocity = projectile.oldVelocity;
+                        projectile.timeLeft -= 4;
                     }
                 }
             }
@@ -138,9 +139,9 @@ namespace DBT.Skills.MajinExtinctionAttack
                 else
                 {
                     projectile.velocity = projectile.oldVelocity;
+                    projectile.timeLeft -= 4;
                 }
             }
-
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
@@ -159,14 +160,6 @@ namespace DBT.Skills.MajinExtinctionAttack
                 color.A = 50;
                 spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
             }
-            int dust;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            Vector2 position = Main.LocalPlayer.Center;
-            dust = Terraria.Dust.NewDust(projectile.position, 15, 26, 164, projectile.velocity.X, projectile.velocity.Y, 0, new Color(255, 255, 255), 1f);
-            Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(42, Main.LocalPlayer);
-            Main.dust[dust].velocity *= 0.3f;
-            Main.dust[dust].noGravity = true;
-
             return true;
         }
         

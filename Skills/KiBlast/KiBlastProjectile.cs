@@ -38,8 +38,6 @@ namespace DBT.Skills.KiBlast
 
         public override void AI() 
         {
-            Player player = Main.player[projectile.owner];
-
             projectile.frameCounter++;
             if (projectile.frameCounter > 4)
             {
@@ -51,6 +49,16 @@ namespace DBT.Skills.KiBlast
                 projectile.frame = 0;
             }
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust = Main.dust[Terraria.Dust.NewDust(projectile.position, 26, 26, 86, projectile.velocity.X, projectile.velocity.Y)];
+                dust.color = new Color(158, 239, 255);
+                dust.noGravity = true;
+            }
         }
     }
 }
