@@ -13,15 +13,10 @@ namespace DBT.Skills.MajinExtinctionAttack
         {
         }
 
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[projectile.type] = 4;
-        }
-
         public override void SetDefaults()
         {
             projectile.width = 24;
-            projectile.height = 24;
+            projectile.height = 30;
             projectile.friendly = true;
             projectile.tileCollide = false;
             projectile.aiStyle = 0;
@@ -90,17 +85,7 @@ namespace DBT.Skills.MajinExtinctionAttack
         public override void AI() 
         {
             Player player = Main.player[projectile.owner];
-            projectile.frameCounter++;
-            if (projectile.frameCounter > 4)
-            {
-                projectile.frame++;
-                projectile.frameCounter = 0;
-            }
-            if (projectile.frame >= 4)
-            {
-                projectile.frame = 0;
-            }
-            
+
             //Random randVelocityX = new Random();
             projectile.velocity.Y = -22;//-15
 
