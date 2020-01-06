@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DBT.Items;
 using DBT.Players;
 using Microsoft.Xna.Framework;
@@ -56,6 +57,15 @@ namespace DBT.Skills
                 this.ChargeKiDrain.overrideColor = new Color(17, 138, 132);
             }
 
+            TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+            if (tt != null)
+            {
+                string[] splitText = tt.text.Split(' ');
+                string damageValue = splitText.First();
+                string damageWord = splitText.Last();
+                tt.text = damageValue + " ki " + damageWord;
+            }
+
             base.ModifyTooltips(tooltips);
         }
 
@@ -87,13 +97,13 @@ namespace DBT.Skills
         public override bool CanUseItem(Player player)
         {
             DBTPlayer dbtPlayer = player.GetModPlayer<DBTPlayer>();
-            // TODO Add check for skill unlocked.
+            bool hasSkill = true; //dbtPlayer.HasAcquiredSkill(Definition);
 
             bool hasKi = dbtPlayer.Ki >= Definition.Characteristics.ChargeCharacteristics.GetCastKiDrain(dbtPlayer);
-            if (hasKi)
+            if (hasKi && hasSkill)
                 dbtPlayer.ModifyKi(-Definition.Characteristics.ChargeCharacteristics.GetCastKiDrain(dbtPlayer), Definition.Characteristics.ChargeCharacteristics.GetBaseKiRegenerationHaltedForDuration(dbtPlayer));
 
-            return base.CanUseItem(player) && hasKi;
+            return base.CanUseItem(player) && hasKi && hasSkill;
         }
 
         public TooltipLine CastKiDrain { get; private set; }

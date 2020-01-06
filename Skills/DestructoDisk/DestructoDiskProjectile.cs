@@ -63,7 +63,7 @@ namespace DBT.Skills.DestructoDisk
         }
         public override void OnFireAttack()
         {
-            projectile.velocity = Vector2.Normalize(Main.MouseWorld - projectile.position) * 13;
+            projectile.velocity = Vector2.Normalize(Main.MouseWorld - projectile.position) * Definition.Characteristics.BaseShootSpeed;
             projectile.timeLeft = 120;
             projectile.ai[1] = 1;
             IsFired = true;
