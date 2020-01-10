@@ -1,12 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.ID;
 
 namespace DBT.Skills.SpiritBall
 {
@@ -122,7 +115,7 @@ namespace DBT.Skills.SpiritBall
             {
                 if (Main.myPlayer == projectile.owner)
                 {
-                    if (Vector2.Distance(projectile.position, Main.MouseWorld) > 0.1)
+                    if (projectile.position != Main.MouseWorld)
                     {
                         projectile.velocity = Vector2.Normalize(Main.MouseWorld - projectile.position) * 13;
                     }

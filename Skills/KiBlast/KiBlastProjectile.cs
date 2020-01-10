@@ -55,8 +55,8 @@ namespace DBT.Skills.KiBlast
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Main.dust[Terraria.Dust.NewDust(projectile.position, 26, 26, 86, projectile.velocity.X, projectile.velocity.Y)];
-                dust.color = new Color(158, 239, 255);
+                Dust dust = Main.dust[Dust.NewDust(projectile.position, 26, 26, 86, projectile.velocity.X, projectile.velocity.Y)];
+                //dust.color = new Color(158, 239, 255);
                 dust.noGravity = true;
             }
         }

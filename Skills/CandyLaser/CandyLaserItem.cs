@@ -1,9 +1,10 @@
-﻿using DBT.Skills.KiBlast;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 
 namespace DBT.Skills.CandyLaser
 {
-    public sealed class CandyLaserItem : SkillItem<KiBlastProjectile>
+    public sealed class CandyLaserItem : SkillItem<CandyLaserProjectile>
     {
         public CandyLaserItem() : base(SkillDefinitionManager.Instance.CandyLaser, 20, 20, ItemRarityID.Lime, false)
         {
@@ -18,40 +19,23 @@ namespace DBT.Skills.CandyLaser
             item.useStyle = ItemUseStyleID.Stabbing;
         }
 
-        /*public override void UseStyle(Player player)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            player.itemLocation.X = player.position.X + (float)player.width * 0.5f;// - (float)Main.itemTexture[item.type].Width * 0.5f;// - (float)(player.direction * 2);
-            player.itemLocation.Y = player.MountedCenter.Y + player.gravDir * (float)Main.itemTexture[item.type].Height * 0.5f;
-            float relativeX = (float)Main.mouseX + Main.screenPosition.X - player.Center.X;
-            float relativeY = (float)Main.mouseY + Main.screenPosition.Y - player.Center.Y;
-            if (player.gravDir == -1f)
-                relativeY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY - player.Center.Y;
-            if (relativeX - relativeY > 0)
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 20f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
-                if (relativeX + relativeY > 0)
-                {
-                    player.itemRotation = 0;
-                }
-                else
-                {
-                    player.itemRotation = player.direction * -MathHelper.Pi / 2;
-                    player.itemLocation.X += player.direction * 2;
-                    player.itemLocation.Y -= 10;
-                }
+                position += muzzleOffset;
             }
-            else
+            return true;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.ownedProjectileCounts[mod.ProjectileType(nameof(CandyLaserProjectile))] > 1)
             {
-                if (relativeX + relativeY > 0)
-                {
-                    player.itemRotation = player.direction * MathHelper.Pi / 2;
-                    player.itemLocation.X += player.direction * 2;
-                    Main.rand.Next(0, 100);
-                }
-                else
-                {
-                    player.itemRotation = 0;
-                }
+                return false;
             }
-        }*/
+            return base.CanUseItem(player);
+        }
     }
 }
