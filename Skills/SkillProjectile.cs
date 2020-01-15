@@ -38,7 +38,7 @@ namespace DBT.Skills
             base.SetDefaults();
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        /*public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
             if (!UsesChargeBall)
@@ -50,7 +50,7 @@ namespace DBT.Skills
                 }
             }
             return true;
-        }
+        }*/
 
         public Vector2 GetChargeBallPosition()
         {

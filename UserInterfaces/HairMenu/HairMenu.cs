@@ -16,9 +16,9 @@ namespace DBT.UserInterfaces.HairMenu
         public static bool menuVisible;
         public int hairSelected = 0;
         public string hairText = "Goku";
-        public string totalText = "1/10";
+        public string totalText = "1/11";
         public Texture2D hairTexture = HairGFX.style1;
-        public Texture2D prevHairTexture = HairGFX.style10M;
+        public Texture2D prevHairTexture = HairGFX.style11M;
         public Texture2D nextHairTexture = HairGFX.style2M;
         public bool legendaryTab = false;
         public Texture2D panelTexture = HairGFX.hairBackPanel;
@@ -33,7 +33,8 @@ namespace DBT.UserInterfaces.HairMenu
             Nappa = 7,
             FutureGohan = 8,
             Bra = 9,
-            Dev1 = 10
+            Dev1 = 10,
+            TeenGohan = 11
         }
         public static HairSelection hairSelection = HairSelection.Goku;
 
@@ -74,7 +75,7 @@ namespace DBT.UserInterfaces.HairMenu
 
             int currentSelection = (int)hairSelection;
 
-            totalText = currentSelection + "/" + 10;
+            totalText = currentSelection + "/" + 11;
             CanDrag = false;
 
             #region HairAddition
@@ -86,7 +87,7 @@ namespace DBT.UserInterfaces.HairMenu
                 else
                     hairTexture = HairGFX.style1;
                 hairText = "Goku";
-                prevHairTexture = HairGFX.style10M;
+                prevHairTexture = HairGFX.style11M;
                 nextHairTexture = HairGFX.style2M;
             }
             if (hairSelection == HairSelection.Vegeta)
@@ -177,6 +178,16 @@ namespace DBT.UserInterfaces.HairMenu
                     hairTexture = HairGFX.style10;
                 hairText = "Dev 1";
                 prevHairTexture = HairGFX.style9M;
+                nextHairTexture = HairGFX.style11M;
+            }
+            if (hairSelection == HairSelection.TeenGohan)
+            {
+                if (legendaryTab)
+                    hairTexture = HairGFX.style11L;
+                else
+                    hairTexture = HairGFX.style11;
+                hairText = "T.Gohan";
+                prevHairTexture = HairGFX.style10M;
                 nextHairTexture = HairGFX.style1M;
             }
             #endregion
@@ -258,6 +269,9 @@ namespace DBT.UserInterfaces.HairMenu
                 case HairSelection.Dev1:
                     player.ChosenHairStyle = HairStyleManager.Instance.Dev1;
                     break;
+                case HairSelection.TeenGohan:
+                    player.ChosenHairStyle = HairStyleManager.Instance.TeenGohan;
+                    break;
             }
         }
 
@@ -273,14 +287,14 @@ namespace DBT.UserInterfaces.HairMenu
         {
             SoundHelper.PlayVanillaSound(SoundID.MenuTick, Main.LocalPlayer.position);
             if (hairSelection == HairSelection.Goku)
-                hairSelection = HairSelection.Dev1;
+                hairSelection = HairSelection.TeenGohan;
             else
                 hairSelection -= 1;
         }
         private void NextHairStyle(UIMouseEvent evt, UIElement listeningElement)
         {
             SoundHelper.PlayVanillaSound(SoundID.MenuTick, Main.LocalPlayer.position);
-            if (hairSelection == HairSelection.Dev1)
+            if (hairSelection == HairSelection.TeenGohan)
                 hairSelection = HairSelection.Goku;
             else
                 hairSelection += 1;

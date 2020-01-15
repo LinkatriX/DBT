@@ -1,4 +1,7 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace DBT.Skills.KiBeam
 {
@@ -17,14 +20,11 @@ namespace DBT.Skills.KiBeam
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 55f;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 155f;//55
+            position += muzzleOffset;
             return true;
-        }*/
+        }
     }
 }

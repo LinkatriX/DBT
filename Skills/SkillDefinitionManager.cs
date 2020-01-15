@@ -7,7 +7,6 @@ using DBT.Skills.EnergyBlastBarrage;
 using DBT.Skills.Masenko;
 using DBT.Skills.SpiritBall;
 using DBT.Skills.BloodThief;
-using DBT.Skills.DirtyFireworks;
 using DBT.Skills.GalickGun;
 using DBT.Skills.HellzoneGrenade;
 using DBT.Skills.Kamehameha;
@@ -58,7 +57,6 @@ namespace DBT.Skills
             #region Tier 3 Skills
             BloodThief = Add(new BloodThiefDefinition(KiBlast)) as BloodThiefDefinition;
             DemonBarrage = Add(new DemonBarrageDefinition(BloodThief)) as DemonBarrageDefinition;
-            DirtyFireworks = Add(new DirtyFireworksDefinition(KiBlast)) as DirtyFireworksDefinition;
             GalickGun = Add(new GalickGunDefinition(EnergyWave)) as GalickGunDefinition;
             HellzoneGrenade = Add(new HellzoneGrenadeDefinition(EnergyBlastBarrage)) as HellzoneGrenadeDefinition;
             Kamehameha = Add(new KamehamehaDefinition(EnergyWave)) as KamehamehaDefinition;
@@ -109,7 +107,6 @@ namespace DBT.Skills
         public SpiritBallDefinition SpiritBall { get; private set; }
         public BloodThiefDefinition BloodThief { get; private set; }
         public DemonBarrageDefinition DemonBarrage { get; private set; }
-        public DirtyFireworksDefinition DirtyFireworks { get; private set; }
         public GalickGunDefinition GalickGun { get; private set; }
         public HellzoneGrenadeDefinition HellzoneGrenade { get; private set; }
         public KamehamehaDefinition Kamehameha { get; private set; }

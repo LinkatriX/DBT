@@ -1,9 +1,11 @@
 ﻿using DBT.Skills.KiBlast;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 
 namespace DBT.Skills.BloodThief
 {
-    public sealed class BloodThiefItem : SkillItem<KiBlastProjectile>
+    public sealed class BloodThiefItem : SkillItem<BloodThiefProjectile>
     {
         public BloodThiefItem() : base(SkillDefinitionManager.Instance.BloodThief, 20, 20, ItemRarityID.Green, false)
         {
@@ -18,40 +20,16 @@ namespace DBT.Skills.BloodThief
             item.useStyle = ItemUseStyleID.Stabbing;
         }
 
-        /*public override void UseStyle(Player player)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            player.itemLocation.X = player.position.X + (float)player.width * 0.5f;// - (float)Main.itemTexture[item.type].Width * 0.5f;// - (float)(player.direction * 2);
-            player.itemLocation.Y = player.MountedCenter.Y + player.gravDir * (float)Main.itemTexture[item.type].Height * 0.5f;
-            float relativeX = (float)Main.mouseX + Main.screenPosition.X - player.Center.X;
-            float relativeY = (float)Main.mouseY + Main.screenPosition.Y - player.Center.Y;
-            if (player.gravDir == -1f)
-                relativeY = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY - player.Center.Y;
-            if (relativeX - relativeY > 0)
+            type = mod.ProjectileType("BloodThiefProjectile");
+            int numberProjectiles = 2 + Main.rand.Next(2);
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                if (relativeX + relativeY > 0)
-                {
-                    player.itemRotation = 0;
-                }
-                else
-                {
-                    player.itemRotation = player.direction * -MathHelper.Pi / 2;
-                    player.itemLocation.X += player.direction * 2;
-                    player.itemLocation.Y -= 10;
-                }
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
+                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
-            else
-            {
-                if (relativeX + relativeY > 0)
-                {
-                    player.itemRotation = player.direction * MathHelper.Pi / 2;
-                    player.itemLocation.X += player.direction * 2;
-                    Main.rand.Next(0, 100);
-                }
-                else
-                {
-                    player.itemRotation = 0;
-                }
-            }
-        }*/
+            return false;
+        }
     }
 }

@@ -11,8 +11,7 @@ namespace DBT.Transformations.Patreon.DemonSSJ
                 "DemonSSJ", "Demon Super Saiyan", typeof(DemonSSJTransformationBuff),
                 5.2f, 3.1f, 45,
                 new TransformationDrain(260f / Constants.TICKS_PER_SECOND, 100f / Constants.TICKS_PER_SECOND),
-                new DemonSSJAppearance(),
-                new TransformationOverload(0, 0), parents: parents)
+                new DemonSSJAppearance(), parents: parents)
         {
         }
 

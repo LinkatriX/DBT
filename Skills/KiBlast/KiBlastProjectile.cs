@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 
@@ -7,13 +8,21 @@ namespace DBT.Skills.KiBlast
 {
     public sealed class KiBlastProjectile : SkillProjectile
     {
-        public KiBlastProjectile() : base(SkillDefinitionManager.Instance.KiBlast, 12, 12)
+        public KiBlastProjectile() : base(SkillDefinitionManager.Instance.KiBlast, 12, 140)
         {
+        }
+
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
+
+            projectile.width = 16;
+            projectile.height = 16;
 
             projectile.aiStyle = 1;
             projectile.light = 0.7f;
@@ -25,23 +34,31 @@ namespace DBT.Skills.KiBlast
 
             aiType = 14;
             projectile.timeLeft = 80;
-
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override void AI() 
         {
-            Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-
-            for (int k = 0; k < projectile.oldPos.Length; k++)
+            projectile.frameCounter++;
+            if (projectile.frameCounter > 4)
             {
-                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-                Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+                projectile.frame++;
+                projectile.frameCounter = 0;
             }
+            if (projectile.frame >= 4)
+            {
+                projectile.frame = 0;
+            }
+            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
+        }
 
-            return true;
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust = Main.dust[Dust.NewDust(projectile.position, 26, 26, 86, projectile.velocity.X, projectile.velocity.Y)];
+                //dust.color = new Color(158, 239, 255);
+                dust.noGravity = true;
+            }
         }
     }
 }

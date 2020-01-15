@@ -11,7 +11,7 @@ namespace DBT.Skills.BloodThief
 
     public sealed class BloodThiefCharacteristics : SkillCharacteristics
     {
-        public BloodThiefCharacteristics() : base(new BloodThiefChargeCharacteristics(), 51, 1f, 16f, 4f, 1f, 0.05f, 1f, 2f, 1f)
+        public BloodThiefCharacteristics() : base(new BloodThiefChargeCharacteristics(), 31, 1f, 16f, 4f, 1f, 0.05f, 1f, 2f, 1f)
         {
         }
     }

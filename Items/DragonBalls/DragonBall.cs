@@ -1,13 +1,7 @@
 ﻿using DBT.Helpers;
-using DBT.NPCs.Misc;
 using DBT.Players;
-using DBT.UserInterfaces.WishMenu;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using WebmilioCommons.Extensions;
 
 namespace DBT.Items.DragonBalls
 {
