@@ -37,6 +37,8 @@ namespace DBT.Skills.DestructoDisk
         }
         public override void OnChargeAttack()
         {
+            projectile.timeLeft = 999;
+            projectile.position = GetChargeBallPosition();
             Main.projFrames[projectile.type] = 12;
             Main.projectileTexture[projectile.type] = mod.GetTexture("Skills/DestructoDisk/DestructoDiskCharge");
             projectile.ai[0]++;
@@ -64,9 +66,11 @@ namespace DBT.Skills.DestructoDisk
         public override void OnFireAttack()
         {
             projectile.velocity = Vector2.Normalize(Main.MouseWorld - projectile.position) * Definition.Characteristics.BaseShootSpeed;
-            projectile.timeLeft = 120;
+            projectile.timeLeft = 140;
             projectile.ai[1] = 1;
             IsFired = true;
+            Main.NewText("Projectile ai 1 is: " + projectile.ai[1]);
+            Main.NewText("Projectile has fired? " + IsFired);
         }
 
         public override void ChargeAnimation(SpriteBatch spriteBatch)

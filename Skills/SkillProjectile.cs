@@ -38,19 +38,19 @@ namespace DBT.Skills
             base.SetDefaults();
         }
 
-        /*public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             DBTPlayer dbtPlayer = Main.player[projectile.owner].GetModPlayer<DBTPlayer>();
             if (!UsesChargeBall)
             {
-                if (dbtPlayer.MouseLeftHeld && !IsFired)
+                if (dbtPlayer.MouseLeftHeld && projectile.velocity.X <= 1)
                 {
                     ChargeAnimation(spriteBatch);
                     HandleCharging();
                 }
             }
             return true;
-        }*/
+        }
 
         public Vector2 GetChargeBallPosition()
         {
@@ -65,8 +65,6 @@ namespace DBT.Skills
 
             if (projectile.ai[1] == 0)
             {
-                projectile.timeLeft = 999;
-                projectile.position = GetChargeBallPosition();
 
                 if (Definition.Characteristics.ChargeCharacteristics.CurrentCharge < Definition.Characteristics.ChargeCharacteristics.BaseMaxChargeLevel)
                 {
@@ -145,20 +143,6 @@ namespace DBT.Skills
 
         public virtual void ChargeAnimation(SpriteBatch spriteBatch)
         {
-        }
-
-        public override bool PreAI()
-        {
-            Main.NewText("Projectile ai 1 is: " + projectile.ai[1]);
-            Main.NewText("Projectile has fired? " + IsFired);
-            // pre AI of the charge ball is responsible for telling us if the weapon has changed or the projectile should otherwise die
-
-            bool isPassingPreAi = base.PreAI();
-            if (!isPassingPreAi && MyProjectile != null)
-            {
-                MyProjectile.StartKillRoutine();
-            }
-            return isPassingPreAi;
         }
 
         public void KillCharge()

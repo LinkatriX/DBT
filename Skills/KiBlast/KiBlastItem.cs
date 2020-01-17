@@ -28,7 +28,7 @@ namespace DBT.Skills.KiBlast
                 position += muzzleOffset;
             }
 
-            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
+            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
             speedX = perturbedSpeed.X;
             speedY = perturbedSpeed.Y;
 
