@@ -96,6 +96,43 @@ namespace DBT.Extensions
             }
         }
 
+        //Altered homing method for majin extinction attack. WIP
+        public static void DoMajinHoming(this Projectile projectile, float homingRadius, float topSpeed)
+        {
+            NPC closestTarget = null;
+            float closestTargetDistance = Single.MaxValue;
+            foreach (NPC target in Main.npc)
+            {
+
+                //Get the shoot trajectory from the projectile and target
+                // pass over if they're not in radius, friendly or inactive.
+                float distance = Vector2.Distance(projectile.Center, target.Center);
+                if (distance > homingRadius || target.friendly || !target.active)
+                    continue;
+
+                if (distance < closestTargetDistance)
+                {
+                    closestTargetDistance = distance;
+                    closestTarget = target;
+                }
+            }
+
+            // we've captured a target, the closest target possible.
+            if (closestTarget != null)
+            {
+                // kind of redundant, get the offset velocity
+                Vector2 offsetVector = closestTarget.Center - projectile.Center;
+                Vector2 normalizedVelocity = (offsetVector * (topSpeed / 20) + projectile.velocity);
+                normalizedVelocity.Normalize();
+                Vector2 trueVelocity = normalizedVelocity * topSpeed;
+                projectile.velocity = trueVelocity;
+            }
+            else
+            {
+                projectile.velocity = projectile.oldVelocity;
+            }
+        }
+
         public static void StartKillRoutine(this Projectile projectile)
         {
             if (projectile == null)
