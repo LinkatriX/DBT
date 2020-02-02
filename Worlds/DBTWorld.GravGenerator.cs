@@ -38,22 +38,29 @@ namespace DBT.Worlds
             }
         }
 
+        public void PlaceGravGenerator(GenerationProgress progress = null)
+        {
+            if (!generateGravStructure)
+                return;
+            PlaceBrokeGravGenerator(progress);
+        }
+
         bool MakeGravGenerator(GenerationProgress progress)
         {
-            string gravGeneratorGen = "Placing some high tech doodads.";
+            string gravGeneratorGen = "Placing a destroyed facility.";
             if (progress != null)
             {
                 progress.Message = gravGeneratorGen;
                 progress.Set(0.25f);
             }
 
-            gravGeneratorStartPositionX = WorldGen.genRand.Next(Main.maxTilesX - 500, Main.maxTilesX - 200);
+            gravGeneratorStartPositionX = WorldGen.genRand.Next(Main.maxTilesX - 400, Main.maxTilesX - 200);
             for (var attempts = 0; attempts < 10000; attempts++)
             {
                 for (var i = 0; i < 25; i++)
                 {
-                    gravGeneratorStartPositionY = 190;
-                    do
+                    gravGeneratorStartPositionY = (int)Main.worldSurface - 200;
+                    if (!Framing.GetTileSafely(gravGeneratorStartPositionX, gravGeneratorStartPositionY).active() || Main.tile[gravGeneratorStartPositionX, gravGeneratorStartPositionY].type == TileID.Cloud)
                     {
                         gravGeneratorStartPositionY++;
                     }
@@ -66,7 +73,7 @@ namespace DBT.Worlds
                     {
                         if (Main.tile[gravGeneratorStartPositionX, gravGeneratorStartPositionY].liquid > 0)
                         {
-                            gravGeneratorStartPositionX = WorldGen.genRand.Next(Main.maxTilesX - 200, Main.maxTilesX - 500);
+                            gravGeneratorStartPositionX = WorldGen.genRand.Next(Main.maxTilesX - 500, Main.maxTilesX - 200);
                         }
                         else
                         {
@@ -82,14 +89,23 @@ namespace DBT.Worlds
             return true;
         }
 
+        bool PlaceBrokeGravGenerator(GenerationProgress progress)
+        {
+            string gravGeneratorGen = "Placing a destroyed machine.";
+            if (progress != null)
+            {
+                progress.Message = gravGeneratorGen;
+                progress.Set(0.50f);
+            }
+            WorldGen.PlaceObject(gravGeneratorStartPositionX + 18, gravGeneratorStartPositionY + 12, ModContent.TileType<GravityGenerator>());
+            return true;
+        }
+
         public void GenerateGravGenerator()
         {
-
-            Point origin = new Point((int)gravGeneratorStartPositionX, gravGeneratorStartPositionY - 14);
+            Point origin = new Point((int)gravGeneratorStartPositionX, gravGeneratorStartPositionY - 4);
             GravGenerator grav = new GravGenerator();
             grav.Place(origin, WorldGen.structures);
-            WorldGen.PlaceObject(gravGeneratorStartPositionX + 16, gravGeneratorStartPositionY + 12, ModContent.TileType<GravityGenerator>());
-
         }
     }
 
@@ -102,7 +118,7 @@ namespace DBT.Worlds
             Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
             {
                 [new Color(54, 50, 255)] = TileID.Titanstone,
-                [Color.Black] = -1
+                [new Color(26, 42, 45)] = -2
             };
 
             Dictionary<Color, int> colorToWall = new Dictionary<Color, int>
@@ -111,12 +127,13 @@ namespace DBT.Worlds
                 [new Color(255, 97, 0)] = WallID.DiamondGemsparkOff,
                 [new Color(242, 0, 255)] = WallID.SapphireGemsparkOff,
                 [new Color(148, 255, 48)] = WallID.Cloud,
-                [Color.Black] = -1
+                [Color.Black] = -2
             };
 
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Generation/GravChamberTiles"), colorToTile, mod.GetTexture("Generation/GravChamberWalls"), colorToWall, null, mod.GetTexture("Generation/GravChamberSlopes"));
 
             gen.Generate(origin.X, origin.Y, true, true);
+            
 
             return true;
         }

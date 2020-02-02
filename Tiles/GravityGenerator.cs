@@ -1,4 +1,5 @@
-﻿using DBT.Items.Materials.Metals;
+﻿using DBT.Helpers;
+using DBT.Items.Materials.Metals;
 using DBT.Worlds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +15,9 @@ namespace DBT.Tiles
 {
     public class GravityGenerator : ModTile
     {
-        private bool _activated = false;
+        internal bool _activated = false;
+        internal bool creatingDust = false;
+        internal float windupTimer = 0;
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = false;
@@ -48,6 +51,31 @@ namespace DBT.Tiles
                 frame = 0;
         }
 
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            if (_activated)
+            {
+                if (windupTimer >= 100)
+                    windupTimer = 100;
+                
+                windupTimer += 0.003f;
+
+                Dust dust;
+                if (Main.rand.NextFloat() < windupTimer / 150f)
+                {
+                    
+                    dust = Dust.NewDustDirect(BaseUtility.TileToPos(new Vector2(i, j)) - new Vector2(1000, 200), 2500, 1000, 264, 0f, -30f, 0, new Color(255, 255, 255), 1f);
+                    dust.noGravity = true;
+                    dust.noLight = true;
+                    dust.fadeIn = 0.75f;
+                    dust.velocity.X = 0f;
+                }
+                
+                Lighting.AddLight(BaseUtility.TileToPos(new Vector2(i, j)), new Vector3(windupTimer * 10f, 0, 0));
+            }
+            return base.PreDraw(i, j, spriteBatch);
+        }
+        
         public override void RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -59,10 +87,7 @@ namespace DBT.Tiles
                     if (Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.WorldData);
                     Main.NewText("Gravity Generator Repaired!");
-                    for (int h = 0; h < 6; h++)
-                    {
-                        CircularDust(i, j, 20, 31, 10, 1);
-                    }
+                    SoundHelper.PlayCustomSound("Sounds/GChamberRepair", player, 0.7f);
                     
                 }
                 else
@@ -74,15 +99,21 @@ namespace DBT.Tiles
             {
                 if (!_activated)
                 {
+                    SoundHelper.PlayCustomSound("Sounds/GChamberStart", player, 0.6f);
                     _activated = true;
+                    creatingDust = true;
                     for (int h = 0; h < 6; h++)
                     {
-                        CircularDust(i, j, 2, 20, 100, 1);
+                        CircularDust(i, j, 20, 20, 100, 1);
                     }
                 }
                     
                 else if (_activated)
+                {
                     _activated = false;
+                    windupTimer = 0;
+                }
+                    
             }
         }
 
@@ -91,13 +122,14 @@ namespace DBT.Tiles
             Tile tile = Main.tile[i, j];
             for (int l = 0; l < quantity; l++)
             {
-                Vector2 pos = new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)) + new Vector2(i * 16, i * 16);
+                Vector2 pos = new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)) + BaseUtility.TileToPos(new Vector2(i, j));
                 float angle = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(pos, dustID,
                     new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * radius, 255, default(Color),
                     scale);
                 dust.noGravity = true;
             }
+            creatingDust = false;
         }
     }
 }

@@ -65,6 +65,7 @@ namespace DBT.Worlds
             {
                 tasks.Insert(index, new PassLegacy("[DBT] Gohan House", AddGohanHouse));
                 tasks.Insert(index, new PassLegacy("[DBT] Gravity Generator", AddGravGenerator));
+                tasks.Insert(index, new PassLegacy("[DBT] Gravity Generator Place", PlaceGravGenerator));
             }
 
             // insert a cleanup task
