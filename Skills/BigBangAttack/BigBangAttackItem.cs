@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace DBT.Skills.BigBangAttack
 {
-    public sealed class BigBangAttackItem : SkillItem<KiBlastProjectile>
+    public sealed class BigBangAttackItem : SkillItem<BigBangAttackProjectile>
     {
         public BigBangAttackItem() : base(SkillDefinitionManager.Instance.BigBangAttack, 20, 20, ItemRarityID.LightRed, false)
         {
@@ -16,6 +16,7 @@ namespace DBT.Skills.BigBangAttack
             item.useAnimation = 40;
             item.useTime = 40;
             item.useStyle = ItemUseStyleID.Stabbing;
+            item.channel = true;
         }
 
         /*public override void UseStyle(Player player)

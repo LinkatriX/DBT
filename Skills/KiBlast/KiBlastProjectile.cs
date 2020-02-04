@@ -38,6 +38,11 @@ namespace DBT.Skills.KiBlast
 
         public override void AI() 
         {
+            for (int i = 0; i < 2; i++)
+            {
+                Dust dust = Main.dust[Dust.NewDust(projectile.position, 8, 8, 92, projectile.velocity.X, projectile.velocity.Y)];
+                dust.noGravity = true;
+            }
             projectile.frameCounter++;
             if (projectile.frameCounter > 4)
             {
@@ -53,9 +58,9 @@ namespace DBT.Skills.KiBlast
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 3; i++)
             {
-                Dust dust = Main.dust[Dust.NewDust(projectile.position, 26, 26, 86, projectile.velocity.X, projectile.velocity.Y)];
+                Dust dust = Main.dust[Dust.NewDust(projectile.position, 8, 8, 92, projectile.velocity.X, projectile.velocity.Y)];
                 //dust.color = new Color(158, 239, 255);
                 dust.noGravity = true;
             }

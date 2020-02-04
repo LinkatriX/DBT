@@ -49,31 +49,34 @@ namespace DBT.Players
                 }
             }
         }
-
+        int dustAlive = 0;
         public void DBSummonEffects()
         {
             if (NPC.CountNPCS(ModContent.NPCType<ShenronNPC>()) == 0)
             {
-                int dust = Dust.NewDust(player.Center, player.width, player.height / 3, 133, 0, -25f);
-                dust = Dust.NewDust(player.Center, player.width, player.height / 3, 133, 0, -25f);
-                Main.dust[dust].noGravity = true;
-                if (DBTMod.IsTickRateElapsed(80))
+                Dust dust = null;
+                dustAlive++;
+                for (int i = 0; i < 2; i++)
                 {
-                    Main.dust[dust].velocity.Y = -25f;
-                    Main.dust[dust].scale = 1f;
+                    dust = Dust.NewDustPerfect(player.Center + new Vector2(0, -80), 133, new Vector2(0f, -20f));
+                    dust.noGravity = true;
+                    dust.velocity *= 0.99f;
                 }
-                if (DBTMod.IsTickRateElapsed(160))
+                if (dust.position.Y >= player.Center.Y + 100 - dustAlive / 5)
                 {
-                    Main.dust[dust].velocity.X = Main.rand.Next(-30, 30);
-                    Main.dust[dust].velocity.Y = 0;
-                    Main.dust[dust].scale = 1f;
+                    dust.velocity.Y = 0f;
+                    dust.scale = 0f;
                 }
-                if (DBTMod.IsTickRateElapsed(80))
+                if (dustAlive >= 60)
+                {
+                    CircularDust(10, new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)) + player.Center + new Vector2(0, -340), 133, 10 + dustAlive / 1.6f, 0.9f);
+                }
+                if (DBTMod.IsTickRateElapsed(50))
                 {
                     Projectile.NewProjectile(player.Center + new Vector2(Main.rand.Next(-700, 700), -50), Vector2.Zero, ModContent.ProjectileType<YellowLightning>(), 0, 0);
                     SoundHelper.PlayCustomSound("Sounds/Lightning", player, 0.5f);
                 }
-                if (DBTMod.IsTickRateElapsed(500))
+                if (dustAlive == 500)
                 {
                     Main.time = 72000;
                     NPC.NewNPC((int)player.position.X, (int)player.position.Y, ModContent.NPCType<ShenronNPC>());
@@ -82,8 +85,9 @@ namespace DBT.Players
             }
             else
             {
-                if (DBTMod.IsTickRateElapsed(500))
+                if (DBTMod.IsTickRateElapsed(300))
                 {
+                    dustAlive = 0;
                     WishMenu.menuVisible = true;
                 }
             }
@@ -92,6 +96,18 @@ namespace DBT.Players
         public void DoRitual()
         {
 
+        }
+
+        public void CircularDust(int quantity, Vector2 pos, short dustID, float radius, float scale)
+        {
+            for (int i = 0; i < quantity; i++)
+            {
+                float angle = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+                Dust dust = Dust.NewDustPerfect(pos + new Vector2((float)Math.Sin(angle), (float)Math.Cos(angle)) * radius, dustID, Vector2.Zero, 255, default(Color),
+                    scale);
+                dust.noGravity = true;
+                dust.velocity *= 0.98f;
+            }
         }
 
         public bool CarryingAllDragonBalls(Player player)

@@ -67,6 +67,11 @@ namespace DBT.Skills.MajinExtinctionAttack
                     projectile.timeLeft -= 4;
                 }
             }
+            for (int i = 0; i < 2; i++)
+            {
+                Dust dust = Main.dust[Dust.NewDust(Main.player[projectile.owner].position, 32, 50, 86, 0, -5f)];
+                dust.noGravity = true;
+            }
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
