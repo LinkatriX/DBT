@@ -36,7 +36,7 @@ namespace DBTMod.Skills
 
         public override void GetWeaponKnockback(Player player, ref float knockback)
         {
-            knockback = knockback + player.GetModPlayer<DBTPlayer>().kiKbAddition;
+            knockback += player.GetModPlayer<DBTPlayer>().kiKbAddition;
             //base.GetWeaponKnockback(player, ref knockback);
         }
 

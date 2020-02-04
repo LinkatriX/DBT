@@ -16,7 +16,7 @@ namespace DBT.Skills.MajinExtinctionAttack
         {
             base.SetDefaults();
             item.useAnimation = 16;
-            item.useTime = 5; //16
+            item.useTime = 5;
             item.useStyle = ItemUseStyleID.HoldingUp;
         }
 

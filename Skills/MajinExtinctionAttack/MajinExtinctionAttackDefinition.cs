@@ -20,7 +20,7 @@ namespace DBT.Skills.MajinExtinctionAttack
 
     public sealed class MajinExtinctionAttackChargeCharacteristics : SkillChargeCharacteristics
     {
-        public MajinExtinctionAttackChargeCharacteristics() : base(0, 0, 5, 0)
+        public MajinExtinctionAttackChargeCharacteristics() : base(1, 5, 5, 0)
         {
         }
     }

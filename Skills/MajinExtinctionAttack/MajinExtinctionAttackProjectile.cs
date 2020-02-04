@@ -26,17 +26,25 @@ namespace DBT.Skills.MajinExtinctionAttack
             projectile.penetrate = -1;
             projectile.netUpdate = true;
             projectile.alpha = 50;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 11;//9
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 11;
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void AI()
         {
-            projectile.velocity.Y = -20;//-22
+            projectile.velocity.Y = -20;
 
-            if (projectile.timeLeft >= 140)//120
+            foreach (NPC target in Main.npc)
             {
-                if (projectile.velocity.X < 4.2f && projectile.velocity.X > 0)//3.2
+                if (projectile.Hitbox.Intersects(target.getRect()))
+                {
+                    HasCollidedNPC = true;
+                }
+            }
+
+            if (projectile.timeLeft >= 140)
+            {
+                if (projectile.velocity.X < 4.2f && projectile.velocity.X > 0)
                 {
                     projectile.velocity.X -= 0.05f;
                 }
@@ -62,12 +70,6 @@ namespace DBT.Skills.MajinExtinctionAttack
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            HasCollidedNPC = true;
-            target.immune[projectile.owner] = 1;
-        }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (IsHoming || HasCollidedNPC)
@@ -84,6 +86,11 @@ namespace DBT.Skills.MajinExtinctionAttack
                 projectile.timeLeft -= 4;
             }
             return false;
+        }
+
+        public override void PerChargeLevel()
+        {
+            Definition.Characteristics.ChargeCharacteristics.BaseCastKiDrain += 100;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

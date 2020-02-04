@@ -35,6 +35,7 @@ namespace DBT.Skills.DestructoDisk
         {
             return new Color(255, 255, 255, 100);
         }
+
         public override void OnChargeAttack()
         {
             Main.projFrames[projectile.type] = 12;
@@ -50,12 +51,14 @@ namespace DBT.Skills.DestructoDisk
             }
                 
         }
+
         public override void OnFireAttack()
         {
             Main.projFrames[projectile.type] = 3;
             ChargeOverrideTexture = mod.GetTexture("Skills/DestructoDisk/DestructoDiskProjectile");
             projectile.velocity = Vector2.Normalize(Main.MouseWorld - projectile.position) * 13;
         }
+
         public override void PostAI()
         {
             channelingOffset = new Vector2(0f, -40f);
