@@ -10,10 +10,9 @@ namespace DBT.Skills.Kamehameha
 
         public sealed class DefinitionCharacteristics : SkillCharacteristics
         {
-            public DefinitionCharacteristics() : base(new DefinitionChargeCharacteristics(), 88, 88f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f, 0.15f, 1f, 2f, 1f)
+            public DefinitionCharacteristics() : base(new DefinitionChargeCharacteristics(), 88, 88f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f)
             {
                 Channel = true;
-                BaseSkillCooldown = 5 * Constants.TICKS_PER_SECOND;
             }
 
             public sealed class DefinitionChargeCharacteristics : SkillChargeCharacteristics

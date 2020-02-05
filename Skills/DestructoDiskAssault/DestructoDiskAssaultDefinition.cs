@@ -13,7 +13,7 @@ namespace DBT.Skills.DestructoDiskAssault
 
     public sealed class DestructoDiskAssaultCharacteristics : SkillCharacteristics
     {
-        public DestructoDiskAssaultCharacteristics() : base(new DestructoDiskAssaultChargeCharacteristics(), 90, 1f, 20f, 5f, 1f, 0.075f, 1f, 2f, 1f)
+        public DestructoDiskAssaultCharacteristics() : base(new DestructoDiskAssaultChargeCharacteristics(), 90, 1f, 20f, 5f, 1f)
         {
         }
     }

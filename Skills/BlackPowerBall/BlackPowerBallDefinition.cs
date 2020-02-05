@@ -11,7 +11,7 @@ namespace DBT.Skills.BlackPowerBall
 
     public sealed class BlackPowerBallCharacteristics : SkillCharacteristics
     {
-        public BlackPowerBallCharacteristics() : base(new BlackPowerBallChargeCharacteristics(), 130, 0.65f, 10f, 5f, 0.65f, 0.05f, 1.02f, 2f, 1f)
+        public BlackPowerBallCharacteristics() : base(new BlackPowerBallChargeCharacteristics(), 130, 0.65f, 10f, 5f, 0.65f)
         {
         }
     }

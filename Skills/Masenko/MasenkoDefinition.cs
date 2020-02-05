@@ -11,7 +11,7 @@ namespace DBT.Skills.Masenko
 
     public sealed class MasenkoCharacteristics : SkillCharacteristics
     {
-        public MasenkoCharacteristics() : base(new MasenkoChargeCharacteristics(), 72, 72f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f, 0.05f, 1f, 2f, 1f)
+        public MasenkoCharacteristics() : base(new MasenkoChargeCharacteristics(), 72, 72f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f)
         {
         }
     }

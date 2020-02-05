@@ -11,7 +11,7 @@ namespace DBT.Skills.SpiritBall
 
     public sealed class SpiritBallCharacteristics : SkillCharacteristics
     {
-        public SpiritBallCharacteristics() : base(new SpiritBallChargeCharacteristics(), 20, 1f, 35f, 8f, 1f, 0.05f, 1f, 2f, 1f)
+        public SpiritBallCharacteristics() : base(new SpiritBallChargeCharacteristics(), 20, 1f, 35f, 8f, 1f)
         {
         }
     }

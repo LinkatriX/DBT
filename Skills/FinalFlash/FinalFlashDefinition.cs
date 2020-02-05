@@ -11,7 +11,7 @@ namespace DBT.Skills.FinalFlash
 
     public sealed class FinalFlashCharacteristics : SkillCharacteristics
     {
-        public FinalFlashCharacteristics() : base(new FinalFlashChargeCharacteristics(), 144, 144f / Constants.TICKS_PER_SECOND, 0f, 3f, 1f, 0.05f, 1f, 2f, 1f)
+        public FinalFlashCharacteristics() : base(new FinalFlashChargeCharacteristics(), 144, 144f / Constants.TICKS_PER_SECOND, 0f, 3f, 1f)
         {
         }
     }

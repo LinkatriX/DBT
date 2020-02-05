@@ -11,7 +11,7 @@ namespace DBT.Skills.CandyLaser
 
     public sealed class CandyLaserCharacteristics : SkillCharacteristics
     {
-        public CandyLaserCharacteristics() : base(new CandyLaserChargeCharacteristics(), 142, 1f, 14f, 4f, 1f, 0.05f, 1f, 2f, 1f)
+        public CandyLaserCharacteristics() : base(new CandyLaserChargeCharacteristics(), 142, 1f, 14f, 4f, 1f)
         {
         }
     }

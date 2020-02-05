@@ -11,7 +11,7 @@ namespace DBT.Skills.FinalShineAttack
 
     public sealed class FinalShineAttackCharacteristics : SkillCharacteristics
     {
-        public FinalShineAttackCharacteristics() : base(new FinalShineChargeAttackCharacteristics(), 184, 184f / Constants.TICKS_PER_SECOND, 0f, 3f, 1f, 0.05f, 1f, 2f,1f)
+        public FinalShineAttackCharacteristics() : base(new FinalShineChargeAttackCharacteristics(), 184, 184f / Constants.TICKS_PER_SECOND, 0f, 3f, 1f)
         {
         }
     }

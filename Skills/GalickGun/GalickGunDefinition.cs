@@ -11,7 +11,7 @@ namespace DBT.Skills.GalickGun
 
     public sealed class GalickGunCharacteristics : SkillCharacteristics
     {
-        public GalickGunCharacteristics() : base(new GalickGunChargeCharacteristics(), 94, 94f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f, 0.05f, 1f, 2f, 1f)
+        public GalickGunCharacteristics() : base(new GalickGunChargeCharacteristics(), 94, 94f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f)
         {
         }
     }

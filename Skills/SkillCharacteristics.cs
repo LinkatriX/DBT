@@ -11,12 +11,7 @@ namespace DBT.Skills
         /// <param name="baseShootSpeed"></param>
         /// <param name="baseKnockback"></param>
         /// <param name="baseKnockbackMultiplierPerCharge"></param>
-        /// <param name="baseCriticalChance"></param>
-        /// <param name="baseCriticalChanceMultiplierPerCharge"></param>
-        /// <param name="baseCriticalMultiplier"></param>
-        /// <param name="baseCriticalMultiplierMultiplierPerCharge"></param>
-        public SkillCharacteristics(SkillChargeCharacteristics skillChargeCharacteristics, int baseDamage, float baseDamageMultiplierPerCharge, float baseShootSpeed, float baseKnockback, float baseKnockbackMultiplierPerCharge,
-            float baseCriticalChance, float baseCriticalChanceMultiplierPerCharge, float baseCriticalMultiplier, float baseCriticalMultiplierMultiplierPerCharge)
+        public SkillCharacteristics(SkillChargeCharacteristics skillChargeCharacteristics, int baseDamage, float baseDamageMultiplierPerCharge, float baseShootSpeed, float baseKnockback, float baseKnockbackMultiplierPerCharge)
         {
             ChargeCharacteristics = skillChargeCharacteristics;
 
@@ -27,12 +22,6 @@ namespace DBT.Skills
 
             BaseKnockback = baseKnockback;
             BaseKnockbackMultiplierPerCharge = baseKnockbackMultiplierPerCharge;
-
-            BaseCriticalChance = baseCriticalChance;
-            BaseCriticalChanceMultiplierPerCharge = baseCriticalChanceMultiplierPerCharge;
-
-            BaseCriticalMultiplier = baseCriticalMultiplier;
-            BaseCriticalMultiplierMultiplierPerCharge = baseCriticalMultiplierMultiplierPerCharge;
         }
 
 
@@ -70,20 +59,6 @@ namespace DBT.Skills
 
         public virtual float GetKnockbackMultiplierPerCharge(DBTPlayer dbtPlayer) => BaseKnockbackMultiplierPerCharge;
 
-
-        public virtual float GetCriticalChance(DBTPlayer dbtPlayer, int chargeLevel) => BaseCriticalChance * GetCriticalChanceMultiplierPerCharge(dbtPlayer) * chargeLevel;
-
-        public virtual float GetCriticalChanceMultiplierPerCharge(DBTPlayer dbtPlayer) => BaseCriticalChanceMultiplierPerCharge;
-
-
-        public virtual float GetCriticalMultiplier(DBTPlayer dbtPlayer, int chargeLevel) => BaseCriticalMultiplier * GetCriticalMultiplierMultiplierPerCharge(dbtPlayer) * chargeLevel;
-
-        public virtual float GetCriticalMultiplierMultiplierPerCharge(DBTPlayer dbtPlayer) => BaseCriticalMultiplierMultiplierPerCharge;
-
-
-        public virtual float GetSkillCooldown(DBTPlayer dbtPlayer, int chargeLevel) => BaseSkillCooldown;
-
-
         public SkillChargeCharacteristics ChargeCharacteristics { get; }
 
         public int BaseDamage { get; protected set; }
@@ -94,14 +69,6 @@ namespace DBT.Skills
         public float BaseKnockback { get; protected set; }
         public float BaseKnockbackMultiplierPerCharge { get; protected set; }
 
-        public float BaseCriticalChance { get; protected set; }
-        public float BaseCriticalChanceMultiplierPerCharge { get; protected set; }
-
-        public float BaseCriticalMultiplier { get; protected set; }
-        public float BaseCriticalMultiplierMultiplierPerCharge { get; protected set; }
-
         public bool Channel { get; protected set; }
-
-        public int BaseSkillCooldown { get; protected set; }
     }
 }

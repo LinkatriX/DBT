@@ -10,7 +10,7 @@ namespace DBT.Skills.BigBangAttack
     }
     public sealed class BigBangAttackCharacteristics : SkillCharacteristics
     {
-        public BigBangAttackCharacteristics() : base(new BigBangAttackChargeCharacteristics(), 66, 1.5f, 25f, 6f, 1.2f, 0.05f, 1.02f, 2f, 1f)
+        public BigBangAttackCharacteristics() : base(new BigBangAttackChargeCharacteristics(), 66, 1.5f, 25f, 6f, 1.2f)
         {
         }
     }

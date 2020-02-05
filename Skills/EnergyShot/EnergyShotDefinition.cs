@@ -11,7 +11,7 @@ namespace DBT.Skills.EnergyShot
 
     public sealed class EnergyShotCharacteristics : SkillCharacteristics
     {
-        public EnergyShotCharacteristics() : base(new EnergyShotChargeCharacteristics(), 77, 1f, 20f, 6f, 1.05f, 0.05f, 1f, 2f, 1f)
+        public EnergyShotCharacteristics() : base(new EnergyShotChargeCharacteristics(), 77, 1f, 20f, 6f, 1.05f)
         {
         }
     }

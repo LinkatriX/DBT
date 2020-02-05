@@ -11,7 +11,7 @@ namespace DBT.Skills.Scattershot
 
     public sealed class ScattershotCharacteristics : SkillCharacteristics
     {
-        public ScattershotCharacteristics() : base(new ScattershotChargeCharacteristics(), 72, 1f, 17f, 2f, 1f, 0.05f, 1f, 2f, 1f)
+        public ScattershotCharacteristics() : base(new ScattershotChargeCharacteristics(), 72, 1f, 17f, 2f, 1f)
         {
         }
     }

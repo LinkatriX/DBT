@@ -11,7 +11,7 @@ namespace DBT.Skills.Kamehamehax10
 
     public sealed class Kamehamehax10Characteristics : SkillCharacteristics
     {
-        public Kamehamehax10Characteristics() : base(new Kamehamehax10ChargeCharacteristics(), 156, 156f / Constants.TICKS_PER_SECOND, 0f, 10f, 1f, 0.05f, 1f, 2f, 1f)
+        public Kamehamehax10Characteristics() : base(new Kamehamehax10ChargeCharacteristics(), 156, 156f / Constants.TICKS_PER_SECOND, 0f, 10f, 1f)
         {
         }
     }

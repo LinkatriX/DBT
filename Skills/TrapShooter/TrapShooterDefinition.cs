@@ -11,7 +11,7 @@ namespace DBT.Skills.TrapShooter
 
     public sealed class TrapShooterCharacteristics : SkillCharacteristics
     {
-        public TrapShooterCharacteristics() : base(new TrapShooterChargeCharacteristics(), 82, 1f, 35f, 3f, 1f, 0.05f, 1f, 2f, 1f)
+        public TrapShooterCharacteristics() : base(new TrapShooterChargeCharacteristics(), 82, 1f, 35f, 3f, 1f)
         {
         }
     }

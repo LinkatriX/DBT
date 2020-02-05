@@ -10,7 +10,7 @@ namespace DBT.Skills.KiBeam
 
         public sealed class KiBeamCharacteristics : SkillCharacteristics
         {
-            public KiBeamCharacteristics() : base(new KiBeamChargeCharacteristics(), 17, 1f, 70f, 3f, 1f, 0.05f, 1f, 2f, 1f)
+            public KiBeamCharacteristics() : base(new KiBeamChargeCharacteristics(), 17, 1f, 70f, 3f, 1f)
             {
             }
         }

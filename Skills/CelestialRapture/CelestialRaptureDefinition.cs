@@ -10,7 +10,7 @@
 
         public sealed class CelestialRaptureCharacteristics : SkillCharacteristics
         {
-            public CelestialRaptureCharacteristics() : base(new CelestialRaptureChargeCharacteristics(), 70, 1f, 16f, 5f, 1f, 0.05f, 1f, 2f, 1f)
+            public CelestialRaptureCharacteristics() : base(new CelestialRaptureChargeCharacteristics(), 70, 1f, 16f, 5f, 1f)
             {
             }
         }

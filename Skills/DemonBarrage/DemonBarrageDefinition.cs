@@ -11,7 +11,7 @@ namespace DBT.Skills.DemonBarrage
 
     public sealed class DemonBarrageCharacteristics : SkillCharacteristics
     {
-        public DemonBarrageCharacteristics() : base(new DemonBarrageChargeCharacteristics(), 39, 1f, 5f, 4f, 1f, 0.05f, 1, 2, 1)
+        public DemonBarrageCharacteristics() : base(new DemonBarrageChargeCharacteristics(), 39, 1f, 5f, 4f, 1f)
         {
         }
     }

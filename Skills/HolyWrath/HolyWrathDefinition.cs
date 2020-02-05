@@ -11,7 +11,7 @@ namespace DBT.Skills.HolyWrath
 
     public sealed class HolyWrathCharacteristics : SkillCharacteristics
     {
-        public HolyWrathCharacteristics() : base(new HolyWrathChargeCharacteristics(), 200, 200 / Constants.TICKS_PER_SECOND, 6f, 12f, 1f, 0.05f, 1f, 2f, 1f)
+        public HolyWrathCharacteristics() : base(new HolyWrathChargeCharacteristics(), 200, 200 / Constants.TICKS_PER_SECOND, 6f, 12f, 1f)
         {
         }
     }

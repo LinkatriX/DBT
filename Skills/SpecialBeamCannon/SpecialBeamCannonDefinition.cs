@@ -11,7 +11,7 @@ namespace DBT.Skills.SpecialBeamCannon
 
     public sealed class SpecialBeamCannonCharacteristics : SkillCharacteristics
     {
-        public SpecialBeamCannonCharacteristics() : base(new SpecialBeamCannonChargeCharacteristics(), 114, 114f / Constants.TICKS_PER_SECOND, 0f, 3f, 1f, 0.05f, 1f, 2f, 1f)
+        public SpecialBeamCannonCharacteristics() : base(new SpecialBeamCannonChargeCharacteristics(), 114, 114f / Constants.TICKS_PER_SECOND, 0f, 3f, 1f)
         {
         }
     }

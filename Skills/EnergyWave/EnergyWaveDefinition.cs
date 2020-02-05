@@ -11,7 +11,7 @@ namespace DBT.Skills.EnergyWave
 
     public sealed class EnergyWaveCharacteristics : SkillCharacteristics
     {
-        public EnergyWaveCharacteristics() : base(new EnergyWaveChargeCharacteristics(), 32, 32f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f, 0.05f, 1f, 2f, 1f)
+        public EnergyWaveCharacteristics() : base(new EnergyWaveChargeCharacteristics(), 32, 32f / Constants.TICKS_PER_SECOND, 0f, 2f, 1f)
         {
         }
     }

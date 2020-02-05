@@ -11,7 +11,7 @@ namespace DBT.Skills.SuperEnergyBarrage
 
     public sealed class SuperEnergyBarrageCharacteristics : SkillCharacteristics
     {
-        public SuperEnergyBarrageCharacteristics() : base(new SuperEnergyBarrageChargeCharacteristics(), 88, 1f, 36f, 3f, 1f, 0.05f, 1f, 2f, 1f)
+        public SuperEnergyBarrageCharacteristics() : base(new SuperEnergyBarrageChargeCharacteristics(), 88, 1f, 36f, 3f, 1f)
         {
         }
     }

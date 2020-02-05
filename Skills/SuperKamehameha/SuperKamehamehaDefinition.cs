@@ -11,7 +11,7 @@ namespace DBT.Skills.SuperKamehameha
 
     public sealed class SuperkamehamehaCharacteristics : SkillCharacteristics
     {
-        public SuperkamehamehaCharacteristics() : base(new SuperKamehamehaChargeCharacteristics(), 118, 118f / Constants.TICKS_PER_SECOND, 0f, 7f, 1f, 0.05f, 1f, 2f, 1f)
+        public SuperkamehamehaCharacteristics() : base(new SuperKamehamehaChargeCharacteristics(), 118, 118f / Constants.TICKS_PER_SECOND, 0f, 7f, 1f)
         {
         }
     }

@@ -14,7 +14,7 @@ namespace DBT.Skills.DeathSaucer
 
     public sealed class DeathSaucerCharacteristics : SkillCharacteristics
     {
-        public DeathSaucerCharacteristics() : base(new DeathSaucerChargeCharacteristics(), 10, 10f, 16f, 2f, 1f, 0.05f, 1f, 2f, 1f)
+        public DeathSaucerCharacteristics() : base(new DeathSaucerChargeCharacteristics(), 10, 10f, 16f, 2f, 1f)
         {
         }
     }

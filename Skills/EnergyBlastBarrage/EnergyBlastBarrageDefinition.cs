@@ -11,7 +11,7 @@ namespace DBT.Skills.EnergyBlastBarrage
 
     public sealed class EnergyBlastBarrageCharacteristics : SkillCharacteristics
     {
-        public EnergyBlastBarrageCharacteristics() : base(new EnergyBlastBarrageChargeCharacteristics(), 34, 1f, 29f, 5f, 1f, 0.05f, 1f, 2f, 1f)
+        public EnergyBlastBarrageCharacteristics() : base(new EnergyBlastBarrageChargeCharacteristics(), 34, 1f, 29f, 5f, 1f)
         {
         }
     }
