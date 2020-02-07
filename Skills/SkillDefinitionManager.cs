@@ -69,7 +69,7 @@ namespace DBT.Skills
             Scattershot = Add(new ScattershotDefinition(HellzoneGrenade)) as ScattershotDefinition;
             SpecialBeamCannon = Add(new SpecialBeamCannonDefinition(KiBeam)) as SpecialBeamCannonDefinition;
             SpiritBomb = Add(new SpiritBombDefinition(SpiritBall)) as SpiritBombDefinition;
-            SuperKamehameha = Add(new SuperKamehamehaDefinition(/*Kamehameha*/)) as SuperKamehamehaDefinition;
+            SuperKamehameha = Add(new SuperKamehamehaDefinition(Kamehameha)) as SuperKamehamehaDefinition;
             TrapShooter = Add(new TrapShooterDefinition(EnergyShot)) as TrapShooterDefinition;
             #endregion
 
