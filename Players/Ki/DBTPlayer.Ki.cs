@@ -159,9 +159,7 @@ namespace DBT.Players
 
         public float MaxKiModifierPerm { get; set; }
 
-        public float ProgressionMaxKi => BaseMaxKi + MaxKiModifierPerm;
-
-        public int MaxKi => (int)(Math.Round(BaseMaxKi * MaxKiMultiplier) + MaxKiModifier);
+        public int MaxKi => (int)(Math.Round(BaseMaxKi * MaxKiMultiplier) + MaxKiModifier + MaxKiModifierPerm);
 
         public float KiSpeedAddition { get; set; }
         public float KiKnockbackAddition { get; set; }
